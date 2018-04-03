@@ -1,8 +1,10 @@
-package com.yedam.erp.purchases;
+package com.yedam.erp.impl;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.yedam.erp.PurchasesVO;
 
 @Repository
 public class PurchasesDAO {

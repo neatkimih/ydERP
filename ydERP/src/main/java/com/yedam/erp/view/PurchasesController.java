@@ -1,4 +1,4 @@
-package com.yedam.erp.purchases;
+package com.yedam.erp.view;
 
 public class PurchasesController
 {

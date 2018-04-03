@@ -1,6 +1,6 @@
 package com.yedam.erp.purchases;
 
-public class PurchasesVO
+public class SalesVO
 {
 	private String saleCode;			// 판매코드
 	private String saleDate;			// 판매일자
@@ -73,7 +73,7 @@ public class PurchasesVO
 	@Override
 	public String toString()
 	{
-		return "PurchasesVO [saleCode=" + saleCode + ", saleDate=" + saleDate + ", customerCode=" + customerCode
+		return "SalesVO [saleCode=" + saleCode + ", saleDate=" + saleDate + ", customerCode=" + customerCode
 				+ ", saleItem=" + saleItem + ", saleQty=" + saleQty + ", salePrice=" + salePrice + ", item_tax="
 				+ item_tax + ", saleCost=" + saleCost + ", deliveryAddr=" + deliveryAddr + ", deliveryEmp="
 				+ deliveryEmp + ", deliverStatus=" + deliverStatus + ", payStatus=" + payStatus + ", warehouse="

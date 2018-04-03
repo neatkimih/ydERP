@@ -1,4 +1,4 @@
-package com.yedam.erp;
+package com.yedam.erp.purchases;
 
 public interface PurchasesService
 {

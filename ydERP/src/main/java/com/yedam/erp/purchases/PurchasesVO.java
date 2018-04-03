@@ -1,6 +1,6 @@
 package com.yedam.erp.purchases;
 
-public class PurchaseVO
+public class PurchasesVO
 {
 	private String saleCode;			// 판매코드
 	private String saleDate;			// 판매일자

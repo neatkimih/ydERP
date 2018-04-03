@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>	
+	</settings>
+
+	<!-- Alias 설정 -->
+	<typeAliases>		
+		<typeAlias alias="customers" type="com.yedam.erp.customers.CustomersVO"/>
+		<typeAlias alias="sales" type="com.yedam.erp.sales.SalesVO"/>
+		<typeAlias alias="saleDetails" type="com.yedam.erp.sale_details.SaleDetailsVO"/>
+		<typeAlias alias="vendors" type="com.yedam.erp.vendors.VendorsVO"/>
+		<typeAlias alias="purchases" type="com.yedam.erp.purchases.PurchasesVO"/>
+		<typeAlias alias="purchaseDetails" type="com.yedam.erp.purchase_details.PurchaseDetailsVO"/>
+		<typeAlias alias="items" type="com.yedam.erp.items.ItemsVO"/>
+		<typeAlias alias="stocks" type="com.yedam.erp.stocks.StocksVO"/>
+		<typeAlias alias="employees" type="com.yedam.erp.employees.EmployeesVO"/>
+		<typeAlias alias="deliveryLoc" type="com.yedam.erp.delivery_loc.DeliveryLocVO"/>
+	</typeAliases>
+	
+</configuration>

@@ -31,7 +31,7 @@
 		</property>
 	</bean>
 
-	<context:component-scan base-package="com.yedam.app" />
+	<context:component-scan base-package="com.yedam.erp" />
 
 	<!-- MultipartResolver 설정 -->
 	<bean id="multipartResolver"

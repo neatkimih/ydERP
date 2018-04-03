@@ -10,21 +10,17 @@ public class PurchasesServiceImpl implements PurchasesService
 	private PurchasesDAO purchasesDAO;
 
 	@Override
-	public PurchasesVO selectOne(PurchasesVO purchasesVO) {
-		return null;
+	public PurchasesVO selectOne(PurchasesVO vo) {
+		return purchasesDAO.selectOne(vo);
 	}
 
 	@Override
-	public void insert(PurchasesVO purchasesVO) {
-		
-		
+	public void insert(PurchasesVO vo) {
+		purchasesDAO.insert(vo);
 	}
 
 	@Override
-	public void update(PurchasesVO purchasesVO) {
-		// TODO 자동 생성된 메소드 스텁
-		
+	public void update(PurchasesVO vo) {
+		purchasesDAO.update(vo);
 	}
-	
-
 }

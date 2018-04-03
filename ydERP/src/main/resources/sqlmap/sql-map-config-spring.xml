@@ -20,5 +20,4 @@
 		<typeAlias alias="employees" type="com.yedam.erp.employees.EmployeesVO"/>
 		<typeAlias alias="deliveryLoc" type="com.yedam.erp.delivery_loc.DeliveryLocVO"/>
 	</typeAliases>
-	
 </configuration>

@@ -73,7 +73,7 @@ public class PurchasesVO
 	@Override
 	public String toString()
 	{
-		return "PurchaseVO [saleCode=" + saleCode + ", saleDate=" + saleDate + ", customerCode=" + customerCode
+		return "PurchasesVO [saleCode=" + saleCode + ", saleDate=" + saleDate + ", customerCode=" + customerCode
 				+ ", saleItem=" + saleItem + ", saleQty=" + saleQty + ", salePrice=" + salePrice + ", item_tax="
 				+ item_tax + ", saleCost=" + saleCost + ", deliveryAddr=" + deliveryAddr + ", deliveryEmp="
 				+ deliveryEmp + ", deliverStatus=" + deliverStatus + ", payStatus=" + payStatus + ", warehouse="

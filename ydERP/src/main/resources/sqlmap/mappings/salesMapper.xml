@@ -3,4 +3,14 @@
 
 <mapper namespace="sales">
 
+<select id="" resultType="sales">
+
+
+
+
+</select>
+
+
+
+
 </mapper>

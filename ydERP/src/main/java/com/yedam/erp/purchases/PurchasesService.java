@@ -11,12 +11,12 @@ public interface PurchasesService
 	public List<PurchasesVO> getPurchasesList(PurchasesVO vo);
 	
 	/* 구매 내역 등록 */
-	public void insert(PurchasesVO purchasesVO);
+	public void insertPurchases(PurchasesVO purchasesVO);
 
 	/* 구매 내역 수정 */
-	public void update(PurchasesVO purchasesVO);
+	public void updatePurchases(PurchasesVO purchasesVO);
 
 	/* 구매 내역 수정 */
-	public void delete(PurchasesVO purchasesVO);
+	public void deletePurchases(PurchasesVO purchasesVO);
 
 }

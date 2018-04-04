@@ -15,20 +15,20 @@ public class PurchasesServiceImpl implements PurchasesService
 	PurchasesMybatisDAO dao;
 
 	@Override
-	public void insert(PurchasesVO purchasesVO) {
+	public void insertPurchases(PurchasesVO purchasesVO) {
 		// TODO Auto-generated method stub
 		
 	}	
 
 	@Override
-	public void update(PurchasesVO purchasesVO) {
+	public void updatePurchases(PurchasesVO purchasesVO) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
-	public void delete(PurchasesVO purchasesVO) {
+	public void deletePurchases(PurchasesVO purchasesVO) {
 		// TODO Auto-generated method stub
 		
 	}

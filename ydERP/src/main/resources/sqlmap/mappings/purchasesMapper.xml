@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="purchases">
+	
+	<select id="getPurchaseList" resultType="purchases">
+	<![CDATA[SELECT * FROM PURCHASES]]>	
+		
+	</select>
+	<select id="getPurchases" resultType="purchases" parameterType="purchases">
+	<![CDATA[SELECT * FROM PURCHASES WHERE SEQ=#{seq}]]></select>
+	<!-- <insert id="insertBoard" parameterType="board">
+		<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+			select nvl(max(seq),0)+1 from board
+		</selectKey>	
+	insert into board(seq, title, writer, content, regdate)
+		values(#{seq},#{title},#{writer},#{content},sysdate)</insert> -->
+<!-- 	<insert id="insertPurchases" statementType="CALLABLE" parameterType="Purchases">
+		{ call Board_INS_PROC(
+			#{title},
+			#{writer},
+			#{content},
+			#{seq, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer},
+			#{outMsg, mode=OUT, jdbcType=VARCHAR, javaType=string}			
+		) }
+		</insert>	
+	<update id="updateBoard" parameterType="board">update board set
+		title=#{title}, content=#{content}, writer=#{writer} where seq=#{seq}
+	</update>
+	<delete id="deleteBoard" parameterType="board">delete board where
+		seq=#{seq}</delete>
+	<select id="count" resultType="int">
+		select count(*) from board
+	</select>
+	<delete id="deleteBoardList" parameterType="list">
+		DELETE FROM BOARD WHERE SEQ IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<select id="getDeptEmpStatistic" resultType="map">
+			SELECT department_name "name", COUNT(*) "cnt"
+			 FROM hr.employees e, hr.departments d
+			 where e.department_id = d.department_id 
+			 GROUP BY department_name		
+	</select> -->
+	
+</mapper>

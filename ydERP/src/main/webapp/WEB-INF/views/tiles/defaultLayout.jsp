@@ -136,7 +136,7 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <tiles:insertAttribute name="content" />
+            <tiles:insertAttribute name="content"/>
             <!-- /.row -->
             
                         <!-- /.panel-heading -->

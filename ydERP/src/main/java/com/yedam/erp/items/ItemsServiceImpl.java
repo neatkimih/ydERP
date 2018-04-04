@@ -1,19 +1,17 @@
 package com.yedam.erp.items;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service("itemsService")
-public class ItemsServiceImpl implements ItemsService{
+public class ItemsServiceImpl implements ItemsService {
 
 	@Autowired
 
 	ItemsMybatisDAO dao;
+
 	@Override
 	public void insertItems(ItemsVO vo) {
 		dao.insertItems(vo);
@@ -41,7 +39,8 @@ public class ItemsServiceImpl implements ItemsService{
 
 	@Override
 	public void deleteItemsList(ArrayList<String> seq) {
-		dao.deleteItemsList(seq);;
+		dao.deleteItemsList(seq);
+		;
 	}
 
 	@Override
@@ -49,8 +48,4 @@ public class ItemsServiceImpl implements ItemsService{
 		return dao.getCount(vo);
 	}
 
-	
-
-	
-	
 }

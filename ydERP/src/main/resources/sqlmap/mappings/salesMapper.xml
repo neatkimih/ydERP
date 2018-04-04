@@ -10,7 +10,7 @@
 	</select>
 
 	<!-- 판매 내역 등록 : 판매 정보 -->
-	<insert id="insertSale" parameterType="sales">
+	<insert id="insertSaleMaster" parameterType="sales">
 	
 		INSERT INTO SALES
 		(
@@ -18,15 +18,12 @@
 			, SALE_DATE
 			, CUSTOMER_CODE
 			, SALE_COST
-			, SALE_ITEM
-			, SALE_QTY
-			, SALE_PRICE
-			, DELIVERY_ADDR, 
-			DELIVERY_EMP, 
-			DELIVERY_STATUS, 
-			PAY_STATUS, 
-			WAREHOUSE, 
-			ORDER_PERMIT
+			, DELIVERY_ADDR
+			, DELIVERY_EMP
+			, DELIVERY_STATUS
+			, PAY_STATUS
+			, WAREHOUSE
+			, ORDER_PERMIT
 		)
 		VALUES
 		(
@@ -34,15 +31,12 @@
 			, SYSDATE
 			, #{customerCode}
 			, #{saleCost}
-			, #{saleItem}
-			, #{saleQty}
-			, #{salePrice}
 			, #{deliveryAddr}
 			, #{deliveryEmp}
 			, #{deliveryStatus}
 			, #{payStatus}
 			, #{warehouse}
-			, #{orderPermit}	
+			, #{orderPermit}
 		)		
 	</insert>
 
@@ -54,8 +48,6 @@
 			, SALE_CODE
 			, SALE_ITEM
 			, SALE_QTY
-			, SALE_PRICE
-			, ITEM_TAX
 		)
 		VALUES
 		(
@@ -63,12 +55,6 @@
 			, #{saleCode}
 			, #{saleItem}
 			, #{saleQty}
-			, #{salePrice}
-			, #{item_tax}
-			, #{expire_date}
-			, #{vendor_code}
-			, #{item_image}
-			, #{item_desc}		
 		)
 	</insert>
 

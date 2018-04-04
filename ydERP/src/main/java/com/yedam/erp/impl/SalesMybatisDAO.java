@@ -13,10 +13,15 @@ public class SalesMybatisDAO {
 
 	@Autowired
 	private SqlSessionTemplate mybatis;
-	
+
 	/* 판매 내역 전체 조회 */
-	public List<SalesVO> getSaleList(SalesVO vo)
-	{
-		return mybatis.selectList("Sales.getSaleList", vo);
+	public List<SalesVO> getSaleList(SalesVO vo) {
+		return mybatis.selectList("sales.getSaleList", vo);
+	}
+
+	/* 판매 내역 등록 */
+	public void insertSale(SalesVO vo) {
+		mybatis.insert("sales.insertSaleMaster", vo);
+		mybatis.insert("sales.insertSaleDetail", vo);
 	}
 }

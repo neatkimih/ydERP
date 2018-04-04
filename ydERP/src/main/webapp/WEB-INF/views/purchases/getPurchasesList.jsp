@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head><title>구매전체조회</title>
-<link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
 
 <script src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js" type="text/javascript"></script>
@@ -14,6 +14,7 @@ $(function () {
         url: "getPurchasesList",
         datatype: "json",
         mtype: "GET",
+        styleUI : "Bootstrap",
         colModel: [
             {label:"번호",  name: "seq", width: 55 },
             {label:"작성자", name: "writer", width: 90 },

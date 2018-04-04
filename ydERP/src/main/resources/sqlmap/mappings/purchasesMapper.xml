@@ -4,7 +4,7 @@
 
 <mapper namespace="purchases">
 	
-	<select id="getPurchaseList" resultType="purchases">
+	<select id="getPurchasesList" resultType="purchases">
 	<![CDATA[SELECT * FROM PURCHASES]]>	
 		
 	</select>

@@ -1,6 +1,6 @@
 package com.yedam.erp.sales;
 
-public class VendorsVO {
+public class CustomersVO {
 	private String customerCode;		// 판매처 코드
 	private String customerName;		// 판매처 이름
 	private String customerOwner;		// 판매처 대표자명

@@ -16,14 +16,4 @@ public class SalesServiceImpl implements SalesService
 	public SalesVO selectOne(SalesVO vo) {
 		return salesDAO.selectOne(vo);
 	}
-
-	@Override
-	public void insert(SalesVO vo) {
-		salesDAO.insert(vo);
-	}
-
-	@Override
-	public void update(SalesVO vo) {
-		salesDAO.update(vo);
-	}
 }

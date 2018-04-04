@@ -5,12 +5,13 @@
 <html>
 <head><title>Insert title here</title>
 <link rel="stylesheet" type="text/css" media="screen" href="./scripts/jquery-ui.min.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="./resources/jqGrid/css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="./resources/jqgrid5/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="./resources/bootstrap4/bootstrap.min.css" />
 
-
-<script src="./resources/jqGrid/js/jquery-1.7.2.min.js"></script>
-<script src="./resources/jqGrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-<script src="./resources/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="./scripts/jquery-3.3.1.js"></script>
+<script src="./resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
+<script src="./resources/jqgrid5/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="./resources/bootstrap4/bootstrap.min.css"></script>
 
 
  

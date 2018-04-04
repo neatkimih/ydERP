@@ -16,33 +16,33 @@ public class ItemsMybatisDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public void insertBoard(ItemsVO vo) {
-		sqlSession.insert("board.insertBoard",vo);
+	public void insertItems(ItemsVO vo) {
+		sqlSession.insert("Items.insertItems",vo);
 	}
 	
-	public void updateBoard(ItemsVO vo) {
-		sqlSession.update("board.updateBoard",vo);
+	public void updateItems(ItemsVO vo) {
+		sqlSession.update("Items.updateItems",vo);
 	}
 	
-	public void deleteBoard(ItemsVO vo) {
-		sqlSession.delete("board.deleteBoard",vo);
+	public void deleteItems(ItemsVO vo) {
+		sqlSession.delete("Items.deleteItems",vo);
 	}
 	
-	public ItemsVO getBoard(ItemsVO vo) {
+	public ItemsVO getItems(ItemsVO vo) {
 		System.out.println("mybatis");
-		return sqlSession.selectOne("board.getBoard",vo);
+		return sqlSession.selectOne("Items.getItems",vo);
 	}
 	
-	public List<ItemsVO> getBoardList(ItemsVO vo) {
+	public List<ItemsVO> getItemsList(ItemsVO vo) {
 		System.out.println("mybatis list");
-		return sqlSession.selectList("board.getBoardList",vo);
+		return sqlSession.selectList("Items.getItemsList",vo);
 	}
 	
-	public void deleteBoardList(ArrayList<String> seq) {
-		sqlSession.delete("board.deleteBoardList",seq);
+	public void deleteItemsList(ArrayList<String> seq) {
+		sqlSession.delete("Items.deleteItemsList",seq);
 	}
 	
 	public int getCount(ItemsVO vo) {
-		return sqlSession.selectOne("board.getCount",vo);
+		return sqlSession.selectOne("Items.getCount",vo);
 	}
 }

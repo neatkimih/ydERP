@@ -120,7 +120,7 @@ public class ItemsVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [seq=" + seq + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regDate="
+		return "ItemsVO [seq=" + seq + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regDate="
 				+ regDate + ", cnt=" + cnt + "]";
 	}
 	

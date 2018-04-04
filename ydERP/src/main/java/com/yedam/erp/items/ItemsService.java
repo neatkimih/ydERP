@@ -7,11 +7,11 @@ public interface ItemsService {
 
 	
 	
-	public void insertBoard(ItemsVO vo);
-	public void updateBoard(ItemsVO vo);
-	public void deleteBoard(ItemsVO vo);
-	public ItemsVO getBoard(ItemsVO vo);
-	public List<ItemsVO> getBoardList(ItemsVO vo);
-	public void deleteBoardList(ArrayList<String> seq);
+	public void insertItems(ItemsVO vo);
+	public void updateItems(ItemsVO vo);
+	public void deleteItems(ItemsVO vo);
+	public ItemsVO getItems(ItemsVO vo);
+	public List<ItemsVO> getItemsList(ItemsVO vo);
+	public void deleteItemsList(ArrayList<String> seq);
 	public int getCount(ItemsVO vo);
 }

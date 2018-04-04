@@ -8,52 +8,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-@Service("boardService")
+@Service("itemsService")
 public class ItemsServiceImpl implements ItemsService{
 
 	@Autowired
-	//BoardDAO dao;
-	//BoardSpringJDBC dao;
+
 	ItemsMybatisDAO dao;
 	@Override
-	public void insertBoard(ItemsVO vo) {
-		// TODO Auto-generated method stub
-		dao.insertBoard(vo);
+	public void insertItems(ItemsVO vo) {
+		dao.insertItems(vo);
 	}
 
 	@Override
-	public void updateBoard(ItemsVO vo) {
-		// TODO Auto-generated method stub
-		dao.updateBoard(vo);
+	public void updateItems(ItemsVO vo) {
+		dao.updateItems(vo);
 	}
 
 	@Override
-	public void deleteBoard(ItemsVO vo) {
-		// TODO Auto-generated method stub
-		dao.deleteBoard(vo);
+	public void deleteItems(ItemsVO vo) {
+		dao.deleteItems(vo);
 	}
 
 	@Override
-	public ItemsVO getBoard(ItemsVO vo) {
-		// TODO Auto-generated method stub
-		return dao.getBoard(vo);
+	public ItemsVO getItems(ItemsVO vo) {
+		return dao.getItems(vo);
 	}
 
 	@Override
-	public List<ItemsVO> getBoardList(ItemsVO vo) {
-		// TODO Auto-generated method stub
-		return dao.getBoardList(vo);
+	public List<ItemsVO> getItemsList(ItemsVO vo) {
+		return dao.getItemsList(vo);
 	}
 
 	@Override
-	public void deleteBoardList(ArrayList<String> seq) {
-		// TODO Auto-generated method stub
-		dao.deleteBoardList(seq);;
+	public void deleteItemsList(ArrayList<String> seq) {
+		dao.deleteItemsList(seq);;
 	}
 
 	@Override
 	public int getCount(ItemsVO vo) {
-		// TODO Auto-generated method stub
 		return dao.getCount(vo);
 	}
 

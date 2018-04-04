@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="stock">
-	<resultMap type="board" id="boardResult">
+	<resultMap type="items" id="itemsResult">
 		<id property="seq" column="seq" />
 		<result property="title" column="title" />
 		<result property="writer" column="writer" />
@@ -12,7 +12,7 @@
 		<result property="cnt" column="cnt" />
 		<result property="uploadFileName" column="upload_file_name" />
 	</resultMap>
-	<!-- <select id="getBoardList" resultMap="boardResult"> -->
+	<!-- <select id="getitemsList" resultMap="itemsResult"> -->
 	<select id="getStockList" resultType="stock">
 		<![CDATA[
 		select a.* from ( select rownum rn, b.* from (
@@ -23,7 +23,7 @@
 		      ,regdate
 		      ,cnt
 		      ,upload_file_name
-		FROM   board
+		FROM   items
 		]]>
 		<where>
 			<if test="searchKeyword != null and searchKeyword != '' ">
@@ -39,14 +39,14 @@
 		) b ) a where rn between #{first} and #{last}
 	</select>
 	<!-- -->
-	<select id="getBoard" resultType="board" parameterType="board">
+	<select id="getitems" resultType="items" parameterType="items">
 		<![CDATA[
-		SELECT * FROM board WHERE  seq = #{seq}
+		SELECT * FROM items WHERE  seq = #{seq}
 		]]>
 	</select>
 	<!-- -->
-	<select id="getCount" resultType="int" parameterType="board">
-		SELECT Count(*) FROM board
+	<select id="getCount" resultType="int" parameterType="items">
+		SELECT Count(*) FROM items
 		<where>
 			<if test="searchKeyword != null and searchKeyword != '' ">
 				<if test="searchCondition == 'title' ">
@@ -59,12 +59,12 @@
 		</where>
 	</select>
 	<!-- -->
-	<insert id="insertBoard" parameterType="board">
+	<insert id="insertitems" parameterType="items">
 		<selectKey keyProperty="seq" resultType="int" order="BEFORE">
 			select
-			nvl(max(seq),0) + 1 from board
+			nvl(max(seq),0) + 1 from items
 		</selectKey>
-		INSERT INTO board
+		INSERT INTO items
 				(seq
 				,title
 				,writer
@@ -86,9 +86,9 @@
 				)
 	</insert>
 	<!-- -->
-	<insert id="insertBoard2" parameterType="board" statementType="CALLABLE">
+	<insert id="insertitems2" parameterType="items" statementType="CALLABLE">
 		<![CDATA[
-		{call board_ins_proc(#{title}
+		{call items_ins_proc(#{title}
 							,#{writer}
 							,#{content}
 							,#{seq, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer}
@@ -97,9 +97,9 @@
 		]]>
 	</insert>
 	<!-- -->
-	<update id="updateBoard" parameterType="board">
+	<update id="updateitems" parameterType="items">
 		<![CDATA[
-		UPDATE board
+		UPDATE items
 		SET    title   = #{title}
 		      ,content = #{content}
 		      ,writer  = #{writer}
@@ -107,15 +107,15 @@
 		]]>
 	</update>
 	<!-- -->
-	<delete id="deleteBoard" parameterType="board">
+	<delete id="deleteitems" parameterType="items">
 		<![CDATA[
-		DELETE board
+		DELETE items
 		WHERE  seq = #{seq}
 		]]>
 	</delete>
 	<!-- -->
-	<delete id="deleteBoardList" parameterType="list">
-		DELETE board
+	<delete id="deleteitemsList" parameterType="list">
+		DELETE items
 		WHERE seq IN
 		<foreach item="item" collection="list" open="(" separator=","
 			close=")">

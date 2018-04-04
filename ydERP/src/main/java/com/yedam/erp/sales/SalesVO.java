@@ -6,12 +6,6 @@ public class SalesVO
 	private String saleDate;			// 판매일자
 	private String customerCode;		// 판매처
 	
-	private String saleItem;			// 품목코드
-	private Integer saleQty;			// 품목수량
-	private Integer salePrice;			// 품목단가
-	private Double item_tax;			// 부가세
-	private Integer saleCost;			// 결제금액
-	
 	private String deliveryAddr;		// 배송지
 	private String deliveryEmp;			// 배송사원
 	private char deliverStatus;			// 배송상태
@@ -31,27 +25,7 @@ public class SalesVO
 	/* customerCode - GET(), SET() */
 	public String getCustomerCode() { return customerCode; }
 	public void setCustomerCode(String customerCode) { this.customerCode = customerCode; }
-	
-	/* saleItem - GET(), SET() */
-	public String getSaleItem() { return saleItem; }
-	public void setSaleItem(String saleItem) { this.saleItem = saleItem; }
-	
-	/* saleQty - GET(), SET() */
-	public Integer getSaleQty() { return saleQty; }
-	public void setSaleQty(Integer saleQty) { this.saleQty = saleQty; }
-	
-	/* salePrice - GET(), SET() */
-	public Integer getSalePrice() { return salePrice; }
-	public void setSalePrice(Integer salePrice) { this.salePrice = salePrice; }
-	
-	/* itemTax - GET(), SET() */
-	public Double getItem_tax() { return item_tax; }
-	public void setItem_tax(Double item_tax) { this.item_tax = item_tax; }
-	
-	/* saleCost - GET(), SET() */
-	public Integer getSaleCost() { return saleCost;	}
-	public void setSaleCost(Integer saleCost) { this.saleCost = saleCost; }
-	
+		
 	/* deliveryAddr - GET(), SET() */
 	public String getDeliveryAddr() { return deliveryAddr; }
 	public void setDeliveryAddr(String deliveryAddr) { this.deliveryAddr = deliveryAddr; }
@@ -78,10 +52,14 @@ public class SalesVO
 	
 	@Override
 	public String toString() {
-		return "SalesVO [saleCode=" + saleCode + ", saleDate=" + saleDate + ", customerCode=" + customerCode
-				+ ", saleItem=" + saleItem + ", saleQty=" + saleQty + ", salePrice=" + salePrice + ", item_tax="
-				+ item_tax + ", saleCost=" + saleCost + ", deliveryAddr=" + deliveryAddr + ", deliveryEmp="
-				+ deliveryEmp + ", deliverStatus=" + deliverStatus + ", payStatus=" + payStatus + ", warehouse="
-				+ warehouse + ", orderPermit=" + orderPermit + "]";
+		return "SalesVO [saleCode=" + saleCode
+					+ ", saleDate=" + saleDate
+					+ ", customerCode=" + customerCode
+					+ ", deliveryAddr=" + deliveryAddr
+					+ ", deliveryEmp="	+ deliveryEmp
+					+ ", deliverStatus=" + deliverStatus
+					+ ", payStatus=" + payStatus
+					+ ", warehouse=" + warehouse
+					+ ", orderPermit=" + orderPermit + "]";
 	}
 }

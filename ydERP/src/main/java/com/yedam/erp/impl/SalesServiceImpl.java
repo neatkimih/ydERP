@@ -17,4 +17,11 @@ public class SalesServiceImpl implements SalesService {
 	public List<SalesVO> getSaleList(SalesVO vo) {
 		return salesDAO.getSaleList(vo);
 	}
+
+	@Override
+	public void insertSale(SalesVO vo) {
+		salesDAO.insertSale(vo);
+	}
+	
+	
 }

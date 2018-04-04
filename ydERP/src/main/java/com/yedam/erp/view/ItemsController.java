@@ -1,6 +1,7 @@
 package com.yedam.erp.view;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yedam.erp.items.ItemsService;
 import com.yedam.erp.items.ItemsVO;
+import com.yedam.erp.common.Paging;
+import com.yedam.erp.items.ItemsService;
+
 
 @Controller
 public class ItemsController {
@@ -93,7 +96,27 @@ public class ItemsController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:getBoardList";
+		return "redirect:getItemsList";
+	}
+	
+	@RequestMapping("/getItemsListAjax")
+	@ResponseBody
+	public List<ItemsVO> getItemsList(Model model, ItemsVO vo, Paging paging) {
+		//전체 레코드 건수
+	/*	paging.setPageUnit(5);
+		paging.setTotalRecord(boardService.getCount(vo));*/
+		/*model.addAttribute("paging",paging);*/
+		//vo 에 first,last 셋팅
+		
+		vo.setFirst(1);
+		vo.setLast(10);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("rows", itemsService.getItemsList(vo));
+		map.put("page", 1);
+		map.put("total",itemsService.getCount(vo));
+		map.put("records", 10);
+		
+		return itemsService.getItemsList(vo);
 	}
 
 }

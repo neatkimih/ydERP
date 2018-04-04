@@ -1,117 +1,77 @@
 package com.yedam.erp.items;
 
-import java.sql.Date;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class ItemsVO {
-	private int seq;
-	private String title;
-	private String writer;
-	private String content;
-	private Date regDate;
-	private int cnt;
-	private String searchCondition;
-	private String searchKeyword;
-	private MultipartFile uploadFile;
-	private String uploadFileName;
-	private String originalFileName;
-	private String outMsg;
+	private String item_code;
+	private String item_name;
+	private String uom;
+	private Integer in_qty;
+	private Integer supply_price;
+	private Integer selling_price;
+	private Integer item_tax;
+	private Integer expire_date;
+	private String vendor_code;
 	private int first;
 	private int last;
-	
-	public int getSeq() {
-		return seq;
+	public String getItem_code() {
+		return item_code;
 	}
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void setItem_code(String item_code) {
+		this.item_code = item_code;
 	}
-	public String getTitle() {
-		return title;
+	public String getItem_name() {
+		return item_name;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
 	}
-	public String getWriter() {
-		return writer;
+	public String getUom() {
+		return uom;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setUom(String uom) {
+		this.uom = uom;
 	}
-	public String getContent() {
-		return content;
+	public Integer getIn_qty() {
+		return in_qty;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setIn_qty(Integer in_qty) {
+		this.in_qty = in_qty;
 	}
-	public Date getRegDate() {
-		return regDate;
+	public Integer getSupply_price() {
+		return supply_price;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setSupply_price(Integer supply_price) {
+		this.supply_price = supply_price;
 	}
-	public int getCnt() {
-		return cnt;
+	public Integer getSelling_price() {
+		return selling_price;
 	}
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
+	public void setSelling_price(Integer selling_price) {
+		this.selling_price = selling_price;
 	}
-	public MultipartFile getUploadFile() {
-		return uploadFile;
+	public Integer getItem_tax() {
+		return item_tax;
 	}
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
+	public void setItem_tax(Integer item_tax) {
+		this.item_tax = item_tax;
 	}
-	@JsonIgnore
-	public String getUploadFileName() {
-		return uploadFileName;
+	public Integer getExpire_date() {
+		return expire_date;
 	}
-	
-	public void setUploadFileName(String uploadFileName) {
-		this.uploadFileName = uploadFileName;
+	public void setExpire_date(Integer expire_date) {
+		this.expire_date = expire_date;
 	}
-	@JsonIgnore
-	public String getOriginalFileName() {
-		return originalFileName;
+	public String getVendor_code() {
+		return vendor_code;
 	}
-	public void setOriginalFileName(String originalFileName) {
-		this.originalFileName = originalFileName;
+	public void setVendor_code(String vendor_code) {
+		this.vendor_code = vendor_code;
 	}
-	@JsonIgnore
-	public String getSearchCondition() {
-		return searchCondition;
-	}
-	public void setSearchCondition(String searchCondition) {
-		this.searchCondition = searchCondition;
-	}
-	@JsonIgnore
-	public String getSearchKeyword() {
-		return searchKeyword;
-	}
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
-	}
-	
-	@JsonIgnore
-	public String getOutMsg() {
-		return outMsg;
-	}
-	
-	public void setOutMsg(String outMsg) {
-		this.outMsg = outMsg;
-	}
-	
-	
-	@JsonIgnore
 	public int getFirst() {
 		return first;
 	}
 	public void setFirst(int first) {
 		this.first = first;
 	}
-	@JsonIgnore
 	public int getLast() {
 		return last;
 	}
@@ -120,8 +80,12 @@ public class ItemsVO {
 	}
 	@Override
 	public String toString() {
-		return "ItemsVO [seq=" + seq + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regDate="
-				+ regDate + ", cnt=" + cnt + "]";
+		return "ItemsVO [item_code=" + item_code + ", item_name=" + item_name + ", uom=" + uom + ", in_qty=" + in_qty
+				+ ", supply_price=" + supply_price + ", selling_price=" + selling_price + ", item_tax=" + item_tax
+				+ ", expire_date=" + expire_date + ", vendor_code=" + vendor_code + ", first=" + first + ", last="
+				+ last + "]";
 	}
+	
+	
 	
 }

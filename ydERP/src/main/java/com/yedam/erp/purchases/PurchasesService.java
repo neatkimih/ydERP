@@ -1,5 +1,6 @@
 package com.yedam.erp.purchases;
 
+
 import java.util.List;
 
 public interface PurchasesService
@@ -18,5 +19,7 @@ public interface PurchasesService
 
 	/* 구매 내역 수정 */
 	public void deletePurchases(PurchasesVO purchasesVO);
+
+
 
 }

@@ -2,6 +2,7 @@ package com.yedam.erp.purchases;
 
 public class PurchasesVO
 {
+
 	private String PURCHASE_CODE;			// 구매코드
 	private String PURCHASE_DATE;			// 구매일자
 	private String VENDOR_CODE;		// 구매처

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="stock">
+	<resultMap type="items" id="itemsResult">
+		<id property="item_code" column="item_code" />
+		<result property="item_name" column="item_name" />
+		<result property="uom" column="uom" />
+		<result property="in_qty" column="in_qty" />
+		<result property="supply_price" column="supply_price" />
+		<result property="selling_price" column="selling_price" />
+		<result property="item_tax" column="item_tax" />
+		<result property="expire_date" column="expire_date" />
+		<result property="expire_date" column="expire_date" />
+		
+		
+	</resultMap>
+	<!-- <select id="getitemsList" resultMap="itemsResult"> -->
+	<select id="getStockList" resultType="stock">
+		<![CDATA[
+		select a.* from ( select rownum rn, b.* from (
+		SELECT item_code
+		      ,item_name
+		      ,uom
+		      ,in_qty
+		      ,supply_price
+		      ,selling_price
+		      ,item_tax
+		      ,expire_date
+		      ,vendor_code		      
+		FROM   items
+		]]>
+		<where>
+			<if test="searchKeyword != null and searchKeyword != '' ">
+				<if test="searchCondition == 'title' ">
+					AND title like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchCondition == 'content' ">
+					AND content like '%' || #{searchKeyword} || '%'
+				</if>
+			</if>
+		</where>
+		ORDER BY item_code DESC
+		) b ) a where rn between #{first} and #{last}
+	</select>
+	<!-- -->
+	<select id="getitems" resultType="items" parameterType="items">
+		<![CDATA[
+		SELECT * FROM items WHERE  item_code = #{item_code}
+		]]>
+	</select>
+	<!-- -->
+	<select id="getCount" resultType="int" parameterType="items">
+		SELECT Count(*) FROM items
+		<where>
+			<if test="searchKeyword != null and searchKeyword != '' ">
+				<if test="searchCondition == 'title' ">
+					AND title like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchCondition == 'content' ">
+					AND content like '%' || #{searchKeyword} || '%'
+				</if>
+			</if>
+		</where>
+	</select>
+	<!-- -->
+	<insert id="insertitems" parameterType="items">
+		<selectKey keyProperty="item_code" resultType="int" order="BEFORE">
+			select
+			nvl(max(item_code),0) + 1 from items
+		</selectKey>
+		INSERT INTO items
+				(item_code
+				,item_name
+				,uom
+				,in_qty
+				,supply_price
+				,selling_price
+				,item_tax
+				,expire_date
+				,vendor_code
+			
+				)
+	</insert>
+	<!-- -->
+	<insert id="insertitems2" parameterType="items" statementType="CALLABLE">
+		<![CDATA[
+		{call items_ins_proc(#{item_name}
+							,#{uom}
+							,#{in_qty}
+							,#{supply_price, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer}
+							,#{selling_price, mode=OUT, jdbcType=VARCHAR, javaType=String}
+							,#{supply_price, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer}
+							,#{item_tax, mode=OUT, jdbcType=VARCHAR, javaType=String}
+							,#{expire_date, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer}
+							,#{vendor_code, mode=OUT, jdbcType=VARCHAR, javaType=String}
+		)}
+		]]>
+	</insert>
+	<!-- -->
+	<update id="updateitems" parameterType="items">
+		<![CDATA[
+		UPDATE items
+		SET    item_code   = #{item_code}
+		      ,item_name = #{item_name}
+		      ,uom  = #{uom}
+		      ,in_qty = #{in_qty}
+		      ,supply_price  = #{supply_price}
+		      ,selling_price = #{selling_price}
+		      ,item_tax  = #{item_tax}
+		      ,expire_date = #{expire_date}
+		      ,vendor_code  = #{vendor_code}
+		      
+		      
+		      
+		      
+		WHERE  item_code = #{item_code}
+		]]>
+	</update>
+	<!-- -->
+	<delete id="deleteitems" parameterType="items">
+		<![CDATA[
+		DELETE items
+		WHERE  item_code = #{item_code}
+		]]>
+	</delete>
+	<!-- -->
+	<delete id="deleteitemsList" parameterType="list">
+		DELETE items
+		WHERE item_code IN
+		<foreach item="item" collection="list" open="(" separator=","
+			close=")">
+			#{items}
+		</foreach>
+	</delete>
+	<!-- -->
+</mapper>

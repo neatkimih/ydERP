@@ -13,7 +13,7 @@ public class SalesMybatisDAO {
 	private SqlSessionTemplate mybatis;
 	
 	/* 판매 내역 조회 SQL 처리 (단건) */
-	public SalesVO selectOne(SalesVO vo)
+	public SalesVO getBySaleCode(SalesVO vo)
 	{
 		return mybatis.selectOne("Sales.selectOne", vo);
 	}

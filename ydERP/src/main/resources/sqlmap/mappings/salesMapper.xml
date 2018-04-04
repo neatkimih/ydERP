@@ -3,12 +3,29 @@
 
 <mapper namespace="sales">
 
-<select id="" resultType="sales">
-
-
-
-
-</select>
+	<select id="getBySaleCode" resultType="sales" parameterType="sales">
+		<![CDATA[
+			SELECT * 
+			FROM SALES
+			WHERE SALE_CODE = #{saleCode}
+		]]>
+	</select>
+	
+	<select id="getByDeliveryStatus" resultType="sales" parameterType="sales">
+		<![CDATA[
+			SELECT * 
+			FROM SALES
+			WHERE DELIVERY_STATUS = #{saleCode}
+		]]>
+	</select>
+	
+	<select id="getByPayStatus" resultType="sales" parameterType="sales">
+		<![CDATA[
+			SELECT * 
+			FROM SALES
+			WHERE PAY_STATUS = #{payStatus}
+		]]>
+	</select>
 
 
 

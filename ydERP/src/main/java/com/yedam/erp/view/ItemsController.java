@@ -104,7 +104,7 @@ public class ItemsController {
 	
 	@RequestMapping("/getItemsListGridData")
 	@ResponseBody
-	public  List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo, Paging paging) {
+	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo, Paging paging) {
 /*		paging.setPageUnit(5);
 		paging.setTotalRecord(ItemsService.getCount(vo));
 		

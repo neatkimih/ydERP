@@ -19,7 +19,6 @@
 	<!-- <select id="getitemsList" resultMap="itemsResult"> -->
 	<select id="getItemsList" resultType="items">
 		<![CDATA[
-		select a.* from ( select rownum rn, b.* from (
 		SELECT item_code
 		      ,item_name
 		      ,uom
@@ -34,15 +33,14 @@
 		<where>
 			<if test="searchKeyword != null and searchKeyword != '' ">
 				<if test="searchCondition == 'title' ">
-					AND title like '%' || #{searchKeyword} || '%'
+					AND item_code like '%' || #{searchKeyword} || '%'
 				</if>
 				<if test="searchCondition == 'content' ">
-					AND content like '%' || #{searchKeyword} || '%'
+					AND item_name like '%' || #{searchKeyword} || '%'
 				</if>
 			</if>
 		</where>
 		ORDER BY item_code DESC
-		) b ) a where rn between #{first} and #{last}
 	</select>
 	<!-- -->
 	<select id="getItems" resultType="items" parameterType="items">

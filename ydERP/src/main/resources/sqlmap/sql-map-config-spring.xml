@@ -12,6 +12,6 @@
 		<typeAlias alias="sales" type="com.yedam.erp.sales.SalesVO" />
 		<typeAlias alias="purchases" type="com.yedam.erp.purchases.PurchasesVO" />
 		<typeAlias alias="items" type="com.yedam.erp.items.ItemsVO" />
-	
+		<typeAlias alias="saleDetails" type="com.yedam.erp.sales.SalesVO" />
 	</typeAliases>
 </configuration>

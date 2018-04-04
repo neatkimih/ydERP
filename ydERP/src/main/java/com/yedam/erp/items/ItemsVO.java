@@ -1,91 +1,130 @@
 package com.yedam.erp.items;
 
 public class ItemsVO {
-	private String item_code;
-	private String item_name;
+	private String itemCode;
+	private String itemName;
 	private String uom;
-	private Integer in_qty;
-	private Integer supply_price;
-	private Integer selling_price;
-	private Integer item_tax;
-	private Integer expire_date;
-	private String vendor_code;
+	private Integer inQty;
+	private Integer supplyPrice;
+	private Integer sellingPrice;
+	private Integer itemTax;
+	private Integer expireDate;
+	private String vendorCode;
 	private int first;
 	private int last;
-	public String getItem_code() {
-		return item_code;
+	private String searchCondition;
+	private String searchKeyword;
+
+	public String getItemCode() {
+		return itemCode;
 	}
-	public void setItem_code(String item_code) {
-		this.item_code = item_code;
+
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
 	}
-	public String getItem_name() {
-		return item_name;
+
+	public String getItemName() {
+		return itemName;
 	}
-	public void setItem_name(String item_name) {
-		this.item_name = item_name;
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
+
 	public String getUom() {
 		return uom;
 	}
+
 	public void setUom(String uom) {
 		this.uom = uom;
 	}
-	public Integer getIn_qty() {
-		return in_qty;
+
+	public Integer getInQty() {
+		return inQty;
 	}
-	public void setIn_qty(Integer in_qty) {
-		this.in_qty = in_qty;
+
+	public void setInQty(Integer inQty) {
+		this.inQty = inQty;
 	}
-	public Integer getSupply_price() {
-		return supply_price;
+
+	public Integer getSupplyPrice() {
+		return supplyPrice;
 	}
-	public void setSupply_price(Integer supply_price) {
-		this.supply_price = supply_price;
+
+	public void setSupplyPrice(Integer supplyPrice) {
+		this.supplyPrice = supplyPrice;
 	}
-	public Integer getSelling_price() {
-		return selling_price;
+
+	public Integer getSellingPrice() {
+		return sellingPrice;
 	}
-	public void setSelling_price(Integer selling_price) {
-		this.selling_price = selling_price;
+
+	public void setSellingPrice(Integer sellingPrice) {
+		this.sellingPrice = sellingPrice;
 	}
-	public Integer getItem_tax() {
-		return item_tax;
+
+	public Integer getItemTax() {
+		return itemTax;
 	}
-	public void setItem_tax(Integer item_tax) {
-		this.item_tax = item_tax;
+
+	public void setItemTax(Integer itemTax) {
+		this.itemTax = itemTax;
 	}
-	public Integer getExpire_date() {
-		return expire_date;
+
+	public Integer getExpireDate() {
+		return expireDate;
 	}
-	public void setExpire_date(Integer expire_date) {
-		this.expire_date = expire_date;
+
+	public void setExpireDate(Integer expireDate) {
+		this.expireDate = expireDate;
 	}
-	public String getVendor_code() {
-		return vendor_code;
+
+	public String getVendorCode() {
+		return vendorCode;
 	}
-	public void setVendor_code(String vendor_code) {
-		this.vendor_code = vendor_code;
+
+	public void setVendorCode(String vendorCode) {
+		this.vendorCode = vendorCode;
 	}
+
 	public int getFirst() {
 		return first;
 	}
+
 	public void setFirst(int first) {
 		this.first = first;
 	}
+
 	public int getLast() {
 		return last;
 	}
+
 	public void setLast(int last) {
 		this.last = last;
 	}
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
 	@Override
 	public String toString() {
-		return "ItemsVO [item_code=" + item_code + ", item_name=" + item_name + ", uom=" + uom + ", in_qty=" + in_qty
-				+ ", supply_price=" + supply_price + ", selling_price=" + selling_price + ", item_tax=" + item_tax
-				+ ", expire_date=" + expire_date + ", vendor_code=" + vendor_code + ", first=" + first + ", last="
-				+ last + "]";
+		return "ItemsVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty=" + inQty
+				+ ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax
+				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", first=" + first + ", last=" + last
+				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + "]";
 	}
-	
-	
-	
+
 }

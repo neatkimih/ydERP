@@ -37,7 +37,7 @@ public class ItemsMybatisDAO {
 	
 	public List<ItemsVO> getItemsList(ItemsVO vo) {
 		System.out.println("mybatis list");
-		return sqlSession.selectList("Items.getItemsList",vo);
+		return sqlSession.selectList("items.getItemsList",vo);
 	}
 	
 	public void deleteItemsList(ArrayList<String> seq) {

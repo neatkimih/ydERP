@@ -22,6 +22,4 @@ public class SalesServiceImpl implements SalesService {
 	public void insertSale(SalesVO vo) {
 		salesDAO.insertSale(vo);
 	}
-	
-	
 }

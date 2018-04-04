@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sales">
+
+	<select id="getBySaleCode" resultType="sales" parameterType="sales">
+		<![CDATA[
+			SELECT * 
+			FROM SALES
+			WHERE SALE_CODE = #{saleCode}
+		]]>
+	</select>
+	
+	<select id="getByDeliveryStatus" resultType="sales" parameterType="sales">
+		<![CDATA[
+			SELECT * 
+			FROM SALES
+			WHERE DELIVERY_STATUS = #{saleCode}
+		]]>
+	</select>
+	
+	<select id="getByPayStatus" resultType="sales" parameterType="sales">
+		<![CDATA[
+			SELECT * 
+			FROM SALES
+			WHERE PAY_STATUS = #{payStatus}
+		]]>
+	</select>
+
+
+
+
+</mapper>

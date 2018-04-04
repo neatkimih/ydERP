@@ -18,6 +18,8 @@ public class SalesVO
 	private char payStatus;				// 결제상태
 	private char warehouse;				// 출하창고
 	
+	private char orderPermit;			// 주문허가
+	
 	/* saleCode - GET(), SET() */
 	public String getSaleCode() { return saleCode; }
 	public void setSaleCode(String saleCode) { this.saleCode = saleCode; }
@@ -70,13 +72,16 @@ public class SalesVO
 	public char getWarehouse() { return warehouse; }
 	public void setWarehouse(char warehouse) { this.warehouse = warehouse; }
 	
+	/* orderPermit - GET(), SET() */	
+	public char getOrderPermit() { return orderPermit; }
+	public void setOrderPermit(char orderPermit) { this.orderPermit = orderPermit; }
+	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "SalesVO [saleCode=" + saleCode + ", saleDate=" + saleDate + ", customerCode=" + customerCode
 				+ ", saleItem=" + saleItem + ", saleQty=" + saleQty + ", salePrice=" + salePrice + ", item_tax="
 				+ item_tax + ", saleCost=" + saleCost + ", deliveryAddr=" + deliveryAddr + ", deliveryEmp="
 				+ deliveryEmp + ", deliverStatus=" + deliverStatus + ", payStatus=" + payStatus + ", warehouse="
-				+ warehouse + "]";
+				+ warehouse + ", orderPermit=" + orderPermit + "]";
 	}
 }

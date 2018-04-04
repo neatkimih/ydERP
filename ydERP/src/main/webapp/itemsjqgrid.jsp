@@ -9,7 +9,7 @@
 
 
 <script src="./resources/jqGrid/js/jquery-1.7.2.min.js"></script>
-<script src="./resources/jqGrid/js/i18n/grid.locale-kr.js" type="text/javascript"></script>
+<script src="./resources/jqGrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="./resources/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 
 

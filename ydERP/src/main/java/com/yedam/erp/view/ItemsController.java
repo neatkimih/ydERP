@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.items.ItemsVO;
+
 import com.yedam.erp.common.Paging;
 import com.yedam.erp.items.ItemsService;
 
@@ -98,25 +99,22 @@ public class ItemsController {
 		session.invalidate();
 		return "redirect:getItemsList";
 	}
+
+
 	
-	@RequestMapping("/getItemsListAjax")
+	@RequestMapping("/getItemsListGridData")
 	@ResponseBody
-	public List<ItemsVO> getItemsList(Model model, ItemsVO vo, Paging paging) {
-		//전체 레코드 건수
-	/*	paging.setPageUnit(5);
-		paging.setTotalRecord(boardService.getCount(vo));*/
-		/*model.addAttribute("paging",paging);*/
-		//vo 에 first,last 셋팅
+	public  List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo, Paging paging) {
+/*		paging.setPageUnit(5);
+		paging.setTotalRecord(ItemsService.getCount(vo));
 		
+		model.addAttribute("ItemsList", ItemsService.getItemsList(vo));
+		model.addAttribute("paging", paging);
+		return "Items/getItemsList";*/
 		vo.setFirst(1);
-		vo.setLast(10);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("rows", itemsService.getItemsList(vo));
-		map.put("page", 1);
-		map.put("total",itemsService.getCount(vo));
-		map.put("records", 10);
-		
+		vo.setLast(30);
 		return itemsService.getItemsList(vo);
 	}
+	
 
 }

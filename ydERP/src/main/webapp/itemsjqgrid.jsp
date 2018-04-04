@@ -18,7 +18,7 @@
 <script type="text/javascript">
 $(function () {
     $("#list").jqGrid({
-    	url: "getItemsListAjax",
+    	url: "getItemsListGridData",
         datatype: "json",
         
     	colNames: ["item_code", "품목정보", "UOM", "수량", "공급가","판매가","부가세","사용연한","판매자코드"],

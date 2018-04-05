@@ -42,30 +42,7 @@
 					width : 80,
 					align : "right"
 				},
-				{
-					label : "품목코드",
-					name : "purchaseItem",
-					width : 80,
-					align : "right"
-				},
-				{
-					label : "구매수량",
-					name : "purchaseQty",
-					width : 80,
-					align : "right"
-				},
-				{
-					label : "구매단가",
-					name : "purchasePrice",
-					width : 80,
-					align : "right"
-				},
-				{
-					label : "부가세",
-					name : "itemTax",
-					width : 80,
-					align : "right"
-				},
+								
 				{
 					label : "결제금액",
 					name : "purchaseCost",
@@ -94,53 +71,42 @@
 			styleUI : "Bootstrap",
 			autowidth:true,
 			colModel : [
+				
+				{
+					label : "구매상세코드",
+					name : "purchaseDatailCode",
+					width : 110
+				}, 				
 				{
 					label : "구매코드",
 					name : "purchaseCode",
 					width : 110
 				}, 
 				{
-					label : "구매일자",
-					name : "purchaseDate",
+					label : "품목코드",
+					name : "purchaseItem",
 					width : 85
 				},
 				{
-					label : "구매처",
-					name : "vendorCode",
-					width : 80,
-					align : "right"
-				},
-				{
-					label : "품목코드",
-					name : "purchaseItem",
-					width : 80,
-					align : "right"
-				},
-				{
-					label : "구매수량",
+					label : "품목수량",
 					name : "purchaseQty",
 					width : 80,
 					align : "right"
-				},
+				}, 			 	
 				{
-					label : "구매단가",
+					label : "품목단가",
 					name : "purchasePrice",
 					width : 80,
 					align : "right"
 				},
+			
 				{
 					label : "부가세",
 					name : "itemTax",
 					width : 80,
 					align : "right"
-				},
-				{
-					label : "결제금액",
-					name : "purchaseCost",
-					width : 80,
-					align : "right"
-				}
-
+				}			
+			
 			],
 			pager : "#pager1",
 			rowNum : 10,
@@ -150,7 +116,7 @@
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
-			caption : "구매정보"
+			caption : "구매상세정보"
 		});			
 		
 	});

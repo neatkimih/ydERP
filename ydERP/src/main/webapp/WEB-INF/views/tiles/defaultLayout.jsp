@@ -97,7 +97,7 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 구매정보<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">구매정보조회</a>
+                                    <a href="getPurchasesPage">구매정보조회</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">구매상세정보조회</a>

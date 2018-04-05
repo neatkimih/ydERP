@@ -40,8 +40,8 @@ public class ItemsMybatisDAO {
 		return sqlSession.selectList("items.getItemsList",vo);
 	}
 	
-	public void deleteItemsList(ArrayList<String> seq) {
-		sqlSession.delete("items.deleteItemsList",seq);
+	public void deleteItemsList(ArrayList<String> itemCode) {
+		sqlSession.delete("items.deleteItemsList",itemCode);
 	}
 	
 	public int getCount(ItemsVO vo) {

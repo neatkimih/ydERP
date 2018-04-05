@@ -98,10 +98,7 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="getPurchasesPage">구매정보조회</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">구매상세정보조회</a>
-                                </li>
+                                </li>                            
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

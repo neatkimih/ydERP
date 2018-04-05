@@ -10,7 +10,7 @@
 	</select>
 	
 	<!-- 판매 내역 상세 조회 -->
-	<select id="getSaleDetail" resultType="s">
+	<select id="getSaleDetail" resultType="sales">
 	</select>
 	
 

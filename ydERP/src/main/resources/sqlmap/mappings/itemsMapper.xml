@@ -19,6 +19,7 @@
 	<!-- <select id="getitemsList" resultMap="itemsResult"> -->
 	<select id="getItemsList" resultType="items">
 		<![CDATA[
+		
 		SELECT item_code
 		      ,item_name
 		      ,uom
@@ -34,6 +35,8 @@
 			<if test="searchKeyword != null and searchKeyword != '' ">
 				<if test="searchCondition == 'item_code' ">
 					AND item_code like '%' || #{searchKeyword} || '%'
+
+
 				</if>
 				<if test="searchCondition == 'item_name' ">
 					AND item_name like '%' || #{searchKeyword} || '%'
@@ -41,6 +44,8 @@
 			</if>
 		</where>
 		ORDER BY item_code DESC
+
+	
 	</select>
 	<!-- -->
 	<select id="getItems" resultType="items" parameterType="items">

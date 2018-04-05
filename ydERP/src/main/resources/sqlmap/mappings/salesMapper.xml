@@ -8,9 +8,14 @@
 		SELECT *
 		FROM sales
 	</select>
+	
+	<!-- 판매 내역 상세 조회 -->
+	<select id="getSaleDetail" resultType="s">
+	</select>
+	
 
 	<!-- 판매 내역 등록 : 판매 정보 -->
-	<insert id="insertSale" parameterType="sales">
+	<insert id="insertSaleMaster" parameterType="sales">
 	
 		INSERT INTO SALES
 		(
@@ -37,7 +42,8 @@
 			, #{payStatus}
 			, #{warehouse}
 			, #{orderPermit}
-		)		
+		)
+			
 	</insert>
 
 	<!-- 판매 내역 등록 : 판매 상세 정보 -->

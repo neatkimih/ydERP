@@ -17,8 +17,8 @@ public class SalesController {
 	@Autowired
 	SalesService salesService;
 
-	@RequestMapping("/getSaleList")
 	/* 전체 판매 내역 페이지 */
+	@RequestMapping("/getSaleList")
 	public String getSaleListForm() {
 		return "sales/getSaleList";
 	}

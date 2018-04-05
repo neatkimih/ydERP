@@ -22,6 +22,7 @@
 			datatype : "json",
 			colNames : [ "판매코드"
 				, "판매처 코드"
+				, "판매일자"
 				, "결제금액"
 				, "배송지"
 				, "배송사원 번호"
@@ -37,6 +38,11 @@
 				},
 				{
 					name : "customerCode",
+					width : 10,
+					align : "center"
+				},
+				{
+					name : "saleDate",
 					width : 10,
 					align : "center"
 				},
@@ -77,11 +83,11 @@
 				}
 			],
 			pager : "#pager",
-			rowNum: 10,
-			sortname: "판매코드",
-			viewrecords: true,
-			gridview: true,
-			autoencode: true,
+			rowNum : 10,
+			sortname : "판매코드",
+			viewrecords : true,
+			gridview : true,
+			autoencode : true,
 		});
 	});
 </script>

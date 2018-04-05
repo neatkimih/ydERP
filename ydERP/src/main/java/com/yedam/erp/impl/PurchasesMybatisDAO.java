@@ -29,7 +29,8 @@ public class PurchasesMybatisDAO {
 	}
 	public List<PurchasesVO> getPurchasesList(PurchasesVO vo){
 		System.out.println("mybatis getPurchasesList");
-		return sqlSession.selectList("purchases.getPurchasesList", vo); 
+		return sqlSession.selectList("purchases.getPurchasesList", vo);
+		
 	}	
 	
 }

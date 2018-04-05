@@ -19,20 +19,20 @@ public class ItemsMybatisDAO {
 	private SqlSessionTemplate sqlSession;
 	
 	public void insertItems(ItemsVO vo) {
-		sqlSession.insert("Items.insertItems",vo);
+		sqlSession.insert("items.insertItems",vo);
 	}
 	
 	public void updateItems(ItemsVO vo) {
-		sqlSession.update("Items.updateItems",vo);
+		sqlSession.update("items.updateItems",vo);
 	}
 	
 	public void deleteItems(ItemsVO vo) {
-		sqlSession.delete("Items.deleteItems",vo);
+		sqlSession.delete("items.deleteItems",vo);
 	}
 	
 	public ItemsVO getItems(ItemsVO vo) {
 		System.out.println("mybatis");
-		return sqlSession.selectOne("Items.getItems",vo);
+		return sqlSession.selectOne("items.getItems",vo);
 	}
 	
 	public List<ItemsVO> getItemsList(ItemsVO vo) {
@@ -41,10 +41,10 @@ public class ItemsMybatisDAO {
 	}
 	
 	public void deleteItemsList(ArrayList<String> seq) {
-		sqlSession.delete("Items.deleteItemsList",seq);
+		sqlSession.delete("items.deleteItemsList",seq);
 	}
 	
 	public int getCount(ItemsVO vo) {
-		return sqlSession.selectOne("Items.getCount",vo);
+		return sqlSession.selectOne("items.getCount",vo);
 	}
 }

@@ -32,10 +32,10 @@
 		]]>
 		<where>
 			<if test="searchKeyword != null and searchKeyword != '' ">
-				<if test="searchCondition == 'title' ">
+				<if test="searchCondition == 'item_code' ">
 					AND item_code like '%' || #{searchKeyword} || '%'
 				</if>
-				<if test="searchCondition == 'content' ">
+				<if test="searchCondition == 'item_name' ">
 					AND item_name like '%' || #{searchKeyword} || '%'
 				</if>
 			</if>
@@ -45,8 +45,19 @@
 	<!-- -->
 	<select id="getItems" resultType="items" parameterType="items">
 		<![CDATA[
-		SELECT * FROM items WHERE  item_code = #{item_code}
+		SELECT * FROM items 
 		]]>
+		<where>
+			<if test="searchKeyword != null and searchKeyword != '' ">
+				<if test="searchCondition == 'item_code' ">
+					AND item_code like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchCondition == 'item_name' ">
+					AND item_name like '%' || #{searchKeyword} || '%'
+				</if>
+			</if>
+		</where>
+		
 	</select>
 	<!-- -->
 	<select id="getCount" resultType="int" parameterType="items">

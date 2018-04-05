@@ -58,7 +58,7 @@
 			sortorder : "desc",
 			viewrecords : true,
 			gridview : true,
-			autoencode : true,
+			autoencode : true,			
 			caption : "구매정보"
 		});
 	
@@ -118,7 +118,7 @@
 			autoencode : true,
 			caption : "구매상세정보"
 		});			
-		
+		 
 	});
 	
 	

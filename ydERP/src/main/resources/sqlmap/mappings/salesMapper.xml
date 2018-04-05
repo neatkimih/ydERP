@@ -13,10 +13,10 @@
 	<select id="getSaleDetail" resultType="saleDetails">
 		<![CDATA[
 		SELECT * 
-		FROM sale_details 
+		FROM SALE_DETAILS 
 		]]>
 		<where>
-		
+		SALE_CODE = 
 		
 		</where>
 	

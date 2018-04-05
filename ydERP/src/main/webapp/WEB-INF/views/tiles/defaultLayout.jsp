@@ -109,10 +109,16 @@
                             <a href="tables.html"><i class="fa fa-table fa-fw"></i> 판매정보<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="getSaleList">판매정보조회</a>
+                                    <a href="getSaleList">판매내역 조회 / 수정</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">판매상세정보조회</a>
+                                    <a href="insertSale">판매내역 등록</a>
+                                </li>
+                                <li>
+                                    <a href="deleteSale">판매내역 삭제</a>
+                                </li>
+                                <li>
+                                    <a href="showSale">판매현황 조회</a>
                                 </li>
                             </ul>
                         </li>                        

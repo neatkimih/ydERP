@@ -6,9 +6,20 @@
 	<!-- 판매 내역 전체 조회 -->
 	<select id="getSaleList" resultType="sales">
 		SELECT *
-		FROM sales
+		FROM SALES 
+	</select> 
+
+	<!-- 판매 내역 상세 조회 -->
+	<select id="getSaleDetail" resultType="saleDetails">
+		<![CDATA[
+		SELECT * 
+		FROM SALE_DETAILS 
+		]]>
+		<where>
+		SALE_CODE = 
+		
+		</where>
 	</select>
-	
 	<!-- 판매 내역 상세 조회 -->
 	<select id="getSaleDetail" resultType="sales">
 	</select>

@@ -19,11 +19,7 @@
 		SALE_CODE = 
 		
 		</where>
-	</select>
-	<!-- 판매 내역 상세 조회 -->
-	<select id="getSaleDetail" resultType="sales">
-	</select>
-	
+	</select>	
 
 	<!-- 판매 내역 등록 : 판매 정보 -->
 	<insert id="insertSaleMaster" parameterType="sales">

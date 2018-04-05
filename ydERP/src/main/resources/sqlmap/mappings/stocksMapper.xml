@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="stocks">
+
+	<!-- 판매 내역 전체 조회 -->
+	<select id="getStocksList" resultType="stocksvo">
+		SELECT * FROM stock_in_out_vo order by stock_id
+	</select>
+
+	<select id="getStockOnhandList" resultType="stockonhandvo">
+		select * from stock_onhands_vo
+	</select>
+
+</mapper>

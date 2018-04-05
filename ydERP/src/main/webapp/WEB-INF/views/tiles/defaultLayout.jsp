@@ -209,7 +209,8 @@
     
     <!-- Custom Theme JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.js"></script>
-
+</div>
+</div>
 </body>
 
 </html>

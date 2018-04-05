@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(function () {
     $("#list").jqGrid({ 
-        url: "getPurchasesList",
+        url: "getPurchasesList", 
         datatype: "json",
         mtype: "GET",
         styleUI : "Bootstrap",       

@@ -3,18 +3,10 @@
 <!doctype html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" media="screen"
-	href="./scripts/jquery-ui.min.css" />
-<link rel="stylesheet" type="text/css" media="screen"
-	href="./resources/jqgrid5/ui.jqgrid.css" />
-<link rel="stylesheet" type="text/css" media="screen"
-	href="./resources/bootstrap4/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css"/>
 
-<script src="./scripts/jquery-3.3.1.js"></script>
-<script src="./resources/jqgrid5/grid.locale-kr.js"
-	type="text/javascript"></script>
-<script src="./resources/jqgrid5/jquery.jqGrid.min.js"
-	type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js" type="text/javascript"></script>
 <script>
 	$(function() {
 		$("#saleList").jqGrid({
@@ -33,52 +25,52 @@
 			colModel : [
 				{
 					name : "saleCode",
-					width : 12,
+					width : 120,
 					align : "center"
 				},
 				{
 					name : "customerCode",
-					width : 10,
+					width : 100,
 					align : "center"
 				},
 				{
 					name : "saleDate",
-					width : 10,
+					width : 200,
 					align : "center"
 				},
 				{
 					name : "saleCost",
-					width : 20,
+					width : 100,
 					align : "right"
 				},
 				{
 					name : "deliveryAddr",
-					width : 100,
+					width : 200,
 					align : "left"
 				},
 				{
 					name : "deliveryEmp",
-					width : 10,
+					width : 100,
 					align : "center"
 				},
 				{
 					name : "deliveryStatus",
-					width : 1,
+					width : 50,
 					align : "center"
 				},
 				{
 					name : "payStatus",
-					width : 1,
+					width : 50,
 					align : "center"
 				},
 				{
 					name : "warehouse",
-					width : 1,
+					width : 50,
 					align : "center"
 				},
 				{
 					name : "orderPermit",
-					width : 1,
+					width : 50,
 					align : "center"
 				}
 			],
@@ -89,7 +81,9 @@
 			gridview : true,
 			autoencode : true,
 		});
+		$("#saleList").jqGrid ('setLabel', '판매코드', '', {'text-align':'center'});
 	});
+	
 </script>
 <title>getSaleList.jsp</title>
 </head>

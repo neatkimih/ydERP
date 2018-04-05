@@ -4,14 +4,14 @@ public class SalesVO
 {
 	private String saleCode;			// 판매코드
 	private String saleDate;			// 판매일자
-	private String customerCode;		// 판매처
+	private String customerCode;		// 판매처 코드
 	private Integer saleCost;			// 결제금액
+	
 	private String deliveryAddr;		// 배송지
 	private String deliveryEmp;			// 배송사원
 	private char deliverStatus;			// 배송상태
 	private char payStatus;				// 결제상태
 	private char warehouse;				// 출하창고
-	
 	private char orderPermit;			// 주문허가
 	
 	/* saleCode - GET(), SET() */

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="stock">
+<mapper namespace="items">
 	<resultMap type="items" id="itemsResult">
 		<id property="item_code" column="item_code" />
 		<result property="item_name" column="item_name" />
@@ -17,9 +17,9 @@
 		
 	</resultMap>
 	<!-- <select id="getitemsList" resultMap="itemsResult"> -->
-	<select id="getStockList" resultType="stock">
+	<select id="getItemsList" resultType="items">
 		<![CDATA[
-		select a.* from ( select rownum rn, b.* from (
+		
 		SELECT item_code
 		      ,item_name
 		      ,uom
@@ -33,22 +33,36 @@
 		]]>
 		<where>
 			<if test="searchKeyword != null and searchKeyword != '' ">
-				<if test="searchCondition == 'title' ">
-					AND title like '%' || #{searchKeyword} || '%'
+				<if test="searchCondition == 'item_code' ">
+					AND item_code like '%' || #{searchKeyword} || '%'
+
+
 				</if>
-				<if test="searchCondition == 'content' ">
-					AND content like '%' || #{searchKeyword} || '%'
+				<if test="searchCondition == 'item_name' ">
+					AND item_name like '%' || #{searchKeyword} || '%'
 				</if>
 			</if>
 		</where>
 		ORDER BY item_code DESC
-		) b ) a where rn between #{first} and #{last}
+
+	
 	</select>
 	<!-- -->
-	<select id="getitems" resultType="items" parameterType="items">
+	<select id="getItems" resultType="items" parameterType="items">
 		<![CDATA[
-		SELECT * FROM items WHERE  item_code = #{item_code}
+		SELECT * FROM items 
 		]]>
+		<where>
+			<if test="searchKeyword != null and searchKeyword != '' ">
+				<if test="searchCondition == 'item_code' ">
+					AND item_code like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchCondition == 'item_name' ">
+					AND item_name like '%' || #{searchKeyword} || '%'
+				</if>
+			</if>
+		</where>
+		
 	</select>
 	<!-- -->
 	<select id="getCount" resultType="int" parameterType="items">
@@ -65,7 +79,7 @@
 		</where>
 	</select>
 	<!-- -->
-	<insert id="insertitems" parameterType="items">
+	<insert id="insertItems" parameterType="items">
 		<selectKey keyProperty="item_code" resultType="int" order="BEFORE">
 			select
 			nvl(max(item_code),0) + 1 from items
@@ -84,7 +98,7 @@
 				)
 	</insert>
 	<!-- -->
-	<insert id="insertitems2" parameterType="items" statementType="CALLABLE">
+	<insert id="insertItems2" parameterType="items" statementType="CALLABLE">
 		<![CDATA[
 		{call items_ins_proc(#{item_name}
 							,#{uom}
@@ -99,7 +113,7 @@
 		]]>
 	</insert>
 	<!-- -->
-	<update id="updateitems" parameterType="items">
+	<update id="updateItems" parameterType="items">
 		<![CDATA[
 		UPDATE items
 		SET    item_code   = #{item_code}
@@ -119,14 +133,14 @@
 		]]>
 	</update>
 	<!-- -->
-	<delete id="deleteitems" parameterType="items">
+	<delete id="deleteItems" parameterType="items">
 		<![CDATA[
 		DELETE items
 		WHERE  item_code = #{item_code}
 		]]>
 	</delete>
 	<!-- -->
-	<delete id="deleteitemsList" parameterType="list">
+	<delete id="deleteItemsList" parameterType="list">
 		DELETE items
 		WHERE item_code IN
 		<foreach item="item" collection="list" open="(" separator=","

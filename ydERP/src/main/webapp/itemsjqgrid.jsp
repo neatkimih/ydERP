@@ -11,7 +11,7 @@
 <script src="./scripts/jquery-3.3.1.js"></script>
 <script src="./resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
 <script src="./resources/jqgrid5/jquery.jqGrid.min.js" type="text/javascript"></script>
-<script src="./resources/bootstrap4/bootstrap.min.css"></script>
+
 
 
  
@@ -21,17 +21,17 @@ $(function () {
     	url: "getItemsListGridData",
         datatype: "json",
         
-    	colNames: ["item_code", "품목정보", "UOM", "수량", "공급가","판매가","부가세","사용연한","판매자코드"],
+    	colNames: ["item_code", "품목정보", "UOM", "수량", "공급가","판매가","부가세","사용연한","판매자코드"], 
         colModel: [
-            { name: "item_code", width: 55 },
-            { name: "item_name", width: 90 },
+            { name: "itemCode", width: 55 },
+            { name: "itemName", width: 90 },
              { name: "uom", width: 90 },
-            { name: "in_qty", width: 280, align: "right" },
-            { name: "supply_price", width: 80, align: "right" },
-             { name: "selling_price", width: 80, align: "right" }, 
-            { name: "item_tax", width: 80, align: "right" },
-            { name: "expire_date", width: 80, align: "right" }, 
-            { name: "vendor_code", width: 80, align: "right" },
+            { name: "inQty", width: 280, align: "right" },
+            { name: "supplyPrice", width: 80, align: "right" },
+             { name: "sellingPrice", width: 80, align: "right" }, 
+            { name: "itemTax", width: 80, align: "right" },
+            { name: "expireDate", width: 80, align: "right" }, 
+            { name: "vendorCode", width: 80, align: "right" },
         ],
         pager: "#pager",
         rowNum: 10,

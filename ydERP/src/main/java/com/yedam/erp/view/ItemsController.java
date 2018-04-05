@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.items.ItemsVO;
@@ -27,17 +28,17 @@ public class ItemsController {
 	// 등록폼
 	@RequestMapping("/insertItemsForm")
 	public String insertItemsForm() {
-		return "items/insertItems";
+		return "items/itemsjqgrid";
 	}
 
 	// 등록처리
 	@RequestMapping("/insertItems")
 	public String insertItems(ItemsVO vo) {
 		itemsService.insertItems(vo);
-		return "redirect:/getItemsList";
+		return "items/itemsjqgrid";
 	}
 
-	@RequestMapping("/getItemsList")
+	/*@RequestMapping("/getItemsList")
 	public String getItemsList(Model model, ItemsVO vo) {
 		model.addAttribute("ItemsList", itemsService.getItemsList(vo));
 		return "Items/getItemsList";
@@ -49,14 +50,14 @@ public class ItemsController {
 		model.addAttribute("Items", itemsService.getItems(vo));
 		return "Items/getItems";
 
-	}
+	}*/
 
 	// 수정폼
 	@RequestMapping("/updateItemsForm")
 	public String updateItemsForm(Model model, ItemsVO vo) {
 
 		model.addAttribute("Items", itemsService.getItems(vo));
-		return "Items/updateItems";
+		return "items/itemsjqgrid";
 
 	}
 
@@ -64,16 +65,16 @@ public class ItemsController {
 	@RequestMapping("/updateItems")
 	public String updateItems(ItemsVO vo) {
 		itemsService.updateItems(vo);
-		return "redirect:/getItemsList";
+		return "items/itemsjqgrid";
 
 	}
 
-	// 삭제처리
+
 	// 삭제처리
 	@RequestMapping("/deleteItems")
 	public String deleteItems(ItemsVO vo) {
 		itemsService.deleteItems(vo);
-		return "redirect:/getItemsList";
+		return "items/itemsjqgrid";
 
 	}
 	
@@ -100,7 +101,10 @@ public class ItemsController {
 		return "redirect:getItemsList";
 	}
 
-
+	@RequestMapping("/getItemsList")
+	public String getItems() {
+		return "items/itemsjqgrid";
+	}
 	
 	@RequestMapping("/getItemsListGridData")
 	@ResponseBody
@@ -114,6 +118,20 @@ public class ItemsController {
 		vo.setFirst(1);
 		vo.setLast(30);
 		return itemsService.getItemsList(vo);
+	}
+	
+	@RequestMapping("/getItemsDataEdit")
+	@ResponseBody
+	public void getItemsDataEdit(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, ItemsVO vo) {
+		System.out.println("[editController][edit]");
+		System.out.println(vo);
+		if (oper.equals("add")) {
+			itemsService.insertItems(vo);
+		} else if (oper.equals("edit")) {
+			itemsService.updateItems(vo);
+		} else if (oper.equals("del")) {
+			itemsService.deleteItems(vo);
+		}
 	}
 	
 

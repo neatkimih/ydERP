@@ -25,10 +25,10 @@ $(function () {
         colModel: [
             { name: "itemCode", width: 55 },
             { name: "itemName", width: 90 },
-             { name: "uom", width: 90 },
+            { name: "uom", width: 90 },
             { name: "inQty", width: 280, align: "right" },
             { name: "supplyPrice", width: 80, align: "right" },
-             { name: "sellingPrice", width: 80, align: "right" }, 
+            { name: "sellingPrice", width: 80, align: "right" }, 
             { name: "itemTax", width: 80, align: "right" },
             { name: "expireDate", width: 80, align: "right" }, 
             { name: "vendorCode", width: 80, align: "right" },

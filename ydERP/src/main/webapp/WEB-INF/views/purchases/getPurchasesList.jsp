@@ -118,7 +118,7 @@
 			autoencode : true,
 			caption : "구매상세정보"
 		});			
-		
+		 
 	});
 	
 	

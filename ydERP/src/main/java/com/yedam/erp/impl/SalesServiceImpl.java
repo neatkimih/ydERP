@@ -10,16 +10,37 @@ import com.yedam.erp.sales.SalesVO;
 
 @Service
 public class SalesServiceImpl implements SalesService {
+	
 	@Autowired
 	private SalesMybatisDAO salesDAO;
 
 	@Override
-	public List<SalesVO> getSaleList(SalesVO vo) {
-		return salesDAO.getSaleList(vo);
+	/* 판매 내역 조회 (선택 단건) */
+	public SalesVO getSale(SalesVO salesVO) {
+		return salesDAO.getSale(salesVO);
+	}
+	
+	@Override
+	/* 판매 내역 조회 (전체 리스트) */
+	public List<SalesVO> getSaleList(SalesVO salesVO) {
+		return salesDAO.getSaleList(salesVO);
+	}
+	
+	@Override
+	/* 판매 내역 등록 */
+	public void insertSale(SalesVO salesVO) {
+		salesDAO.insertSale(salesVO);
 	}
 
 	@Override
-	public void insertSale(SalesVO vo) {
-		salesDAO.insertSale(vo);
+	/* 판매 내역 수정 */
+	public void updateSale(SalesVO salesVO) {
+		salesDAO.updateSale(salesVO);
+	}
+
+	@Override
+	/* 판매 내역 삭제 */
+	public void deleteSale(SalesVO salesVO) {
+		salesDAO.deleteSale(salesVO);
 	}
 }

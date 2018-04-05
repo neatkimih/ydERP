@@ -1,10 +1,13 @@
 package com.yedam.erp.view;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.common.Paging;
 import com.yedam.erp.sales.SalesService;
 import com.yedam.erp.sales.SalesVO;
 
@@ -14,13 +17,19 @@ public class SalesController {
 	@Autowired
 	SalesService salesService;
 
-	/* 전체 조회 폼 */
 	@RequestMapping("/getSaleList")
-	public String getSaleList(Model model, SalesVO vo) {
-		model.addAttribute("saleList", salesService.getSaleList(vo));
+	/* 전체 판매 내역 페이지 */
+	public String getSaleListForm() {
 		return "sales/getSaleList";
 	}
-	
+
+	/* 전체 판매 내역 조회 */
+	@RequestMapping("/getSaleList.do")
+	@ResponseBody
+	public List<SalesVO> getSaleList(SalesVO salesVO, Paging page) {
+		return salesService.getSaleList(salesVO);
+	}
+
 	/* 등록 폼 */
 	@RequestMapping("/insertSaleForm")
 	public String insertSaleForm() {
@@ -33,7 +42,7 @@ public class SalesController {
 		salesService.insertSale(vo);
 		return "redirect:/getSaleList";
 	}
-	
+
 	/* 수정 처리 */
 
 }

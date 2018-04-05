@@ -16,11 +16,15 @@ $(function () {
         mtype: "GET",
         styleUI : "Bootstrap",
         colModel: [
-            {label:"번호",  name: "seq", width: 55 },
-            {label:"작성자", name: "writer", width: 90 },
-            {label:"제목", name: "title", width: 280, align: "right" },
-            {label:"조회수", name: "cnt", width: 80, align: "right" },
-            {label:"작성일자", name: "regDate", width: 80, align: "right" }
+            {label:"구매코드",  name: "purchaseCode", width: 55 },
+            {label:"구매일자", name: "purchaseDate", width: 90 },
+            {label:"구매처", name: "vendorCode", width: 280, align: "right" },
+            {label:"품목코드", name: "purchaseItem", width: 80, align: "right" },
+            {label:"구매수량", name: "purchaseQty", width: 80, align: "right" },
+            {label:"구매단가", name: "purchasePrice", width: 80, align: "right" },
+            {label:"부가세", name: "itemTax", width: 80, align: "right" },
+            {label:"결제금액", name: "purchaseCost", width: 80, align: "right" }  
+                                   
         ],
         pager: "#pager",
         rowNum: 10,

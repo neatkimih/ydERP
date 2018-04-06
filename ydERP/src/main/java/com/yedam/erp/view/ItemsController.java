@@ -28,57 +28,39 @@ public class ItemsController {
 	// 등록폼
 	@RequestMapping("/insertItemsForm")
 	public String insertItemsForm() {
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 	}
 
 	// 등록처리
 	@RequestMapping("/insertItems")
 	public String insertItems(ItemsVO vo) {
 		itemsService.insertItems(vo);
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 	}
-
-	/*@RequestMapping("/getItemsList")
-	public String getItemsList(Model model, ItemsVO vo) {
-		model.addAttribute("ItemsList", itemsService.getItemsList(vo));
-		return "Items/getItemsList";
-	}
-
-	// 상세보기
-	@RequestMapping("/getItems")
-	public String getItems(Model model, ItemsVO vo) {
-		model.addAttribute("Items", itemsService.getItems(vo));
-		return "Items/getItems";
-
-	}*/
 
 	// 수정폼
 	@RequestMapping("/updateItemsForm")
 	public String updateItemsForm(Model model, ItemsVO vo) {
 
 		model.addAttribute("Items", itemsService.getItems(vo));
-		return "items/itemsjqgrid";
-
+		return "items/getitemsList";
 	}
 
 	// 수정처리
 	@RequestMapping("/updateItems")
 	public String updateItems(ItemsVO vo) {
 		itemsService.updateItems(vo);
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 
 	}
-
 
 	// 삭제처리
 	@RequestMapping("/deleteItems")
 	public String deleteItems(ItemsVO vo) {
 		itemsService.deleteItems(vo);
-		return "items/itemsjqgrid";
-
+		return "items/getitemsList";
 	}
 	
-
 	// 중복체크
 	@RequestMapping("/dupCheck")
 	@ResponseBody
@@ -98,23 +80,17 @@ public class ItemsController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:getItemsList";
+		return "views/home";
 	}
 
 	@RequestMapping("/getItemsList")
 	public String getItems() {
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 	}
 	
 	@RequestMapping("/getItemsListGridData")
 	@ResponseBody
-	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo, Paging paging) {
-/*		paging.setPageUnit(5);
-		paging.setTotalRecord(ItemsService.getCount(vo));
-		
-		model.addAttribute("ItemsList", ItemsService.getItemsList(vo));
-		model.addAttribute("paging", paging);
-		return "Items/getItemsList";*/
+	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo) {
 		vo.setFirst(1);
 		vo.setLast(30);
 		return itemsService.getItemsList(vo);

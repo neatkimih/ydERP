@@ -16,7 +16,10 @@
 		FROM SALE_DETAILS 
 		]]>
 		<where>
-		SALE_CODE = 
+		SALE_CODE = (	SELECT SALE_CODE 
+						FROM SALES
+						WHERE 
+					)
 		
 		</where>
 	</select>	

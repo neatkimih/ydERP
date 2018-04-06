@@ -55,22 +55,22 @@
 				},
 				{
 					name : "deliveryStatus",
-					width : 50,
+					width : 100,
 					align : "center"
 				},
 				{
 					name : "payStatus",
-					width : 50,
+					width : 100,
 					align : "center"
 				},
 				{
 					name : "warehouse",
-					width : 50,
+					width : 100,
 					align : "center"
 				},
 				{
 					name : "orderPermit",
-					width : 50,
+					width : 100,
 					align : "center"
 				}
 			],
@@ -80,6 +80,7 @@
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
+			search: true
 		});
 		$("#saleList").jqGrid ('setLabel', '판매코드', '', {'text-align':'center'});
 	});

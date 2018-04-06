@@ -25,6 +25,7 @@
 			mtype : "GET",
 			styleUI : "Bootstrap",
 			autowidth:true,
+			
 			colModel : [
 				{
 					label : "구매코드",
@@ -57,9 +58,11 @@
 			sortname : "invid",
 			sortorder : "desc",
 			viewrecords : true,
+			navGrid : { view:true, del:false},
 			gridview : true,
-			autoencode : true,			
-			caption : "구매정보"
+			autoencode : true,				
+			caption : "구매정보"			
+	
 		});
 	
 		

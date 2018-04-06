@@ -7,7 +7,7 @@
 	<select id="getSaleList" resultType="sales">
 		SELECT *
 		FROM SALES 
-	</select>
+	</select> 
 
 	<!-- 판매 내역 상세 조회 -->
 	<select id="getSaleDetail" resultType="saleDetails">
@@ -22,9 +22,7 @@
 					)
 		
 		</where>
-	
-	</select>
-	
+	</select>	
 
 	<!-- 판매 내역 등록 : 판매 정보 -->
 	<insert id="insertSaleMaster" parameterType="sales">

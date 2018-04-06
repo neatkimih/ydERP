@@ -72,7 +72,8 @@
 			select nvl(max(item_code),0) + 1 from items
 		</selectKey>
 		INSERT INTO items
-		(item_name
+		(item_code
+		,item_name
 		,uom
 		,in_qty
 		,supply_price
@@ -83,7 +84,7 @@
 
 		)
 		values
-		(#{itemName},#{uom},#{inQty},#{supply_price},
+		(#{itemCode},#{itemName},#{uom},#{inQty},#{supply_price},
 		#{selling_price},#{item_tax},#{expire_date},#{vendor_code})
 	</insert>
 	<!-- -->

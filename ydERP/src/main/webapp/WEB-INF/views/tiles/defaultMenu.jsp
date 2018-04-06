@@ -64,7 +64,7 @@ footer
                                     <a href="getStockOnhandList">재고조회</a>
                                 </li>
                                 <li>
-                                    <a href="getStocksList">입/출고조회</a>
+                                    <a href="getStockInOutList">입/출고조회</a>
                                 </li>                               
                             </ul>
                             <!-- /.nav-second-level -->

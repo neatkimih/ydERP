@@ -88,7 +88,7 @@ public class ItemsController {
 		return "items/getitemsList";
 	}
 	
-	@RequestMapping("/getItemsListGridData")
+	@RequestMapping("/getItemsList.do")
 	@ResponseBody
 	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo) {
 		vo.setFirst(1);

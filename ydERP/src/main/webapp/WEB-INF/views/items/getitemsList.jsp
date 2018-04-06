@@ -15,54 +15,8 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 
-	<div>
-		<table id="employeejqGrid"></table>
-		<div id="employeejqGridPager"></div>
-	</div>
 
-	<div id="additemTemplate">
-		<form>
-			<div class="form-group">
-				<label for="itemCode">품목코드</label> <input type="text"
-					class="form-control" id="itemCode" name="itemCode">
-			</div>
-			<div class="form-group">
-				<label for="itemName">품목정보</label> <input type="text"
-					class="form-control" id="itemName" name="itemName">
-			</div>
-			<div class="form-group">
-				<label for="uom">UOM</label> <input type="text" class="form-control"
-					id="uom" name="uom">
-			</div>
-			<div class="form-group">
-				<label for="inQty">수량</label> <input type="text"
-					class="form-control" id="inQty" name="inQty">
-			</div>
-			<div class="form-group">
-				<label for="supplyPrice">공급가</label> <input type="text"
-					class="form-control" id="supplyPrice" name="supplyPrice">
-			</div>
-			<div class="form-group">
-				<label for="sellingPrice">판매가</label> <input type="text"
-					class="form-control" id="sellingPrice" name="sellingPrice">
-			</div>
-			<div class="form-group">
-				<label for="itemTax">부가세</label> <input type="text"
-					class="form-control" id="itemTax" name="itemTax">
-			</div>
-			<div class="form-group">
-				<label for="expireDate">사용연한</label> <input type="text"
-					class="form-control" id="expireDate" name="expireDate">
-			</div>
-			<div class="form-group">
-				<label for="vendorCode">판매자코드</label> <input type="text"
-					class="form-control" id="vendorCode" name="vendorCode">
-			</div>
-			<div class="form-group">
-				<div align="right">{sData}{cData}</div>
-			</div>
-		</form>
-	</div>
+	
 	<script type="text/javascript">
 		$(function() {
 			$("#additemTemplate").hide();
@@ -136,20 +90,52 @@
 				gridview : true,
 				autoencode : true,
 				loadonce : true,
+				//onSelectRow : editRow,
+				rowNum : 10,
+				height : 'auto',
+				autowidth : true,
+				responsive : true,
+				multiselect : true,
+				pager : "#pager"
 			});
-			$('#list').inlineNav('#pager',
-
-			{
-				edit : true,
-				add : true,
+			$('#list').jqGrid('filterToolbar', {
+				stringResult : true,
+				searchOperators : true
+			});
+			$('#list').jqGrid('navGrid', "#pager", {
+				search : false, // show search button on the toolbar
+				edit : false,
+				add : false,
 				del : true,
 				cancel : true,
+				refresh : true,
+				
+			}, {}, {
+				closeAfterAdd : true,
+				reloadAfterSubmit : true,
+				template : $("#additemTemplate").html(),
+				afterComplete : function() {
+					$("#list").setGridParam({
+						datatype : 'json',
+						page : 1
+					}).trigger('reloadGrid');
+				}
+			}, {serializeDelData: function(postdata){
+				return "oper=del&itemCode="+postdata.id
+			}}
+			
+			
+			);
+			$('#list').inlineNav('#pager',
+             
+			{
+				edit : true,
+				cancel : true,
+				refresh : true,
 				editParams : {
 					keys : true,
 				},
-				addParams : {
-					keys : true
-				}
+				
 
 			});
 
@@ -168,6 +154,47 @@
 </table>
 <div id="pager"></div>
 <br>
+<div id="additemTemplate">
+		<form>
+			<div class="form-group">
+				<label for="itemCode">품목코드</label> <input type="text"
+					class="form-control" id="itemCode" name="itemCode">
+			</div>
+			<div class="form-group">
+				<label for="itemName">품목정보</label> <input type="text"
+					class="form-control" id="itemName" name="itemName">
+			</div>
+			<div class="form-group">
+				<label for="uom">UOM</label> <input type="text" class="form-control"
+					id="uom" name="uom">
+			</div>
+			<div class="form-group">
+				<label for="inQty">수량</label> <input type="text"
+					class="form-control" id="inQty" name="inQty">
+			</div>
+			<div class="form-group">
+				<label for="supplyPrice">공급가</label> <input type="text"
+					class="form-control" id="supplyPrice" name="supplyPrice">
+			</div>
+			<div class="form-group">
+				<label for="sellingPrice">판매가</label> <input type="text"
+					class="form-control" id="sellingPrice" name="sellingPrice">
+			</div>
+			<div class="form-group">
+				<label for="itemTax">부가세</label> <input type="text"
+					class="form-control" id="itemTax" name="itemTax">
+			</div>
+			<div class="form-group">
+				<label for="expireDate">사용연한</label> <input type="text"
+					class="form-control" id="expireDate" name="expireDate">
+			</div>
+			<div class="form-group">
+				<label for="vendorCode">판매자코드</label> <input type="text"
+					class="form-control" id="vendorCode" name="vendorCode">
+			</div>
+		
+		</form>
+	</div>
 
 </body>
 </html>

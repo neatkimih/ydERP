@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.items.ItemsVO;
-
-import com.yedam.erp.common.Paging;
 import com.yedam.erp.items.ItemsService;
 
 
@@ -98,7 +96,8 @@ public class ItemsController {
 	
 	@RequestMapping("/getItemsDataEdit")
 	@ResponseBody
-	public void getItemsDataEdit(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, ItemsVO vo) {
+	public void getItemsDataEdit(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, ItemsVO vo,
+			@RequestParam(value = "itemCode", defaultValue = "", required = false) String itemCode) {
 		System.out.println("[editController][edit]");
 		System.out.println(vo);
 		if (oper.equals("add")) {
@@ -107,6 +106,13 @@ public class ItemsController {
 			itemsService.updateItems(vo);
 		} else if (oper.equals("del")) {
 			itemsService.deleteItems(vo);
+			System.out.println(itemCode);
+			if (itemCode.length() > 0) {
+				for (String i : itemCode.split(",")) {
+					vo.setItemCode(i);
+					itemsService.deleteItems(vo);
+				}
+			}
 		}
 	}
 	

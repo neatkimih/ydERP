@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.purchases.PurchaseDetailService;
+import com.yedam.erp.purchases.PurchaseDetailVO;
 import com.yedam.erp.purchases.PurchasesService;
 import com.yedam.erp.purchases.PurchasesVO;
 
@@ -18,6 +20,9 @@ public class PurchasesController
 	//서비스 injection
 	@Autowired
 	PurchasesService purchasesService;
+	
+	@Autowired
+	PurchaseDetailService purchaseDetailService;
 	
 	@RequestMapping("/getPurchasesPage")
 	public String getPurchasesList(Model model, PurchasesVO vo) {
@@ -46,12 +51,20 @@ public class PurchasesController
 		purchasesService.deletePurchases(vo);
 		return purchasesService.getPurchases(vo);
 	}
-	
+		
 	//목록
 	@RequestMapping("getPurchasesList") 
 	@ResponseBody
 	public List<PurchasesVO> getPurchasesList(PurchasesVO vo) {			
 		
-		return purchasesService.getPurchasesList(vo);											
+	return purchasesService.getPurchasesList(vo);											
 	}
+	
+	//상세목록
+		@RequestMapping("getPurchaseDetailList") 
+		@ResponseBody
+		public List<PurchaseDetailVO> getPurchaseDetailList(PurchasesVO vo) {			
+			
+		return purchaseDetailService.getPurchaseDetailList(vo);											
+		}	
 }

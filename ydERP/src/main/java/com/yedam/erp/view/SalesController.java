@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.common.Paging;
+import com.yedam.erp.sales.SaleDetailsService;
+import com.yedam.erp.sales.SaleDetailsVO;
 import com.yedam.erp.sales.SalesService;
 import com.yedam.erp.sales.SalesVO;
 
@@ -16,6 +18,9 @@ public class SalesController {
 
 	@Autowired
 	SalesService salesService;
+	
+	@Autowired
+	SaleDetailsService saleDetailsService;
 
 	/* 전체 판매 내역 페이지 */
 	@RequestMapping("/getSaleList")
@@ -28,6 +33,13 @@ public class SalesController {
 	@ResponseBody
 	public List<SalesVO> getSaleList(SalesVO salesVO, Paging page) {
 		return salesService.getSaleList(salesVO);
+	}
+	
+	/* 상세 판매 내역 조회 */
+	@RequestMapping("/getSaleDetail.do")
+	@ResponseBody
+	public List<SaleDetailsVO> getSaleDetail(SaleDetailsVO saleDetailsVO, Paging page) {
+		return saleDetailsService.getSaleDetail(saleDetailsVO);
 	}
 
 	/* 등록 폼 */

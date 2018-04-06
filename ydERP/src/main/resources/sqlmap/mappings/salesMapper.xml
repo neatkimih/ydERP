@@ -6,8 +6,20 @@
 	<!-- 판매 내역 전체 조회 -->
 	<select id="getSaleList" resultType="sales">
 		SELECT *
-		FROM employee
-	</select>
+		FROM SALES 
+	</select> 
+
+	<!-- 판매 내역 상세 조회 -->
+	<select id="getSaleDetail" resultType="saleDetails">
+		<![CDATA[
+		SELECT * 
+		FROM SALE_DETAILS 
+		]]>
+		<where>
+		SALE_CODE = 
+		
+		</where>
+	</select>	
 
 	<!-- 판매 내역 등록 : 판매 정보 -->
 	<insert id="insertSaleMaster" parameterType="sales">
@@ -37,7 +49,8 @@
 			, #{payStatus}
 			, #{warehouse}
 			, #{orderPermit}
-		)		
+		)
+			
 	</insert>
 
 	<!-- 판매 내역 등록 : 판매 상세 정보 -->

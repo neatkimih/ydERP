@@ -20,12 +20,13 @@
 	min-height:37px; 
 	padding: 4px 8px; 
 	position: relative; 
-	margin-right: 2px;
+	margin-right: 2px;	
 	border-bottom: 1px solid #ddd; /*default*/
 
 }
 .ui-jqgrid .ui-jqgrid-caption {
 	text-align: left;
+	
 }
 .ui-jqgrid .ui-jqgrid-title { 
 	padding-top: 5px; 

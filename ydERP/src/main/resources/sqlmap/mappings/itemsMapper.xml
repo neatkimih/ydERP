@@ -57,11 +57,11 @@
 		SELECT Count(*) FROM items
 		<where>
 			<if test="searchKeyword != null and searchKeyword != '' ">
-				<if test="searchCondition == 'title' ">
-					AND title like '%' || #{searchKeyword} || '%'
+				<if test="searchCondition == 'item_code' ">
+					AND item_code like '%' || #{searchKeyword} || '%'
 				</if>
-				<if test="searchCondition == 'content' ">
-					AND content like '%' || #{searchKeyword} || '%'
+				<if test="searchCondition == 'item_name' ">
+					AND item_name like '%' || #{searchKeyword} || '%'
 				</if>
 			</if>
 		</where>
@@ -69,12 +69,10 @@
 	<!-- -->
 	<insert id="insertItems" parameterType="items">
 		<selectKey keyProperty="item_code" resultType="int" order="BEFORE">
-			select
-			nvl(max(item_code),0) + 1 from items
+			select nvl(max(item_code),0) + 1 from items
 		</selectKey>
 		INSERT INTO items
-		(item_code
-		,item_name
+		(item_name
 		,uom
 		,in_qty
 		,supply_price
@@ -85,7 +83,7 @@
 
 		)
 		values
-		(#{itemCode},#{itemName},#{uom},#{inQty},#{supply_price},
+		(#{itemName},#{uom},#{inQty},#{supply_price},
 		#{selling_price},#{item_tax},#{expire_date},#{vendor_code})
 	</insert>
 	<!-- -->
@@ -107,8 +105,7 @@
 	<update id="updateItems" parameterType="items">
 		<![CDATA[
 		UPDATE items
-		SET    item_code   = #{itemCode}
-		      ,item_name = #{itemName}
+		SET   item_name = #{itemName}
 		      ,uom  = #{uom}
 		      ,in_qty = #{inQty}
 		      ,supply_price  = #{supplyPrice}

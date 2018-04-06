@@ -38,27 +38,12 @@ public class ItemsController {
 		return "items/itemsjqgrid";
 	}
 
-	/*@RequestMapping("/getItemsList")
-	public String getItemsList(Model model, ItemsVO vo) {
-		model.addAttribute("ItemsList", itemsService.getItemsList(vo));
-		return "Items/getItemsList";
-	}
-
-	// 상세보기
-	@RequestMapping("/getItems")
-	public String getItems(Model model, ItemsVO vo) {
-		model.addAttribute("Items", itemsService.getItems(vo));
-		return "Items/getItems";
-
-	}*/
-
 	// 수정폼
 	@RequestMapping("/updateItemsForm")
 	public String updateItemsForm(Model model, ItemsVO vo) {
 
 		model.addAttribute("Items", itemsService.getItems(vo));
 		return "items/itemsjqgrid";
-
 	}
 
 	// 수정처리
@@ -69,16 +54,13 @@ public class ItemsController {
 
 	}
 
-
 	// 삭제처리
 	@RequestMapping("/deleteItems")
 	public String deleteItems(ItemsVO vo) {
 		itemsService.deleteItems(vo);
 		return "items/itemsjqgrid";
-
 	}
 	
-
 	// 중복체크
 	@RequestMapping("/dupCheck")
 	@ResponseBody
@@ -98,7 +80,7 @@ public class ItemsController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:getItemsList";
+		return "views/home";
 	}
 
 	@RequestMapping("/getItemsList")
@@ -108,13 +90,7 @@ public class ItemsController {
 	
 	@RequestMapping("/getItemsListGridData")
 	@ResponseBody
-	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo, Paging paging) {
-/*		paging.setPageUnit(5);
-		paging.setTotalRecord(ItemsService.getCount(vo));
-		
-		model.addAttribute("ItemsList", ItemsService.getItemsList(vo));
-		model.addAttribute("paging", paging);
-		return "Items/getItemsList";*/
+	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo) {
 		vo.setFirst(1);
 		vo.setLast(30);
 		return itemsService.getItemsList(vo);

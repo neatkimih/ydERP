@@ -83,7 +83,7 @@
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> 기초정보관리<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">품목정보</a>
+                                    <a href="getItemsList">품목정보</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">구매처정보</a>

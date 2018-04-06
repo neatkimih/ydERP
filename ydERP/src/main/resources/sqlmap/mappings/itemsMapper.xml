@@ -68,9 +68,6 @@
 	</select>
 	<!-- -->
 	<insert id="insertItems" parameterType="items">
-		<selectKey keyProperty="item_code" resultType="int" order="BEFORE">
-			select nvl(max(item_code),0) + 1 from items
-		</selectKey>
 		INSERT INTO items
 		(item_code
 		,item_name
@@ -84,8 +81,8 @@
 
 		)
 		values
-		(#{itemCode},#{itemName},#{uom},#{inQty},#{supply_price},
-		#{selling_price},#{item_tax},#{expire_date},#{vendor_code})
+		(#{itemCode},#{itemName},#{uom},#{inQty},#{supplyPrice},
+		#{sellingPrice},#{itemTax},#{expireDate},#{vendorCode})
 	</insert>
 	<!-- -->
 	<insert id="insertItems2" parameterType="items" statementType="CALLABLE">

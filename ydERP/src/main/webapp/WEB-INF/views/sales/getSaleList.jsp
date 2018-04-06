@@ -3,10 +3,14 @@
 <!doctype html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css"/>
-
-<script src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
+<script
+	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
+	type="text/javascript"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
+	type="text/javascript"></script>
 <script>
 	$(function() {
 		$("#saleList").jqGrid({
@@ -80,15 +84,25 @@
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
-			search: true
+			autowidth: true,
+			search : true,
+			onSelectRow : selectRow
 		});
-		$("#saleList").jqGrid ('setLabel', '판매코드', '', {'text-align':'center'});
+		$("#saleList").jqGrid('setLabel', '판매코드', '', {
+			'text-align' : 'center'
+		});
 	});
+
+	function selectRow() {
+		var selectedSaleCode = $("#saleList").getCell(1, 'saleCode');
+		
+	}
 	
 </script>
 <title>getSaleList.jsp</title>
 </head>
 <body>
+	<input type="hidden" id="selectedSaleCode" value="${selectedSaleCode}"/>
 	<table id="saleList">
 		<tr>
 			<td></td>

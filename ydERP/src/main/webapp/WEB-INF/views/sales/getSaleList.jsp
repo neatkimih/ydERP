@@ -43,12 +43,13 @@
 					autoheight: true,
 					autowidth : true,
 					rowNum : 10,
-					pager : "#pagerSaleList",
-					sortname : "판매코드",
 					viewrecords : true,
 					gridview : true,
 					autoencode : true,
 					search : true,
+					sortname : "saleCode",
+					caption : "판매 내역 정보",
+					pager : "#pagerSaleList",					
 					onSelectRow : function(id){
 						var selectedSaleCode = $(this).jqGrid('getCell', id, 'saleCode');
 						console.log("선택된 판매코드 : " + selectedSaleCode);
@@ -57,44 +58,35 @@
 					}
 				});
 				
+			/* Sale Details : 디테일 그리드 */
 				$("#saleDetail").jqGrid({
-					url : "getSaleList.do",
+					url : "getSaleDetail.do",
 					datatype : "json",
 					styleUI : "Bootstrap",
 					colNames : [ "판매코드"
-						, "판매처 코드"
-						, "판매일자"
-						, "결제금액"
-						, "배송지"
-						, "배송사원 번호"
-						, "배송상태"
-						, "결제상태"
-						, "출하창고"
-						, "승인상태" ],
+						, "판매상세코드"
+						, "판매코드"
+						, "판매품목코드"
+						, "판매품목명"
+						, "판매가"
+						, "부가세"
+						, "판매수량"
+						, "사용연한"
+						, "생산처 코드" ],
 					colModel : [
 						{	name : "saleCode",		width : 120,	align : "center"	},
-						{	name : "customerCode",	width : 100,	align : "center"	},
-						{	name : "saleDate",		width : 200,	align : "center"	},
-						{	name : "saleCost",		width : 100,	align : "right"		},
-						{	name : "deliveryAddr",	width : 200,	align : "left"		},
-						{	name : "deliveryEmp",	width : 100,	align : "center"	},
-						{	name : "deliveryStatus",width : 100,	align : "center"	},
-						{
-							name : "payStatus",
-							width : 100,
-							align : "center"
-						},
-						{
-							name : "warehouse",
-							width : 100,
-							align : "center"
-						},
-						{	name : "orderPermit",	width : 100,	align : "center"
-						}
+						{	name : "saleDetailCode",width : 100,	align : "center"	},
+						{	name : "saleItemCode",	width : 200,	align : "center"	},
+						{	name : "saleItemName",	width : 100,	align : "right"		},
+						{	name : "salePrice",		width : 200,	align : "left"		},
+						{	name : "itemTax",		width : 100,	align : "center"	},
+						{	name : "saleQty",		width : 100,	align : "center"	},
+						{	name : "expireDate",	width : 100,	align : "center"	},
+						{	name : "vendorCode",	width : 100,	align : "center"	},
 					],
-					pager : "#pagerSaleList",
+					pager : "#pagerSaleDetail",
 					rowNum : 10,
-					sortname : "판매코드",
+					sortname : "saleDetailCode",
 					viewrecords : true,
 					gridview : true,
 					autoencode : true,

@@ -41,6 +41,7 @@
 
 </head>
 <body>
+
 	<div id="wrapper">
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -64,10 +65,13 @@
 			</div>
 			<tiles:insertAttribute name="content" />
 			<!-- Metis Menu Plugin JavaScript -->
-			<script src="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.js"></script>
+			<script
+				src="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.js"></script>
 			<!-- Custom Theme JavaScript -->
-			<script src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.js"></script>
+			<script
+				src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.js"></script>
 		</div>
 	</div>
+
 </body>
 </html>

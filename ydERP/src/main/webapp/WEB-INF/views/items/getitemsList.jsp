@@ -14,9 +14,7 @@
 <script
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
-</head>
 
-<body>
 	<div>
 		<table id="employeejqGrid"></table>
 		<div id="employeejqGridPager"></div>
@@ -70,12 +68,12 @@
 			$("#additemTemplate").hide();
 
 			$("#list").jqGrid({
-				url : "getItemsListGridData",
+				url : "getItemsList.do",
 				editurl : "getItemsDataEdit",
 				datatype : "json",
-
+				styleUI : 'Bootstrap',
 				colModel : [ {
-					label : "품목코드",
+					label : "품목코드", 
 					name : "itemCode",
 					key : true,
 					width : 90,
@@ -143,7 +141,7 @@
 
 			{
 				edit : true,
-				add : false,
+				add : true,
 				del : true,
 				cancel : true,
 				editParams : {
@@ -158,9 +156,11 @@
 		});
 	</script>
 
-</body>
 
 
+</head>
+
+<body>
 <table id="list">
 	<tr>
 		<td></td>
@@ -169,5 +169,5 @@
 <div id="pager"></div>
 <br>
 
-
+</body>
 </html>

@@ -5,45 +5,10 @@
 <html>
 <head>
 <title>Insert title here</title>
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="stylesheet" type="text/css" media="screen"
-	href="./scripts/jquery-ui.min.css" />
-<link rel="stylesheet" type="text/css" media="screen"
-	href="./resources/jqgrid5/ui.jqgrid.css" />
-<link rel="stylesheet" type="text/css" media="screen"
-	href="./resources/bootstrap4/bootstrap.min.css" />
-<link
-	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/dist/css/sb-admin-2.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/vendor/morrisjs/morris.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="${pageContext.request.contextPath}/resources/jquery/jquery-ui.min.css"
-	rel="stylesheet">
-<script
-	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css"/>
 
-<script src="./scripts/jquery-3.3.1.js"></script>
-<script src="./resources/jqgrid5/grid.locale-kr.js"
-	type="text/javascript"></script>
-<script src="./resources/jqgrid5/jquery.jqGrid.min.js"
-	type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js" type="text/javascript"></script>
 
 
 </head>

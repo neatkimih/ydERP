@@ -56,16 +56,41 @@
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
 			sortname : "invid",
-			sortorder : "desc",
+			sortorder : "desc", 
 			viewrecords : true,
 			navGrid : { view:true, del:false},
 			gridview : true,
 			autoencode : true,				
 			caption : "구매정보"			
-	
+				
+		}) .navGrid("#pager", {		
+		/* options */
+			add:true,edit:true,view:true,del:true,search:true,refresh:true
+   			//add:false,edit:false,view:false,del:false,search:false,refresh:false
+		 } 													
+		,{/* Edit options */
+			closeAfterAdd: true, 
+			reloadAfterSubmit: false,
+			closeOnEscape:true
+		 } 		
+		,{/* Add options */
+			closeAfterAdd: true, 
+			reloadAfterSubmit: false,
+			closeOnEscape:true
+		}
+		,{/* Delete options */
+			reloadAfterSubmit: false,
+			closeOnEscape:true
+		} 							
+		,{/* Search options */
+			closeOnEscape:true,
+			onSearch:function(){									
+			}//onSearch:function(){
+		}//Search Option
+		,{/* view parameters*/
+			closeOnEscape:true 	
 		});
 	
-		
 		
 		$("#list1").jqGrid({
 			url : "getPurchasesList",
@@ -110,7 +135,7 @@
 					align : "right"
 				}			
 			
-			],
+			], 
 			pager : "#pager1",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
@@ -120,11 +145,34 @@
 			gridview : true,
 			autoencode : true,
 			caption : "구매상세정보"
-		});			
-		 
+		}) .navGrid("#pager1", {		
+		/* options */
+			add:true,edit:true,view:true,del:true,search:true,refresh:true
+   			//add:false,edit:false,view:false,del:false,search:false,refresh:false
+		 } 													
+		,{/* Edit options */
+			closeAfterAdd: true, 
+			reloadAfterSubmit: false,
+			closeOnEscape:true
+		 } 		
+		,{/* Add options */
+			closeAfterAdd: true, 
+			reloadAfterSubmit: false,
+			closeOnEscape:true
+		}
+		,{/* Delete options */
+			reloadAfterSubmit: false,
+			closeOnEscape:true
+		} 							
+		,{/* Search options */
+			closeOnEscape:true,
+			onSearch:function(){									
+			}//onSearch:function(){
+		}//Search Option
+		,{/* view parameters*/
+			closeOnEscape:true  			
+		});
 	});
-	
-	
 </script>
 
 </head>

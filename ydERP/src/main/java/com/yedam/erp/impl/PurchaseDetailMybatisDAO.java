@@ -16,7 +16,7 @@ public class PurchaseDetailMybatisDAO {
 	SqlSessionTemplate sqlSession;
 	
 	public List<PurchaseDetailVO> getPurchaseDetailList(PurchasesVO vo) {
-		return sqlSession.selectList("", vo);
+		return sqlSession.selectList("purchases.getPurchaseDetailList", vo);
 	}
 
 }

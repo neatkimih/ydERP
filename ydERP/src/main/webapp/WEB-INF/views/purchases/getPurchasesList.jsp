@@ -23,9 +23,8 @@
 			url : "getPurchasesList",
 			datatype : "json",
 			mtype : "GET",
-			styleUI : "Bootstrap",
-			autowidth:true,
-			
+			styleUI : "Bootstrap",			
+			autowidth:true,			
 			colModel : [
 				{
 					label : "구매코드",
@@ -60,40 +59,22 @@
 			viewrecords : true,
 			navGrid : { view:true, del:false},
 			gridview : true,
-			autoencode : true,				
+			autoencode : true,
+			onSelectRow: function(rowid, selected) {
+				if(rowid != null) {
+					jQuery("#list1").jqGrid('setGridParam',{url:"getPurchaseDetailList",datatype: 'json'}); // the last setting is for demo only
+					jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");
+					jQuery("#list1").trigger("reloadGrid");
+				}					
+			}, // use the onSelectRow that is triggered on row click to show a details grid
+			onSortCol : clearSelection,
+			onPaging : clearSelection,
 			caption : "구매정보"			
-				
-		}) .navGrid("#pager", {		
-		/* options */
-			add:true,edit:true,view:true,del:true,search:true,refresh:true
-   			//add:false,edit:false,view:false,del:false,search:false,refresh:false
-		 } 													
-		,{/* Edit options */
-			closeAfterAdd: true, 
-			reloadAfterSubmit: false,
-			closeOnEscape:true
-		 } 		
-		,{/* Add options */
-			closeAfterAdd: true, 
-			reloadAfterSubmit: false,
-			closeOnEscape:true
-		}
-		,{/* Delete options */
-			reloadAfterSubmit: false,
-			closeOnEscape:true
-		} 							
-		,{/* Search options */
-			closeOnEscape:true,
-			onSearch:function(){									
-			}//onSearch:function(){
-		}//Search Option
-		,{/* view parameters*/
-			closeOnEscape:true 	
 		});
-	
+		
 		
 		$("#list1").jqGrid({
-			url : "getPurchasesList",
+			url : "getPurchaseDetailList",
 			datatype : "json",
 			mtype : "GET",
 			styleUI : "Bootstrap",
@@ -133,17 +114,24 @@
 					name : "itemTax",
 					width : 80,
 					align : "right"
+				},			
+				
+				{
+					label : "배송상태",
+					name : "itemTax",
+					width : 80,
+					align : "right"
 				}			
-			
+				
 			], 
-			pager : "#pager1",
+			pager : "#pager1",		
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
 			sortname : "invid",
 			sortorder : "desc",
 			viewrecords : true,
 			gridview : true,
-			autoencode : true,
+			autoencode : true,			
 			caption : "구매상세정보"
 		}) .navGrid("#pager1", {		
 		/* options */
@@ -172,7 +160,14 @@
 		,{/* view parameters*/
 			closeOnEscape:true  			
 		});
+		function clearSelection() {
+			jQuery("#list1").jqGrid('setGridParam',{url: "empty.getPurchaseDetailList", datatype: 'json'}); // the last setting is for demo purpose only
+			jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");			
+			jQuery("#list1").trigger("reloadGrid");
+			
+		}
 	});
+
 </script>
 
 </head>

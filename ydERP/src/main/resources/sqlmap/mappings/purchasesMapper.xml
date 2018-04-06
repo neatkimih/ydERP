@@ -6,8 +6,13 @@
 	
 	<select id="getPurchasesList" resultType="purchases">
 	<![CDATA[SELECT * FROM PURCHASES]]>	
-		
 	</select>
+	
+	<select id="getPurchaseDetailList" resultType="purchaseDetail">
+	<![CDATA[SELECT * FROM purchase_detail_vo]]>	
+	</select>
+		
+
 	<select id="getPurchases" resultType="purchases" parameterType="purchases">
 	<![CDATA[SELECT * FROM PURCHASES WHERE SEQ=#{seq}]]></select>
 	

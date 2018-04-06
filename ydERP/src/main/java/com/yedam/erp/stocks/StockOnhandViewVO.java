@@ -1,6 +1,6 @@
 package com.yedam.erp.stocks;
 
-public class StockOnhandViewVO extends StockOnhandsVO {
+public class StockOnhandViewVO extends StockOnhandVO {
 	String itemName;
 	String uom;
 	Integer quantities;

@@ -1,7 +1,6 @@
 package com.yedam.erp.stocks;
 
-public class StocksInOutVO extends StocksVO {
-	Integer stockId;
+public class StockInOutViewVO extends StockInOutVO {
 	String itemName;
 	String uom;
 	Integer quantities;
@@ -11,15 +10,7 @@ public class StocksInOutVO extends StocksVO {
 	String expireDate;
 	String vendorCode;
 	Integer minQty;
-	String dealerCode;
-
-	public Integer getStockId() {
-		return stockId;
-	}
-
-	public void setStockId(Integer stockId) {
-		this.stockId = stockId;
-	}
+	String poSoNumber;
 
 	public String getItemName() {
 		return itemName;
@@ -93,20 +84,19 @@ public class StocksInOutVO extends StocksVO {
 		this.minQty = minQty;
 	}
 
-	public String getDealerCode() {
-		return dealerCode;
+	public String getPoSoNumber() {
+		return poSoNumber;
 	}
 
-	public void setDealerCode(String dealerCode) {
-		this.dealerCode = dealerCode;
+	public void setPoSoNumber(String poSoNumber) {
+		this.poSoNumber = poSoNumber;
 	}
 
 	@Override
 	public String toString() {
-		return "StocksInOutVO [stockId=" + stockId + ", itemName=" + itemName + ", uom=" + uom + ", quantities="
-				+ quantities + ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax="
-				+ itemTax + ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", minQty=" + minQty
-				+ ", dealerCode=" + dealerCode + "]";
+		return "StocksInOutVO [itemName=" + itemName + ", uom=" + uom + ", quantities=" + quantities + ", supplyPrice="
+				+ supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax + ", expireDate=" + expireDate
+				+ ", vendorCode=" + vendorCode + ", minQty=" + minQty + ", poSoNumber=" + poSoNumber + "]";
 	}
 
 }

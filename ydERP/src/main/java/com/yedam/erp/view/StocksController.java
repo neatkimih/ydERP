@@ -27,7 +27,7 @@ public class StocksController {
 	@RequestMapping("getStockInOutList")
 	public String getStocksList(Model model, StockInOutVO vo) {
 		model.addAttribute("list", vo);
-		return "stocks/getStocksList";
+		return "stocks/getStockInOutList";
 	}
 
 	@RequestMapping("getStockInOutListData")

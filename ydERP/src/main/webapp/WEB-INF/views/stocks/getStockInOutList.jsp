@@ -18,7 +18,7 @@
 <script type="text/javascript">
 	$(function() {
 		$("#list").jqGrid({
-			url : "getStocksListData",
+			url : "getStockInOutListData",
 			datatype : "json",
 			styleUI : "Bootstrap",
 			height : 380,

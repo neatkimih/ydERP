@@ -15,14 +15,13 @@
 		SELECT * 
 		FROM SALE_DETAILS 
 		]]>
-		<where>
-		SALE_CODE = (	SELECT SALE_CODE 
-						FROM SALES
-						WHERE 
-					)
 		
-		</where>
+		WHERE SALE_CODE = #{saleCode}
+		
 	</select>	
+
+
+
 
 	<!-- 판매 내역 등록 : 판매 정보 -->
 	<insert id="insertSaleMaster" parameterType="sales">

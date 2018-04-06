@@ -8,41 +8,45 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.stocks.StockInOutService;
+import com.yedam.erp.stocks.StockInOutVO;
+import com.yedam.erp.stocks.StockInOutViewVO;
+import com.yedam.erp.stocks.StockOnhandService;
+import com.yedam.erp.stocks.StockOnhandVO;
 import com.yedam.erp.stocks.StockOnhandViewVO;
-import com.yedam.erp.stocks.StockOnhandsVO;
-import com.yedam.erp.stocks.StocksInOutVO;
-import com.yedam.erp.stocks.StocksService;
-import com.yedam.erp.stocks.StocksVO;
 
 @Controller
 public class StocksController {
 
 	@Autowired
-	StocksService stocksService;
+	StockInOutService stockInOutService;
 
-	@RequestMapping("getStocksList")
-	public String getStocksList(Model model, StocksVO vo) {
+	@Autowired
+	StockOnhandService stockOnhandService;
+
+	@RequestMapping("getStockInOutList")
+	public String getStocksList(Model model, StockInOutVO vo) {
 		model.addAttribute("list", vo);
 		return "stocks/getStocksList";
 	}
 
-	@RequestMapping("getStocksListData")
+	@RequestMapping("getStockInOutListData")
 	@ResponseBody
-	public List<StocksInOutVO> getStocksListData(StocksVO vo) {
-		return stocksService.getStocksList(vo);
+	public List<StockInOutViewVO> getStocksListData(StockInOutVO vo) {
+		return stockInOutService.getStockInOutList(vo);
 
 	}
 	
 	@RequestMapping("getStockOnhandList")
-	public String getStockOnhandList(Model model, StockOnhandsVO vo) {
+	public String getStockOnhandList(Model model, StockOnhandVO vo) {
 		model.addAttribute("list", vo);
 		return "stocks/getStockOnhandList";
 	}
 
 	@RequestMapping("getStockOnhandListData")
 	@ResponseBody
-	public List<StockOnhandViewVO> getStockOnhandListData(StockOnhandsVO vo) {
-		return stocksService.getStockOnhandsList(vo);
+	public List<StockOnhandViewVO> getStockOnhandListData(StockOnhandVO vo) {
+		return stockOnhandService.getStockOnhandList(vo);
 
 	}
 	

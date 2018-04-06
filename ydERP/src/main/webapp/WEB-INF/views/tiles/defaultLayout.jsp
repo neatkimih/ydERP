@@ -41,7 +41,7 @@
 
 </head>
 <body>
-<<<<<<< HEAD
+
 
     <div id="wrapper">
 
@@ -206,7 +206,7 @@
     <script src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.js"></script>
 </div>
 </div>
-=======
+
 	<div id="wrapper">
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -235,6 +235,6 @@
 			<script src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.js"></script>
 		</div>
 	</div>
->>>>>>> branch 'master' of https://github.com/neatkimih/ydERP
+
 </body>
 </html>

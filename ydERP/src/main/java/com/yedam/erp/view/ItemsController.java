@@ -28,14 +28,14 @@ public class ItemsController {
 	// 등록폼
 	@RequestMapping("/insertItemsForm")
 	public String insertItemsForm() {
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 	}
 
 	// 등록처리
 	@RequestMapping("/insertItems")
 	public String insertItems(ItemsVO vo) {
 		itemsService.insertItems(vo);
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 	}
 
 	// 수정폼
@@ -43,14 +43,14 @@ public class ItemsController {
 	public String updateItemsForm(Model model, ItemsVO vo) {
 
 		model.addAttribute("Items", itemsService.getItems(vo));
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 	}
 
 	// 수정처리
 	@RequestMapping("/updateItems")
 	public String updateItems(ItemsVO vo) {
 		itemsService.updateItems(vo);
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 
 	}
 
@@ -58,7 +58,7 @@ public class ItemsController {
 	@RequestMapping("/deleteItems")
 	public String deleteItems(ItemsVO vo) {
 		itemsService.deleteItems(vo);
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 	}
 	
 	// 중복체크
@@ -85,7 +85,7 @@ public class ItemsController {
 
 	@RequestMapping("/getItemsList")
 	public String getItems() {
-		return "items/itemsjqgrid";
+		return "items/getitemsList";
 	}
 	
 	@RequestMapping("/getItemsListGridData")

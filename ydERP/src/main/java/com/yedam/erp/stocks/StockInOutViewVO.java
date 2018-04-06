@@ -1,6 +1,6 @@
 package com.yedam.erp.stocks;
 
-public class StockOnhandViewVO extends StockOnhandVO {
+public class StockInOutViewVO extends StockInOutVO {
 	String itemName;
 	String uom;
 	Integer quantities;
@@ -10,6 +10,7 @@ public class StockOnhandViewVO extends StockOnhandVO {
 	String expireDate;
 	String vendorCode;
 	Integer minQty;
+	String poSoNumber;
 
 	public String getItemName() {
 		return itemName;
@@ -83,11 +84,19 @@ public class StockOnhandViewVO extends StockOnhandVO {
 		this.minQty = minQty;
 	}
 
+	public String getPoSoNumber() {
+		return poSoNumber;
+	}
+
+	public void setPoSoNumber(String poSoNumber) {
+		this.poSoNumber = poSoNumber;
+	}
+
 	@Override
 	public String toString() {
-		return "StockOnhandViewVO [itemName=" + itemName + ", uom=" + uom + ", quantities=" + quantities
-				+ ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax
-				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", minQty=" + minQty + "]";
+		return "StocksInOutVO [itemName=" + itemName + ", uom=" + uom + ", quantities=" + quantities + ", supplyPrice="
+				+ supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax + ", expireDate=" + expireDate
+				+ ", vendorCode=" + vendorCode + ", minQty=" + minQty + ", poSoNumber=" + poSoNumber + "]";
 	}
 
 }

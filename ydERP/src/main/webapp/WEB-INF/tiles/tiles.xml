@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<!-- base-definition -->
 	<definition name="mainTemplate" template="/WEB-INF/views/tiles/defaultLayout.jsp">
 		<put-attribute name="title" value="Yedam Oracle" />
-		<put-attribute name="header"
-			value="/WEB-INF/views/tiles/defaultHeader.jsp" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/tiles/defaultFooter.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/defaultHeader.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/defaultFooter.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/tiles/defaultMenu.jsp" />
 	</definition>
 
 	<!-- Home Page -->
@@ -17,6 +17,6 @@
 
 	<definition name="*/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
-	</definition>	
+	</definition>
 
 </tiles-definitions>

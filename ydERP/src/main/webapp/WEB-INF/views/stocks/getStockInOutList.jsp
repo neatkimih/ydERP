@@ -17,71 +17,49 @@
 
 <script type="text/javascript">
 	$(function() {
-		$("#list").jqGrid({
-			url : "getStockInOutListData",
-			datatype : "json",
-			styleUI : "Bootstrap",
-			height : 380,
+		$("#list").jqGrid(
+				{
+					url : "getStockInOutListData",
+					datatype : "json",
+					styleUI : "Bootstrap",
+					height : 380,
+					autoheight : true,
+					autowidth : true,
 
-			colNames : [ "SeqId", "품목코드", "품목명", "판매/구매일자", "판매/구매번호", "입고수량", "출고수량", "처리일자" ],
-			colModel : [
-				{
-					name : "stockId",
-					width : 80 * 2
-				},
-				{
-					name : "itemCode",
-					width : 80 * 2
-				},
-				{
-					name : "itemName",
-					width : 80 * 2
-				},
-				{
-					name : "dealDate",
-					width : 120 * 2
-				},
-				{
-					name : "dealerCode",
-					width : 85 * 2
-				},
-				{
-					name : "inQty",
-					width : 60 * 2,
-					align : "right"
-				},
-				{
-					name : "outQty",
-					width : 60 * 2,
-					align : "right"
-				},
-				{
-					name : "txnDate",
-					width : 120 * 2,
-					align : "right"
-				},
-			],
-			pager : "#pager",
-			rowNum : 10,
-			rowList : [ 10, 20, 30 ],
-			sortname : "stockId",
-			viewrecords : true,
-			gridview : true,
-			autoencode : true,
-			reccount : 15,
-			caption: "입출고 현황조회"
-		});
+					colNames : [ "SeqId", "품목코드", "품목명", "판매/구매일자", "판매/구매번호", "입고수량", "출고수량", "처리일자" ],
+					colModel : [ 
+						{ name : "stockId", width : 3 }, 
+						{ name : "itemCode", width : 3 }, 
+						{ name : "itemName", width : 5 }, 
+						{ name : "dealDate", width : 5, align : "center" },
+						{ name : "dealerCode", width : 4 },
+						{ name : "inQty", width : 3, align : "right" },
+						{ name : "outQty", width : 3, align : "right" },
+						{ name : "txnDate", width : 5, align : "center" }, 
+						],
+
+					pager : "#pager",
+					rowNum : 10,
+					rowList : [ 10, 20, 30 ],
+					sortname : "stockId",
+					viewrecords : true,
+					gridview : true,
+					autoencode : true,
+					reccount : 15,
+					loadonce : true,
+					caption : "입출고 현황조회"
+				});
 	});
 </script>
 </head>
 <body>
-
-	<table id="list">
-		<tr>
-			<td></td>
-		</tr>
-	</table>
-	<div id="pager"></div>
-
+	<div class="col-lg-12">
+		<table id="list">
+			<tr>
+				<td></td>
+			</tr>
+		</table>
+		<div id="pager"></div>
+	</div>
 </body>
 </html>

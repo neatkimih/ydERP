@@ -18,5 +18,9 @@ public class StockInOutServiceImpl implements StockInOutService {
 	public List<StockInOutViewVO> getStockInOutList(StockInOutVO vo) {
 		return dao.getStockInOutList(vo);
 	}
+	
+	public List<StockInOutViewVO> getItemInOutList(StockInOutVO vo){
+		return dao.getItemInOutList(vo);
+	}
 
 }

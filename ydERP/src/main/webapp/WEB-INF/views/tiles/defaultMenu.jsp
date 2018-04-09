@@ -30,9 +30,9 @@
 					판매정보<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="getSaleList">판매내역 조회 / 수정</a></li>
-					<li><a href="insertSale">판매내역 등록</a></li>
+					<li><a href="insertSale">주문내역 조회 / 승인</a></li>
 					<li><a href="deleteSale">판매내역 삭제</a></li>
-					<li><a href="showSale">판매현황 조회</a></li>
+					<li><a href="showSale">판매현황 분석</a></li>
 				</ul></li>
 			<li><a href="#"><i class="fa fa-wrench fa-fw"></i> 재고정보<span
 					class="fa arrow"></span></a>

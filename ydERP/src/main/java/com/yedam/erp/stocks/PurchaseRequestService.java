@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface PurchaseRequestService {
 
-	public List<PurchaseRequestVO> getPurchaseReqeustList(PurchaseRequestVO vo);
+	public List<PurchaseRequestVO> getPurchaseRequestList(PurchaseRequestVO vo);
 
 	public void insertPurchaseRequest(PurchaseRequestVO vo);
 

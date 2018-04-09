@@ -1,5 +1,6 @@
 package com.yedam.erp.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,6 +25,9 @@ public class SalesMybatisDAO {
 		return mybatis.selectList("sales.getSaleList", salesVO);
 	}
 
+	
+	
+	
 	/* 판매 내역 등록 */
 	public void insertSale(SalesVO salesVO) {
 		mybatis.insert("sales.insertSale", salesVO);
@@ -36,8 +40,19 @@ public class SalesMybatisDAO {
 		mybatis.update("sales.updateSale", salesVO);
 	}
 	
-	/* 판매 내역 삭제 */
-	public void deleteSale(SalesVO salesVO) {
-		mybatis.delete("sales.deleteSale", salesVO);
+	/* 미승인 주문 기본 정보 조회 */
+	public List<SalesVO> getOrderList(SalesVO salesVO) {
+		return mybatis.selectList("sales.getOrderList", salesVO);
+	}
+	
+	/* 주문 승인 */
+	public void updateOrderStatus(SalesVO salesVO) {
+		mybatis.update("sales.updateOrderStatus", salesVO);
+	}
+	
+	
+	/* 미승인 주문 기본 정보 삭제 */
+	public void deleteOrderList(ArrayList<String> saleCode) {
+		mybatis.delete("sales.deleteOrderList", saleCode);
 	}
 }

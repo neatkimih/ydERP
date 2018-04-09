@@ -18,7 +18,7 @@
 		<typeAlias alias="employees" type="com.yedam.erp.employees.EmployeesVO" />
 		<typeAlias alias="stockin" type="com.yedam.erp.stocks.StockInOutViewVO" />
 		<typeAlias alias="stockon" type="com.yedam.erp.stocks.StockOnhandViewVO" />
-		<typeAlias alias="purchaserequest" type="com.yedam.erp.purchases.PurchaseRequestVO" />
+		<typeAlias alias="purchaserequest" type="com.yedam.erp.stocks.PurchaseRequestVO" />
 
 	</typeAliases>
 

@@ -18,5 +18,9 @@ public class StockInOutMybatisDAO {
 	public List<StockInOutViewVO> getStockInOutList(StockInOutVO vo) {
 		return sqlSession.selectList("stocks.getStockInOutList", vo);
 	}
+	
+	public List<StockInOutViewVO> getItemInOutList(StockInOutVO vo){
+		return sqlSession.selectList("stocks.getItemInOutList", vo);
+	}
 
 }

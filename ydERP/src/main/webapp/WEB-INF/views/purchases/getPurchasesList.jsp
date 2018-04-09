@@ -161,7 +161,7 @@
 			closeOnEscape:true  			
 		});
 		function clearSelection() {
-			jQuery("#list1").jqGrid('setGridParam',{url: "empty.getPurchaseDetailList", datatype: 'json'}); // the last setting is for demo purpose only
+			jQuery("#list1").jqGrid('setGridParam',{url: "getPurchaseDetailList", datatype: 'json'}); // the last setting is for demo purpose only
 			jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");			
 			jQuery("#list1").trigger("reloadGrid");
 			

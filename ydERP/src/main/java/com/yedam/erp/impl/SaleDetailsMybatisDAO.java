@@ -16,6 +16,6 @@ public class SaleDetailsMybatisDAO {
 	
 	/* 판매 상세 조회 (전체 리스트) */
 	public List<SaleDetailsVO> getSaleDetail(SaleDetailsVO saleDetailsVO) {
-		return mybatis.selectList("saleDetails.getSaleDetail", saleDetailsVO);
+		return mybatis.selectList("sales.getSaleDetail", saleDetailsVO);
 	}
 }

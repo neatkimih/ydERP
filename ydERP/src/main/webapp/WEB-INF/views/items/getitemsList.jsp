@@ -15,11 +15,143 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 
-	<div>
-		<table id="employeejqGrid"></table>
-		<div id="employeejqGridPager"></div>
-	</div>
+<script type="text/javascript">
+	$(function() {
+		$("#additemTemplate").hide();
 
+		$("#list").jqGrid({
+			url : "getItemsList.do",
+			editurl : "getItemsDataEdit",
+			datatype : "json",
+			styleUI : 'Bootstrap',
+			colModel : [ {
+				label : "품목코드",
+				name : "itemCode",
+				key : true,
+				width : 90,
+				sorttype : 'integer',
+				editable : false
+			}, {
+				label : "품목이름",
+				name : "itemName",
+				width : 300,
+				editable : true
+			}, {
+				label : "UOM",
+				name : "uom",
+				width : 55,
+				align : "center",
+				editable : true
+			}, {
+				label : "수량",
+				name : "inQty",
+				width : 40,
+				align : "right",
+				editable : true
+			}, {
+				label : "공급가",
+				name : "supplyPrice",
+				width : 90,
+				align : "right",
+				editable : true
+			}, {
+				label : "판매가",
+				name : "sellingPrice",
+				width : 90,
+				align : "right",
+				editable : true
+			}, {
+				label : "부가세",
+				name : "itemTax",
+				width : 55,
+				align : "right",
+				editable : true
+			}, {
+				label : "사용연한",
+				name : "expireDate",
+				width : 75,
+				align : "right",
+				editable : true
+			}, {
+				label : "판매자코드",
+				name : "vendorCode",
+				width : 90,
+				align : "right",
+				editable : true
+			}, ],
+			pager : "#pager",
+			rowNum : 10,
+			rowList : [ 10, 20, 30 ],
+			sortname : "itemCode",
+			sortorder : "desc",
+			viewrecords : true,
+			gridview : true,
+			autoencode : true,
+			loadonce : true,
+			//onSelectRow : editRow,
+			rowNum : 10,
+			height : 'auto',
+			autowidth : true,
+			responsive : true,
+			multiselect : true,
+			pager : "#pager"
+		});
+		$('#list').jqGrid('filterToolbar', {
+			stringResult : true,
+			searchOperators : true
+		});
+		$('#list').jqGrid('navGrid', "#pager", {
+			search : false, // show search button on the toolbar
+			edit : false,
+			add : false,
+			del : true,
+			cancel : true,
+			refresh : true,
+
+		}, {}, {
+			closeAfterAdd : true,
+			reloadAfterSubmit : true,
+			template : $("#additemTemplate").html(),
+			afterComplete : function() {
+				$("#list").setGridParam({
+					datatype : 'json',
+					page : 1
+				}).trigger('reloadGrid');
+			}
+		}, {
+			serializeDelData : function(postdata) {
+				return "oper=del&itemCode=" + postdata.id
+			}
+		}
+
+		);
+		$('#list').inlineNav('#pager',
+
+		{
+			edit : true,
+			cancel : true,
+			refresh : true,
+			editParams : {
+				keys : true,
+			},
+
+		});
+
+	});
+</script>
+
+
+
+</head>
+
+<body>
+	<table id="list">
+		<tr>
+			<td></td>
+		</tr>
+	</table>
+	<div id="pager"></div>
+	<br>
 	<div id="additemTemplate">
 		<form>
 			<div class="form-group">
@@ -58,116 +190,9 @@
 				<label for="vendorCode">판매자코드</label> <input type="text"
 					class="form-control" id="vendorCode" name="vendorCode">
 			</div>
-			<div class="form-group">
-				<div align="right">{sData}{cData}</div>
-			</div>
+
 		</form>
 	</div>
-	<script type="text/javascript">
-		$(function() {
-			$("#additemTemplate").hide();
-
-			$("#list").jqGrid({
-				url : "getItemsList.do",
-				editurl : "getItemsDataEdit",
-				datatype : "json",
-				styleUI : 'Bootstrap',
-				colModel : [ {
-					label : "품목코드", 
-					name : "itemCode",
-					key : true,
-					width : 90,
-					sorttype : 'integer',
-					editable : false
-				}, {
-					label : "품목이름",
-					name : "itemName",
-					width : 300,
-					editable : true
-				}, {
-					label : "UOM",
-					name : "uom",
-					width : 55,
-					align : "center",
-					editable : true
-				}, {
-					label : "수량",
-					name : "inQty",
-					width : 40,
-					align : "right",
-					editable : true
-				}, {
-					label : "공급가",
-					name : "supplyPrice",
-					width : 90,
-					align : "right",
-					editable : true
-				}, {
-					label : "판매가",
-					name : "sellingPrice",
-					width : 90,
-					align : "right",
-					editable : true
-				}, {
-					label : "부가세",
-					name : "itemTax",
-					width : 55,
-					align : "right",
-					editable : true
-				}, {
-					label : "사용연한",
-					name : "expireDate",
-					width : 75,
-					align : "right",
-					editable : true
-				}, {
-					label : "판매자코드",
-					name : "vendorCode",
-					width : 90,
-					align : "right",
-					editable : true
-				}, ],
-				pager : "#pager",
-				rowNum : 10,
-				rowList : [ 10, 20, 30 ],
-				sortname : "itemCode",
-				sortorder : "desc",
-				viewrecords : true,
-				gridview : true,
-				autoencode : true,
-				loadonce : true,
-			});
-			$('#list').inlineNav('#pager',
-
-			{
-				edit : true,
-				add : true,
-				del : true,
-				cancel : true,
-				editParams : {
-					keys : true,
-				},
-				addParams : {
-					keys : true
-				}
-
-			});
-
-		});
-	</script>
-
-
-
-</head>
-
-<body>
-<table id="list">
-	<tr>
-		<td></td>
-	</tr>
-</table>
-<div id="pager"></div>
-<br>
 
 </body>
 </html>

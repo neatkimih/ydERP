@@ -7,53 +7,30 @@
 	<select id="getSaleList" resultType="sales">
 		SELECT *
 		FROM SALES 
+		ORDER BY SALE_CODE
 	</select> 
 
 	<!-- 판매 내역 상세 조회 -->
 	<select id="getSaleDetail" resultType="saleDetails">
-		<![CDATA[
 		SELECT * 
 		FROM SALE_DETAILS 
-		]]>
-		
-		WHERE SALE_CODE = #{saleCode}
-		
-	</select>	
+		WHERE SALE_CODE = #{saleCode} 
+		ORDER BY SALE_DETAIL_CODE
+	</select>
 
-
-
-
-	<!-- 판매 내역 등록 : 판매 정보 -->
-	<insert id="insertSaleMaster" parameterType="sales">
+	<!-- 주문 등록 -->
+	<insert id="insertSale" parameterType="sales">
 	
-		INSERT INTO SALES
-		(
-			SALE_CODE
-			, SALE_DATE
-			, CUSTOMER_CODE
-			, SALE_COST
-			, DELIVERY_ADDR
-			, DELIVERY_EMP
-			, DELIVERY_STATUS
-			, PAY_STATUS
-			, WAREHOUSE
-			, ORDER_PERMIT
-		)
-		VALUES
-		(
-			#{saleCode}
-			, SYSDATE
-			, #{customerCode}
-			, #{saleCost}
-			, #{deliveryAddr}
-			, #{deliveryEmp}
-			, #{deliveryStatus}
-			, #{payStatus}
-			, #{warehouse}
-			, #{orderPermit}
-		)
 			
 	</insert>
+	
+	<!-- 주문 승인 -->
+	<update id="updateOrderStatus" parameterType="sales">
+		UPDATE SALES 
+		SET 
+	
+	
+	</update>
 
 	<!-- 판매 내역 등록 : 판매 상세 정보 -->
 	<insert id="insertSaleDetail" parameterType="saleDetails">

@@ -9,8 +9,10 @@ public class PurchaseRequestVO {
 	Integer sellingPrice;
 	String vendorCode;
 	Integer minQty;
+	Integer itemTax;
 	Integer onhandQty;
 	Integer reqQty;
+	String expireDate;
 	String vendorName;
 	String vendorOwner;
 	String vendorLoc;
@@ -82,6 +84,14 @@ public class PurchaseRequestVO {
 		this.minQty = minQty;
 	}
 
+	public Integer getItemTax() {
+		return itemTax;
+	}
+
+	public void setItemTax(Integer itemTax) {
+		this.itemTax = itemTax;
+	}
+
 	public Integer getOnhandQty() {
 		return onhandQty;
 	}
@@ -96,6 +106,14 @@ public class PurchaseRequestVO {
 
 	public void setReqQty(Integer reqQty) {
 		this.reqQty = reqQty;
+	}
+
+	public String getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(String expireDate) {
+		this.expireDate = expireDate;
 	}
 
 	public String getVendorName() {
@@ -148,12 +166,12 @@ public class PurchaseRequestVO {
 
 	@Override
 	public String toString() {
-		return "PurchaseReqeustVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty="
+		return "PurchaseRequestVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty="
 				+ inQty + ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", vendorCode="
-				+ vendorCode + ", minQty=" + minQty + ", onhandQty=" + onhandQty + ", reqQty=" + reqQty
-				+ ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner + ", vendorLoc=" + vendorLoc
-				+ ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank + ", vendorAccount=" + vendorAccount
-				+ "]";
+				+ vendorCode + ", minQty=" + minQty + ", itemTax=" + itemTax + ", onhandQty=" + onhandQty + ", reqQty="
+				+ reqQty + ", expireDate=" + expireDate + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner
+				+ ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank
+				+ ", vendorAccount=" + vendorAccount + "]";
 	}
 
 }

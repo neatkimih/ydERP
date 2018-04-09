@@ -19,4 +19,9 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 		return dao.getPurchaseReqeustList(vo);
 	}
 
+	@Override
+	public void insertPurchaseRequest(PurchaseRequestVO vo) {
+		dao.insertPurchaseRequest(vo);		
+	}
+
 }

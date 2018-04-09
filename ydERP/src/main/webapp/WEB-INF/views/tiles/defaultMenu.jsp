@@ -40,7 +40,7 @@
 					<li><a href="getStockOnhandList">재고조회</a></li>
 					<li><a href="getStockOnhandList2">재고조회2</a></li>
 					<li><a href="getStockInOutList">입/출고조회</a></li>
-					<li><a href="getStockInOutList">구매요청생성</a></li>
+					<li><a href="getPurchaseRequestList">구매요청생성</a></li>
 					<li><a href="getStockInOutListTest">입/출고Test</a></li>
 				</ul></li>
 

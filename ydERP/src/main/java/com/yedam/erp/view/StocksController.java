@@ -89,4 +89,10 @@ public class StocksController {
 		return "stocks/jqgridTest";
 	}
 
+	@RequestMapping("insertPurchaseRequest")
+	public String insertPurchaseRequest(PurchaseRequestVO vo) {
+		purchaseRequestService.insertPurchaseRequest(vo);
+		return "stocks/getPurchaseRequesting";
+	}
+
 }

@@ -6,4 +6,6 @@ public interface PurchaseRequestService {
 
 	public List<PurchaseRequestVO> getPurchaseReqeustList(PurchaseRequestVO vo);
 
+	public void insertPurchaseRequest(PurchaseRequestVO vo);
+
 }

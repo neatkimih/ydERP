@@ -4,7 +4,6 @@ public class SaleDetailsVO {
 	
 	private String saleDetailCode;		// 판매상세코드
 	private String saleCode;			// 판매코드
-	
 	private String saleItemCode;		// 판매품목코드
 	private String saleItemName;		// 판매품목명
 	private Integer salePrice;			// 판매가	
@@ -12,9 +11,6 @@ public class SaleDetailsVO {
 	private Integer saleQty;			// 판매수량
 	private Integer expireDate;			// 사용연한
 	private String vendorCode;			// 생산처 코드
-	
-
-	
 	
 	public String getSaleItemName() {
 		return saleItemName;

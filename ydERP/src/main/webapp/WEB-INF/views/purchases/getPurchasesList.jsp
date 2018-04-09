@@ -62,8 +62,8 @@
 			autoencode : true,
 			onSelectRow: function(rowid, selected) {
 				if(rowid != null) {
-					jQuery("#list1").jqGrid('setGridParam',{url:"getPurchaseDetailList",datatype: 'json'}); // the last setting is for demo only
-					jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");
+					jQuery("#list1").jqGrid('setGridParam',{url:rowid+"getPurchaseDetailList",datatype: 'json'}); // the last setting is for demo only
+					jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode"+rowid);
 					jQuery("#list1").trigger("reloadGrid");
 				}					
 			}, // use the onSelectRow that is triggered on row click to show a details grid
@@ -161,7 +161,7 @@
 			closeOnEscape:true  			
 		});
 		function clearSelection() {
-			jQuery("#list1").jqGrid('setGridParam',{url: "empty.getPurchaseDetailList", datatype: 'json'}); // the last setting is for demo purpose only
+			jQuery("#list1").jqGrid('setGridParam',{url: "getPurchaseDetailList", datatype: 'json'}); // the last setting is for demo purpose only
 			jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");			
 			jQuery("#list1").trigger("reloadGrid");
 			

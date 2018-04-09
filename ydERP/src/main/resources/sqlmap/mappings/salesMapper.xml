@@ -7,54 +7,52 @@
 	<select id="getSaleList" resultType="sales">
 		SELECT *
 		FROM SALES 
+		ORDER BY SALE_CODE
 	</select> 
 
 	<!-- 판매 내역 상세 조회 -->
+	<!-- JQGRID MASTER에서 선택된 ROW의 SALE_CODE값을 가져와서 DETAIL을 조회 -->
 	<select id="getSaleDetail" resultType="saleDetails">
-		<![CDATA[
 		SELECT * 
 		FROM SALE_DETAILS 
-		]]>
-		<where>
-		SALE_CODE = (	SELECT SALE_CODE 
-						FROM SALES
-						WHERE 
-					)
-		
-		</where>
-	</select>	
-
-	<!-- 판매 내역 등록 : 판매 정보 -->
-	<insert id="insertSaleMaster" parameterType="sales">
+		WHERE SALE_CODE = #{saleCode} 
+		ORDER BY SALE_DETAIL_CODE
+	</select>
 	
-		INSERT INTO SALES
-		(
-			SALE_CODE
-			, SALE_DATE
-			, CUSTOMER_CODE
-			, SALE_COST
-			, DELIVERY_ADDR
-			, DELIVERY_EMP
-			, DELIVERY_STATUS
-			, PAY_STATUS
-			, WAREHOUSE
-			, ORDER_PERMIT
-		)
-		VALUES
-		(
-			#{saleCode}
-			, SYSDATE
-			, #{customerCode}
-			, #{saleCost}
-			, #{deliveryAddr}
-			, #{deliveryEmp}
-			, #{deliveryStatus}
-			, #{payStatus}
-			, #{warehouse}
-			, #{orderPermit}
-		)
-			
+	<!-- 주문 등록 -->
+	<!-- 주문이 승인될 때 결정되는 칼럼(NULL처리) : SALE_DATE, DELIVERY_EMP, WAREHOUSE-->
+	<!-- SALE_DATE : 주문 승인 일자 -->
+	<!-- DELIVERY_EMP : 주문을 승인할 때 배송가능한 사원을 선택 -->
+	<!-- WAREHOUSE : 주문을 승인할 때 출하창고를 선택 -->
+	<insert id="insertSale" parameterType="sales">
+		INSERT INTO SALES (	SALE_CODE
+							, CUSTOMER_CODE
+							, SALE_COST
+							, DELIVERY_ADDR
+							, DELIVERY_STATUS
+							, PAY_STATUS
+							, ORDER_PERMIT )
+		VALUES ( #{saleCode}
+				, #{customerCode}
+				, #{saleCost}
+				, #{deliveryAddr}
+				, 'N'
+				, 'N'
+				, 'N'		)
 	</insert>
+	
+	<!-- 주문 상세 추가 -->
+	
+	
+	
+	
+	<!-- 주문 수정 -->
+	
+	<!-- 주문 승인 -->
+	<update id="updateOrderStatus" parameterType="sales">
+		UPDATE SALES 
+		SET ORDER_PERMIT = Y;
+	</update>
 
 	<!-- 판매 내역 등록 : 판매 상세 정보 -->
 	<insert id="insertSaleDetail" parameterType="saleDetails">

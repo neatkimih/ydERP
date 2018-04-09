@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.stocks.PurchaseRequestService;
+import com.yedam.erp.stocks.PurchaseRequestVO;
 import com.yedam.erp.stocks.StockInOutService;
 import com.yedam.erp.stocks.StockInOutVO;
 import com.yedam.erp.stocks.StockInOutViewVO;
@@ -24,8 +26,11 @@ public class StocksController {
 	@Autowired
 	StockOnhandService stockOnhandService;
 
+	@Autowired
+	PurchaseRequestService purchaseRequestService;
+
 	@RequestMapping("getStockInOutList")
-	public String getStocksList(Model model, StockInOutVO vo) {
+	public String getStockInOutList(Model model, StockInOutVO vo) {
 		model.addAttribute("list", vo);
 		return "stocks/getStockInOutList";
 	}
@@ -34,13 +39,30 @@ public class StocksController {
 	@ResponseBody
 	public List<StockInOutViewVO> getStocksListData(StockInOutVO vo) {
 		return stockInOutService.getStockInOutList(vo);
-
 	}
-	
+
+	@RequestMapping("getItemInOutList")
+	public String getItemInOutList(Model model, StockInOutVO vo) {
+		model.addAttribute("list", vo);
+		return "stocks/getItemInOutList";
+	}
+
+	@RequestMapping("getItemInOutListData")
+	@ResponseBody
+	public List<StockInOutViewVO> getItemInOutListData(StockInOutVO vo) {
+		return stockInOutService.getItemInOutList(vo);
+	}
+
 	@RequestMapping("getStockOnhandList")
 	public String getStockOnhandList(Model model, StockOnhandVO vo) {
 		model.addAttribute("list", vo);
 		return "stocks/getStockOnhandList";
+	}
+
+	@RequestMapping("getStockOnhandList2")
+	public String getStockOnhandList2(Model model, StockOnhandVO vo) {
+		model.addAttribute("list", vo);
+		return "stocks/getStockOnhandList2";
 	}
 
 	@RequestMapping("getStockOnhandListData")
@@ -49,6 +71,22 @@ public class StocksController {
 		return stockOnhandService.getStockOnhandList(vo);
 
 	}
-	
+
+	@RequestMapping("getPurchaseRequestList")
+	public String getPurchaseRequestList(Model model, PurchaseRequestVO vo) {
+		model.addAttribute("list", vo);
+		return "stocks/getPurchaseRequestList";
+	}
+
+	@RequestMapping("getPurchaseRequestListData")
+	@ResponseBody
+	public List<PurchaseRequestVO> getPurchaseRequestListData(PurchaseRequestVO vo) {
+		return purchaseRequestService.getPurchaseReqeustList(vo);
+	}
+
+	@RequestMapping("getStockInOutListTest")
+	public String getStockInOutListTest(StockInOutVO vo) {
+		return "stocks/jqgridTest";
+	}
 
 }

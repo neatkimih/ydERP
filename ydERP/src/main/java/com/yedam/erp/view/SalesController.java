@@ -36,7 +36,7 @@ public class SalesController {
 	}
 	
 	/* 상세 판매 내역 조회 */
-	@RequestMapping("/getSaleDetail.do")
+	@RequestMapping(value="/getSaleDetail.do")
 	@ResponseBody
 	public List<SaleDetailsVO> getSaleDetail(SaleDetailsVO saleDetailsVO, Paging page) {
 		return saleDetailsService.getSaleDetail(saleDetailsVO);

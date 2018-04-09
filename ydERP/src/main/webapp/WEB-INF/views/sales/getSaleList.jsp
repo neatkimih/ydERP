@@ -50,11 +50,15 @@
 					sortname : "saleCode",
 					caption : "판매 내역 정보",
 					pager : "#pagerSaleList",					
-					onSelectRow : function(id){
-						var selectedSaleCode = $(this).jqGrid('getCell', id, 'saleCode');
+					onSelectRow : function(rowid, selected) {
+						if(rowid != null) {
+							// var selectedSaleCode = $(this).jqGrid('getCell', selected, 'saleCode');
+							var selectedSaleCode = $(this).getCell(rowid,'saleCode');
+							jQuery("#saleDetail").jqGrid('setGridParam', {url: "./getSaleDetail.do?saleCode="+selectedSaleCode});
+							jQuery("#saleDetail").jqGrid('setCaption', '판매 코드 : ' + selectedSaleCode);
+							jQuery("#saleDetail").trigger("reloadGrid");
+						}
 						console.log("선택된 판매코드 : " + selectedSaleCode);
-						
-						
 					}
 				});
 				
@@ -63,9 +67,7 @@
 					url : "getSaleDetail.do",
 					datatype : "json",
 					styleUI : "Bootstrap",
-					colNames : [ "판매코드"
-						, "판매상세코드"
-						, "판매코드"
+					colNames : [ "판매상세코드"
 						, "판매품목코드"
 						, "판매품목명"
 						, "판매가"
@@ -74,7 +76,6 @@
 						, "사용연한"
 						, "생산처 코드" ],
 					colModel : [
-						{	name : "saleCode",		width : 120,	align : "center"	},
 						{	name : "saleDetailCode",width : 100,	align : "center"	},
 						{	name : "saleItemCode",	width : 200,	align : "center"	},
 						{	name : "saleItemName",	width : 100,	align : "right"		},
@@ -92,13 +93,7 @@
 					autoencode : true,
 					autoheight: true,
 					autowidth : true,
-					search : true,
-					onSelectRow : function(id){
-						var selectedSaleCode = $(this).jqGrid('getCell', id, 'saleCode');
-						console.log("선택된 판매코드 : " + selectedSaleCode);
-						
-						
-					}
+					search : true						
 				});
 			});
 		</script>
@@ -106,16 +101,14 @@
 			.#saleListDiv {
 				margin-left: auto;
 				margin-right: auto;
-				margin-top: 20px;
-				margin-bottom: 20px;		
+				padding: 50px;
 				text-align: center;
 			}
 			
 			.#saleDetailDiv {
 				margin-left: auto;
 				margin-right: auto;
-				margin-top: 20px;
-				margin-bottom: 20px;		
+				padding: 50px;
 				text-align: center;
 			}
 		
@@ -131,6 +124,9 @@
 			</table>
 			<div id="pagerSaleList"></div>
 		</div>
+		<br>
+		<hr>
+		<br>
 		<div id="saleDetailDiv">
 			<table id="saleDetail">
 				<tr>

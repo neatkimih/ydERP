@@ -67,8 +67,7 @@
 					url : "getSaleDetail.do",
 					datatype : "json",
 					styleUI : "Bootstrap",
-					colNames : [ "판매코드"
-						, "판매상세코드"
+					colNames : [ "판매상세코드"
 						, "판매품목코드"
 						, "판매품목명"
 						, "판매가"
@@ -77,7 +76,6 @@
 						, "사용연한"
 						, "생산처 코드" ],
 					colModel : [
-						{	name : "saleCode",		width : 120,	align : "center"	},
 						{	name : "saleDetailCode",width : 100,	align : "center"	},
 						{	name : "saleItemCode",	width : 200,	align : "center"	},
 						{	name : "saleItemName",	width : 100,	align : "right"		},

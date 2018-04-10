@@ -95,6 +95,32 @@
 					autowidth : true,
 					search : true						
 				});
+			
+				// 검색, 추가, 수정, 삭제 기능 
+				$('#saleList').jqGrid('navGrid', "#pagerSaleList", {
+					search : true, 
+					edit : true,
+					add : true,
+					del : true,
+					cancel : true,
+					refresh : true,
+
+				}, {}, {
+					closeAfterAdd : true,
+					reloadAfterSubmit : true,
+					afterComplete : function() {
+						$("#saleList").setGridParam({
+							datatype : 'json',
+							page : 1
+						}).trigger('reloadGrid');
+					}
+				}, {
+					serializeDelData : function(postdata) {
+						return "oper=del&itemCode=" + postdata.id
+					}
+				}
+
+				);
 			});
 		</script>
 		<style type="text/css">

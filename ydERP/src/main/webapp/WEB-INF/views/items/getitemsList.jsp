@@ -161,7 +161,7 @@ function secondChange() {
 <!-- jqGrid -->
 <script type="text/javascript">
 	$(function() {
-		$("#additemTemplate").hide();
+		
 
 		$("#list").jqGrid({
 			url : "getItemsList.do",
@@ -282,7 +282,7 @@ function secondChange() {
 	</table>
 	<div id="pager"></div>
 	<br>
-	>
+	
 
 	
 

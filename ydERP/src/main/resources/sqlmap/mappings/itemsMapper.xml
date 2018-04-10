@@ -8,16 +8,16 @@
 	<select id="getItemsList" resultType="items">
 		<![CDATA[
 		
-		SELECT item_code
-		      ,item_name
-		      ,uom
-		      ,in_qty
-		      ,supply_price
-		      ,selling_price
-		      ,item_tax
-		      ,expire_date
-		      ,vendor_code		      
-		FROM   items
+		SELECT i.item_code
+		      ,i.item_name
+		      ,i.uom
+		      ,i.in_qty
+		      ,i.supply_price
+		      ,i.selling_price
+		      ,i.item_tax
+		      ,i.expire_date
+		      ,i.vendor_code		      
+		FROM   items i
 		]]>
 		<where>
 			<if test="searchKeyword != null and searchKeyword != '' ">

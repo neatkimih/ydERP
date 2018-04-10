@@ -5,14 +5,18 @@
 
 	<!-- 판매 내역 전체 조회 -->
 	<select id="getStockInOutList" resultType="stockin">
+		<![CDATA[
 		SELECT *
 		FROM   stock_in_out_vo
 		ORDER BY stock_id
+		]]>
 	</select>
 
 	<select id="getItemInOutList" resultType="stockin">
+		<![CDATA[
 		SELECT *
 		FROM stock_in_out_vo
+		]]>
 		<where>
 			<if test="itemCode!=null">
 				AND item_code = #{itemCode}
@@ -23,14 +27,47 @@
 	</select>
 
 	<select id="getStockOnhandList" resultType="stockon">
+		<![CDATA[
 		SELECT *
 		FROM   stock_onhands_vo
+		]]>
 	</select>
 
 	<select id="getPurchaseRequestList" resultType="purchaserequest">
+		<![CDATA[
 		SELECT common.get_vendor_name(v.vendor_code) vendor_name, v.*
 		FROM   purchase_request_vo v
-		ORDER BY vendor_code
+		ORDER BY vendor_code, item_code
+		]]>
 	</select>
+
+	<insert id="insertPurchaseRequest" parameterType="purchaserequest"
+		statementType="CALLABLE">
+		<![CDATA[
+		{call common.create_purchase_info(#{outMsg mode=OUT,jdbcType=VARCHAR,javaType=String})}
+		]]>
+	</insert>
+
+	<select id="getPurchaseRequestTempListData" resultType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+		<![CDATA[
+		SELECT *
+		FROM   purchase_detail_temp_vo v
+		ORDER BY vendor_code, item_code
+		]]>
+	</select>
+
+	<insert id="insertPurchaseRequestTemp" parameterType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+		<![CDATA[
+		INSERT INTO purchase_detail_temp
+		VALUES  (TO_CHAR(purchase_detail_seq.nextval)
+			    ,'TEMP Master'
+			    ,#{vendorCode}
+			    ,#{itemCode}
+			    ,#{reqQty}
+			    ,#{supplyPrice}
+			    ,#{itemTax}
+			    )
+		]]>
+	</insert>
 
 </mapper>

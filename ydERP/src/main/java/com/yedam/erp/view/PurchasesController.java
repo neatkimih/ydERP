@@ -42,7 +42,7 @@ public class PurchasesController
 	@ResponseBody
 	public PurchasesVO updatePurchases(PurchasesVO vo) {
 		purchasesService.updatePurchases(vo);
-		return purchasesService.getPurchases(vo);
+		return vo;
 	}
 	
 	//삭제

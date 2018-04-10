@@ -32,17 +32,7 @@
 					<li><a href="getOrderList">주문내역</a></li>
 					<li><a href="showSale">매출분석</a></li>
 				</ul></li>
-			<li><a href="#"><i class="fa fa-wrench fa-fw"></i> 재고정보<span
-					class="fa arrow"></span></a>
-				<ul class="nav nav-second-level">
-					<li><a href="getStockOnhandList">재고조회</a></li>
-					<li><a href="getStockOnhandList2">재고조회2</a></li>
-					<li><a href="getStockInOutList">입/출고조회</a></li>
-					<li><a href="getPurchaseRequestList">구매요청생성</a></li>
-					<li><a href="getStockInOutListTest">입/출고Test</a></li>
-				</ul></li>
-
-
+			<%@ include file="./defaultMenu4.jsp"%>
 		</ul>
 	</div>
 </div>

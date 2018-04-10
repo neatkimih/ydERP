@@ -12,7 +12,24 @@ public class PurchasesVO
 	private Integer purchasePrice;			// 구매단가
 	private double itemTax;			// 부가세
 	private Integer purchaseCost;			// 결제금액	
+	private String incomingFlag;
+	private String purchaseDetailCode;
 	
+	
+	
+	
+	public String getPurchaseDetailCode() {
+		return purchaseDetailCode;
+	}
+	public void setPurchaseDetailCode(String purchaseDetailCode) {
+		this.purchaseDetailCode = purchaseDetailCode;
+	}
+	public String getIncomingFlag() {
+		return incomingFlag;
+	}
+	public void setIncomingFlag(String incomingFlag) {
+		this.incomingFlag = incomingFlag;
+	}
 	public String getPurchaseCode() {
 		return purchaseCode;
 	}

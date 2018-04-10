@@ -1,32 +1,75 @@
 package com.yedam.erp.stocks;
 
-public class PurchaseRequestVO {
+public class PurchaseDetailTempVO {
+	String tmpDetailCode;
+	String tmpMasterCode;
+	Integer tmpPurchaseQty;
+	Integer tmpPurchasePrice;
+	Integer tmpItemTax;
 	String itemCode;
 	String itemName;
 	String uom;
 	Integer inQty;
 	Integer supplyPrice;
 	Integer sellingPrice;
-	String vendorCode;
-	Integer minQty;
 	Integer itemTax;
-	Integer onhandQty;
-	Integer reqQty;
 	String expireDate;
+	Integer minQty;
+	String vendorCode;
 	String vendorName;
 	String vendorOwner;
 	String vendorLoc;
 	String vendorPhone;
 	String vendorBank;
 	String vendorAccount;
-	String outMsg;
+	Integer reqQty;
 
-	public String getOutMsg() {
-		return outMsg;
+	public Integer getReqQty() {
+		return reqQty;
 	}
 
-	public void setOutMsg(String outMsg) {
-		this.outMsg = outMsg;
+	public void setReqQty(Integer reqQty) {
+		this.reqQty = reqQty;
+	}
+
+	public String getTmpDetailCode() {
+		return tmpDetailCode;
+	}
+
+	public void setTmpDetailCode(String tmpDetailCode) {
+		this.tmpDetailCode = tmpDetailCode;
+	}
+
+	public String getTmpMasterCode() {
+		return tmpMasterCode;
+	}
+
+	public void setTmpMasterCode(String tmpMasterCode) {
+		this.tmpMasterCode = tmpMasterCode;
+	}
+
+	public Integer getTmpPurchaseQty() {
+		return tmpPurchaseQty;
+	}
+
+	public void setTmpPurchaseQty(Integer tmpPurchaseQty) {
+		this.tmpPurchaseQty = tmpPurchaseQty;
+	}
+
+	public Integer getTmpPurchasePrice() {
+		return tmpPurchasePrice;
+	}
+
+	public void setTmpPurchasePrice(Integer tmpPurchasePrice) {
+		this.tmpPurchasePrice = tmpPurchasePrice;
+	}
+
+	public Integer getTmpItemTax() {
+		return tmpItemTax;
+	}
+
+	public void setTmpItemTax(Integer tmpItemTax) {
+		this.tmpItemTax = tmpItemTax;
 	}
 
 	public String getItemCode() {
@@ -77,12 +120,20 @@ public class PurchaseRequestVO {
 		this.sellingPrice = sellingPrice;
 	}
 
-	public String getVendorCode() {
-		return vendorCode;
+	public Integer getItemTax() {
+		return itemTax;
 	}
 
-	public void setVendorCode(String vendorCode) {
-		this.vendorCode = vendorCode;
+	public void setItemTax(Integer itemTax) {
+		this.itemTax = itemTax;
+	}
+
+	public String getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(String expireDate) {
+		this.expireDate = expireDate;
 	}
 
 	public Integer getMinQty() {
@@ -93,36 +144,12 @@ public class PurchaseRequestVO {
 		this.minQty = minQty;
 	}
 
-	public Integer getItemTax() {
-		return itemTax;
+	public String getVendorCode() {
+		return vendorCode;
 	}
 
-	public void setItemTax(Integer itemTax) {
-		this.itemTax = itemTax;
-	}
-
-	public Integer getOnhandQty() {
-		return onhandQty;
-	}
-
-	public void setOnhandQty(Integer onhandQty) {
-		this.onhandQty = onhandQty;
-	}
-
-	public Integer getReqQty() {
-		return reqQty;
-	}
-
-	public void setReqQty(Integer reqQty) {
-		this.reqQty = reqQty;
-	}
-
-	public String getExpireDate() {
-		return expireDate;
-	}
-
-	public void setExpireDate(String expireDate) {
-		this.expireDate = expireDate;
+	public void setVendorCode(String vendorCode) {
+		this.vendorCode = vendorCode;
 	}
 
 	public String getVendorName() {
@@ -175,12 +202,13 @@ public class PurchaseRequestVO {
 
 	@Override
 	public String toString() {
-		return "PurchaseRequestVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty="
-				+ inQty + ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", vendorCode="
-				+ vendorCode + ", minQty=" + minQty + ", itemTax=" + itemTax + ", onhandQty=" + onhandQty + ", reqQty="
-				+ reqQty + ", expireDate=" + expireDate + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner
-				+ ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank
-				+ ", vendorAccount=" + vendorAccount + "]";
+		return "PurchaseDetailTempVO [tmpDetailCode=" + tmpDetailCode + ", tmpMasterCode=" + tmpMasterCode
+				+ ", tmpPurchaseQty=" + tmpPurchaseQty + ", tmpPurchasePrice=" + tmpPurchasePrice + ", tmpItemTax="
+				+ tmpItemTax + ", itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty=" + inQty
+				+ ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax
+				+ ", expireDate=" + expireDate + ", minQty=" + minQty + ", vendorCode=" + vendorCode + ", vendorName="
+				+ vendorName + ", vendorOwner=" + vendorOwner + ", vendorLoc=" + vendorLoc + ", vendorPhone="
+				+ vendorPhone + ", vendorBank=" + vendorBank + ", vendorAccount=" + vendorAccount + "]";
 	}
 
 }

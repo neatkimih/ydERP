@@ -22,7 +22,7 @@ public class PurchasesServiceImpl implements PurchasesService
 
 	@Override
 	public void updatePurchases(PurchasesVO purchasesVO) {
-		// TODO Auto-generated method stub
+		dao.updatePurchases(purchasesVO);
 		
 	}
 

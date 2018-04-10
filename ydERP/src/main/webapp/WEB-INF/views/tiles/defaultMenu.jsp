@@ -23,16 +23,14 @@
 			<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 구매정보<span
 					class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="getPurchasesPage">구매정보조회</a></li>
-					<li><a href="morris.html">구매상세정보조회</a></li>
+					<li><a href="getPurchasesPage">구매정보조회</a></li>					
 				</ul> <!-- /.nav-second-level --></li>
 			<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
 					판매정보<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="getSaleList">판매내역 조회 / 수정</a></li>
-					<li><a href="insertSale">주문내역 조회 / 승인</a></li>
-					<li><a href="deleteSale">판매내역 삭제</a></li>
-					<li><a href="showSale">판매현황 분석</a></li>
+					<li><a href="getSaleList">판매내역</a></li>
+					<li><a href="getOrderList">주문내역</a></li>
+					<li><a href="showSale">매출분석</a></li>
 				</ul></li>
 			<li><a href="#"><i class="fa fa-wrench fa-fw"></i> 재고정보<span
 					class="fa arrow"></span></a>

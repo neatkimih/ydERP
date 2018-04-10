@@ -25,12 +25,12 @@
 						, "배송지"
 						, "승인상태" ],
 					colModel : [
-						{	name : "saleCode",		width : 120,	align : "center"	},
-						{	name : "customerCode",	width : 100,	align : "center"	},
-						{	name : "saleDate",		width : 200,	align : "center"	},
-						{	name : "saleCost",		width : 100,	align : "right"		},
-						{	name : "deliveryAddr",	width : 200,	align : "left"		},
-						{	name : "orderPermit",	width : 100,	align : "center"	}
+						{	name : "saleCode",		width : 120,	align : "center",	editable : false	},
+						{	name : "customerCode",	width : 100,	align : "center",	editable : false	},
+						{	name : "saleDate",		width : 200,	align : "center",	editable : false	},
+						{	name : "saleCost",		width : 100,	align : "right",	editable : false	},
+						{	name : "deliveryAddr",	width : 200,	align : "left",		editable : false	},
+						{	name : "orderPermit",	width : 100,	align : "center",	editable : true		}
 					],
 					autoheight: true,
 					autowidth : true,
@@ -39,6 +39,7 @@
 					gridview : true,
 					autoencode : true,
 					search : true,
+					multiselect : true,
 					sortname : "saleCode",
 					caption : "주문 내역 정보",
 					pager : "#pagerOrderList",					

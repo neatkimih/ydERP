@@ -39,7 +39,6 @@
 					gridview : true,
 					autoencode : true,
 					search : true,
-					multiselect : true,
 					sortname : "saleCode",
 					caption : "주문 내역 정보",
 					pager : "#pagerOrderList",					

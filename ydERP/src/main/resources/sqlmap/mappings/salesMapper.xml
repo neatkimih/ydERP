@@ -5,24 +5,10 @@
 
 	<!-- 판매 내역 전체 조회 -->
 	<select id="getSaleList" resultType="sales">
-		<![CDATA[
 		SELECT * 
 		FROM SALES 
 		WHERE ORDER_PERMIT = 'Y' 
 		ORDER BY SALE_CODE
-		]]>
-	
-		<where>
-			<if test="searchKeyword != null and searchKeyword != '' ">
-				<if test="searchCondition == 'saleCode' ">
-					AND SALE_CODE LIKE '%' || #{searchKeyword} || '%'
-
-				</if>
-				<if test="searchCondition == 'customerCode' ">
-					AND CUSTOMER_CODE LIKE '%' || #{searchKeyword} || '%'
-				</if>
-			</if>
-		</where>
 	</select>
 
 	<!-- 판매 내역 상세 조회 -->
@@ -78,12 +64,10 @@
 	
 	<!-- 미승인 주문 기본 조회 -->
 	<select id="getOrderList" resultType="sales">
-		<![CDATA[
 		SELECT * 
 		FROM SALES 
 		WHERE ORDER_PERMIT = 'N' 
 		ORDER BY SALE_CODE
-		]]>
 	</select>
 
 	<!-- 미승인 주문 상세 조회 -->
@@ -93,17 +77,6 @@
 		FROM SALE_DETAILS 
 		WHERE SALE_CODE = #{saleCode} 
 		ORDER BY SALE_DETAIL_CODE
-		<where>
-			<if test="searchKeyword != null and searchKeyword != '' ">
-				<if test="searchCondition == 'saleCode' ">
-					AND SALE_CODE LIKE '%' || #{searchKeyword} || '%'
-
-				</if>
-				<if test="searchCondition == 'customerCode' ">
-					AND CUSTOMER_CODE LIKE '%' || #{searchKeyword} || '%'
-				</if>
-			</if>
-		</where>
 	</select>
 	
 	<!-- 주문 승인 -->

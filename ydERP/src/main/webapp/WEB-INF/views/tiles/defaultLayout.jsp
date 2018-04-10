@@ -60,7 +60,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">기초정보관리</h1>
+					<h1 class="page-header"></h1>
 				</div>
 			</div>
 			<tiles:insertAttribute name="content" />

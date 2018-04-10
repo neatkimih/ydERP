@@ -11,7 +11,6 @@
 <script src="./scripts/json.min.js"></script>
 
 <script type="text/javascript">
-	var allData;
 	
 	$(function() {
 		requestPurchaseList();
@@ -22,23 +21,16 @@
 		$("#btn1").click(function() {
 			var params = [];
 
-			$("[name=check]:checked").each(function(idx, check) {
-				//console.dir($(check).val())
-				var rowid = $(check).val();
-				params.push(allData[rowid]);
-				console.log(params);
-			})
-
 			$.ajax({
 				url : "./insertPurchaseRequest",
 				type : "PUT",
 				dataType : "json",
-				//data : JSON.stringify(params),
+				data : JSON.stringify(params),
 				contentType : "application/json;charset=utf-8",
 				success : function() {
 					console.log("complete")
 					//requestTempList;
-					requestList();
+					requestPurchaseList();
 				}
 			});
 		})
@@ -78,18 +70,13 @@
 		<div class="col-lg-12">
 			<table id="list" border="1">
 				<thead><tr>
+					<th>주문상세코드</th>
+					<th>주문코드</th>
+					<th>주문수량</th>
+					<th>주문단가</th>
+					<th>부가세</th>
 					<th>품목코드</th>
-					<th>품목명</th>
-					<th>UOM</th>
-					<th>인입수량</th>
-					<th>구매가</th>
-					<th>판매가</th>
-					<th>부가세율</th>
-					<th>사용연한</th>
-					<th>구매업체</th>
-					<th>최저재고</th>
-					<th>현재고</th>
-					<th>요청수량</th>
+					<th>폼목명</th>
 				</tr></thead>
 				<tbody></tbody>
 			</table>

@@ -19,6 +19,15 @@ public class PurchaseRequestVO {
 	String vendorPhone;
 	String vendorBank;
 	String vendorAccount;
+	String outMsg;
+
+	public String getOutMsg() {
+		return outMsg;
+	}
+
+	public void setOutMsg(String outMsg) {
+		this.outMsg = outMsg;
+	}
 
 	public String getItemCode() {
 		return itemCode;

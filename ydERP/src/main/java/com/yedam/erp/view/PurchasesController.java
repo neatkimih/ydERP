@@ -52,7 +52,7 @@ public class PurchasesController
 		return purchasesService.getPurchases(vo);
 	}
 		
-	//목록
+	//전체목록
 	@RequestMapping("getPurchasesList") 
 	@ResponseBody
 	public List<PurchasesVO> getPurchasesList(PurchasesVO vo) {			

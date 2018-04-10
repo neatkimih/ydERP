@@ -9,7 +9,11 @@
 	</select>
 	
 	<select id="getPurchaseDetailList" resultType="purchaseDetail">
-	<![CDATA[SELECT * FROM purchase_detail_vo]]>	
+	<![CDATA[
+	SELECT *
+	 FROM purchase_detail_vo
+   WHERE purchase_code = #{purchaseCode}
+	 ]]>	
 	</select>
 		
 

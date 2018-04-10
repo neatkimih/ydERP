@@ -5,193 +5,96 @@
 
 <head>
 <title>구매전체조회</title>
-<link rel="stylesheet" type="text/css" media="screen"
+<link rel="stylesheet" type="text/css" media="screen" 
 	href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
-
-<script
-	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
-	type="text/javascript"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
-	type="text/javascript"></script>
+<script src="./scripts/jquery-3.3.1.min.js"></script>
+<script src="./scripts/json.min.js"></script>
 
 <script type="text/javascript">
-
-	$(function() {		
-		
-		$("#list").jqGrid({
-			url : "getPurchasesList",
-			datatype : "json",
-			mtype : "GET",
-			styleUI : "Bootstrap",			
-			autowidth:true,			
-			colModel : [
-				{
-					label : "구매코드",
-					name : "purchaseCode",
-					width : 110
-				},
-				{
-					label : "구매일자",
-					name : "purchaseDate",
-					width : 85
-				},
-				{
-					label : "구매처",
-					name : "vendorCode",
-					width : 80,
-					align : "right"
-				},
-								
-				{
-					label : "결제금액",
-					name : "purchaseCost",
-					width : 80,
-					align : "right"
-				}
-
-			],
-			pager : "#pager",
-			rowNum : 10,
-			rowList : [ 10, 20, 30 ],
-			sortname : "invid",
-			sortorder : "desc", 
-			viewrecords : true,
-			navGrid : { view:true, del:false},
-			gridview : true,
-			autoencode : true,
-			onSelectRow: function(rowid, selected) {
-				if(rowid != null) {
-					jQuery("#list1").jqGrid('setGridParam',{url:rowid+"getPurchaseDetailList",datatype: 'json'}); // the last setting is for demo only
-					jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode"+rowid);
-					jQuery("#list1").trigger("reloadGrid");
-				}					
-			}, // use the onSelectRow that is triggered on row click to show a details grid
-			onSortCol : clearSelection,
-			onPaging : clearSelection,
-			caption : "구매정보"			
-		});
-		
-		
-		$("#list1").jqGrid({
-			url : "getPurchaseDetailList",
-			datatype : "json",
-			mtype : "GET",
-			styleUI : "Bootstrap",
-			autowidth:true,
-			colModel : [
-				
-				{
-					label : "구매상세코드",
-					name : "purchaseDatailCode",
-					width : 110
-				}, 				
-				{
-					label : "구매코드",
-					name : "purchaseCode",
-					width : 110
-				}, 
-				{
-					label : "품목코드",
-					name : "purchaseItem",
-					width : 85
-				},
-				{
-					label : "품목수량",
-					name : "purchaseQty",
-					width : 80,
-					align : "right"
-				}, 			 	
-				{
-					label : "품목단가",
-					name : "purchasePrice",
-					width : 80,
-					align : "right"
-				},
-			
-				{
-					label : "부가세",
-					name : "itemTax",
-					width : 80,
-					align : "right"
-				},			
-				
-				{
-					label : "배송상태",
-					name : "itemTax",
-					width : 80,
-					align : "right"
-				}			
-				
-			], 
-			pager : "#pager1",		
-			rowNum : 10,
-			rowList : [ 10, 20, 30 ],
-			sortname : "invid",
-			sortorder : "desc",
-			viewrecords : true,
-			gridview : true,
-			autoencode : true,			
-			caption : "구매상세정보"
-		}) .navGrid("#pager1", {		
-		/* options */
-			add:true,edit:true,view:true,del:true,search:true,refresh:true
-   			//add:false,edit:false,view:false,del:false,search:false,refresh:false
-		 } 													
-		,{/* Edit options */
-			closeAfterAdd: true, 
-			reloadAfterSubmit: false,
-			closeOnEscape:true
-		 } 		
-		,{/* Add options */
-			closeAfterAdd: true, 
-			reloadAfterSubmit: false,
-			closeOnEscape:true
-		}
-		,{/* Delete options */
-			reloadAfterSubmit: false,
-			closeOnEscape:true
-		} 							
-		,{/* Search options */
-			closeOnEscape:true,
-			onSearch:function(){									
-			}//onSearch:function(){
-		}//Search Option
-		,{/* view parameters*/
-			closeOnEscape:true  			
-		});
-		function clearSelection() {
-			jQuery("#list1").jqGrid('setGridParam',{url: "getPurchaseDetailList", datatype: 'json'}); // the last setting is for demo purpose only
-			jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");			
-			jQuery("#list1").trigger("reloadGrid");
-			
-		}
+	var allData;
+	
+	$(function() {
+		requestPurchaseList();
+		insertRequestPurchase();
 	});
 
-</script>
+	function insertRequestPurchase() {
+		$("#btn1").click(function() {
+			var params = [];
 
+			$("[name=check]:checked").each(function(idx, check) {
+				//console.dir($(check).val())
+				var rowid = $(check).val();
+				params.push(allData[rowid]);
+				console.log(params);
+			})
+
+			$.ajax({
+				url : "./insertPurchaseRequest",
+				type : "PUT",
+				dataType : "json",
+				//data : JSON.stringify(params),
+				contentType : "application/json;charset=utf-8",
+				success : function() {
+					console.log("complete")
+					//requestTempList;
+					requestList();
+				}
+			});
+		})
+	}
+
+	function requestPurchaseList() {
+		$.ajax({
+			url : "getPurchaseRequestTempListData",
+			type : "GET",
+			dataType : "json",
+			contentType : "application/json;charset=utf-8",
+			success : requestPurchaseListResult
+		})
+	}
+	function requestPurchaseListResult(datas) {
+		$("tbody").empty();
+		$.each(datas.data, function(idx, item) {
+			$("<tr>").append($("<td>").html(item.tmpDetailCode))
+					 .append($("<td>").html(item.tmpMasterCode))
+					 .append($("<td>").html(item.tmpPurchaseQty))
+					 .append($("<td>").html(item.tmpPurchasePrice))
+					 .append($("<td>").html(item.tmpItemTax))
+					 .append($("<td>").html(item.itemCode))
+					 .append($("<td>").html(item.itemName))
+					 //.append($("<td>").html("<button id=\'btnSelect\' >조회</button>"))
+					 //.append($("<td>").html("<button id=\'btnDelete\' >삭제</button>"))
+					 //.append($("<input type=\"hidden\" id=\'hidden_id\' />").val(item.seq))
+					 .appendTo("tbody");
+		});
+	}
+
+</script>
 </head>
 <body>
-
-<div class="row">
-  <div class="col-lg-8"><table id="list">
-		<tr>
-			<td></td>
-		</tr>
-	</table>
-	<div id="pager"></div>
-	</div>
-  </div>
-  <br><br><br>
-  <div class="row">
-  <div class="col-lg-6"><table id="list1">
-		<tr>
-			<td></td>
-		</tr>
-	</table>
-	<div id="pager1"></div>
-	</div>
-</div>
-
+	<form name="frm" action="createPurchaseRequest">
+		<input type="button" value="주문요청승인" id="btn1" />
+		<div class="col-lg-12">
+			<table id="list" border="1">
+				<thead><tr>
+					<th>품목코드</th>
+					<th>품목명</th>
+					<th>UOM</th>
+					<th>인입수량</th>
+					<th>구매가</th>
+					<th>판매가</th>
+					<th>부가세율</th>
+					<th>사용연한</th>
+					<th>구매업체</th>
+					<th>최저재고</th>
+					<th>현재고</th>
+					<th>요청수량</th>
+				</tr></thead>
+				<tbody></tbody>
+			</table>
+			<div id="pager"></div>
+		</div>
+	</form>
 </body>
 </html>

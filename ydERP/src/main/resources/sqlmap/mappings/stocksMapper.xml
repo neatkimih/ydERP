@@ -30,7 +30,30 @@
 	<select id="getPurchaseRequestList" resultType="purchaserequest">
 		SELECT common.get_vendor_name(v.vendor_code) vendor_name, v.*
 		FROM   purchase_request_vo v
-		ORDER BY vendor_code
+		ORDER BY vendor_code, item_code
 	</select>
+
+	<insert id="insertPurchaseRequest" parameterType="purchaserequest" statementType="CALLABLE">
+		{call common.create_purchase_info(#{outMsg})}
+	</insert>
+
+	<select id="getPurchaseRequestTempListData" resultType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+		SELECT *
+		FROM   purchase_detail_temp_vo v
+		ORDER BY vendor_code, item_code
+	</select>
+
+	
+	<insert id="insertPurchaseRequestTemp" parameterType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+		INSERT INTO purchase_detail_temp
+		VALUES  (TO_CHAR(purchase_detail_seq.nextval)
+			    ,'TEMP Master'
+			    ,#{vendorCode}
+			    ,#{itemCode}
+			    ,#{reqQty}
+			    ,#{supplyPrice}
+			    ,#{itemTax}
+			    )
+	</insert>
 
 </mapper>

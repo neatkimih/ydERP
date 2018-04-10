@@ -7,10 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.stocks.PurchaseDetailTempVO;
 import com.yedam.erp.stocks.PurchaseRequestService;
 import com.yedam.erp.stocks.PurchaseRequestVO;
 import com.yedam.erp.stocks.StockInOutService;
@@ -100,10 +102,35 @@ public class StocksController {
 		return "stocks/jqgridTest";
 	}
 
-	@RequestMapping("insertPurchaseRequest")
-	public String insertPurchaseRequest(PurchaseRequestVO vo) {
-		purchaseRequestService.insertPurchaseRequest(vo);
+	@RequestMapping("insertPurchaseRequestTemp")
+	@ResponseBody
+	public Map<String, String> insertPurchaseRequestTemp(@RequestBody List<PurchaseDetailTempVO> vo) {
+		purchaseRequestService.insertPurchaseRequestTemp(vo);
+		Map<String, String> map = new HashMap<String, String>();
+		return map;
+	}
+
+	// getPurchaseRequestTempListData
+	@RequestMapping(value = "/getPurchaseRequestTempListData", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> getPurchaseRequestTempListData(PurchaseDetailTempVO vo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<PurchaseDetailTempVO> requestlist = purchaseRequestService.getPurchaseRequestTempList(vo);
+		map.put("data", requestlist);
+		return map;
+	}
+
+	@RequestMapping("getPurchaseRequesting")
+	public String getPurchaseRequesting() {
 		return "stocks/getPurchaseRequesting";
+	}
+
+	@RequestMapping("insertPurchaseRequest")
+	@ResponseBody
+	public Map<String, String> insertPurchaseRequest(@RequestBody List<PurchaseRequestVO> vo) {
+		purchaseRequestService.insertPurchaseRequest(vo);
+		Map<String, String> map = new HashMap<String, String>();
+		return map;
 	}
 
 }

@@ -23,6 +23,7 @@
 	<!-- 주문 등록 : 주문 기본 정보 -->
 	<insert id="insertOrder" parameterType="sales">
 		INSERT INTO SALES (	SALE_CODE
+							, SALE_DATE
 							, CUSTOMER_CODE
 							, SALE_COST
 							, DELIVERY_ADDR
@@ -30,6 +31,7 @@
 							, PAY_STATUS
 							, ORDER_PERMIT )
 		VALUES ( #{saleCode}
+				, SYSDATE
 				, #{customerCode}
 				, #{saleCost}
 				, #{deliveryAddr}

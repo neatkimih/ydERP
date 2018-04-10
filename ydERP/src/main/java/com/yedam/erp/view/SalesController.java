@@ -49,16 +49,24 @@ public class SalesController {
 	public String insertOrderForm() {
 		return "sales/insertOrder";
 	}
+	
+	/* 미승인 주문 내역 페이지 폼 */
+	@RequestMapping("/getOrderList")
+	public String getOrderListForm() {
+		return "sales/getOrderList";
+	}
 
 	
 	/* 미승인 주문 기본 정보 조회 */
 	@RequestMapping("/getOrderList.do")
+	@ResponseBody
 	public List<SalesVO> getOrderList(SalesVO salesVO, Paging page) {
 		return salesService.getOrderList(salesVO);
 	}
 
 	/* 미승인 주문 상세 정보 조회 */
-	@RequestMapping("/getOrderDetail.do")
+	@RequestMapping(value = "/getOrderDetail.do")
+	@ResponseBody
 	public List<SaleDetailsVO> getOrderDetail(SaleDetailsVO saleDetailsVO, Paging page) {
 		return saleDetailsService.getOrderDetail(saleDetailsVO);
 	}

@@ -24,9 +24,6 @@ public class SalesMybatisDAO {
 	public List<SalesVO> getSaleList(SalesVO salesVO) {
 		return mybatis.selectList("sales.getSaleList", salesVO);
 	}
-
-	
-	
 	
 	/* 판매 내역 등록 */
 	public void insertSale(SalesVO salesVO) {

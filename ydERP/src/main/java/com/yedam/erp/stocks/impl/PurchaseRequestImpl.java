@@ -21,9 +21,8 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 	}
 
 	@Override
-	public void insertPurchaseRequest(List<PurchaseRequestVO> volist) {
-		for (PurchaseRequestVO vo : volist)
-			dao.insertPurchaseRequest(vo);
+	public void insertPurchaseRequest() {
+			dao.insertPurchaseRequest();
 	}
 
 	@Override

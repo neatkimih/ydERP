@@ -17,7 +17,9 @@
 
 <script type="text/javascript">
 
-	$(function() {		
+$(document).ready(function () {
+	
+	// master grid
 		
 		$("#list").jqGrid({
 			url : "getPurchasesList",
@@ -30,17 +32,20 @@
 					label : "구매코드",
 					name : "purchaseCode",
 					width : 110
+					
 				},
 				{
 					label : "구매일자",
 					name : "purchaseDate",
 					width : 85
+				
 				},
 				{
 					label : "구매처",
 					name : "vendorCode",
 					width : 80,
 					align : "right"
+				
 				},
 								
 				{
@@ -48,90 +53,100 @@
 					name : "purchaseCost",
 					width : 80,
 					align : "right"
+					
 				}
 
 			],
 			pager : "#pager",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
-			sortname : "invid",
-			sortorder : "desc", 
+			sortname : "purchaseCode",
+			sortorder : "desc",
+			loadonce: true,
 			viewrecords : true,
 			navGrid : { view:true, del:false},
 			gridview : true,
 			autoencode : true,
+			caption : "구매정보",	
 			onSelectRow: function(rowid, selected) {
 				if(rowid != null) {
-					jQuery("#list1").jqGrid('setGridParam',{url:rowid+"getPurchaseDetailList",datatype: 'json'}); // the last setting is for demo only
-					jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode"+rowid);
+					var selectedPurchaseCode = $(this).getCell(rowid,'purchaseCode');
+					jQuery("#list1").jqGrid('setGridParam',{url:"getPurchaseDetailList?purchaseCode="+selectedPurchaseCode, datatype: 'json'}); // the last setting is for demo only
+					jQuery("#list1").jqGrid('setCaption', '구매코드 : ' + selectedPurchaseCode);
 					jQuery("#list1").trigger("reloadGrid");
 				}					
-			}, // use the onSelectRow that is triggered on row click to show a details grid
-			onSortCol : clearSelection,
-			onPaging : clearSelection,
-			caption : "구매정보"			
+				console.log("선택된 구매코드 : " + selectedPurchaseCode);
+			} // use the onSelectRow that is triggered on row click to show a details grid
+							
 		});
 		
 		
-		$("#list1").jqGrid({
-			url : "getPurchaseDetailList",
-			datatype : "json",
-			mtype : "GET",
+		$("#list1").jqGrid({		
+			datatype : "json",			
 			styleUI : "Bootstrap",
 			autowidth:true,
 			colModel : [
 				
 				{
 					label : "구매상세코드",
-					name : "purchaseDatailCode",
-					width : 110
+					name : "purchaseDetailCode",
+					width : 110,
+					editable:true
+					
 				}, 				
 				{
 					label : "구매코드",
 					name : "purchaseCode",
-					width : 110
+					width : 110,
+					editable:true
 				}, 
 				{
 					label : "품목코드",
 					name : "purchaseItem",
-					width : 85
+					width : 85,
+					editable:true
 				},
 				{
 					label : "품목수량",
 					name : "purchaseQty",
 					width : 80,
-					align : "right"
+					align : "right",
+					editable:true
 				}, 			 	
 				{
 					label : "품목단가",
 					name : "purchasePrice",
 					width : 80,
-					align : "right"
+					align : "right",
+					editable:true
 				},
 			
 				{
 					label : "부가세",
 					name : "itemTax",
 					width : 80,
-					align : "right"
+					align : "right",
+					editable:true
 				},			
 				
 				{
 					label : "배송상태",
-					name : "itemTax",
+					name : "incomingFlag",
 					width : 80,
-					align : "right"
+					align : "right",
+					editable:true
 				}			
 				
 			], 
 			pager : "#pager1",		
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
-			sortname : "invid",
+			sortname : "purchaseDatailCode",
 			sortorder : "desc",
 			viewrecords : true,
 			gridview : true,
-			autoencode : true,			
+			autoencode : true,	
+			editurl: "getPurchaseDetailList",
 			caption : "구매상세정보"
 		}) .navGrid("#pager1", {		
 		/* options */
@@ -160,13 +175,18 @@
 		,{/* view parameters*/
 			closeOnEscape:true  			
 		});
+		jQuery("list1").jqGrid('navGrid',"#pager1",{edit:false,add:false,del:false});
+		jQuery("#list1").jqGrid('inlineNav',"#pager1");
+	
 		function clearSelection() {
-			jQuery("#list1").jqGrid('setGridParam',{url: "getPurchaseDetailList", datatype: 'json'}); // the last setting is for demo purpose only
-			jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");			
-			jQuery("#list1").trigger("reloadGrid");
+		jQuery("#list1").jqGrid('setGridParam',{url: "getPurchaseDetailList", datatype: 'json'}); // the last setting is for demo purpose only
+		jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");			
+		jQuery("#list1").trigger("reloadGrid");
 			
 		}
-	});
+		
+		
+	});	
 
 </script>
 
@@ -184,7 +204,7 @@
   </div>
   <br><br><br>
   <div class="row">
-  <div class="col-lg-6"><table id="list1">
+  <div class="col-lg-8"><table id="list1">
 		<tr>
 			<td></td>
 		</tr>

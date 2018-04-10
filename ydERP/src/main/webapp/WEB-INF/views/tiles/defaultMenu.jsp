@@ -24,7 +24,7 @@
 					class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="getPurchasesPage">구매정보조회</a></li>		 			
-				</ul> <!-- /.nav-second-level --></li>
+				</ul> <!-- /.nav-second-level --></li> 
 			<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
 					판매정보<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">

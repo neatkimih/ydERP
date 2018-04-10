@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.erp.stocks.PurchaseRequestVO;
+import com.yedam.erp.stocks.PurchaseDetailTempVO;
 import com.yedam.erp.stocks.PurchaseRequestService;
 
 @Service
@@ -20,8 +21,21 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 	}
 
 	@Override
-	public void insertPurchaseRequest(PurchaseRequestVO vo) {
-		dao.insertPurchaseRequest(vo);		
+	public void insertPurchaseRequest(List<PurchaseRequestVO> volist) {
+		for (PurchaseRequestVO vo : volist)
+			dao.insertPurchaseRequest(vo);
+	}
+
+	@Override
+	public void insertPurchaseRequestTemp(List<PurchaseDetailTempVO> volist) {
+		for (PurchaseDetailTempVO vo : volist)
+			dao.insertPurchaseRequestTemp(vo);
+	}
+
+	@Override
+	public List<PurchaseDetailTempVO> getPurchaseRequestTempList(PurchaseDetailTempVO vo) {
+		// TODO Auto-generated method stub
+		return dao.getPurchaseRequestTempList(vo);
 	}
 
 }

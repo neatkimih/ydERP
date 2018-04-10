@@ -1,5 +1,6 @@
 package com.yedam.erp.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +27,22 @@ public class SalesServiceImpl implements SalesService {
 		return salesDAO.getSaleList(salesVO);
 	}
 	
+
+	/* 미승인 주문 기본 정보 조회 */
 	@Override
-	/* 판매 내역 등록 */
-	public void insertSale(SalesVO salesVO) {
-		salesDAO.insertSale(salesVO);
+	public List<SalesVO> getOrderList(SalesVO salesVO) {
+		return salesDAO.getOrderList(salesVO);
+	}
+	
+	/* 주문 승인 */
+	@Override
+	public void updateOrderStatus(SalesVO salesVO) {
+		salesDAO.updateOrderStatus(salesVO);
 	}
 
-	@Override
-	/* 판매 내역 수정 */
-	public void updateSale(SalesVO salesVO) {
-		salesDAO.updateSale(salesVO);
-	}
-
-	@Override
-	/* 판매 내역 삭제 */
-	public void deleteSale(SalesVO salesVO) {
-		salesDAO.deleteSale(salesVO);
+	/* 미승인 주문 기본 정보 삭제 */
+	@Override	
+	public void deleteOrderList(ArrayList<String> saleCode) {
+		salesDAO.deleteOrderList(saleCode);
 	}
 }

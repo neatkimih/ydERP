@@ -15,8 +15,13 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 	PurchaseRequestMybatisDAO dao;
 
 	@Override
-	public List<PurchaseRequestVO> getPurchaseReqeustList(PurchaseRequestVO vo) {
-		return dao.getPurchaseReqeustList(vo);
+	public List<PurchaseRequestVO> getPurchaseRequestList(PurchaseRequestVO vo) {
+		return dao.getPurchaseRequestList(vo);
+	}
+
+	@Override
+	public void insertPurchaseRequest(PurchaseRequestVO vo) {
+		dao.insertPurchaseRequest(vo);		
 	}
 
 }

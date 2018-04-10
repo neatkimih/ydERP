@@ -14,8 +14,11 @@ public class PurchaseRequestMybatisDAO {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 
-	public List<PurchaseRequestVO> getPurchaseReqeustList(PurchaseRequestVO vo) {
-		return sqlSession.selectList("purchaserequest.getPurchaseRequestList", vo);
+	public List<PurchaseRequestVO> getPurchaseRequestList(PurchaseRequestVO vo) {
+		return sqlSession.selectList("stocks.getPurchaseRequestList", vo);
 	}
 
+	public void insertPurchaseRequest(PurchaseRequestVO vo) {
+		sqlSession.insert("stocks.insertPurchaseRequest", vo);
+	}
 }

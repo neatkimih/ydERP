@@ -1,11 +1,14 @@
 package com.yedam.erp.view;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.stocks.PurchaseRequestService;
@@ -72,21 +75,35 @@ public class StocksController {
 
 	}
 
-	@RequestMapping("getPurchaseRequestList")
-	public String getPurchaseRequestList(Model model, PurchaseRequestVO vo) {
-		model.addAttribute("list", vo);
-		return "stocks/getPurchaseRequestList";
+	@RequestMapping(value = "getPurchaseRequestListData_jqgrid", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PurchaseRequestVO> getPurchaseRequestListData_jqgrid(PurchaseRequestVO vo) {
+		return purchaseRequestService.getPurchaseRequestList(vo);
 	}
 
-	@RequestMapping("getPurchaseRequestListData")
+	@RequestMapping(value = "/getPurchaseRequestListData", method = RequestMethod.GET)
 	@ResponseBody
-	public List<PurchaseRequestVO> getPurchaseRequestListData(PurchaseRequestVO vo) {
-		return purchaseRequestService.getPurchaseReqeustList(vo);
+	public Map<String, Object> getPurchaseRequestListData(PurchaseRequestVO vo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<PurchaseRequestVO> requestlist = purchaseRequestService.getPurchaseRequestList(vo);
+		map.put("data", requestlist);
+		return map;
+	}
+
+	@RequestMapping("/getPurchaseRequestList")
+	public String getPurchaseRequestList() {
+		return "stocks/getPurchaseRequestList";
 	}
 
 	@RequestMapping("getStockInOutListTest")
 	public String getStockInOutListTest(StockInOutVO vo) {
 		return "stocks/jqgridTest";
+	}
+
+	@RequestMapping("insertPurchaseRequest")
+	public String insertPurchaseRequest(PurchaseRequestVO vo) {
+		purchaseRequestService.insertPurchaseRequest(vo);
+		return "stocks/getPurchaseRequesting";
 	}
 
 }

@@ -8,16 +8,16 @@
 	<select id="getItemsList" resultType="items">
 		<![CDATA[
 		
-		SELECT item_code
-		      ,item_name
-		      ,uom
-		      ,in_qty
-		      ,supply_price
-		      ,selling_price
-		      ,item_tax
-		      ,expire_date
-		      ,vendor_code		      
-		FROM   items
+		SELECT i.item_code
+		      ,i.item_name
+		      ,i.uom
+		      ,i.in_qty
+		      ,i.supply_price
+		      ,i.selling_price
+		      ,i.item_tax
+		      ,i.expire_date
+		      ,i.vendor_code		      
+		FROM   items i
 		]]>
 		<where>
 			<if test="searchKeyword != null and searchKeyword != '' ">
@@ -67,7 +67,7 @@
 		</where>
 	</select>
 	<!-- -->
-	<insert id="insertItems" parameterType="items">
+	<!-- <insert id="insertItems" parameterType="items">
 		INSERT INTO items
 		(item_code
 		,item_name
@@ -83,19 +83,12 @@
 		values
 		(#{itemCode},#{itemName},#{uom},#{inQty},#{supplyPrice},
 		#{sellingPrice},#{itemTax},#{expireDate},#{vendorCode})
-	</insert>
+	</insert> -->
 	<!-- -->
-	<insert id="insertItems2" parameterType="items" statementType="CALLABLE">
+	<insert id="insertItems" parameterType="items" statementType="CALLABLE">
 		<![CDATA[
-		{call items_ins_proc(#{item_name}
-							,#{uom}
-							,#{in_qty}
-							,#{supply_price, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer}
-							,#{selling_price, mode=OUT, jdbcType=VARCHAR, javaType=String}
-							,#{supply_price, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer}
-							,#{item_tax, mode=OUT, jdbcType=VARCHAR, javaType=String}
-							,#{expire_date, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer}
-							,#{vendor_code, mode=OUT, jdbcType=VARCHAR, javaType=String}
+		{call items_ins_proc(
+						
 		)}
 		]]>
 	</insert>

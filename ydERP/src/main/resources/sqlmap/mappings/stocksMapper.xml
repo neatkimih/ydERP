@@ -6,8 +6,7 @@
 	<!-- 판매 내역 전체 조회 -->
 	<select id="getStockInOutList" resultType="stockin">
 		SELECT *
-		FROM
-		stock_in_out_vo
+		FROM   stock_in_out_vo
 		ORDER BY stock_id
 	</select>
 
@@ -25,14 +24,13 @@
 
 	<select id="getStockOnhandList" resultType="stockon">
 		SELECT *
-		FROM
-		stock_onhands_vo
+		FROM   stock_onhands_vo
 	</select>
 
 	<select id="getPurchaseRequestList" resultType="purchaserequest">
-		SELECT *
-		FROM
-		stock_onhands_vo
+		SELECT common.get_vendor_name(v.vendor_code) vendor_name, v.*
+		FROM   purchase_request_vo v
+		ORDER BY vendor_code
 	</select>
 
 </mapper>

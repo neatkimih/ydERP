@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.common.Paging;
+import com.yedam.erp.employees.EmployeesService;
+import com.yedam.erp.employees.EmployeesVO;
 import com.yedam.erp.sales.SaleDetailsService;
 import com.yedam.erp.sales.SaleDetailsVO;
 import com.yedam.erp.sales.SalesService;
@@ -23,6 +26,9 @@ public class SalesController {
 
 	@Autowired
 	SaleDetailsService saleDetailsService;
+	
+	@Autowired
+	EmployeesService employeesService;
 
 	/* 판매 내역 페이지 폼 */
 	@RequestMapping("/getSaleList")
@@ -52,7 +58,9 @@ public class SalesController {
 	
 	/* 미승인 주문 내역 페이지 폼 */
 	@RequestMapping("/getOrderList")
-	public String getOrderListForm() {
+	public String getOrderListForm(Model model, EmployeesVO employeesVO) {
+		model.addAttribute("employeeList", employeesService.getEmployeesList(employeesVO));
+		
 		return "sales/getOrderList";
 	}
 
@@ -85,4 +93,17 @@ public class SalesController {
 		salesService.deleteOrderList(saleCode);
 		return "redirect:/getOrderList";
 	}
+	
+	/* 미승인 주문 그리드 편집 */
+	@RequestMapping("/editOrderList.do")
+	@ResponseBody
+	public void editOrderList(	@RequestParam(value = "oper", required = false) String op, SalesVO salesVO) {
+		if (op.equals("edit")) {
+			salesService.updateOrderStatus(salesVO);
+		}
+		else if (op.equals("del")) {
+					// itesService.deleteItems(vo);
+		}
+	}
+
 }

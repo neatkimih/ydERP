@@ -172,6 +172,9 @@
 
 		// 검색 기능 
 		$('#saleList').jqGrid('navGrid', "#pagerSaleList", {
+			add : false,
+			edit : false,
+			del : false,
 			search : true,
 			refresh : true
 		}, {}, {

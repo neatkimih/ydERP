@@ -20,6 +20,7 @@
 		<typeAlias alias="stockin" type="com.yedam.erp.stocks.StockInOutViewVO" />
 		<typeAlias alias="stockon" type="com.yedam.erp.stocks.StockOnhandViewVO" />
 		<typeAlias alias="purchaserequest" type="com.yedam.erp.stocks.PurchaseRequestVO" />
+		<typeAlias alias="lookupvalues" type="com.yedam.erp.common.LookupValuesVO" />
 	</typeAliases>
 
 

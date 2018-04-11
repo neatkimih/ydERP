@@ -1,6 +1,7 @@
 package com.yedam.erp.stocks;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PurchaseRequestService {
 
@@ -11,5 +12,7 @@ public interface PurchaseRequestService {
 	public void insertPurchaseRequestTemp(List<PurchaseDetailTempVO> volist);
 
 	public void insertPurchaseRequest();
+	
+	public List<Map<String, Object>> getlookUpValueList();
 
 }

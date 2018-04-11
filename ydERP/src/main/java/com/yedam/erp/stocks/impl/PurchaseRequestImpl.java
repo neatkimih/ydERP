@@ -1,6 +1,7 @@
 package com.yedam.erp.stocks.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 
 	@Override
 	public void insertPurchaseRequest() {
-			dao.insertPurchaseRequest();
+		dao.insertPurchaseRequest();
 	}
 
 	@Override
@@ -35,6 +36,10 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 	public List<PurchaseDetailTempVO> getPurchaseRequestTempList(PurchaseDetailTempVO vo) {
 		// TODO Auto-generated method stub
 		return dao.getPurchaseRequestTempList(vo);
+	}
+
+	public List<Map<String, Object>> getlookUpValueList() {
+		return dao.getlookUpValueList();
 	}
 
 }

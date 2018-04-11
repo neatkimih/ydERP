@@ -1,6 +1,7 @@
 package com.yedam.erp.stocks.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class PurchaseRequestMybatisDAO {
 
 	public void insertPurchaseRequestTemp(PurchaseDetailTempVO vo) {
 		sqlSession.insert("stocks.insertPurchaseRequestTemp", vo);
+	}
+
+	public List<Map<String, Object>> getlookUpValueList() {
+		return sqlSession.selectList("stocks.getlookUpValueList");
 	}
 
 }

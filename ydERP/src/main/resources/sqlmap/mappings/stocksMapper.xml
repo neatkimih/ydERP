@@ -76,5 +76,14 @@
 			    )
 		]]>
 	</insert>
+	
+	<select id="getlookUpValueList" resultType="map">
+		SELECT lv.lookup_code
+		      ,lv.lookup_values
+		FROM   lookups lk
+		JOIN   lookup_values lv
+		ON     lk.lookup = lv.lookup
+		WHERE  lk.lookup = 'SUBINVENTORY'
+	</select>
 
 </mapper>

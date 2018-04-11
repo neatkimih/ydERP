@@ -121,7 +121,9 @@ public class StocksController {
 	}
 
 	@RequestMapping("getPurchaseRequesting")
-	public String getPurchaseRequesting() {
+	public String getPurchaseRequesting(Model model) {
+		System.out.println(purchaseRequestService.getlookUpValueList());
+		model.addAttribute("lookUpValue", purchaseRequestService.getlookUpValueList());
 		return "stocks/getPurchaseRequesting";
 	}
 

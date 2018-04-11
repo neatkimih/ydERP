@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -82,6 +83,12 @@
 			</table>
 			<div id="pager"></div>
 		</div>
+	<select id="warehouseSelect" name="searchWarehouse">
+		<option value="">창고 선택</option>
+		<c:forEach items="${lookUpValue}" var="lkup">
+			<option value="${lkup.LOOKUP_CODE}">${lkup.LOOKUP_VALUES}</option>
+		</c:forEach>
+	</select>
 	</form>
 </body>
 </html>

@@ -29,14 +29,14 @@
 		onMessage(event)
 	};
 	function onMessage(event) {
-		textarea.value += "YDERP : " + event.data + "\n";
+		textarea.value += "상대 : " + event.data + "\n";
 	}
 	function onOpen(event) {
 		textarea.value += "연결 성공\n";
-	}
+	} 
 	function onError(event) {
 		console.log(event);
-		alert(event.data);
+		alert(event.data); 
 	}
 	function send(){
 		// 서버로 전송할 데이터를 담을 msg 객체 생성.

@@ -10,6 +10,6 @@ public interface PurchaseRequestService {
 
 	public void insertPurchaseRequestTemp(List<PurchaseDetailTempVO> volist);
 
-	public void insertPurchaseRequest(List<PurchaseRequestVO> volist);
+	public void insertPurchaseRequest();
 
 }

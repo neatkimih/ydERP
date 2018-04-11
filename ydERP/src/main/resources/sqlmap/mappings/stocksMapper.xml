@@ -41,6 +41,13 @@
 		]]>
 	</select>
 
+	<insert id="insertPurchaseRequest2" parameterType="purchaserequest"
+		statementType="CALLABLE">
+		<![CDATA[
+		{call create_purchase_info()}
+		]]>
+	</insert>
+
 	<insert id="insertPurchaseRequest" parameterType="purchaserequest"
 		statementType="CALLABLE">
 		<![CDATA[

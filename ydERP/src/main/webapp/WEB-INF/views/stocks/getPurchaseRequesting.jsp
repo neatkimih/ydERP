@@ -23,7 +23,7 @@
 
 			$.ajax({
 				url : "./insertPurchaseRequest",
-				type : "PUT",
+				type : "POST",
 				dataType : "json",
 				data : JSON.stringify(params),
 				contentType : "application/json;charset=utf-8",

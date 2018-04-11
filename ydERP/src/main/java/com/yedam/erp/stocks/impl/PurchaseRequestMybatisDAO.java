@@ -19,8 +19,8 @@ public class PurchaseRequestMybatisDAO {
 		return sqlSession.selectList("stocks.getPurchaseRequestList", vo);
 	}
 
-	public void insertPurchaseRequest(PurchaseRequestVO vo) {
-		sqlSession.insert("stocks.insertPurchaseRequest", vo);
+	public void insertPurchaseRequest() {
+		sqlSession.insert("stocks.insertPurchaseRequest");
 	}
 
 	public List<PurchaseDetailTempVO> getPurchaseRequestTempList(PurchaseDetailTempVO vo) {

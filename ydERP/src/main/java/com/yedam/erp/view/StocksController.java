@@ -127,8 +127,8 @@ public class StocksController {
 
 	@RequestMapping("insertPurchaseRequest")
 	@ResponseBody
-	public Map<String, String> insertPurchaseRequest(@RequestBody List<PurchaseRequestVO> vo) {
-		purchaseRequestService.insertPurchaseRequest(vo);
+	public Map<String, String> insertPurchaseRequest() {
+		purchaseRequestService.insertPurchaseRequest();
 		Map<String, String> map = new HashMap<String, String>();
 		return map;
 	}

@@ -58,7 +58,8 @@ public class SalesController {
 	@RequestMapping("/getOrderList")
 	public String getOrderListForm(Model model, EmployeesVO employeesVO, LookupValuesVO lookupValuesVO) {
 		model.addAttribute("employeeList", employeesService.getEmployeesList(employeesVO));
-		model.addAttribute("lookupValueList", lookupValuesService.getLookupValuesList(lookupValuesVO));
+		model.addAttribute("lookupValueList", )
+		// model.addAttribute("lookupValueList", lookupValuesService.getLookupValuesList(lookupValuesVO));
 		return "sales/getOrderList";
 	}
 	

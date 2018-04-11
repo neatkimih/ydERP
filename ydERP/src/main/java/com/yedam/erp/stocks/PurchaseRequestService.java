@@ -11,8 +11,12 @@ public interface PurchaseRequestService {
 
 	public void insertPurchaseRequestTemp(List<PurchaseDetailTempVO> volist);
 
-	public void insertPurchaseRequest();
-	
-	public List<Map<String, Object>> getlookUpValueList();
+	public void insertPurchaseRequest(PurchaseRequestVO vo);
+
+	public List<Map<String, Object>> getlookUpValueList(PurchaseRequestVO vo);
+
+	public List<PurchaseHeadersVO> getReceiptHeaders(PurchaseHeadersVO vo);
+
+	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo);
 
 }

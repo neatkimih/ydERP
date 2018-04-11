@@ -90,8 +90,8 @@
 		SET SALE_DATE = SYSDATE
 			, DELIVERY_EMP = #{deliveryEmp}
 			, WAREHOUSE = #{warehouse}
-			, ORDER_PERMIT = #{orderPermit} 
-		WHERE SALE_CODE = #{saleCode};
+			, ORDER_PERMIT = 'Y' 
+		WHERE SALE_CODE = #{saleCode}
 	</update>
 	
 	<!-- 미승인 주문 삭제 : 주문 상세 정보 -->
@@ -111,5 +111,12 @@
 				#{itemOrderList}
 			</foreach>
 	</delete>
+	
+	<insert id="afterPermitOrder" parameterType="purchaserequest"
+		statementType="CALLABLE">
+		<![CDATA[
+		{call common.out_txn(#{pTxnNo})}
+		]]>
+	</insert>
 
 </mapper>

@@ -13,6 +13,8 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 <script>
+var lastsel2;
+	var selectedOrderCode;
 	$(document).ready(function() {
 		/* Order List : 마스터 그리드 */
 		$("#orderList").jqGrid({
@@ -20,14 +22,19 @@
 			editurl : "editOrderList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문코드", "주문처 코드", "주문일자", "결제금액", "배송지", "승인상태" ],
+			colNames : [ "주문코드", "주문처 코드", "주문일자", "결제금액", "배송지", "승인상태", "배송사원", "출하창고", "승인처리"],			
 			colModel : [
 				{	name : "saleCode",		width : 120,	align : "center",	editable : false	},
 				{	name : "customerCode",	width : 100,	align : "center",	editable : false	},
-				{	name : "saleDate",		width : 200,	align : "center",	editable : false	},
+				{	name : "saleDate",		width : 120,	align : "center",	editable : false	},
 				{	name : "saleCost",		width : 100,	align : "right",	editable : false	},
 				{	name : "deliveryAddr",	width : 200,	align : "left",		editable : false	},
-				{	name : "orderPermit",	width : 100,	align : "center",	editable : true		}
+				{	name : "orderPermit",	width : 100,	align : "center",	editable : false	},
+				{	name : "deliveryEmp",	width : 200,	align : "center",	editable : true,
+					edittype : "select",	editoptions:{value:"${employeeList}"}},					
+				{	name : "warehouse",		width : 200,	align : "center",	editable : true,
+					edittype : "select",	editoptions:{value:"${lookupValueList}"}},
+				{	}
 			],
 			autoheight : true,
 			autowidth : true,
@@ -40,8 +47,13 @@
 			caption : "주문 내역 정보",
 			pager : "#pagerOrderList",
 			onSelectRow : function(rowid, selected) {
+				if(rowid && rowid!==lastsel2){
+					jQuery('#orderList').jqGrid('restoreRow',lastsel2);
+					jQuery('#orderList').jqGrid('editRow',rowid,true);
+					lastsel2=rowid;
+				}
 				if (rowid != null) {
-					var selectedOrderCode = $(this).getCell(rowid, 'saleCode');
+					selectedOrderCode = $(this).getCell(rowid, 'saleCode');
 					jQuery("#orderDetail").jqGrid('setGridParam', {
 						url : "./getOrderDetail.do?saleCode=" + selectedOrderCode
 					});
@@ -68,6 +80,7 @@
 				{	name : "expireDate",	width : 100,	align : "center"	},
 				{	name : "vendorCode",	width : 100,	align : "center"	},
 			],
+			
 			pager : "#pagerOrderDetail",
 			rowNum : 10,
 			sortname : "orderDetailCode",
@@ -79,15 +92,15 @@
 			search : true
 		});
 
-		// 주문 정보 검색, 편집, 취소, 삭제, 새로고침 버튼 
+		// 주문 정보 검색, 취소, 삭제, 새로고침 버튼 
 		$('#orderList').jqGrid('navGrid', "#pagerOrderList", {
 			search : true,
 			add : false,
-			edit : true,
+			edit : false,
 			cancel : true,
 			del : true,
 			refresh : true
-		}, {}, {
+		}, {
 			closeAfterAdd : true,
 			reloadAfterSubmit : true,
 			afterComplete : function() {
@@ -104,22 +117,33 @@
 
 		);
 	});
+	
+	function permitOrder() {
+		var params = "";
+		
+		
+	}
 </script>
 <style type="text/css">
-.
-#orderListDiv {
+.#orderListDiv {
 	margin-left: auto;
 	margin-right: auto;
 	padding: 50px;
 	text-align: center;
 }
 
-.
-#orderDetailDiv {
+.#orderDetailDiv {
 	margin-left: auto;
 	margin-right: auto;
 	padding: 50px;
 	text-align: center;
+}
+
+.#permitOrderDiv {
+	background-color: #3F7FFF;
+	padding : 50px;
+	float: left;
+
 }
 
 </style>
@@ -135,26 +159,28 @@
 		<div id="pagerOrderList"></div>
 	</div>
 	<br>
-	<form action="getOrderList">
-		배송 사원 : 
-		<select id="deliveryEmpSelect" name="searchEmployeeId">
-			<option value="">사원 선택</option>
-			<c:forEach items="${employeeList}" var="emp">
-			<option value="${emp.id}">${emp.id} : ${emp.name}</option>
-			</c:forEach>
-		</select>
-		<br><br>
-		출하 창고 :
-		<select id="warehouseSelect" name="searchWarehouse">
-			<option value="">창고 선택</option>
-			<c:forEach items="${lookupValueList}" var="lkup">
-			<option value="${lkup.lookup_code}">${lkup.lookup_descriptions}</option>
-			</c:forEach>
-		</select>
-		<br><br>
-		<button type="submit" ></button>
-		
-	</form>
+	<div id="permitOrderDiv">
+		<form action="getOrderList" name="permitForm">
+			<%-- 배송 사원 : 
+			<select id="deliveryEmpSelect" name="searchEmployeeId">
+				<option value="">사원 선택</option>
+				<c:forEach items="${employeeList}" var="emp">
+				<option value="${emp.id}">${emp.id} : ${emp.name}</option>
+				</c:forEach>
+			</select> --%>
+			<br><br>
+			<%-- 출하 창고 :
+			<select id="warehouseSelect" name="searchWarehouse">
+				<option value="">창고 선택</option>
+				<c:forEach items="${lookupValueList}" var="lkup">
+				<option value="${lkup.LOOKUP_CODE}">${lkup.LOOKUP_VALUES}</option>
+				</c:forEach>
+			</select> --%>
+			<br><br>
+			<input type="button" value="주문 승인" onclick="permitOrder()"/>
+		</form>
+	</div>
+	<br>
 	<hr>
 	<br>
 	<div id="orderDetailDiv">

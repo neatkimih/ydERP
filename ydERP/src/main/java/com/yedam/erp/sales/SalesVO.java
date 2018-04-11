@@ -14,6 +14,8 @@ public class SalesVO
 	private char warehouse;				// 출하창고
 	private char orderPermit;			// 주문허가
 	
+	private String pTxnNo;
+	
 	/* saleCode - GET(), SET() */
 	public String getSaleCode() { return saleCode; }
 	public void setSaleCode(String saleCode) { this.saleCode = saleCode; }
@@ -53,6 +55,14 @@ public class SalesVO
 	/* orderPermit - GET(), SET() */	
 	public char getOrderPermit() { return orderPermit; }
 	public void setOrderPermit(char orderPermit) { this.orderPermit = orderPermit; }
+	
+	
+	public String getpTxnNo() {
+		return pTxnNo;
+	}
+	public void setpTxnNo(String pTxnNo) {
+		this.pTxnNo = pTxnNo;
+	}
 	
 	@Override
 	public String toString() {

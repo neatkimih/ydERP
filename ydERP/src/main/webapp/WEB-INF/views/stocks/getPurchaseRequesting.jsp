@@ -66,11 +66,11 @@
 
 </script>
 </head>
-<body>
+<body><h3>getPurchaseRequesting.jsp</h3>
 	<form name="frm" action="createPurchaseRequest">
 		<input type="button" value="주문요청승인" id="btn1" />
 		<div class="col-lg-12">
-			<table id="list" border="1">
+			<table id="list" border="1" class="table table-striped table-bordered table-hover">
 				<thead><tr>
 					<th>주문상세코드</th>
 					<th>주문코드</th>

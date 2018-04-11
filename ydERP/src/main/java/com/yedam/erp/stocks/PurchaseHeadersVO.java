@@ -4,10 +4,19 @@ public class PurchaseHeadersVO {
 	String purchaseCode;
 	String purchaseDate;
 	String vendorCode;
+	String vendorName;
 	Integer purchaseQty;
 	Integer purchaseCost;
 	String purchaseItem;
 	Integer itemTax;
+
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
 
 	public String getPurchaseCode() {
 		return purchaseCode;

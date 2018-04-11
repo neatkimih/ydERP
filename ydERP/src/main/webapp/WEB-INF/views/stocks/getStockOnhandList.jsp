@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,9 +53,62 @@
 				});
 		jQuery("#list").jqGrid('navGrid', '#pager', {});
 	});
+
+	var timeoutHnd;
+	var flAuto = false;
+
+	function doSearch(ev){
+		if(!flAuto)
+			return;
+//		var elem = ev.target||ev.srcElement;
+		if(timeoutHnd)
+			clearTimeout(timeoutHnd)
+		timeoutHnd = setTimeout(gridReload,500)
+	}
+
+	function gridReload() {
+		var cd_mask = jQuery("#item_cd").val();
+		var nm_mask = jQuery("#item_nm").val();
+		console.log(cd_mask + "============" + nm_mask);
+		jQuery("#list").jqGrid(
+				'setGridParam',
+				{
+					url : "getStockOnhandListData?itemName=" + nm_mask + "&itemCode=" + cd_mask,
+					datatype : "json",
+					page : 1
+				}).trigger("reloadGrid");
+	}
+	function enableAutosubmit(state) {
+		flAuto = state;
+		jQuery("#submitButton").attr("disabled", state);
+	}
 </script>
 </head>
 <body>
+	<h3>getStockOnhandList.jsp</h3>
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">Search Condition</div>
+			<div>
+				<input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)"> Enable Autosearch
+			</div>
+			<div  class="col-lg-5">
+				<input type="text" id="item_cd" class="form-control" placeholder="==> Enter ItemCode" onkeydown="doSearch(arguments[0]||event)" />
+				<input type="text" id="item_nm" class="form-control" placeholder="==> Enter ItemName" onkeydown="doSearch(arguments[0]||event)" />
+			</div><br>
+			<div class="col-lg-5">
+				<select id="warehouseSelect" name="searchWarehouse" class="form-control">
+					<option value="">구매업체 선택</option>
+					<c:forEach items="${lookUpValue}" var="lkup">
+						<option value="${lkup.LOOKUP_CODE}">${lkup.LOOKUP_VALUES}</option>
+					</c:forEach>
+				</select>
+				<button onclick="gridReload()" id="submitButton"
+					class="btn btn-outline btn-success" style="margin-left: 30px">Search</button>
+			</div><br>
+		</div>
+	</div>
+	<br>
 	<div class="col-lg-12">
 		<table id="list">
 			<tr>

@@ -12,6 +12,7 @@ public class LookupValuesServiceImpl implements LookupValuesService {
 	@Autowired
 	LookupValuesMybatisDAO lookupValuesMybatisDAO;
 	
+	@Override
 	public List<LookupValuesVO> getLookupValuesList(LookupValuesVO lookupValuesVO) {
 		return lookupValuesMybatisDAO.getLookupValueList(lookupValuesVO);
 	}

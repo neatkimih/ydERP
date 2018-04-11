@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yedam.erp.common.LookupValuesService;
-import com.yedam.erp.common.LookupValuesVO;
 import com.yedam.erp.common.Paging;
 import com.yedam.erp.employees.EmployeesService;
 import com.yedam.erp.employees.EmployeesVO;
@@ -26,7 +24,6 @@ public class SalesController {
 	@Autowired SalesService salesService;
 	@Autowired SaleDetailsService saleDetailsService;
 	@Autowired EmployeesService employeesService;
-	@Autowired LookupValuesService lookupValuesService;
 
 	/* 판매 내역 페이지 폼 */
 	@RequestMapping("/getSaleList")
@@ -56,9 +53,9 @@ public class SalesController {
 	
 	/* 미승인 주문 내역 페이지 폼 */
 	@RequestMapping("/getOrderList")
-	public String getOrderListForm(Model model, EmployeesVO employeesVO, LookupValuesVO lookupValuesVO) {
+	public String getOrderListForm(Model model, EmployeesVO employeesVO) {
 		model.addAttribute("employeeList", employeesService.getEmployeesList(employeesVO));
-		model.addAttribute("lookupValueList", )
+		//model.addAttribute("lookupValueList", )
 		// model.addAttribute("lookupValueList", lookupValuesService.getLookupValuesList(lookupValuesVO));
 		return "sales/getOrderList";
 	}

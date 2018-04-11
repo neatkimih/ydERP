@@ -26,6 +26,7 @@
 			datatype : "json",
 			mtype : "GET",
 			styleUI : "Bootstrap",
+			hidegrid: false,
 			autowidth : true,
 			colModel : [
 				{
@@ -59,14 +60,10 @@
 			sortname : "purchaseCode",
 			sortorder : "desc",
 			loadonce : true,
-			viewrecords : true,
-			navGrid : {
-				view : true,
-				del : false
-			},
+			viewrecords : true,			
 			gridview : true,
 			autoencode : true,
-			caption : "구매정보",
+			//caption : "구매정보",
 			onSelectRow : function(rowid, selected) {
 				if (rowid != null) {
 					var selectedPurchaseCode = $(this).getCell(rowid, 'purchaseCode');
@@ -87,6 +84,7 @@
 		$("#list1").jqGrid({
 			datatype : "json",
 			styleUI : "Bootstrap",
+			hidegrid: false,
 			autowidth : true,
 			colModel : [
 
@@ -106,6 +104,12 @@
 					label : "품목코드",
 					name : "purchaseItem",
 					width : 85,
+					editable : true
+				},
+				{
+					label : "품목명",
+					name : "itemName",
+					width : 200,
 					editable : true
 				},
 				{
@@ -194,43 +198,7 @@
                  }
              }
 		
-		}).navGrid("#pager1", {
-			/* options */
-			add : true,
-			edit : true,
-			view : true,
-			del : true,
-			search : true,
-			refresh : true
-		//add:false,edit:false,view:false,del:false,search:false,refresh:false
-		}
-			, { /* Edit options */
-				closeAfterAdd : true,
-				reloadAfterSubmit : false,
-				closeOnEscape : true
-			}
-			, { /* Add options */
-				closeAfterAdd : true,
-				reloadAfterSubmit : false,
-				closeOnEscape : true
-			}
-			, { /* Delete options */
-				reloadAfterSubmit : false,
-				closeOnEscape : true
-			}
-			, { /* Search options */
-				closeOnEscape : true,
-				onSearch : function() {} //onSearch:function(){
-			} //Search Option
-			, { /* view parameters*/
-				closeOnEscape : true
-			});
-		jQuery("#list1").jqGrid('navGrid', "#pager1", {
-			edit : false,
-			add : false,
-			del : false
-		});
-		jQuery("#list1").jqGrid('inlineNav', "#pager1");
+		})
 
 		function clearSelection() {
 			jQuery("#list1").jqGrid('setGridParam', {
@@ -253,8 +221,7 @@
 </script>
 
 </head>
-<body>
-<input type="checkbox" value=" " offval="no">
+<body> 
 	<div class="row">
 		<div class="col-lg-8">
 			<table id="list">
@@ -268,6 +235,7 @@
 	<br>
 	<br>
 	<br>
+	<h3>구매상세정보</h3>
 	<div class="row">
 		<div class="col-lg-8">
 			<table id="list1">
@@ -278,6 +246,5 @@
 			<div id="pager1"></div>
 		</div>
 	</div>
-
 </body>
 </html>

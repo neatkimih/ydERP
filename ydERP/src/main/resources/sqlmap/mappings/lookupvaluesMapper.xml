@@ -6,6 +6,7 @@
 	<select id="getLookupValueList">
 		SELECT * 
 		FROM LOOKUP_VALUES 
-		WHERE LOOKUP = 'SUBINVENTORY'
+		WHERE LOOKUP = 'SUBINVENTORY' 
+		ORDER BY LOOKUP_CODE
 	</select>
 </mapper>

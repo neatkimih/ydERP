@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yedam.erp.common.LookupValuesService;
 import com.yedam.erp.common.LookupValuesVO;
 
-public class LookupValuesServiceImpl {
+public class LookupValuesServiceImpl implements LookupValuesService {
 	
 	@Autowired
 	LookupValuesMybatisDAO lookupValuesMybatisDAO;

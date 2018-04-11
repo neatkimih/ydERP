@@ -36,7 +36,7 @@
 	} 
 	function onError(event) {
 		console.log(event);
-		alert(event.data);
+		alert(event.data); 
 	}
 	function send(){
 		// 서버로 전송할 데이터를 담을 msg 객체 생성.

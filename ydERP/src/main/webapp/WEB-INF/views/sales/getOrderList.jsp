@@ -20,49 +20,14 @@
 			editurl : "editOrderList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문코드"
-				, "주문처 코드"
-				, "주문일자"
-				, "결제금액"
-				, "배송지"
-				, "승인상태" ],
+			colNames : [ "주문코드", "주문처 코드", "주문일자", "결제금액", "배송지", "승인상태" ],
 			colModel : [
-				{
-					name : "saleCode",
-					width : 120,
-					align : "center",
-					editable : false
-				},
-				{
-					name : "customerCode",
-					width : 100,
-					align : "center",
-					editable : false
-				},
-				{
-					name : "saleDate",
-					width : 200,
-					align : "center",
-					editable : false
-				},
-				{
-					name : "saleCost",
-					width : 100,
-					align : "right",
-					editable : false
-				},
-				{
-					name : "deliveryAddr",
-					width : 200,
-					align : "left",
-					editable : false
-				},
-				{
-					name : "orderPermit",
-					width : 100,
-					align : "center",
-					editable : true
-				}
+				{	name : "saleCode",		width : 120,	align : "center",	editable : false	},
+				{	name : "customerCode",	width : 100,	align : "center",	editable : false	},
+				{	name : "saleDate",		width : 200,	align : "center",	editable : false	},
+				{	name : "saleCost",		width : 100,	align : "right",	editable : false	},
+				{	name : "deliveryAddr",	width : 200,	align : "left",		editable : false	},
+				{	name : "orderPermit",	width : 100,	align : "center",	editable : true		}
 			],
 			autoheight : true,
 			autowidth : true,
@@ -92,55 +57,16 @@
 			url : "getOrderDetail.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문상세코드"
-				, "주문품목코드"
-				, "주문품목명"
-				, "판매가"
-				, "부가세"
-				, "주문수량"
-				, "사용연한"
-				, "생산처 코드" ],
+			colNames : [ "주문상세코드", "주문품목코드", "주문품목명", "판매가", "부가세", "주문수량", "사용연한", "생산처 코드" ],
 			colModel : [
-				{
-					name : "saleDetailCode",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "saleItemCode",
-					width : 200,
-					align : "center"
-				},
-				{
-					name : "saleItemName",
-					width : 100,
-					align : "right"
-				},
-				{
-					name : "salePrice",
-					width : 200,
-					align : "left"
-				},
-				{
-					name : "itemTax",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "saleQty",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "expireDate",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "vendorCode",
-					width : 100,
-					align : "center"
-				},
+				{	name : "saleDetailCode",width : 100,	align : "center"	},
+				{	name : "saleItemCode",	width : 200,	align : "center"	},
+				{	name : "saleItemName",	width : 100,	align : "right"		},
+				{	name : "salePrice",		width : 200,	align : "left"		},
+				{	name : "itemTax",		width : 100,	align : "center"	},
+				{	name : "saleQty",		width : 100,	align : "center"	},
+				{	name : "expireDate",	width : 100,	align : "center"	},
+				{	name : "vendorCode",	width : 100,	align : "center"	},
 			],
 			pager : "#pagerOrderDetail",
 			rowNum : 10,
@@ -221,7 +147,7 @@
 		출하 창고 :
 		<select id="warehouseSelect" name="searchWarehouse">
 			<option value="">창고 선택</option>
-			<c:forEach items="${lookUpValue}" var="lkup">
+			<c:forEach items="${lookupValueList}" var="lkup">
 			<option value="${lkup.lookup_code}">${lkup.lookup_descriptions}</option>
 			</c:forEach>
 		</select>

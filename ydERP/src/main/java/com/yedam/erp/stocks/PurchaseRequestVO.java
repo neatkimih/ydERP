@@ -19,15 +19,7 @@ public class PurchaseRequestVO {
 	String vendorPhone;
 	String vendorBank;
 	String vendorAccount;
-	String outMsg;
-
-	public String getOutMsg() {
-		return outMsg;
-	}
-
-	public void setOutMsg(String outMsg) {
-		this.outMsg = outMsg;
-	}
+	String pMsg;
 
 	public String getItemCode() {
 		return itemCode;
@@ -173,6 +165,14 @@ public class PurchaseRequestVO {
 		this.vendorAccount = vendorAccount;
 	}
 
+	public String getpMsg() {
+		return pMsg;
+	}
+
+	public void setpMsg(String pMsg) {
+		this.pMsg = pMsg;
+	}
+
 	@Override
 	public String toString() {
 		return "PurchaseRequestVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty="
@@ -180,7 +180,7 @@ public class PurchaseRequestVO {
 				+ vendorCode + ", minQty=" + minQty + ", itemTax=" + itemTax + ", onhandQty=" + onhandQty + ", reqQty="
 				+ reqQty + ", expireDate=" + expireDate + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner
 				+ ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank
-				+ ", vendorAccount=" + vendorAccount + "]";
+				+ ", vendorAccount=" + vendorAccount + ", pMsg=" + pMsg + "]";
 	}
 
 }

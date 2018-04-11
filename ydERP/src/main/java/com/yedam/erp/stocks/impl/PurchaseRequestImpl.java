@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.erp.stocks.PurchaseRequestVO;
 import com.yedam.erp.stocks.PurchaseDetailTempVO;
+import com.yedam.erp.stocks.PurchaseDetailsVO;
+import com.yedam.erp.stocks.PurchaseHeadersVO;
 import com.yedam.erp.stocks.PurchaseRequestService;
 
 @Service
@@ -22,8 +24,8 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 	}
 
 	@Override
-	public void insertPurchaseRequest() {
-		dao.insertPurchaseRequest();
+	public void insertPurchaseRequest(PurchaseRequestVO vo) {
+		dao.insertPurchaseRequest(vo);
 	}
 
 	@Override
@@ -38,8 +40,18 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 		return dao.getPurchaseRequestTempList(vo);
 	}
 
-	public List<Map<String, Object>> getlookUpValueList() {
-		return dao.getlookUpValueList();
+	public List<Map<String, Object>> getlookUpValueList(PurchaseRequestVO vo) {
+		return dao.getlookUpValueList(vo);
 	}
+	
+	public List<PurchaseHeadersVO> getReceiptHeaders(PurchaseHeadersVO vo){
+		return dao.getReceiptHeaders(vo);
+	}
+
+	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo){
+		return dao.getReceiptLines(vo);
+	}
+
+
 
 }

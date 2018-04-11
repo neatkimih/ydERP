@@ -26,10 +26,11 @@
 				url : "./insertPurchaseRequest",
 				type : "POST",
 				dataType : "json",
-				data : JSON.stringify(params),
+				//data : JSON.stringify(params),
 				contentType : "application/json;charset=utf-8",
-				success : function() {
+				success : function(datas) {
 					console.log("complete")
+					alert(datas.msg);
 					//requestTempList;
 					requestPurchaseList();
 				}

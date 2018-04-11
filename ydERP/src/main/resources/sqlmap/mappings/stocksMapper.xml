@@ -51,7 +51,7 @@
 	<insert id="insertPurchaseRequest" parameterType="purchaserequest"
 		statementType="CALLABLE">
 		<![CDATA[
-		{call common.create_purchase_info(#{outMsg mode=OUT,jdbcType=VARCHAR,javaType=String})}
+		{call common.create_purchase_info(#{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
 		]]>
 	</insert>
 
@@ -78,12 +78,35 @@
 	</insert>
 	
 	<select id="getlookUpValueList" resultType="map">
+		<![CDATA[
 		SELECT lv.lookup_code
 		      ,lv.lookup_values
 		FROM   lookups lk
 		JOIN   lookup_values lv
 		ON     lk.lookup = lv.lookup
 		WHERE  lk.lookup = 'SUBINVENTORY'
+		]]>
+	</select>
+	
+	<select id="getReceiptHeaders" resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
+		<![CDATA[
+		SELECT *
+		FROM   purchases
+		ORDER BY purchase_code DESC
+		]]>
+	</select>
+
+	<select id="getReceiptLines" resultType="com.yedam.erp.stocks.PurchaseDetailsVO">
+		<![CDATA[
+		SELECT *
+		FROM   purchase_details
+		ORDER BY purchase_detail_code
+		]]>
+		<where>
+			<if test="purchaseCode != null">
+				AND purchase_code = #{purchaseCode}
+			</if>
+		</where>
 	</select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.yedam.erp.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.stocks.PurchaseDetailTempVO;
+import com.yedam.erp.stocks.PurchaseDetailsVO;
+import com.yedam.erp.stocks.PurchaseHeadersVO;
 import com.yedam.erp.stocks.PurchaseRequestService;
 import com.yedam.erp.stocks.PurchaseRequestVO;
 import com.yedam.erp.stocks.StockInOutService;
@@ -121,18 +124,40 @@ public class StocksController {
 	}
 
 	@RequestMapping("getPurchaseRequesting")
-	public String getPurchaseRequesting(Model model) {
-		System.out.println(purchaseRequestService.getlookUpValueList());
-		model.addAttribute("lookUpValue", purchaseRequestService.getlookUpValueList());
+	public String getPurchaseRequesting(Model model, PurchaseRequestVO vo) {
+		System.out.println(purchaseRequestService.getlookUpValueList(vo));
+		model.addAttribute("lookUpValue", purchaseRequestService.getlookUpValueList(vo));
 		return "stocks/getPurchaseRequesting";
 	}
 
 	@RequestMapping("insertPurchaseRequest")
 	@ResponseBody
-	public Map<String, String> insertPurchaseRequest() {
-		purchaseRequestService.insertPurchaseRequest();
+	public Map<String, String> insertPurchaseRequest(PurchaseRequestVO vo) {
+		purchaseRequestService.insertPurchaseRequest(vo);
+
 		Map<String, String> map = new HashMap<String, String>();
+		map.put("msg", vo.getpMsg());
 		return map;
+	}
+
+	@RequestMapping("getPurchaseReceipting")
+	public String getPurchaseReceipting(Model model, PurchaseRequestVO vo) {
+		System.out.println(purchaseRequestService.getlookUpValueList(vo));
+		// model.addAttribute("lookUpValue",
+		// purchaseRequestService.getlookUpValueList(vo));
+		return "stocks/getPurchaseReceipting";
+	}
+
+	@RequestMapping("getReceiptHeadersData")
+	@ResponseBody
+	public List<PurchaseHeadersVO> getReceiptHeadersData(PurchaseHeadersVO vo) {
+		return purchaseRequestService.getReceiptHeaders(vo);
+	}
+
+	@RequestMapping("getReceiptLinesData")
+	@ResponseBody
+	public List<PurchaseDetailsVO> getReceiptLinesData(PurchaseDetailsVO vo) {
+		return purchaseRequestService.getReceiptLines(vo);
 	}
 
 }

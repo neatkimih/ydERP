@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.yedam.erp.stocks.PurchaseDetailTempVO;
+import com.yedam.erp.stocks.PurchaseDetailsVO;
+import com.yedam.erp.stocks.PurchaseHeadersVO;
 import com.yedam.erp.stocks.PurchaseRequestVO;
 
 @Repository
@@ -20,8 +22,8 @@ public class PurchaseRequestMybatisDAO {
 		return sqlSession.selectList("stocks.getPurchaseRequestList", vo);
 	}
 
-	public void insertPurchaseRequest() {
-		sqlSession.insert("stocks.insertPurchaseRequest");
+	public void insertPurchaseRequest(PurchaseRequestVO vo) {
+		sqlSession.insert("stocks.insertPurchaseRequest", vo);
 	}
 
 	public List<PurchaseDetailTempVO> getPurchaseRequestTempList(PurchaseDetailTempVO vo) {
@@ -32,8 +34,16 @@ public class PurchaseRequestMybatisDAO {
 		sqlSession.insert("stocks.insertPurchaseRequestTemp", vo);
 	}
 
-	public List<Map<String, Object>> getlookUpValueList() {
+	public List<Map<String, Object>> getlookUpValueList(PurchaseRequestVO vo) {
 		return sqlSession.selectList("stocks.getlookUpValueList");
+	}
+
+	public List<PurchaseHeadersVO> getReceiptHeaders(PurchaseHeadersVO vo) {
+		return null;
+	}
+
+	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo) {
+		return null;
 	}
 
 }

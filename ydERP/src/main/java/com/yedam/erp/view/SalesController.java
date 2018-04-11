@@ -60,10 +60,8 @@ public class SalesController {
 	@RequestMapping("/getOrderList")
 	public String getOrderListForm(Model model, EmployeesVO employeesVO) {
 		model.addAttribute("employeeList", employeesService.getEmployeesList(employeesVO));
-		
 		return "sales/getOrderList";
 	}
-
 	
 	/* 미승인 주문 기본 정보 조회 */
 	@RequestMapping("/getOrderList.do")

@@ -29,7 +29,7 @@
 		onMessage(event)
 	};
 	function onMessage(event) {
-		textarea.value += "YDERP : " + event.data + "\n";
+		textarea.value += "상대 : " + event.data + "\n";
 	}
 	function onOpen(event) {
 		textarea.value += "연결 성공\n";

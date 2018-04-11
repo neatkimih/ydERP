@@ -33,7 +33,7 @@
 	}
 	function onOpen(event) {
 		textarea.value += "연결 성공\n";
-	}
+	} 
 	function onError(event) {
 		console.log(event);
 		alert(event.data);

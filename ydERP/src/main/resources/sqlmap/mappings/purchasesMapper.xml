@@ -3,28 +3,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="purchases">
-	
+
 	<select id="getPurchasesList" resultType="purchases">
-	<![CDATA[SELECT * FROM PURCHASES]]>	
+	<![CDATA[SELECT * FROM PURCHASES]]>
 	</select>
-	
+
 	<select id="getPurchaseDetailList" resultType="purchaseDetail">
 	<![CDATA[
-	SELECT *
-	 FROM purchase_detail_vo
+	SELECT p.*, i.item_name
+   FROM purchase_detail_vo p
+   join items i on p.item_name = i.item_name
    WHERE purchase_code = #{purchaseCode}
-	 ]]>	
+	 ]]>
 	</select>
-		
 
 	<select id="getPurchases" resultType="purchases" parameterType="purchases">
 	<![CDATA[SELECT * FROM PURCHASES WHERE SEQ=#{seq}]]></select>
-	
-	
+
+
 	<update id="updatePurchases" parameterType="purchases">
-	update PURCHASE_DETAILS set
-		incoming_Flag=#{incomingFlag} where PURCHASE_DETAIL_CODE=#{purchaseDetailCode}
+		update PURCHASE_DETAILS set
+		incoming_Flag=#{incomingFlag} where
+		PURCHASE_DETAIL_CODE=#{purchaseDetailCode}
 	</update>
-	
-	
+
+
 </mapper>

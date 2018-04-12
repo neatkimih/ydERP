@@ -51,6 +51,7 @@ public class SalesController {
 	@RequestMapping(value = "/getSaleDetail.do")
 	@ResponseBody
 	public List<SaleDetailsVO> getSaleDetail(SaleDetailsVO saleDetailsVO, Paging page) {
+		System.out.println(saleDetailsVO.getSaleCode());
 		return saleDetailsService.getSaleDetail(saleDetailsVO);
 	}
 
@@ -116,9 +117,9 @@ public class SalesController {
 
 	/* 미승인 주문 삭제 처리 */
 	@RequestMapping("/deleteOrderList.do")
-	public String deleteOrderList(@RequestParam ArrayList<String> saleCode) {
-		saleDetailsService.deleteOrderDetail(saleCode);
-		salesService.deleteOrderList(saleCode);
+	public String deleteOrderList(@RequestParam SalesVO salesVO) {
+		//saleDetailsService.deleteOrderDetail(saleCode);
+		salesService.deleteOrder(salesVO);
 		return "redirect:/getOrderList";
 	}
 
@@ -126,11 +127,11 @@ public class SalesController {
 	@RequestMapping("/editOrderList.do")
 	@ResponseBody
 	public void editOrderList(@RequestParam(value = "oper", required = false) String op, SalesVO salesVO) {
-		if (op.equals("update")) {
+		System.out.println("sdafasfda");
+		if (op.equals("edit")) {
 			salesService.updateOrderStatus(salesVO);
-			
 		} else if (op.equals("del")) {
-			// itesService.deleteItems(vo);
+			salesService.deleteOrder(salesVO);
 		}
 	}
 

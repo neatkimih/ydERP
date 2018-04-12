@@ -1,6 +1,5 @@
 package com.yedam.erp.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class SalesServiceImpl implements SalesService {
 
 	/* 미승인 주문 기본 정보 삭제 */
 	@Override	
-	public void deleteOrderList(ArrayList<String> saleCode) {
-		salesDAO.deleteOrderList(saleCode);
+	public void deleteOrder(SalesVO salesVO) {
+		salesDAO.deleteOrder(salesVO);
 	}
 }

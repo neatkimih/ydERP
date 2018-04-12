@@ -86,6 +86,12 @@ public class ItemsController {
 		return "items/getitemsList";
 	}
 	
+
+	@RequestMapping("/getPurchaseRequest")
+	public String getPurchaseRequest() {
+		return "items/getPurchaseRequest";
+	}
+	
 	@RequestMapping("/getItemsList.do")
 	@ResponseBody
 	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo) {

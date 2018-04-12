@@ -69,11 +69,12 @@
 	function gridReload() {
 		var cd_mask = jQuery("#item_cd").val();
 		var nm_mask = jQuery("#item_nm").val();
+		var vend_cd = jQuery("#warehouseSelect").val();
 		console.log(cd_mask + "============" + nm_mask);
 		jQuery("#list").jqGrid(
 				'setGridParam',
 				{
-					url : "getStockOnhandListData?itemName=" + nm_mask + "&itemCode=" + cd_mask,
+					url : "getStockOnhandListData?itemName=" + nm_mask + "&itemCode=" + cd_mask + "&vendorCode=" + vend_cd,
 					datatype : "json",
 					page : 1
 				}).trigger("reloadGrid");

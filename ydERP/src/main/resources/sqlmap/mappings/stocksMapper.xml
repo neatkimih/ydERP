@@ -17,7 +17,7 @@
 				AND item_name like #{itemName}||'%'
 			</if>
 			<if test="dealerCode != null">
-				AND dealer_code like #{dealerCode}||'%'
+				AND dealer_code like #{vendorCode}||'%'
 			</if>
 		</where>
 		ORDER BY stock_id

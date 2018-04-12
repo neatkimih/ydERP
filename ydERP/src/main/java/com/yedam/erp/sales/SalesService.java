@@ -26,5 +26,5 @@ public interface SalesService {
 	public void updateOrderStatus(SalesVO salesVO);	
 	
 	/* 미승인 주문 기본 정보 삭제 */
-	public void deleteOrderList(ArrayList<String> saleCode);
+	public void deleteOrder(SalesVO salesVO);
 }

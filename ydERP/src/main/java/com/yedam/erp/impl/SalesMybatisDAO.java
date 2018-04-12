@@ -1,6 +1,5 @@
 package com.yedam.erp.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -49,7 +48,7 @@ public class SalesMybatisDAO {
 	
 	
 	/* 미승인 주문 기본 정보 삭제 */
-	public void deleteOrderList(ArrayList<String> saleCode) {
-		mybatis.delete("sales.deleteOrderList", saleCode);
+	public void deleteOrder(SalesVO salesVO) {
+		mybatis.delete("sales.deleteOrder", salesVO);
 	}
 }

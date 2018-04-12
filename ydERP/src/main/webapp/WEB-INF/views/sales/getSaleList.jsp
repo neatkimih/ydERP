@@ -92,7 +92,6 @@
 			pager : "#pagerSaleList",
 			onSelectRow : function(rowid, selected) {
 				if (rowid != null) {
-					// var selectedSaleCode = $(this).jqGrid('getCell', selected, 'saleCode');
 					var selectedSaleCode = $(this).getCell(rowid, 'saleCode');
 					jQuery("#saleDetail").jqGrid('setGridParam', {
 						url : "./getSaleDetail.do?saleCode=" + selectedSaleCode

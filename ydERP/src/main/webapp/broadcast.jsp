@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>YDERP</title>
 </head>
- 
+  
 <body>
 	<fieldset>
 		<textarea id="messageWindow" rows="30" cols="30" readonly="true"></textarea>

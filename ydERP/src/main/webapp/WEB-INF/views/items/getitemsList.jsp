@@ -175,7 +175,7 @@ $(function(){
 				hidden : true,
 				editable : true,
 				edittype : "select",
-				editoptions:{value:":선택;P:필기구;J:종이;O:일반사무용품;F:화일/바인더"}
+				editoptions : {value:":선택;P:필기구;J:종이;O:일반사무용품;F:화일/바인더"}
 			},	{
 				label : "품목 중분류",
 				name : "pGroup2",
@@ -187,7 +187,7 @@ $(function(){
 				hidden : true,
 				editable : true,
 				edittype : "select",
-				editoptions:{value:":선택"}
+				editoptions : {value:":선택"}
 			},	{
 				label : "품목 소분류",
 				name : "pGroup3",
@@ -199,7 +199,7 @@ $(function(){
 				hidden : true,
 				editable : true,
 				edittype : "select",
-				editoptions:{value:":선택"}
+				editoptions : {value:":선택"}
 			},
 						
 				{

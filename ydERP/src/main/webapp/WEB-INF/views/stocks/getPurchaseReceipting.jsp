@@ -15,7 +15,6 @@
 	$(document).ready(function() {
 
 		// master grid
-
 		$("#list").jqGrid({
 			url : "getReceiptHeadersData",
 			datatype : "json",
@@ -27,7 +26,8 @@
 				{	label : "구매일자", name : "purchaseDate", width : 85 },
 				{	label : "구매처", name : "vendorCode", width : 80, align : "right" },
 				{	label : "구매처명", name : "vendorName", width : 80, align : "right" },
-				{   label : "결제금액", name : "purchaseCost", width : 80, align : "right" }
+				{   label : "결제금액", name : "purchaseCost", width : 80, align : "right" },
+				{   label : "입고처리", name :'act',index:'act', width : 100 ,sortable:false, formatter: delButton}
 			],
 			pager : "#pager",
 			rowNum : 10,
@@ -55,9 +55,14 @@
 				}
 				console.log("선택된 구매코드 : " + selectedPurchaseCode);
 			}
+			
 		// use the onSelectRow that is triggered on row click to show a details grid							
 		});
 
+		function delButton(cellvalue, options, rowObject) {
+			//return '<input type="button" onclick="delete('+cellvalue+')" value="DEL"/>';
+			return "<input style='height:22px;width:80px;' type='button' value='입고' onclick='receipt_proc(\"" + options.rowId + "\")' />";
+		};
 
 		$("#list1").jqGrid({
 			datatype : "json",
@@ -87,8 +92,6 @@
 			caption : "구매상세정보",
 
 			/* 			onCellSelect : function(rowid, iCol) {
-				
-					
 							if (rowid != null) {			 
 								if (iCol == 6) {	
 									var incoming = $("#list1").jqGrid("getCell", rowid, "incomingFlag"); // 체크했으면 수정
@@ -176,9 +179,7 @@
 			jQuery("#list1").trigger("reloadGrid");
 		}
 		getColumnIndexByName = function(grid, columnName) {
-			var cm = grid.jqGrid('getGridParam', 'colModel'),
-				i,
-				l;
+			var cm = grid.jqGrid('getGridParam', 'colModel'), i, l;
 			for (i = 0, l = cm.length; i < l; i += 1) {
 				if (cm[i].name === columnName) {
 					return i; // return the index
@@ -187,6 +188,27 @@
 			return -1;
 		}
 	});
+
+	function receipt_proc(rowid) {
+		console.log("start rowid= " + rowid);
+		var selectedPurchaseCode = $("#list").getCell(rowid, 'purchaseCode');
+		//common.in_txn(selectedPurchaseCode);//ajax controller
+		jQuery.ajax({
+			type : "POST",
+			datatype : 'json',
+			url : "insertPurchaseProc?pTxnNo=" + selectedPurchaseCode,
+			contentType : "application/x-www-form-urlencoded;charset=utf-8",
+			success : function() {
+				alert("succss: "+selectedPurchaseCode);
+				jQuery("#list").jqGrid('setGridParam', {
+					url : "getReceiptHeadersData",
+					datatype : 'json'
+				});
+				jQuery("#list").trigger("reloadGrid");
+				jQuery("#list1").trigger("reloadGrid");
+			}
+		})
+	};
 </script>
 
 </head>
@@ -214,6 +236,5 @@
 			<div id="pager1"></div>
 		</div>
 	</div>
-
 </body>
 </html>

@@ -52,6 +52,8 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 		return dao.getReceiptLines(vo);
 	}
 
-
+	public void insertPurchaseProc(PurchaseRequestVO vo) {
+		dao.insertPurchaseProc(vo);
+	}
 
 }

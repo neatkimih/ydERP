@@ -14,6 +14,11 @@ public class ItemsVO {
 	private int last;
 	private String searchCondition;
 	private String searchKeyword;
+	private String pGroup1;
+	private String pGroup2;
+	private String pGroup3;
+	private Integer minQty;
+	private String msg;
 
 	public String getItemCode() {
 		return itemCode;
@@ -115,8 +120,48 @@ public class ItemsVO {
 		return searchKeyword;
 	}
 
+	public String getpGroup1() {
+		return pGroup1;
+	}
+
+	public void setpGroup1(String pGroup1) {
+		this.pGroup1 = pGroup1;
+	}
+
+	public String getpGroup2() {
+		return pGroup2;
+	}
+
+	public void setpGroup2(String pGroup2) {
+		this.pGroup2 = pGroup2;
+	}
+
+	public String getpGroup3() {
+		return pGroup3;
+	}
+
+	public void setpGroup3(String pGroup3) {
+		this.pGroup3 = pGroup3;
+	}
+
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+
+	public Integer getMinQty() {
+		return minQty;
+	}
+
+	public void setMinQty(Integer minQty) {
+		this.minQty = minQty;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 	@Override
@@ -124,7 +169,10 @@ public class ItemsVO {
 		return "ItemsVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty=" + inQty
 				+ ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax
 				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", first=" + first + ", last=" + last
-				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + "]";
+				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", pGroup1=" + pGroup1
+				+ ", pGroup2=" + pGroup2 + ", pGroup3=" + pGroup3 + ", minQty=" + minQty + ", msg=" + msg + "]";
 	}
+
+	
 
 }

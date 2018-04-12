@@ -86,6 +86,12 @@ public class ItemsController {
 		return "items/getitemsList";
 	}
 	
+
+	@RequestMapping("/getPurchaseRequest")
+	public String getPurchaseRequest() {
+		return "items/getPurchaseRequest";
+	}
+	
 	@RequestMapping("/getItemsList.do")
 	@ResponseBody
 	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo) {
@@ -97,8 +103,9 @@ public class ItemsController {
 	@RequestMapping("/getItemsDataEdit")
 	@ResponseBody
 	public void getItemsDataEdit(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, ItemsVO vo,
-			@RequestParam(value = "itemCode", defaultValue = "", required = false) String itemCode) {
-		System.out.println("[editController][edit]");
+								@RequestParam(value = "itemCode", defaultValue = "", required = false) String itemCode) {
+		
+		
 		System.out.println(vo);
 		if (oper.equals("add")) {
 			itemsService.insertItems(vo);

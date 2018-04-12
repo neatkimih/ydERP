@@ -159,4 +159,12 @@ public class StocksController {
 		return purchaseRequestService.getReceiptLines(vo);
 	}
 
+	@RequestMapping("insertPurchaseProc")
+	@ResponseBody
+	public String insertPurchaseProc(PurchaseRequestVO vo) {
+		purchaseRequestService.insertPurchaseProc(vo);
+
+		return "success";
+	}
+
 }

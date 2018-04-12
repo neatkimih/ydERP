@@ -44,19 +44,19 @@ public class StocksController {
 
 	@RequestMapping("getStockInOutListData")
 	@ResponseBody
-	public List<StockInOutViewVO> getStocksListData(StockInOutViewVO vo) {
+	public List<StockInOutViewVO> getStockInOutListData(StockInOutViewVO vo) {
 		return stockInOutService.getStockInOutList(vo);
 	}
 
 	@RequestMapping("getItemInOutList")
-	public String getItemInOutList(Model model, StockInOutVO vo) {
+	public String getItemInOutList(Model model, StockInOutViewVO vo) {
 		model.addAttribute("list", vo);
 		return "stocks/getItemInOutList";
 	}
 
 	@RequestMapping("getItemInOutListData")
 	@ResponseBody
-	public List<StockInOutViewVO> getItemInOutListData(StockInOutVO vo) {
+	public List<StockInOutViewVO> getItemInOutListData(StockInOutViewVO vo) {
 		return stockInOutService.getItemInOutList(vo);
 	}
 

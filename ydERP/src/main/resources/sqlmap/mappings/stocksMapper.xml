@@ -16,8 +16,8 @@
 			<if test="itemName != null">
 				AND item_name like #{itemName}||'%'
 			</if>
-			<if test="dealerCode != null">
-				AND dealer_code like #{vendorCode}||'%'
+			<if test="poSoNumber != null">
+				AND dealer_code like #{poSoNumber}||'%'
 			</if>
 		</where>
 		ORDER BY stock_id
@@ -48,10 +48,11 @@
 			<if test="itemName != null">
 				AND item_name like #{itemName}||'%'
 			</if>
-			<if test="dealerCode != null">
-				AND dealer_code like #{dealerCode}||'%'
+			<if test="vendorCode != null">
+				AND vendor_code like #{vendorCode}||'%'
 			</if>
 		</where>
+		ORDER BY item_code
 	</select>
 
 	<select id="getPurchaseRequestList" resultType="purchaserequest">

@@ -9,7 +9,7 @@
 		FROM SALES 
 		WHERE ORDER_PERMIT = 'Y' 
 		ORDER BY SALE_CODE
-	</select> 
+	</select>
 
 	<!-- 판매 내역 상세 조회 -->
 	<!-- JQGRID MASTER에서 선택된 ROW의 SALE_CODE값을 가져와서 DETAIL을 조회 -->
@@ -17,12 +17,12 @@
 		SELECT * 
 		FROM SALE_DETAILS 
 		WHERE SALE_CODE = #{saleCode} 
-		ORDER BY SALE_DETAIL_CODE
 	</select>
 	
 	<!-- 주문 등록 : 주문 기본 정보 -->
 	<insert id="insertOrder" parameterType="sales">
 		INSERT INTO SALES (	SALE_CODE
+							, SALE_DATE
 							, CUSTOMER_CODE
 							, SALE_COST
 							, DELIVERY_ADDR
@@ -30,6 +30,7 @@
 							, PAY_STATUS
 							, ORDER_PERMIT )
 		VALUES ( #{saleCode}
+				, SYSDATE
 				, #{customerCode}
 				, #{saleCost}
 				, #{deliveryAddr}
@@ -38,10 +39,9 @@
 				, 'N'		)
 	</insert>
 	
+	
 	<!-- 주문 등록 : 주문 상세 정보 -->
 	<insert id="insertOrderDetail" parameterType="saleDetails">
-	
-	
 	
 	</insert>
 	
@@ -57,6 +57,8 @@
 	<!-- 수정 가능한 칼럼 : 마스터의 DELIVERY_ADDR-->
 	<!-- 마스터에서 수정되어야 할 칼럼 : SALE_COST -->
 	<!-- 주문 승인이 N으로 초기화된다 -->
+	
+	<!-- 주문 취소 -->
 	
 	
 	
@@ -88,7 +90,8 @@
 		SET SALE_DATE = SYSDATE
 			, DELIVERY_EMP = #{deliveryEmp}
 			, WAREHOUSE = #{warehouse}
-			, ORDER_PERMIT = 'Y';
+			, ORDER_PERMIT = 'Y' 
+		WHERE SALE_CODE = #{saleCode}
 	</update>
 	
 	<!-- 미승인 주문 삭제 : 주문 상세 정보 -->
@@ -108,5 +111,12 @@
 				#{itemOrderList}
 			</foreach>
 	</delete>
+	
+	<insert id="afterPermitOrder" parameterType="purchaserequest"
+		statementType="CALLABLE">
+		<![CDATA[
+		{call common.out_txn(#{pTxnNo})}
+		]]>
+	</insert>
 
 </mapper>

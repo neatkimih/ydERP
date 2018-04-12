@@ -102,7 +102,7 @@
 
 </script>
 </head>
-<body>
+<body><h3>getStockOnhandList2.jsp</h3>
 	<div class="col-lg-12">
 		<table id="list">
 			<tr>

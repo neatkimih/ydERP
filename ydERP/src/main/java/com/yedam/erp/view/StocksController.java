@@ -7,10 +7,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.stocks.PurchaseDetailTempVO;
+import com.yedam.erp.stocks.PurchaseDetailsVO;
+import com.yedam.erp.stocks.PurchaseHeadersVO;
 import com.yedam.erp.stocks.PurchaseRequestService;
 import com.yedam.erp.stocks.PurchaseRequestVO;
 import com.yedam.erp.stocks.StockInOutService;
@@ -70,7 +74,7 @@ public class StocksController {
 
 	@RequestMapping("getStockOnhandListData")
 	@ResponseBody
-	public List<StockOnhandViewVO> getStockOnhandListData(StockOnhandVO vo) {
+	public List<StockOnhandViewVO> getStockOnhandListData(StockOnhandViewVO vo) {
 		return stockOnhandService.getStockOnhandList(vo);
 
 	}
@@ -100,10 +104,59 @@ public class StocksController {
 		return "stocks/jqgridTest";
 	}
 
-	@RequestMapping("insertPurchaseRequest")
-	public String insertPurchaseRequest(PurchaseRequestVO vo) {
-		purchaseRequestService.insertPurchaseRequest(vo);
+	@RequestMapping("insertPurchaseRequestTemp")
+	@ResponseBody
+	public Map<String, String> insertPurchaseRequestTemp(@RequestBody List<PurchaseDetailTempVO> vo) {
+		purchaseRequestService.insertPurchaseRequestTemp(vo);
+		Map<String, String> map = new HashMap<String, String>();
+		return map;
+	}
+
+	// getPurchaseRequestTempListData
+	@RequestMapping(value = "/getPurchaseRequestTempListData", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> getPurchaseRequestTempListData(PurchaseDetailTempVO vo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<PurchaseDetailTempVO> requestlist = purchaseRequestService.getPurchaseRequestTempList(vo);
+		map.put("data", requestlist);
+		return map;
+	}
+
+	@RequestMapping("getPurchaseRequesting")
+	public String getPurchaseRequesting(Model model, PurchaseRequestVO vo) {
+		System.out.println(purchaseRequestService.getlookUpValueList(vo));
+		model.addAttribute("lookUpValue", purchaseRequestService.getlookUpValueList(vo));
 		return "stocks/getPurchaseRequesting";
+	}
+
+	@RequestMapping("insertPurchaseRequest")
+	@ResponseBody
+	public Map<String, String> insertPurchaseRequest(PurchaseRequestVO vo) {
+		purchaseRequestService.insertPurchaseRequest(vo);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("msg", vo.getpMsg());
+		return map;
+	}
+
+	@RequestMapping("getPurchaseReceipting")
+	public String getPurchaseReceipting(Model model, PurchaseRequestVO vo) {
+		System.out.println(purchaseRequestService.getlookUpValueList(vo));
+		// model.addAttribute("lookUpValue",
+		// purchaseRequestService.getlookUpValueList(vo));
+		return "stocks/getPurchaseReceipting";
+	}
+
+	@RequestMapping("getReceiptHeadersData")
+	@ResponseBody
+	public List<PurchaseHeadersVO> getReceiptHeadersData(PurchaseHeadersVO vo) {
+		return purchaseRequestService.getReceiptHeaders(vo);
+	}
+
+	@RequestMapping("getReceiptLinesData")
+	@ResponseBody
+	public List<PurchaseDetailsVO> getReceiptLinesData(PurchaseDetailsVO vo) {
+		return purchaseRequestService.getReceiptLines(vo);
 	}
 
 }

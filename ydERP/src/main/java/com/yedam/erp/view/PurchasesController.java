@@ -42,7 +42,7 @@ public class PurchasesController
 	@ResponseBody
 	public PurchasesVO updatePurchases(PurchasesVO vo) {
 		purchasesService.updatePurchases(vo);
-		return purchasesService.getPurchases(vo);
+		return vo;
 	}
 	
 	//삭제
@@ -52,7 +52,7 @@ public class PurchasesController
 		return purchasesService.getPurchases(vo);
 	}
 		
-	//목록
+	//전체목록
 	@RequestMapping("getPurchasesList") 
 	@ResponseBody
 	public List<PurchasesVO> getPurchasesList(PurchasesVO vo) {			

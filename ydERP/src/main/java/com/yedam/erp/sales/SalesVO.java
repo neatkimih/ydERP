@@ -9,10 +9,12 @@ public class SalesVO
 	
 	private String deliveryAddr;		// 배송지
 	private String deliveryEmp;			// 배송사원
-	private char deliverStatus;			// 배송상태
+	private char deliveryStatus;		// 배송상태
 	private char payStatus;				// 결제상태
 	private char warehouse;				// 출하창고
 	private char orderPermit;			// 주문허가
+	
+	private String pTxnNo;
 	
 	/* saleCode - GET(), SET() */
 	public String getSaleCode() { return saleCode; }
@@ -38,9 +40,9 @@ public class SalesVO
 	public String getDeliveryEmp() { return deliveryEmp; }
 	public void setDeliveryEmp(String deliveryEmp) { this.deliveryEmp = deliveryEmp; }
 	
-	/* deliverStatus - GET(), SET() */
-	public char getDeliverStatus() { return deliverStatus; }
-	public void setDeliverStatus(char deliverStatus) { this.deliverStatus = deliverStatus; }
+	/* deliveryStatus - GET(), SET() */
+	public char getDeliveryStatus() { return deliveryStatus; }
+	public void setDeliveryStatus(char deliveryStatus) { this.deliveryStatus = deliveryStatus; }
 	
 	/* payStatus - GET(), SET() */
 	public char getPayStatus() { return payStatus; }
@@ -54,6 +56,14 @@ public class SalesVO
 	public char getOrderPermit() { return orderPermit; }
 	public void setOrderPermit(char orderPermit) { this.orderPermit = orderPermit; }
 	
+	
+	public String getpTxnNo() {
+		return pTxnNo;
+	}
+	public void setpTxnNo(String pTxnNo) {
+		this.pTxnNo = pTxnNo;
+	}
+	
 	@Override
 	public String toString() {
 		return "SalesVO [saleCode=" + saleCode
@@ -61,7 +71,7 @@ public class SalesVO
 					+ ", customerCode=" + customerCode
 					+ ", deliveryAddr=" + deliveryAddr
 					+ ", deliveryEmp="	+ deliveryEmp
-					+ ", deliverStatus=" + deliverStatus
+					+ ", deliverStatus=" + deliveryStatus
 					+ ", payStatus=" + payStatus
 					+ ", warehouse=" + warehouse
 					+ ", orderPermit=" + orderPermit + "]";

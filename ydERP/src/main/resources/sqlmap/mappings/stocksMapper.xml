@@ -5,14 +5,18 @@
 
 	<!-- 판매 내역 전체 조회 -->
 	<select id="getStockInOutList" resultType="stockin">
+		<![CDATA[
 		SELECT *
 		FROM   stock_in_out_vo
 		ORDER BY stock_id
+		]]>
 	</select>
 
 	<select id="getItemInOutList" resultType="stockin">
+		<![CDATA[
 		SELECT *
 		FROM stock_in_out_vo
+		]]>
 		<where>
 			<if test="itemCode!=null">
 				AND item_code = #{itemCode}
@@ -22,15 +26,95 @@
 		ORDER BY txn_date
 	</select>
 
-	<select id="getStockOnhandList" resultType="stockon">
+	<select id="getStockOnhandList" resultType="com.yedam.erp.stocks.StockOnhandViewVO">
+		<![CDATA[
 		SELECT *
 		FROM   stock_onhands_vo
+		]]>
+		<where>
+			<if test="itemCode != null">
+				AND item_code like #{itemCode}||'%'
+			</if>
+			<if test="itemName != null">
+				AND item_name like #{itemName}||'%'
+			</if>
+		</where>
 	</select>
 
 	<select id="getPurchaseRequestList" resultType="purchaserequest">
+		<![CDATA[
 		SELECT common.get_vendor_name(v.vendor_code) vendor_name, v.*
 		FROM   purchase_request_vo v
-		ORDER BY vendor_code
+		ORDER BY vendor_code, item_code
+		]]>
+	</select>
+
+	<insert id="insertPurchaseRequest2" parameterType="purchaserequest"
+		statementType="CALLABLE">
+		<![CDATA[
+		{call create_purchase_info()}
+		]]>
+	</insert>
+
+	<insert id="insertPurchaseRequest" parameterType="purchaserequest"
+		statementType="CALLABLE">
+		<![CDATA[
+		{call common.create_purchase_info(#{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
+		]]>
+	</insert>
+
+	<select id="getPurchaseRequestTempListData" resultType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+		<![CDATA[
+		SELECT *
+		FROM   purchase_detail_temp_vo v
+		ORDER BY vendor_code, item_code
+		]]>
+	</select>
+
+	<insert id="insertPurchaseRequestTemp" parameterType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+		<![CDATA[
+		INSERT INTO purchase_detail_temp
+		VALUES  (TO_CHAR(purchase_detail_seq.nextval)
+			    ,'TEMP Master'
+			    ,#{vendorCode}
+			    ,#{itemCode}
+			    ,#{reqQty}
+			    ,#{supplyPrice}
+			    ,#{itemTax}
+			    )
+		]]>
+	</insert>
+	
+	<select id="getlookUpValueList" resultType="map">
+		<![CDATA[
+		SELECT lv.lookup_code
+		      ,lv.lookup_values
+		FROM   lookups lk
+		JOIN   lookup_values lv
+		ON     lk.lookup = lv.lookup
+		WHERE  lk.lookup = 'SUBINVENTORY'
+		]]>
+	</select>
+	
+	<select id="getReceiptHeaders" resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
+		<![CDATA[
+		SELECT p.*, common.get_vendor_name(p.vendor_code) vendor_name
+		FROM   purchases p
+		ORDER BY purchase_code DESC
+		]]>
+	</select>
+
+	<select id="getReceiptLines" resultType="com.yedam.erp.stocks.PurchaseDetailsVO">
+		<![CDATA[
+		SELECT p.*, common.get_item_name(p.purchase_item) item_name
+		FROM   purchase_details p
+		]]>
+		<where>
+			<if test="purchaseCode != null">
+				AND purchase_code = #{purchaseCode}
+			</if>
+		</where>
+		ORDER BY purchase_detail_code
 	</select>
 
 </mapper>

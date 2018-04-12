@@ -57,7 +57,7 @@
 	});
 </script>
 </head>
-<body>
+<body><h3>getPurchaseRequestList_jqgrid.jsp</h3>
 	<form name="frm" action="insertPurchaseRequest">
 		<input type="submit" value="주문요청생성" />
 		<div class="col-lg-12">

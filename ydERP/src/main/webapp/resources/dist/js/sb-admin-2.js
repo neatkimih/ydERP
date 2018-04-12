@@ -35,6 +35,8 @@ $(function() {
     // }).addClass('active').parent().parent().addClass('in').parent();
     var element = $('ul.nav a').filter(function() {
         return this.href == url;
+        $(".page-header").html(this.html());
+        console.log("aaaa" + this.html());
     }).addClass('active').parent();
 
     while (true) {

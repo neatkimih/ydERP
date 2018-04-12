@@ -34,7 +34,7 @@ public class SalesServiceImpl implements SalesService {
 		return salesDAO.getOrderList(salesVO);
 	}
 	
-	/* 주문 승인 */
+	/* 주문 승인 상태 변경 */
 	@Override
 	public void updateOrderStatus(SalesVO salesVO) {
 		salesDAO.updateOrderStatus(salesVO);

@@ -1,11 +1,15 @@
 package com.yedam.erp.stocks.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.erp.stocks.PurchaseRequestVO;
+import com.yedam.erp.stocks.PurchaseDetailTempVO;
+import com.yedam.erp.stocks.PurchaseDetailsVO;
+import com.yedam.erp.stocks.PurchaseHeadersVO;
 import com.yedam.erp.stocks.PurchaseRequestService;
 
 @Service
@@ -21,7 +25,33 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 
 	@Override
 	public void insertPurchaseRequest(PurchaseRequestVO vo) {
-		dao.insertPurchaseRequest(vo);		
+		dao.insertPurchaseRequest(vo);
 	}
+
+	@Override
+	public void insertPurchaseRequestTemp(List<PurchaseDetailTempVO> volist) {
+		for (PurchaseDetailTempVO vo : volist)
+			dao.insertPurchaseRequestTemp(vo);
+	}
+
+	@Override
+	public List<PurchaseDetailTempVO> getPurchaseRequestTempList(PurchaseDetailTempVO vo) {
+		// TODO Auto-generated method stub
+		return dao.getPurchaseRequestTempList(vo);
+	}
+
+	public List<Map<String, Object>> getlookUpValueList(PurchaseRequestVO vo) {
+		return dao.getlookUpValueList(vo);
+	}
+	
+	public List<PurchaseHeadersVO> getReceiptHeaders(PurchaseHeadersVO vo){
+		return dao.getReceiptHeaders(vo);
+	}
+
+	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo){
+		return dao.getReceiptLines(vo);
+	}
+
+
 
 }

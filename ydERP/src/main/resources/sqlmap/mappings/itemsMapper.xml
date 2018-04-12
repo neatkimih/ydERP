@@ -87,7 +87,19 @@
 	<!-- -->
 	<insert id="insertItems" parameterType="items" statementType="CALLABLE">
 		<![CDATA[
-		{call items_ins_proc(
+		{call items_ins_proc( #{pGroup1}    
+                             ,#{pGroup2}      
+                             ,#{pGroup3}      
+                             ,#{itemName}     
+                             ,#{uom}        
+                             ,#{inQty}       
+                             ,#{supplyPrice}  
+                             ,#{sellingPrice} 
+                             ,#{itemTax}       
+                             ,#{expireDate}
+                             ,#{vendorCode}  
+                             ,#{minQty}      
+                             ,#{msg, mode=OUT, jdbcType=VARCHAR, javaType=string}          
 						
 		)}
 		]]>
@@ -113,10 +125,10 @@
 	</update>
 	<!-- -->
 	<delete id="deleteItems" parameterType="items">
-		<![CDATA[
+		
 		DELETE items
 		WHERE  item_code = #{itemCode}
-		]]>
+		
 	</delete>
 	<!-- -->
 	<delete id="deleteItemsList" parameterType="list">

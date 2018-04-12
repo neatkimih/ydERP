@@ -52,7 +52,7 @@
 	});
 </script>
 </head>
-<body>
+<body><h3>getItemInOutList.jsp</h3>
 	<div class="col-lg-12">
 		<table id="list">
 			<tr>

@@ -15,7 +15,7 @@ public class StockOnhandServiceImpl implements StockOnhandService {
 	@Autowired
 	StockOnhandMybatisDAO dao;
 
-	public List<StockOnhandViewVO> getStockOnhandList(StockOnhandVO vo) {
+	public List<StockOnhandViewVO> getStockOnhandList(StockOnhandViewVO vo) {
 		return dao.getStockOnhandList(vo);
 	}
 

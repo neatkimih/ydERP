@@ -1,6 +1,5 @@
 package com.yedam.erp.view;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +74,7 @@ public class StocksController {
 
 	@RequestMapping("getStockOnhandListData")
 	@ResponseBody
-	public List<StockOnhandViewVO> getStockOnhandListData(StockOnhandVO vo) {
+	public List<StockOnhandViewVO> getStockOnhandListData(StockOnhandViewVO vo) {
 		return stockOnhandService.getStockOnhandList(vo);
 
 	}

@@ -39,11 +39,11 @@ public class PurchaseRequestMybatisDAO {
 	}
 
 	public List<PurchaseHeadersVO> getReceiptHeaders(PurchaseHeadersVO vo) {
-		return null;
+		return sqlSession.selectList("stocks.getReceiptHeaders", vo);
 	}
 
 	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo) {
-		return null;
+		return sqlSession.selectList("stocks.getReceiptLines", vo);
 	}
 
 }

@@ -7,9 +7,7 @@
 	<select id="getEmployeesList" resultType="employees">
 		SELECT * 
 		FROM EMPLOYEES 
-		ORDER BY ID
+		WHERE WORK_DAY LIKE '%' || TO_CHAR(SYSDATE,'dy') || '%'
 	</select>
-
-
 
 </mapper>

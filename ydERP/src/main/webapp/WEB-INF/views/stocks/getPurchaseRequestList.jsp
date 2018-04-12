@@ -79,11 +79,11 @@
 	}
 </script>
 </head>
-<body>
+<body><h3>getPurchaseRequestList.jsp</h3>
 	<form name="frm" action="insertPurchaseRequest">
 		<input type="button" value="주문요청생성" id="btn1" />
 		<div class="col-lg-12">
-			<table id="list" border="1">
+			<table id="list" border="1" class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
 						<th>선택</th>

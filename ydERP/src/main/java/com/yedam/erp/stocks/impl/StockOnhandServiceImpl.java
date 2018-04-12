@@ -19,4 +19,8 @@ public class StockOnhandServiceImpl implements StockOnhandService {
 		return dao.getStockOnhandList(vo);
 	}
 
+	public List<StockOnhandViewVO> getVendorList(StockOnhandViewVO vo) {
+		return dao.getVendorList(vo);
+	}
+
 }

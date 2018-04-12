@@ -89,25 +89,44 @@
 	<div class="col-lg-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">Search Condition</div>
-			<div>
-				<input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)"> Enable Autosearch
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3">
+						<input type="checkbox" id="autosearch"
+							onclick="enableAutosubmit(this.checked)"> Enable Autosearch
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-4">
+						<input type="text" id="item_cd" class="form-control"
+							placeholder="==> Enter ItemCode"
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-3">
+						<button onclick="gridReload()" id="submitButton"
+							class="btn btn-outline btn-success btn-block">Search</button>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-4">
+						<input type="text" id="item_nm" class="form-control"
+							placeholder="==> Enter ItemName"
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-3">
+						<select id="warehouseSelect" name="searchWarehouse"
+							class="form-control">
+							<option value="">구매업체 선택</option>
+							<c:forEach items="${vendorList}" var="lkup">
+								<option value="${lkup.VENDOR_CODE}">${lkup.VENDOR_NAME}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div><br>
 			</div>
-			<div  class="col-lg-5">
-				<input type="text" id="item_cd" class="form-control" placeholder="==> Enter ItemCode" onkeydown="doSearch(arguments[0]||event)" />
-				<input type="text" id="item_nm" class="form-control" placeholder="==> Enter ItemName" onkeydown="doSearch(arguments[0]||event)" />
-			</div><br>
-			<div class="col-lg-5">
-				<select id="warehouseSelect" name="searchWarehouse" class="form-control">
-					<option value="">구매업체 선택</option>
-					<c:forEach items="${lookUpValue}" var="lkup">
-						<option value="${lkup.LOOKUP_CODE}">${lkup.LOOKUP_VALUES}</option>
-					</c:forEach>
-				</select>
-				<button onclick="gridReload()" id="submitButton"
-					class="btn btn-outline btn-success" style="margin-left: 30px">Search</button>
-			</div><br>
 		</div>
 	</div>
+	<!-- col-lg-6 -->
 	<br>
 	<div class="col-lg-12">
 		<table id="list">

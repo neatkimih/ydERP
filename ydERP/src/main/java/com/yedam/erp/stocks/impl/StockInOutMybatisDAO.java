@@ -15,7 +15,7 @@ public class StockInOutMybatisDAO {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 
-	public List<StockInOutViewVO> getStockInOutList(StockInOutVO vo) {
+	public List<StockInOutViewVO> getStockInOutList(StockInOutViewVO vo) {
 		return sqlSession.selectList("stocks.getStockInOutList", vo);
 	}
 	

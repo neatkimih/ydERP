@@ -18,4 +18,8 @@ public class StockOnhandMybatisDAO {
 		return sqlSession.selectList("stocks.getStockOnhandList", vo);
 	}
 
+	public List<StockOnhandViewVO> getVendorList(StockOnhandViewVO vo) {
+		return sqlSession.selectList("stocks.getVendorList", vo);
+	}
+
 }

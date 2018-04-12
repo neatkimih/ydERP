@@ -15,7 +15,7 @@ public class StockInOutServiceImpl implements StockInOutService {
 	@Autowired
 	StockInOutMybatisDAO dao;
 
-	public List<StockInOutViewVO> getStockInOutList(StockInOutVO vo) {
+	public List<StockInOutViewVO> getStockInOutList(StockInOutViewVO vo) {
 		return dao.getStockInOutList(vo);
 	}
 	

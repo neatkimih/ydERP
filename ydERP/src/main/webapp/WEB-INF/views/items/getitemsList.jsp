@@ -223,6 +223,11 @@ $(function(){
 			}, {
 				label : "최소 수량",
 				name : "minQty",
+				editrules:{
+                    required:true, 
+                    edithidden:true
+                 },
+				hidden : true,
 				width : 40,
 				align : "right",
 				editable : true
@@ -314,21 +319,7 @@ $(function(){
 </head>
 
 <body>
-<!-- <form name="form1">
 
-		<select name=first onchange="firstChange()" size=1>
-			<option value=''>대분류</option>
-			<option value="P">필기구</option>
-			<option value="J">종이</option>
-			<option value="O">일반사무용품</option>
-			<option value="F">화일/바인더</option>
-		</select> <select name=second onchange="secondChange()" size=1>
-			<option value=''>대분류를 먼저 선택하세요</option>
-		</select> <select name=third size=1>
-			<option value=''>중분류를 먼저 선택하세요</option>
-		</select>
-
-	</form> -->
 	<table id="list">
 
 		<tr>
@@ -337,10 +328,6 @@ $(function(){
 	</table>
 	<div id="pager"></div>
 	<br>
-
-
-
-
 
 </body>
 </html>

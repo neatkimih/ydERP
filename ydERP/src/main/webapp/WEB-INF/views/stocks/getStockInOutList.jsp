@@ -70,7 +70,7 @@
 		jQuery("#list").jqGrid(
 				'setGridParam',
 				{
-					url : "getStockInOutListData?itemName=" + nm_mask + "&itemCode=" + cd_mask + "&dealerCode=" + deal_cd,
+					url : "getStockInOutListData?itemName=" + nm_mask + "&itemCode=" + cd_mask + "&poSoNumber=" + deal_cd,
 					datatype : "json",
 					page : 1
 				}).trigger("reloadGrid");

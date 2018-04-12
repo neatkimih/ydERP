@@ -10,6 +10,15 @@ public class StockOnhandViewVO extends StockOnhandVO {
 	String expireDate;
 	String vendorCode;
 	Integer minQty;
+	String vendorName;
+
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
 
 	public String getItemName() {
 		return itemName;
@@ -87,7 +96,8 @@ public class StockOnhandViewVO extends StockOnhandVO {
 	public String toString() {
 		return "StockOnhandViewVO [itemName=" + itemName + ", uom=" + uom + ", quantities=" + quantities
 				+ ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax
-				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", minQty=" + minQty + "]";
+				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", minQty=" + minQty + ", vendorName="
+				+ vendorName + "]";
 	}
 
 }

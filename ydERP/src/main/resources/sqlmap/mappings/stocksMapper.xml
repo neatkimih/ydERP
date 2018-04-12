@@ -38,8 +38,8 @@
 
 	<select id="getStockOnhandList" resultType="com.yedam.erp.stocks.StockOnhandViewVO">
 		<![CDATA[
-		SELECT *
-		FROM   stock_onhands_vo
+		SELECT v.*, common.get_vendor_name(v.vendor_code) vendor_name
+		FROM   stock_onhands_vo v
 		]]>
 		<where>
 			<if test="itemCode != null">

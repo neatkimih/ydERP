@@ -36,7 +36,7 @@
 						{name : "sellingPrice",width : 2,align : "right"},
 						{name : "itemTax",width : 2,align : "right"}, 
 						{name : "expireDate",width : 2,align : "right"},
-						{name : "vendorCode",width : 3,align : "right"},
+						{name : "vendorName",width : 3,align : "right"},
 						{name : "minQty",width : 2,align : "right"}, 
 						{name : "onhandQty",width : 2,align : "right"}, 
 						],
@@ -98,7 +98,7 @@
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px">
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<input type="text" id="item_cd" class="form-control"
 							placeholder="==> Enter ItemCode"
 							onkeydown="doSearch(arguments[0]||event)" />
@@ -109,7 +109,7 @@
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px">
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<input type="text" id="item_nm" class="form-control"
 							placeholder="==> Enter ItemName"
 							onkeydown="doSearch(arguments[0]||event)" />
@@ -123,7 +123,8 @@
 							</c:forEach>
 						</select>
 					</div>
-				</div><br>
+				</div>
+				<br>
 			</div>
 		</div>
 	</div>

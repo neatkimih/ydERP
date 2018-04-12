@@ -257,17 +257,7 @@ $(function(){
 				width : 90,
 				align : "right",
 				editable : true
-			},{
-				label : "비고",
-				name : "msg",
-				width : 50,
-				editrules:{
-                    required:true, 
-                    edithidden:true
-                 },
-				hidden : true,
-				editable : true
-			} ],
+			}],
 			pager : "#pager",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],

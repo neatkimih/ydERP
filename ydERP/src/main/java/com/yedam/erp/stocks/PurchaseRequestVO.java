@@ -20,6 +20,15 @@ public class PurchaseRequestVO {
 	String vendorBank;
 	String vendorAccount;
 	String pMsg;
+	String pTxnNo;
+
+	public String getpTxnNo() {
+		return pTxnNo;
+	}
+
+	public void setpTxnNo(String pTxnNo) {
+		this.pTxnNo = pTxnNo;
+	}
 
 	public String getItemCode() {
 		return itemCode;
@@ -180,7 +189,7 @@ public class PurchaseRequestVO {
 				+ vendorCode + ", minQty=" + minQty + ", itemTax=" + itemTax + ", onhandQty=" + onhandQty + ", reqQty="
 				+ reqQty + ", expireDate=" + expireDate + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner
 				+ ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank
-				+ ", vendorAccount=" + vendorAccount + ", pMsg=" + pMsg + "]";
+				+ ", vendorAccount=" + vendorAccount + ", pMsg=" + pMsg + ", pTxnNo=" + pTxnNo + "]";
 	}
 
 }

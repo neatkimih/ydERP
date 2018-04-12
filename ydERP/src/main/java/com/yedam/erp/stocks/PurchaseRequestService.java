@@ -18,5 +18,7 @@ public interface PurchaseRequestService {
 	public List<PurchaseHeadersVO> getReceiptHeaders(PurchaseHeadersVO vo);
 
 	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo);
+	
+	public void insertPurchaseProc(PurchaseRequestVO vo);
 
 }

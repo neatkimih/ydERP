@@ -20,7 +20,6 @@
 		<where>
 			<if test="itemCode!=null">
 				AND item_code = #{itemCode}
-				AND txn_date > SYSDATE - 10
 			</if>
 		</where>
 		ORDER BY txn_date
@@ -49,10 +48,10 @@
 		]]>
 	</select>
 
-	<insert id="insertPurchaseRequest2" parameterType="purchaserequest"
+	<insert id="insertPurchaseProc" parameterType="purchaserequest"
 		statementType="CALLABLE">
 		<![CDATA[
-		{call create_purchase_info()}
+		{call common.in_txn(#{pTxnNo})}
 		]]>
 	</insert>
 
@@ -100,6 +99,7 @@
 		<![CDATA[
 		SELECT p.*, common.get_vendor_name(p.vendor_code) vendor_name
 		FROM   purchases p
+		WHERE NVL(in_flag,'N') = 'N'
 		ORDER BY purchase_code DESC
 		]]>
 	</select>

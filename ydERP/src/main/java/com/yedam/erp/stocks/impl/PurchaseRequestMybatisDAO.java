@@ -45,5 +45,9 @@ public class PurchaseRequestMybatisDAO {
 	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo) {
 		return sqlSession.selectList("stocks.getReceiptLines", vo);
 	}
+	
+	public void insertPurchaseProc(PurchaseRequestVO vo) {
+		sqlSession.insert("stocks.insertPurchaseProc", vo);
+	}
 
 }

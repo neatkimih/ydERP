@@ -150,5 +150,18 @@
 		</where>
 		ORDER BY purchase_detail_code
 	</select>
+	
+	<select id="getMostSoldItem" resultType="map">
+		<![CDATA[
+		SELECT item
+		      ,quantity
+		FROM   (SELECT item_code item
+		              ,TO_CHAR(SUM(in_qty)) quantity
+		        FROM   stocks_in_out
+		        GROUP  BY item_code
+		        ORDER  BY quantity DESC)
+		WHERE  ROWNUM <= 5
+		]]>
+	</select>
 
 </mapper>

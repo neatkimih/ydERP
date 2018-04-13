@@ -101,6 +101,13 @@ public class ItemsController {
 	
 	
 	// 여기서부터 판매업체 관리 
+	
+	// 판매 업체 관리폼
+	@RequestMapping("/getRegisterForm")
+	public String getRegisterForm(CustomerVO vo) {
+		return "items/getRegister";
+	}
+	
 	// 판매 업체 등록
 	@RequestMapping("/getRegister")
 	public String getRegister(CustomerVO vo) {
@@ -108,10 +115,7 @@ public class ItemsController {
 		return "items/getRegister";
 	}
 	
-	@RequestMapping("/getRegisterForm")
-	public String getRegisterForm(CustomerVO vo) {
-		return "items/getRegister";
-	}
+	
 	
 	// 판매업체 목록 가져오기
 	@RequestMapping("/getCustomerList")
@@ -129,17 +133,22 @@ public class ItemsController {
 			return "items/getRegister";
 	}
 	
-	//판매 업체 삭제
-	@RequestMapping("/getCustomerEdit.do")
+	//판매 업체 여러건 삭제 (거래중단으로 update)
+	@RequestMapping("/CustomerEdit")
 	@ResponseBody
-	public void getCustomerEdit(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, CustomerVO vo,
+	public void deleteCustomer(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, CustomerVO vo,
 								@RequestParam(value = "customerCode", defaultValue = "", required = false) String customerCode) {
-	
-		
-		if (customerCode.length() > 0) {
-			for (String i : customerCode.split(",")) {
-				vo.setCustomerCode(i);
-				customerService.deleteCustomer(vo);
+		System.out.println("=========================88888====" + vo);
+		if (oper.equals("del")) {
+			System.out.println("=========================77777====" + vo);
+			customerService.deleteCustomer(vo);
+			System.out.println("=========================66666====" + vo);
+			if (customerCode.length() > 0) {
+				for (String i : customerCode.split(",")) {
+					
+					vo.setCustomerCode(i);
+					customerService.deleteCustomer(vo);
+				}
 			}
 		}
 	}

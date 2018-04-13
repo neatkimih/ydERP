@@ -96,11 +96,11 @@
 	<div id="chatlogin">	상호명<input type="text" id="nickname">
  	<input type="button" value="입장" onclick="login()" >
  	</div>
-	<div id="chat-area">	
-	<textarea id="messageWindow" rows="20" cols="40" readonly="readonly"></textarea>
+	<div id="chat-area">		
+	<textarea id="messageWindow" rows="20" cols="40" readonly="readonly"></textarea> -->
 	<br /> <input id="inputMessage" type="text" />
 	<input type="button"
-	value="보내기" onclick="send()" />
+	value="보내기" onclick="send()"  />
 	<input type="button" value="나가기" onclick="logout()" />	
 	</div>		
 
@@ -120,7 +120,7 @@ var clientID
 		document.getElementById("chatlogin").style.display="none";
 		document.getElementById("chat-area").style.display="block";			
 		clientID =document.getElementById("nickname").value; 
-		webSocket = new WebSocket('ws://localhost:80/erp/websocket/broadcast.do');
+		webSocket = new WebSocket('ws://192.168.0.73/erp/websocket/broadcast.do');
 		
 		webSocket.onerror = function(event) {
 			onError(event)
@@ -154,6 +154,12 @@ var clientID
 		webSocket.send(JSON.stringify(msg));
 		// Blank the text input element, ready to receive the next line of text from the user.
 		document.getElementById("inputMessage").value ="";
+	function enterkey() {
+	        if (window.event.keyCode == 13) {
+	            send();
+	        }
+	    }
+		
 	}
 	function logout(){
 	document.getElementById("chat-area").style.display="none";

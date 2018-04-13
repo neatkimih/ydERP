@@ -22,7 +22,7 @@
 	<!-- 판매 내역 검색 -->
 	<select id="getSaleByCondition" resultType="sales">
 		<![CDATA[
-			SELECT *
+			SELECT * 
 			FROM SALES 
 			WHERE ORDER_PERMIT = 'Y' 
 		]]>
@@ -47,7 +47,7 @@
 	<!-- 주문 내역 검색 -->
 	<select id="getOrderByCondition" resultType="sales">
 		<![CDATA[
-			SELECT *
+			SELECT * 
 			FROM SALES 
 			WHERE ORDER_PERMIT = 'N' 
 		]]>

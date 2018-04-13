@@ -14,26 +14,31 @@ public class SalesServiceImpl implements SalesService {
 	@Autowired
 	private SalesMybatisDAO salesDAO;
 
-	@Override
-	/* 판매 내역 조회 (선택 단건) */
+	/* 판매 내역 조회 (한 건) */
+	@Override	
 	public SalesVO getSale(SalesVO salesVO) {
 		return salesDAO.getSale(salesVO);
 	}
 	
-	@Override
-	/* 판매 내역 조회 (전체 리스트) */
+	/* 판매 내역 조회 (전체 건) */
+	@Override	
 	public List<SalesVO> getSaleList(SalesVO salesVO) {
 		return salesDAO.getSaleList(salesVO);
 	}
 	
+	/* 판매 내역 검색 */
+	@Override
+	public List<SalesVO> getSaleByCondition(SalesVO salesVO) {
+		return salesDAO.getSaleByCondition(salesVO);		
+	}
 
-	/* 미승인 주문 기본 정보 조회 */
+	/* 승인대기 주문 기본 정보 조회 */
 	@Override
 	public List<SalesVO> getOrderList(SalesVO salesVO) {
 		return salesDAO.getOrderList(salesVO);
 	}
 	
-	/* 주문 승인 상태 변경 */
+	/* 주문 승인 */
 	@Override
 	public void updateOrderStatus(SalesVO salesVO) {
 		salesDAO.updateOrderStatus(salesVO);
@@ -43,5 +48,11 @@ public class SalesServiceImpl implements SalesService {
 	@Override	
 	public void deleteOrder(SalesVO salesVO) {
 		salesDAO.deleteOrder(salesVO);
+	}
+	
+	/* 승인대기 주문 내역 검색 */
+	@Override
+	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {
+		return salesDAO.getOrderByCondition(salesVO);
 	}
 }

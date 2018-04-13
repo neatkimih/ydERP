@@ -22,6 +22,15 @@
 function insertCustomer() {
 	document.register.submit();
 }
+
+function updateCustomer() {
+	document.register.action.value = 'updateCustomer';
+	document.register.submit();
+	
+}
+function restorePage() {
+	location.reload();
+}
 </script>
 </head>
 <body>
@@ -32,18 +41,19 @@ function insertCustomer() {
 			판매업체 관리 &emsp; &emsp; &nbsp;
 			<button class="btn btn-primary" type="button" onclick='insertCustomer()'>
 				가입</button>
-				<button class="btn btn-warning" type="button">
+				<button class="btn btn-warning" type="button" onclick='updateCustomer()'>
 				수정</button>
-			<button class="btn btn-danger" type="button">취소</button>
+			<button class="btn btn-danger" type="button" onclick='restorePage()'>취소</button>
 		</h1>
 	</div>
 
 	<script type="text/javascript">
 		$(function() {
-
+			var selectedCustomerCode;
+			
 			$("#list").jqGrid({
 				url : "getCustomerList",
-				editurl : "getCustomerEdit.do",
+				editurl : "CustomerEdit",
 				datatype : "json",
 				styleUI : 'Bootstrap',
 				colModel : [ {
@@ -81,7 +91,15 @@ function insertCustomer() {
 				gridview : false,
 				autoencode : true,
 				loadonce : true,
-				//onSelectRow : editRow,
+				onSelectRow : function(rowid, selected) {
+					if (rowid != null) {
+						selectedCustomerCode = $(this).getCell(rowid, 'customerCode');
+						jQuery("#customerCode").jqGrid('setGridParam', {
+							url : "./getCustomerList?customerCode=" + selectedCustomerCode
+						});
+					}
+					console.log("선택된 판매코드 : " + selectedCustomerCode);
+				},
 				rowNum : 10,
 				height : 'auto',
 				autowidth : true,
@@ -98,9 +116,10 @@ function insertCustomer() {
 				cancel : false,
 				refresh : false,
 
-			}, {}, {
+			}, {}, {}, {
 				serializeDelData : function(postdata) {
-					return "oper=del&customerCode=" + postdata.id
+					console.dir( postdata+"===============");
+					return "oper=del&customerCode=" + postdata.id;
 				}
 			}
 			
@@ -122,33 +141,33 @@ function insertCustomer() {
 			<br>
 		</div>
 
-<form class="form-horizontal" id="register" name="register">
+<form class="form-horizontal" id="register" name="register" action="getRegister">
 		<div class="col-md-6">
 
 			
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerCode">사업자등록번호</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerCode" type="text"
+						<input class="form-control" id="customerCode" name="customerCode" type="text"
 							placeholder="ID">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerName">사업체명</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerName" type="companyname">
+						<input class="form-control" id="customerName" name="customerName" type="text">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerOwner">이름</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerOwner" type="text">
+						<input class="form-control" id="customerOwner" name="customerOwner" type="text">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerPw">비밀번호</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerPw" type="password"
+						<input class="form-control" id="customerPw" name="customerPw" type="password"
 							placeholder="비밀번호">
 					</div>
 				</div>
@@ -164,7 +183,7 @@ function insertCustomer() {
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerLoc">주소</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerLoc" type="text"
+						<input class="form-control" id="customerLoc" name="customerLoc" type="text"
 							placeholder="주소">
 					</div>
 				</div>
@@ -173,7 +192,7 @@ function insertCustomer() {
 					<label class="col-sm-3 control-label" for="customerPhone">휴대폰번호</label>
 					<div class="col-sm-6">
 						<div class="input-group">
-							<input type="form-control" class="form-control" id="customerPhone" />
+							<input type="text" class="form-control" name="customerPhone" id="customerPhone" />
 
 
 						</div>
@@ -184,7 +203,7 @@ function insertCustomer() {
 					<label class="col-sm-3 control-label" for="inputBankInfo">계좌정보</label>
 					<div class="col-sm-2">
 						<div class="input-group">
-							<select id="inputBank" class="form-control" name="inputBank">
+							<select id="inputBank" class="form-control" name="customerBank">
 								<option value="">선택</option>
 								<option value="하나">하나</option>
 								<option value="국민">국민</option>
@@ -199,10 +218,10 @@ function insertCustomer() {
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="none"></label> <label
-						class="col-sm-2" for="inputBankNum">계좌번호</label>
+						class="col-sm-2" for="customerAccount">계좌번호</label>
 					<div class="col-sm-3">
 						<div class="input-group">
-							<input type="form-control" class="form-control" id="inputBankNum" />
+							<input type="text" class="form-control" name= "customerAccount" id="customerAccount" />
 
 
 						</div>
@@ -211,11 +230,11 @@ function insertCustomer() {
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="none2"></label> <label
-						class="col-sm-2" for="inputOwnerName">계좌주</label>
+						class="col-sm-2" for="customerBankowner">계좌주</label>
 					<div class="col-sm-3">
 						<div class="input-group">
-							<input type="form-control" class="form-control"
-								id="inputOwnerName" />
+							<input type="text" class="form-control"
+								id="customerBankowner" name="customerBankowner" />
 
 
 						</div>

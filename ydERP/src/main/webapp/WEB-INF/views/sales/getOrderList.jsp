@@ -21,7 +21,7 @@ var lastsel2;
 			editurl : "editOrderList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문코드", "주문처 코드", "주문일자", "결제금액", "배송지", "배송사원", "출하창고", "승인확인", "편집취소", "주문삭제"],			
+			colNames : [ "주문코드", "주문처 코드", "주문일자", "결제금액", "배송지", "배송사원", "출하창고", "승인", "편집", "주문"],			
 			colModel : [
 				{	name : "saleCode",		width : 120,	align : "center",	editable : false,	key : true	},
 				{	name : "customerCode",	width : 100,	align : "center",	editable : false	},
@@ -91,7 +91,7 @@ var lastsel2;
 			url : "getOrderDetail.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문상세코드", "주문품목코드", "주문품목명", "판매가", "부가세", "주문수량", "사용연한", "생산처 코드" ],
+			colNames : [ "주문상세코드", "주문품목코드", "주문품목명", "판매가(원)", "부가세", "주문수량", "사용연한(년)", "생산처 코드" ],
 			colModel : [
 				{	name : "saleDetailCode",width : 100,	align : "center"	},
 				{	name : "saleItemCode",	width : 200,	align : "center"	},
@@ -120,8 +120,8 @@ var lastsel2;
 			add : false,
 			edit : false,
 			cancel : true,
-			del : true,
-			refresh : true
+			del : false,
+			refresh : false
 		}, {
 			closeAfterAdd : true,
 			reloadAfterSubmit : true,
@@ -140,27 +140,36 @@ var lastsel2;
 		);
 	});
 	
-	/* 승인 버튼 생성 */
+	/* 승인확인 버튼 생성 */
 	function permitBtn (cellvalue, options, rowObject) {
-		console.log("승인 버튼 생성");
+		console.log("승인확인 버튼 생성");
 		console.dir(options);
-		return '<input type="button" onclick="jQuery(\'#orderList\').saveRow(\''+options.rowId+'\');" value="승인"/>';
+		return '<input type="button" onclick="jQuery(\'#orderList\').saveRow(\''+options.rowId+'\');" value="확인"/>';
 	};
 	
-	/* 취소 버튼 생성 */
+	/* 편집취소 버튼 생성 */
 	function cancleBtn(cellvalue, options, rowObject) {
-		console.log("취소 버튼 생성");
+		console.log("편집취소 버튼 생성");
      	return '<input type="button" onclick=\"jQuery(\'#orderList\').restoreRow(\''+options.rowId+'\');" value="취소"/>';     
 	};
 	
-	/* 삭제 버튼 생성 */
+	/* 주문취소 버튼 생성 */
 	function deleteBtn(cellvalue, options, rowObject) {
-		console.log("삭제 버튼 생성");
-		return '<input type="button" onclick=\"jQuery(\'#orderList\').delRowData(\''+options.rowId+'\');" value="삭제"/>';
+		console.log("주문취소 버튼 생성");
+		return '<input type="button" onclick="deleteOrder(\''+options.rowId+'\')" value="취소"/>';
 	}
 	
-
-	
+	/* 주문 취소 */
+	function deleteOrder(saleCode) {
+		var params = {saleCode:saleCode}
+		$.ajax ({
+			url : "deleteOrderList.do",
+			type : "POST",
+			dataType : "json",
+			data : params,
+			success : function( ) { $("#orderList").trigger("reloadGrid"); }
+		})
+	}
 </script>
 <style type="text/css">
 .#orderListDiv {
@@ -188,7 +197,6 @@ var lastsel2;
 <title>getOrderList.jsp</title>
 </head>
 <body>
-
 	<div id="orderListDiv">
 		<table id="orderList">
 			<tr>

@@ -1,6 +1,5 @@
 package com.yedam.erp.sales;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.yedam.erp.sales.SalesVO;
 
@@ -25,6 +24,6 @@ public interface SalesService {
 	/* 주문 승인 */
 	public void updateOrderStatus(SalesVO salesVO);	
 	
-	/* 미승인 주문 기본 정보 삭제 */
+	/* 승인대기 주문취소 */
 	public void deleteOrder(SalesVO salesVO);
 }

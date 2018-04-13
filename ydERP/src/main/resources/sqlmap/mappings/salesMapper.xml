@@ -64,7 +64,7 @@
 	
 	
 	
-	<!-- 미승인 주문 기본 조회 -->
+	<!-- 승인대기 주문 기본 조회 -->
 	<select id="getOrderList" resultType="sales">
 		SELECT * 
 		FROM SALES 
@@ -72,7 +72,7 @@
 		ORDER BY SALE_CODE
 	</select>
 
-	<!-- 미승인 주문 상세 조회 -->
+	<!-- 승인대기 주문 상세 조회 -->
 	<!-- JQGRID MASTER에서 선택된 ROW의 SALE_CODE값을 가져와서 DETAIL을 조회 -->
 	<select id="getOrderDetail" resultType="saleDetails">
 		SELECT * 
@@ -98,26 +98,15 @@
 			, DELIVERY_EMP = #{deliveryEmp} 
 			, WAREHOUSE = #{warehouse} 
 			, ORDER_PERMIT = 'Y' 
-		WHERE SALE_CODE = #{saleCode}
+			WHERE SALE_CODE = #{saleCode}
 	</update>
 	
-	<!-- 미승인 주문 삭제 : 주문 상세 정보 -->
-	<delete id="deleteOrderDetail" parameterType="list">
-		DELETE FROM SALE_DETAILS 
-		WHERE SALE_CODE IN 
-			<foreach item="itemOrderDetail" collection="list" open="(" separator="," close=")">
-				#{itemOrderDetail}
-			</foreach>
-	</delete>
-	
-	<!-- 미승인 주문 삭제 : 주문 기본 정보 -->
-	<delete id="deleteOrderList" parameterType="list">	
-		DELETE FROM SALES 
-		WHERE SALE_CODE IN 
-			<foreach item="itemOrderList" collection="list" open="(" separator="," close=")">
-				#{itemOrderList}
-			</foreach>
-	</delete>
+	<!-- 승인대기 주문 취소 -->
+	<update id="deleteOrder" parameterType="sales">
+		UPDATE SALES 
+		SET ORDER_PERMIT = 'F' 
+		WHERE SALE_CODE = #{saleCode}
+	</update>
 	
 	<!-- 승인 후 주문 상세에 따른 품목 재고 변화 처리 -->
 	<insert id="afterPermitOrder" parameterType="purchaserequest"

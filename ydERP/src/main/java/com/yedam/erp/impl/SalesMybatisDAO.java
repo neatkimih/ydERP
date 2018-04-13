@@ -36,7 +36,7 @@ public class SalesMybatisDAO {
 		mybatis.update("sales.updateSale", salesVO);
 	}
 	
-	/* 미승인 주문 기본 정보 조회 */
+	/* 승인대기 주문 기본 정보 조회 */
 	public List<SalesVO> getOrderList(SalesVO salesVO) {
 		return mybatis.selectList("sales.getOrderList", salesVO);
 	}
@@ -47,7 +47,7 @@ public class SalesMybatisDAO {
 	}
 	
 	
-	/* 미승인 주문 기본 정보 삭제 */
+	/* 승인대기 주문취소 */
 	public void deleteOrder(SalesVO salesVO) {
 		mybatis.delete("sales.deleteOrder", salesVO);
 	}

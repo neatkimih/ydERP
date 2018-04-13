@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface StockInOutService {
 
-	public List<StockInOutViewVO> getStockInOutList(StockInOutVO vo);
+	public List<StockInOutViewVO> getStockInOutList(StockInOutViewVO vo);
 	
 	public List<StockInOutViewVO> getItemInOutList(StockInOutVO vo);
 	

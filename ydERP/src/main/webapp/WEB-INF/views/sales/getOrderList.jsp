@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
@@ -22,19 +21,21 @@ var lastsel2;
 			editurl : "editOrderList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문코드", "주문처 코드", "주문일자", "결제금액", "배송지", "승인상태", "배송사원", "출하창고", "승인처리"],			
+			colNames : [ "주문코드", "주문처 코드", "주문일자", "결제금액", "배송지", "배송사원", "출하창고", "승인", "편집", "주문"],			
 			colModel : [
-				{	name : "saleCode",		width : 120,	align : "center",	editable : false	},
+				{	name : "saleCode",		width : 120,	align : "center",	editable : false,	key : true	},
 				{	name : "customerCode",	width : 100,	align : "center",	editable : false	},
 				{	name : "saleDate",		width : 120,	align : "center",	editable : false	},
 				{	name : "saleCost",		width : 100,	align : "right",	editable : false	},
 				{	name : "deliveryAddr",	width : 200,	align : "left",		editable : false	},
-				{	name : "orderPermit",	width : 100,	align : "center",	editable : false	},
 				{	name : "deliveryEmp",	width : 200,	align : "center",	editable : true,
-					edittype : "select",	editoptions:{value:"${employeeList}"}},					
+					edittype : "select",	editoptions:{value:"${employeeList}"}					},					
 				{	name : "warehouse",		width : 200,	align : "center",	editable : true,
-					edittype : "select",	editoptions:{value:"${lookupValueList}"}},
-				{	}
+					edittype : "select",	editoptions:{value:"${lookupValueList}"}				},
+				{	name : "permit",		width : 100,	align : "center",	sortable : false,		formatter : permitBtn,
+					autocomplete : true	},
+				{	name : "permitCancle",	width : 100,	align : "center",	sortable : false,		formatter : cancleBtn	},
+				{	name : "deleteOrder",	width : 100,	align : "center",	sortable : false,		formatter : deleteBtn	}
 			],
 			autoheight : true,
 			autowidth : true,
@@ -46,6 +47,8 @@ var lastsel2;
 			sortname : "saleCode",
 			caption : "주문 내역 정보",
 			pager : "#pagerOrderList",
+			closeAfterAdd : true,
+			reloadAfterSubmit : true,
 			onSelectRow : function(rowid, selected) {
 				if(rowid && rowid!==lastsel2){
 					jQuery('#orderList').jqGrid('restoreRow',lastsel2);
@@ -61,15 +64,34 @@ var lastsel2;
 					jQuery("#orderDetail").trigger("reloadGrid");
 				}
 				console.log("선택된 주문 코드 : " + selectedOrderCode);
+			},
+			/* afterSubmit : function() {
+				$("#orderList").setGridParam({
+					url : "getOrderList.do",
+					datatype : 'json',
+					page : 1
+				}).trigger('reloadGrid');			
+			},
+			afterComplete : function() {
+				$("#orderList").setGridParam({
+					url : "getOrderList.do",
+					datatype : 'json',
+					page : 1
+				}).trigger('reloadGrid');
+			}, */
+			jqGridInlineAfterSaveRow : function() {
+				console.log("리로딩");
+			$("#orderList").trigger("reloadGrid");
 			}
-		});
-
+		}
+	);
+		 
 		/* Order Details : 디테일 그리드 */
 		$("#orderDetail").jqGrid({
 			url : "getOrderDetail.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문상세코드", "주문품목코드", "주문품목명", "판매가", "부가세", "주문수량", "사용연한", "생산처 코드" ],
+			colNames : [ "주문상세코드", "주문품목코드", "주문품목명", "판매가(원)", "부가세", "주문수량", "사용연한(년)", "생산처 코드" ],
 			colModel : [
 				{	name : "saleDetailCode",width : 100,	align : "center"	},
 				{	name : "saleItemCode",	width : 200,	align : "center"	},
@@ -98,8 +120,8 @@ var lastsel2;
 			add : false,
 			edit : false,
 			cancel : true,
-			del : true,
-			refresh : true
+			del : false,
+			refresh : false
 		}, {
 			closeAfterAdd : true,
 			reloadAfterSubmit : true,
@@ -118,10 +140,35 @@ var lastsel2;
 		);
 	});
 	
-	function permitOrder() {
-		var params = "";
-		
-		
+	/* 승인확인 버튼 생성 */
+	function permitBtn (cellvalue, options, rowObject) {
+		console.log("승인확인 버튼 생성");
+		console.dir(options);
+		return '<input type="button" onclick="jQuery(\'#orderList\').saveRow(\''+options.rowId+'\');" value="확인"/>';
+	};
+	
+	/* 편집취소 버튼 생성 */
+	function cancleBtn(cellvalue, options, rowObject) {
+		console.log("편집취소 버튼 생성");
+     	return '<input type="button" onclick=\"jQuery(\'#orderList\').restoreRow(\''+options.rowId+'\');" value="취소"/>';     
+	};
+	
+	/* 주문취소 버튼 생성 */
+	function deleteBtn(cellvalue, options, rowObject) {
+		console.log("주문취소 버튼 생성");
+		return '<input type="button" onclick="deleteOrder(\''+options.rowId+'\')" value="취소"/>';
+	}
+	
+	/* 주문 취소 */
+	function deleteOrder(saleCode) {
+		var params = {saleCode:saleCode}
+		$.ajax ({
+			url : "deleteOrderList.do",
+			type : "POST",
+			dataType : "json",
+			data : params,
+			success : function( ) { $("#orderList").trigger("reloadGrid"); }
+		})
 	}
 </script>
 <style type="text/css">
@@ -160,15 +207,13 @@ var lastsel2;
 	</div>
 	<br>
 	<div id="permitOrderDiv">
-		<form action="getOrderList" name="permitForm">
-			<%-- 배송 사원 : 
+					<%-- 배송 사원 : 
 			<select id="deliveryEmpSelect" name="searchEmployeeId">
 				<option value="">사원 선택</option>
 				<c:forEach items="${employeeList}" var="emp">
 				<option value="${emp.id}">${emp.id} : ${emp.name}</option>
 				</c:forEach>
 			</select> --%>
-			<br><br>
 			<%-- 출하 창고 :
 			<select id="warehouseSelect" name="searchWarehouse">
 				<option value="">창고 선택</option>
@@ -176,9 +221,8 @@ var lastsel2;
 				<option value="${lkup.LOOKUP_CODE}">${lkup.LOOKUP_VALUES}</option>
 				</c:forEach>
 			</select> --%>
-			<br><br>
-			<input type="button" value="주문 승인" onclick="permitOrder()"/>
-		</form>
+			<!--
+			<input type="button" value="주문 승인" onclick="()"/> -->		
 	</div>
 	<br>
 	<hr>

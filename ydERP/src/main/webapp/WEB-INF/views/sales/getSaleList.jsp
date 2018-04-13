@@ -22,12 +22,12 @@
 				, "판매처 코드"
 				, "판매일자"
 				, "결제금액"
-				, "배송지"
-				, "배송사원 번호"
+				, "배송주소"
+				, "배송사원"
 				, "배송상태"
 				, "결제상태"
 				, "출하창고"
-				, "승인상태" ],
+			],
 			colModel : [
 				{
 					name : "saleCode",
@@ -41,7 +41,7 @@
 				},
 				{
 					name : "saleDate",
-					width : 200,
+					width : 160,
 					align : "center"
 				},
 				{
@@ -61,24 +61,19 @@
 				},
 				{
 					name : "deliveryStatus",
-					width : 100,
+					width : 80,
 					align : "center"
 				},
 				{
 					name : "payStatus",
-					width : 100,
+					width : 80,
 					align : "center"
 				},
 				{
 					name : "warehouse",
-					width : 100,
+					width : 80,
 					align : "center"
 				},
-				{
-					name : "orderPermit",
-					width : 100,
-					align : "center"
-				}
 			],
 			autoheight : true,
 			autowidth : true,
@@ -92,7 +87,6 @@
 			pager : "#pagerSaleList",
 			onSelectRow : function(rowid, selected) {
 				if (rowid != null) {
-					// var selectedSaleCode = $(this).jqGrid('getCell', selected, 'saleCode');
 					var selectedSaleCode = $(this).getCell(rowid, 'saleCode');
 					jQuery("#saleDetail").jqGrid('setGridParam', {
 						url : "./getSaleDetail.do?saleCode=" + selectedSaleCode
@@ -109,12 +103,12 @@
 			url : "getSaleDetail.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "판매상세코드"
-				, "판매품목코드"
-				, "판매품목명"
+			colNames : [ "상세코드"
+				, "품목코드"
+				, "품목명"
 				, "판매가"
 				, "부가세"
-				, "판매수량"
+				, "수량"
 				, "사용연한"
 				, "생산처 코드" ],
 			colModel : [
@@ -175,8 +169,8 @@
 			add : false,
 			edit : false,
 			del : false,
-			search : true,
-			refresh : true
+			search : false,
+			refresh : false
 		}, {}, {
 			closeAfterAdd : true,
 			reloadAfterSubmit : true,
@@ -196,7 +190,19 @@
 	});
 </script>
 <style type="text/css">
-.
+#salePageTitle {
+	padding : 10px;
+	text-align : left;
+	background-color : #007FFF;
+	color : #FFFFFF;
+}
+
+#pageName {
+	background-color : #00007F;
+	color : #00FFFF;
+	font-weight: bold;
+}
+
 #saleListDiv {
 	margin-left: auto;
 	margin-right: auto;
@@ -204,7 +210,6 @@
 	text-align: center;
 }
 
-.
 #saleDetailDiv {
 	margin-left: auto;
 	margin-right: auto;
@@ -215,6 +220,31 @@
 <title>getSaleList.jsp</title>
 </head>
 <body>
+	<div id="salePageTitle">
+		<span id="pageName">[getSaleList.jsp]</span> 판매정보 ▷▶ 판매내역 - 검색
+	</div>
+	<div>
+		<table>
+			<tr>
+				<td>판매코드</td><td><input type="text" id="searchBySaleCode" onkeydown="doSearch(arguments[0]||event)" /></td>
+			</tr>
+			<tr>
+				<td>판매처 코드</td><td></td>
+			</tr>
+			<tr>
+				<td>판매일자</td><td></td>
+			</tr>
+			<tr>
+				<td>결제금액</td><td></td>
+			</tr>
+			<tr>
+				<td>배송지</td><td></td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<hr>
+	<br>
 	<div id="saleListDiv">
 		<table id="saleList">
 			<tr>

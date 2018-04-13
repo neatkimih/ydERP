@@ -10,6 +10,7 @@ public class SalesVO
 	private String deliveryAddr;		// 배송지
 	private String deliveryEmp;			// 배송사원
 	private char deliveryStatus;		// 배송상태
+	private String deliveryDate;		// 배송희망일자
 	private char payStatus;				// 결제상태
 	private char warehouse;				// 출하창고
 	private char orderPermit;			// 주문허가
@@ -56,24 +57,25 @@ public class SalesVO
 	public char getOrderPermit() { return orderPermit; }
 	public void setOrderPermit(char orderPermit) { this.orderPermit = orderPermit; }
 	
+	/* deliveryDate - GET(), SET() */	
+	public String getDeliveryDate() { return deliveryDate; }
+	public void setDeliveryDate(String deliveryDate) { this.deliveryDate = deliveryDate; }
 	
-	public String getpTxnNo() {
-		return pTxnNo;
-	}
-	public void setpTxnNo(String pTxnNo) {
-		this.pTxnNo = pTxnNo;
-	}
+	/* pTxnNo - GET(), SET() */
+	public String getpTxnNo() { return pTxnNo; }
+	public void setpTxnNo(String pTxnNo) { this.pTxnNo = pTxnNo; }
 	
 	@Override
 	public String toString() {
-		return "SalesVO [saleCode=" + saleCode
-					+ ", saleDate=" + saleDate
-					+ ", customerCode=" + customerCode
-					+ ", deliveryAddr=" + deliveryAddr
-					+ ", deliveryEmp="	+ deliveryEmp
-					+ ", deliverStatus=" + deliveryStatus
-					+ ", payStatus=" + payStatus
-					+ ", warehouse=" + warehouse
-					+ ", orderPermit=" + orderPermit + "]";
+		return "SalesVO [판매코드=" + saleCode
+					+ ", 판매일자=" + saleDate
+					+ ", 판매처 코드=" + customerCode
+					+ ", 배송지=" + deliveryAddr
+					+ ", 배송사원="	+ deliveryEmp
+					+ ", 배송상태=" + deliveryStatus
+					+ ", 배송희망일=" + deliveryDate
+					+ ", 결제상태=" + payStatus
+					+ ", 출하창고=" + warehouse
+					+ ", 승인상태=" + orderPermit + "]";
 	}
 }

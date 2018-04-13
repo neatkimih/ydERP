@@ -36,7 +36,7 @@
 						{name : "sellingPrice",width : 2,align : "right"},
 						{name : "itemTax",width : 2,align : "right"}, 
 						{name : "expireDate",width : 2,align : "right"},
-						{name : "vendorCode",width : 3,align : "right"},
+						{name : "vendorName",width : 3,align : "right"},
 						{name : "minQty",width : 2,align : "right"}, 
 						{name : "onhandQty",width : 2,align : "right"}, 
 						],
@@ -69,11 +69,12 @@
 	function gridReload() {
 		var cd_mask = jQuery("#item_cd").val();
 		var nm_mask = jQuery("#item_nm").val();
+		var vend_cd = jQuery("#warehouseSelect").val();
 		console.log(cd_mask + "============" + nm_mask);
 		jQuery("#list").jqGrid(
 				'setGridParam',
 				{
-					url : "getStockOnhandListData?itemName=" + nm_mask + "&itemCode=" + cd_mask,
+					url : "getStockOnhandListData?itemName=" + nm_mask + "&itemCode=" + cd_mask + "&vendorCode=" + vend_cd,
 					datatype : "json",
 					page : 1
 				}).trigger("reloadGrid");
@@ -89,25 +90,45 @@
 	<div class="col-lg-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">Search Condition</div>
-			<div>
-				<input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)"> Enable Autosearch
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3">
+						<input type="checkbox" id="autosearch"
+							onclick="enableAutosubmit(this.checked)"> Enable Autosearch
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-3">
+						<input type="text" id="item_cd" class="form-control"
+							placeholder="==> Enter ItemCode"
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-3">
+						<button onclick="gridReload()" id="submitButton"
+							class="btn btn-outline btn-success btn-block">Search</button>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-3">
+						<input type="text" id="item_nm" class="form-control"
+							placeholder="==> Enter ItemName"
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-3">
+						<select id="warehouseSelect" name="searchWarehouse"
+							class="form-control">
+							<option value="">구매업체 선택</option>
+							<c:forEach items="${vendorList}" var="lkup">
+								<option value="${lkup.VENDOR_CODE}">${lkup.VENDOR_NAME}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<br>
 			</div>
-			<div  class="col-lg-5">
-				<input type="text" id="item_cd" class="form-control" placeholder="==> Enter ItemCode" onkeydown="doSearch(arguments[0]||event)" />
-				<input type="text" id="item_nm" class="form-control" placeholder="==> Enter ItemName" onkeydown="doSearch(arguments[0]||event)" />
-			</div><br>
-			<div class="col-lg-5">
-				<select id="warehouseSelect" name="searchWarehouse" class="form-control">
-					<option value="">구매업체 선택</option>
-					<c:forEach items="${lookUpValue}" var="lkup">
-						<option value="${lkup.LOOKUP_CODE}">${lkup.LOOKUP_VALUES}</option>
-					</c:forEach>
-				</select>
-				<button onclick="gridReload()" id="submitButton"
-					class="btn btn-outline btn-success" style="margin-left: 30px">Search</button>
-			</div><br>
 		</div>
 	</div>
+	<!-- col-lg-6 -->
 	<br>
 	<div class="col-lg-12">
 		<table id="list">

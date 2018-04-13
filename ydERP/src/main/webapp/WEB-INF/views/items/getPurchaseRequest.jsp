@@ -64,6 +64,11 @@ $(function(){
 </script>	
 
 
+<div class="page-header">
+				<h1>
+					구매 신청
+				</h1>
+			</div>
 <div class="col-md-6">
 	<form class="form-horizontal" id="purchaseRequestForm">
 		<div class="form-group">
@@ -74,7 +79,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="hopeDate" class="col-md-3 control-label">이사날짜</label>
+			<label for="hopeDate" class="col-md-3 control-label">희망 배송 날짜</label>
 			<div class="col-md-9">
 				<input type="text" class="form-control" id="hopeDate"
 					name="hopeDate">

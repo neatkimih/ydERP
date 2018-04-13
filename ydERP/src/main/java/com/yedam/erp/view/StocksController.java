@@ -45,6 +45,7 @@ public class StocksController {
 	@RequestMapping("getStockInOutListData")
 	@ResponseBody
 	public List<StockInOutViewVO> getStockInOutListData(StockInOutViewVO vo) {
+		System.out.println("--==================="+vo);
 		return stockInOutService.getStockInOutList(vo);
 	}
 

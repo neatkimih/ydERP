@@ -10,14 +10,24 @@
 		FROM   stock_in_out_vo
 		]]>
 		<where>
-			<if test="itemCode != null">
-				AND item_code like #{itemCode}||'%'
+			<if test="itemCode != null and itemCode != '' ">
+				AND item_code like '%'||#{itemCode}||'%'
 			</if>
-			<if test="itemName != null">
-				AND item_name like #{itemName}||'%'
+			<if test="itemName != null and itemName != '' ">
+				AND item_name like '%'||#{itemName}||'%'
 			</if>
-			<if test="poSoNumber != null">
-				AND dealer_code like #{poSoNumber}||'%'
+			<if test="poSoNumber != null and poSoNumber != '' ">
+				AND dealer_code like '%'||#{poSoNumber}||'%'
+			</if>
+			<if test="fromDate != null and fromDate != '' ">
+				<![CDATA[
+				AND txn_date >= TO_DATE(#{fromDate},'rrrr-mm-dd')
+				]]>
+			</if>
+			<if test="toDate != null and toDate != '' ">
+				<![CDATA[
+				AND txn_date <= TO_DATE(#{toDate},'rrrr-mm-dd')
+				]]>
 			</if>
 		</where>
 		ORDER BY stock_id
@@ -43,10 +53,10 @@
 		]]>
 		<where>
 			<if test="itemCode != null">
-				AND item_code like #{itemCode}||'%'
+				AND item_code like '%'||#{itemCode}||'%'
 			</if>
 			<if test="itemName != null">
-				AND item_name like #{itemName}||'%'
+				AND item_name like '%'||#{itemName}||'%'
 			</if>
 			<if test="vendorCode != null">
 				AND vendor_code like #{vendorCode}||'%'

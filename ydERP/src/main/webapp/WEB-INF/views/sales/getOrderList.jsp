@@ -197,7 +197,6 @@ var lastsel2;
 <title>getOrderList.jsp</title>
 </head>
 <body>
-
 	<div id="orderListDiv">
 		<table id="orderList">
 			<tr>

@@ -48,6 +48,10 @@
 <!-- Chat -->
 <link href="${pageContext.request.contextPath}/resources/chat/chat.css" rel="stylesheet">
 
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ -->
 </head>
 
 <body>
@@ -90,10 +94,10 @@
 	<div id="chat">		
 	Live Q&A
 	<div id="chatlogin">	상호명<input type="text" id="nickname">
- 	<input type="button" id="enterBtn" value="입장" onclick="login()" >
+ 	<input type="button" value="입장" onclick="login()" >
  	</div>
 	<div id="chat-area">	
-	<textarea id="messageWindow" rows="20" cols="41" readonly="readonly"></textarea>
+	<textarea id="messageWindow" rows="20" cols="40" readonly="readonly"></textarea>
 	<br /> <input id="inputMessage" type="text" />
 	<input type="button"
 	value="보내기" onclick="send()" />
@@ -155,6 +159,9 @@ var clientID
 	document.getElementById("chat-area").style.display="none";
 	document.getElementById("chatlogin").style.display="block";
 	};
-
+	/*  $( function() {
+	    $( "#chat" ).draggable({handle: ''});
+	  });	
+	 */
 </script>
 </html>

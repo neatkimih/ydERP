@@ -172,6 +172,24 @@ var lastsel2;
 	}
 </script>
 <style type="text/css">
+#orderPageTitle {
+	padding : 10px;
+	text-align : left;
+	background-color : #007FFF;
+	color : #FFFFFF;
+}
+
+#pageName {
+	background-color : #00007F;
+	color : #00FFFF;
+	font-weight: bold;
+}
+
+#searchDiv {
+	margin-top : 50x;
+	margin-left : 25px;
+}
+
 .#orderListDiv {
 	margin-left: auto;
 	margin-right: auto;
@@ -193,10 +211,49 @@ var lastsel2;
 
 }
 
+#submitTr {
+	text-align : center;
+
+
+}
+
+.searchTd{
+	padding-right : 15px;
+	padding-top : 10px;
+	padding-bottom : 10px;
+
+}
+
 </style>
 <title>getOrderList.jsp</title>
 </head>
 <body>
+	<div id="orderPageTitle">
+		<span id="pageName">[getOrderList.jsp]</span> 판매정보 ▷▶ 주문내역 - 검색 / 승인 / 폐기
+	</div>
+	<hr>
+	<div id="searchDiv">
+		<table>
+				<tr>
+					<td class="searchTd">주문코드</td><td><input type="text" id="orderCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd">주문처 코드</td><td><input type="text" id="customerCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd">주문일자</td><td><input type="text" id="orderDatePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd">결제금액</td><td><input type="text" id="orderCostPut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd">배송주소</td><td><input type="text" id="deliveryAddrPut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd"></td><td id="submitTd"><button onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
+				</tr>
+		</table>
+	</div>
 	<div id="orderListDiv">
 		<table id="orderList">
 			<tr>

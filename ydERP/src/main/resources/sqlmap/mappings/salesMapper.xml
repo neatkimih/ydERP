@@ -19,6 +19,56 @@
 		WHERE SALE_CODE = #{saleCode} 
 	</select>
 	
+	<!-- 판매 내역 검색 -->
+	<select id="getSaleByCondition" resultType="sales">
+		<![CDATA[
+			SELECT *
+			FROM SALES 
+			WHERE ORDER_PERMIT = 'Y' 
+		]]>
+			<if test="saleCode != null">
+				AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
+			</if>
+			<if test="customerCode != null">
+				AND CUSTOMER_CODE LIKE '%' || #{customerCode} || '%' 
+			</if>
+			<if test="saleDate != null">
+				AND TO_CHAR(SALE_DATE, 'YYYYMMDD HH24:MI') LIKE '%' || #{saleDate} || '%' 
+			</if>
+			<if test="saleCost != null">
+				AND SALE_COST = #{saleCost} 	
+			</if>
+			<if test="deliveryAddr != null">
+				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
+			</if>
+		ORDER BY SALE_CODE
+	</select>
+	
+	<!-- 주문 내역 검색 -->
+	<select id="getOrderByCondition" resultType="sales">
+		<![CDATA[
+			SELECT *
+			FROM SALES 
+			WHERE ORDER_PERMIT = 'N' 
+		]]>
+			<if test="orderCode != null">
+				AND SALE_CODE LIKE '%' || #{orderCode} || '%' 
+			</if>
+			<if test="customerCode != null">
+				AND CUSTOMER_CODE LIKE '%' || #{customerCode} || '%' 
+			</if>
+			<if test="orderDate != null">
+				AND TO_CHAR(SALE_DATE, 'YYYYMMDD HH24:MI') LIKE '%' || #{orderDate} || '%' 
+			</if>
+			<if test="orderCost != null">
+				AND SALE_COST = #{orderCost} 	
+			</if>
+			<if test="deliveryAddr != null">
+				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
+			</if>
+		ORDER BY SALE_CODE
+	</select>
+	
 	<!-- 주문 등록 : 주문 기본 정보 -->
 	<insert id="insertOrder" parameterType="sales">
 		INSERT INTO SALES (	SALE_CODE
@@ -61,6 +111,7 @@
 	<!-- 주문 승인이 N으로 초기화된다 -->
 	
 	<!-- 주문 취소 -->
+	<!-- delete -->
 	
 	
 	

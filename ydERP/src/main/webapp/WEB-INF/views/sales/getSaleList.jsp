@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
 <head>
@@ -18,65 +17,19 @@
 			url : "getSaleList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "판매코드"
-				, "판매처 코드"
-				, "판매일자"
-				, "결제금액"
-				, "배송주소"
-				, "배송사원"
-				, "배송상태"
-				, "결제상태"
-				, "출하창고"
-			],
+			colNames : [ "판매코드", "판매처 코드", "판매일자", "결제금액", "배송주소", "배송사원", "배송상태", "결제상태", "출하창고"],
 			colModel : [
-				{
-					name : "saleCode",
-					width : 120,
-					align : "center"
-				},
-				{
-					name : "customerCode",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "saleDate",
-					width : 160,
-					align : "center"
-				},
-				{
-					name : "saleCost",
-					width : 100,
-					align : "right"
-				},
-				{
-					name : "deliveryAddr",
-					width : 200,
-					align : "left"
-				},
-				{
-					name : "deliveryEmp",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "deliveryStatus",
-					width : 80,
-					align : "center"
-				},
-				{
-					name : "payStatus",
-					width : 80,
-					align : "center"
-				},
-				{
-					name : "warehouse",
-					width : 80,
-					align : "center"
-				},
+				{	name : "saleCode",		width : 120,		align : "center"	},
+				{	name : "customerCode",	width : 100,		align : "center"	},
+				{	name : "saleDate",		width : 160,		align : "center"	},
+				{	name : "saleCost",		width : 100,		align : "right"		},
+				{	name : "deliveryAddr",	width : 200,		align : "left"		},
+				{	name : "deliveryEmp",	width : 100,		align : "center"	},
+				{	name : "deliveryStatus",width : 80,			align : "center"	},
+				{	name : "payStatus",		width : 80,			align : "center"	},
+				{	name : "warehouse",		width : 80,			align : "center"	},
 			],
-			autoheight : true,
-			autowidth : true,
+			autoheight : true,	autowidth : true,
 			rowNum : 10,
 			viewrecords : true,
 			gridview : true,
@@ -103,55 +56,16 @@
 			url : "getSaleDetail.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "상세코드"
-				, "품목코드"
-				, "품목명"
-				, "판매가"
-				, "부가세"
-				, "수량"
-				, "사용연한"
-				, "생산처 코드" ],
+			colNames : [ "상세코드", "품목코드", "품목명", "판매가", "부가세", "수량", "사용연한", "생산처 코드" ],
 			colModel : [
-				{
-					name : "saleDetailCode",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "saleItemCode",
-					width : 200,
-					align : "center"
-				},
-				{
-					name : "saleItemName",
-					width : 100,
-					align : "right"
-				},
-				{
-					name : "salePrice",
-					width : 200,
-					align : "left"
-				},
-				{
-					name : "itemTax",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "saleQty",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "expireDate",
-					width : 100,
-					align : "center"
-				},
-				{
-					name : "vendorCode",
-					width : 100,
-					align : "center"
-				},
+				{	name : "saleDetailCode",	width : 100,	align : "center"	},
+				{	name : "saleItemCode",		width : 200,	align : "center"	},
+				{	name : "saleItemName",		width : 100,	align : "right"		},
+				{	name : "salePrice",			width : 200,	align : "left"		},
+				{	name : "itemTax",			width : 100,	align : "center"	},
+				{	name : "saleQty",			width : 100,	align : "center"	},
+				{	name : "expireDate",		width : 100,	align : "center"	},
+				{	name : "vendorCode",		width : 100,	align : "center"	},
 			],
 			pager : "#pagerSaleDetail",
 			rowNum : 10,
@@ -171,15 +85,10 @@
 			del : false,
 			search : false,
 			refresh : false
-		}, {}, {
+		}, {
 			closeAfterAdd : true,
 			reloadAfterSubmit : true,
-			afterComplete : function() {
-				$("#saleList").setGridParam({
-					datatype : 'json',
-					page : 1
-				}).trigger('reloadGrid');
-			}
+			afterComplete : function() {	$("#saleList").setGridParam({	datatype : 'json',	page : 1	}).trigger('reloadGrid');	}
 		}, {
 			serializeDelData : function(postdata) {
 				return "oper=del&itemCode=" + postdata.id
@@ -188,6 +97,36 @@
 
 		);
 	});
+	
+	var timeoutHnd;
+	var flAuto = false;
+
+	function doSearch(ev) {
+		if(!flAuto)	return;
+		if(timeoutHnd) clearTimeout(timeoutHnd)
+		timeoutHnd = setTimeout(gridReload,500)
+	}
+
+	function gridReload() {
+		var saleCodeMask = jQuery("#saleCodePut").val();
+		var customerCodeMask = jQuery("#customerCodePut").val();
+		var saleDateMask = jQuery("#saleDatePut").val();
+		var saleCostMask = jQuery("#saleCostPut").val();
+		var deliveryAddrMask = jQuery("#deliveryAddrPut").val();
+		
+		jQuery("#saleList").jqGrid('setGridParam',{url:"getSaleByCondition.do?saleCode=" + saleCodeMask +
+																			"&customerCode=" + customerCodeMask +
+																			"&saleDate=" + saleDateMask +
+																			"&saleCost=" + saleCostMask +
+																			"&deliveryAddr=" + deliveryAddrMask
+													,page:1}).trigger("reloadGrid");
+	}
+	
+	function enableAutosubmit(state) {
+		flAuto = state;
+		jQuery("#submitButton").attr("disabled",state);
+	}
+	
 </script>
 <style type="text/css">
 #salePageTitle {
@@ -203,18 +142,36 @@
 	font-weight: bold;
 }
 
+#searchDiv {
+	margin-top : 50x;
+	margin-left : 25px;
+}
+
 #saleListDiv {
 	margin-left: auto;
 	margin-right: auto;
-	padding: 50px;
+	padding: 10px;
 	text-align: center;
 }
 
 #saleDetailDiv {
 	margin-left: auto;
 	margin-right: auto;
-	padding: 50px;
+	padding: 10px;
 	text-align: center;
+}
+
+#submitTr {
+	text-align : center;
+
+
+}
+
+.searchTd{
+	padding-right : 15px;
+	padding-top : 10px;
+	padding-bottom : 10px;
+
 }
 </style>
 <title>getSaleList.jsp</title>
@@ -223,28 +180,29 @@
 	<div id="salePageTitle">
 		<span id="pageName">[getSaleList.jsp]</span> 판매정보 ▷▶ 판매내역 - 검색
 	</div>
-	<div>
+	<div id="searchDiv">
 		<table>
-			<tr>
-				<td>판매코드</td><td><input type="text" id="searchBySaleCode" onkeydown="doSearch(arguments[0]||event)" /></td>
-			</tr>
-			<tr>
-				<td>판매처 코드</td><td></td>
-			</tr>
-			<tr>
-				<td>판매일자</td><td></td>
-			</tr>
-			<tr>
-				<td>결제금액</td><td></td>
-			</tr>
-			<tr>
-				<td>배송지</td><td></td>
-			</tr>
+				<tr>
+					<td class="searchTd">판매코드</td><td><input type="text" id="saleCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd">판매처 코드</td><td><input type="text" id="customerCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd">판매일자</td><td><input type="text" id="saleDatePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd">결제금액</td><td><input type="text" id="saleCostPut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd">배송주소</td><td><input type="text" id="deliveryAddrPut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr class="searchTr">
+					<td class="searchTd"></td><td id="submitTd"><button onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
+				</tr>
 		</table>
 	</div>
-	<br>
 	<hr>
-	<br>
 	<div id="saleListDiv">
 		<table id="saleList">
 			<tr>
@@ -253,9 +211,7 @@
 		</table>
 		<div id="pagerSaleList"></div>
 	</div>
-	<br>
 	<hr>
-	<br>
 	<div id="saleDetailDiv">
 		<table id="saleDetail">
 			<tr>

@@ -14,23 +14,21 @@ public class SalesMybatisDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	/* 판매 내역 조회 (선택 단건) */
+	/* 판매 내역 조회 (한 건) */
 	public SalesVO getSale(SalesVO salesVO) {
 		return mybatis.selectOne("sales.getSale", salesVO);
 	}
 
-	/* 판매 내역 조회 (전체 리스트) */
+	/* 판매 내역 조회 (전체 건) */
 	public List<SalesVO> getSaleList(SalesVO salesVO) {
 		return mybatis.selectList("sales.getSaleList", salesVO);
 	}
 	
-	/* 판매 내역 등록 */
-	public void insertSale(SalesVO salesVO) {
-		mybatis.insert("sales.insertSale", salesVO);
-		// mybatis.insert("sales.insertSaleMaster", salesVO);
-		// mybatis.insert("sales.insertSaleDetail", salesVO);
+	/* 판매 내역 검색 */
+	public List<SalesVO> getSaleByCondition(SalesVO salesVO) {
+		return mybatis.selectList("sales.getSaleByCondition", salesVO);
 	}
-
+	
 	/* 판매 내역 수정 */
 	public void updateSale(SalesVO salesVO) {
 		mybatis.update("sales.updateSale", salesVO);
@@ -46,9 +44,13 @@ public class SalesMybatisDAO {
 		mybatis.update("sales.updateOrderStatus", salesVO);
 	}
 	
-	
-	/* 승인대기 주문취소 */
+	/* 승인대기 주문 취소 */
 	public void deleteOrder(SalesVO salesVO) {
 		mybatis.delete("sales.deleteOrder", salesVO);
+	}
+	
+	/* 승인대기 주문 검색 */
+	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {
+		return mybatis.selectList("sales.getOrderByCondition", salesVO);
 	}
 }

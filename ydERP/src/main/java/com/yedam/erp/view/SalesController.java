@@ -49,6 +49,13 @@ public class SalesController {
 		System.out.println(saleDetailsVO.getSaleCode());
 		return saleDetailsService.getSaleDetail(saleDetailsVO);
 	}
+	
+	/* 판매 내역 검색 처리 */
+	@RequestMapping("/getSaleByCondition.do")
+	@ResponseBody
+	public List<SalesVO> getSaleByCondition(SalesVO salesVO) {
+		return salesService.getSaleByCondition(salesVO);
+	}
 
 	/* 주문 등록 페이지 폼 */
 	@RequestMapping("/insertOrder")
@@ -117,6 +124,14 @@ public class SalesController {
 		salesService.deleteOrder(salesVO);
 		return "redirect:/getOrderList";
 	}
+	
+	/* 승인대기 주문 검색 처리*/
+	@RequestMapping("/getOrderByCondition.do")
+	@ResponseBody
+	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {
+		return salesService.getOrderByCondition(salesVO);
+	}
+	
 
 	/* 승인대기 주문 그리드 편집 */
 	@RequestMapping("/editOrderList.do")

@@ -52,7 +52,7 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		ObjectMapper mapper = new ObjectMapper();
 		MsgVO msgvo = mapper.readValue((String) message.getPayload(), MsgVO.class);
 		//메세지 전송
-		sendMessage(msgvo.msg);
+		sendMessage(msgvo.getId()+ ":" + msgvo.msg);
 	}
 
 	@Override

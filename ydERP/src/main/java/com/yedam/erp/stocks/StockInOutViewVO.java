@@ -1,5 +1,6 @@
 package com.yedam.erp.stocks;
 
+
 public class StockInOutViewVO extends StockInOutVO {
 	String itemName;
 	String uom;
@@ -11,6 +12,8 @@ public class StockInOutViewVO extends StockInOutVO {
 	String vendorCode;
 	Integer minQty;
 	String poSoNumber;
+	String fromDate;
+	String toDate;
 
 	public String getItemName() {
 		return itemName;
@@ -92,11 +95,28 @@ public class StockInOutViewVO extends StockInOutVO {
 		this.poSoNumber = poSoNumber;
 	}
 
+	public String getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(String fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public String getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
+	}
+
 	@Override
 	public String toString() {
-		return "StocksInOutVO [itemName=" + itemName + ", uom=" + uom + ", quantities=" + quantities + ", supplyPrice="
-				+ supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax + ", expireDate=" + expireDate
-				+ ", vendorCode=" + vendorCode + ", minQty=" + minQty + ", poSoNumber=" + poSoNumber + "]";
+		return "StockInOutViewVO [itemName=" + itemName + ", uom=" + uom + ", quantities=" + quantities
+				+ ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax
+				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", minQty=" + minQty + ", poSoNumber="
+				+ poSoNumber + ", fromDate=" + fromDate + ", toDate=" + toDate + "]";
 	}
 
 }

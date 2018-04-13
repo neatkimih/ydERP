@@ -10,14 +10,24 @@
 		FROM   stock_in_out_vo
 		]]>
 		<where>
-			<if test="itemCode != null">
-				AND item_code like #{itemCode}||'%'
+			<if test="itemCode != null and itemCode != '' ">
+				AND item_code like '%'||#{itemCode}||'%'
 			</if>
-			<if test="itemName != null">
-				AND item_name like #{itemName}||'%'
+			<if test="itemName != null and itemName != '' ">
+				AND item_name like '%'||#{itemName}||'%'
 			</if>
-			<if test="dealerCode != null">
-				AND dealer_code like #{vendorCode}||'%'
+			<if test="poSoNumber != null and poSoNumber != '' ">
+				AND dealer_code like '%'||#{poSoNumber}||'%'
+			</if>
+			<if test="fromDate != null and fromDate != '' ">
+				<![CDATA[
+				AND txn_date >= TO_DATE(#{fromDate},'rrrr-mm-dd')
+				]]>
+			</if>
+			<if test="toDate != null and toDate != '' ">
+				<![CDATA[
+				AND txn_date <= TO_DATE(#{toDate},'rrrr-mm-dd')
+				]]>
 			</if>
 		</where>
 		ORDER BY stock_id
@@ -38,20 +48,21 @@
 
 	<select id="getStockOnhandList" resultType="com.yedam.erp.stocks.StockOnhandViewVO">
 		<![CDATA[
-		SELECT *
-		FROM   stock_onhands_vo
+		SELECT v.*, common.get_vendor_name(v.vendor_code) vendor_name
+		FROM   stock_onhands_vo v
 		]]>
 		<where>
 			<if test="itemCode != null">
-				AND item_code like #{itemCode}||'%'
+				AND item_code like '%'||#{itemCode}||'%'
 			</if>
 			<if test="itemName != null">
-				AND item_name like #{itemName}||'%'
+				AND item_name like '%'||#{itemName}||'%'
 			</if>
-			<if test="dealerCode != null">
-				AND dealer_code like #{dealerCode}||'%'
+			<if test="vendorCode != null">
+				AND vendor_code like #{vendorCode}||'%'
 			</if>
 		</where>
+		ORDER BY item_code
 	</select>
 
 	<select id="getPurchaseRequestList" resultType="purchaserequest">

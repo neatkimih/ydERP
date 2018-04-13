@@ -19,7 +19,7 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 <script>
-function register() {
+function insertCustomer() {
 	document.register.submit();
 }
 </script>
@@ -30,7 +30,7 @@ function register() {
 			판매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			판매업체 관리 &emsp; &emsp; &nbsp;
-			<button class="btn btn-primary" type="button" onclick='register()'>
+			<button class="btn btn-primary" type="button" onclick='insertCustomer()'>
 				가입</button>
 				<button class="btn btn-warning" type="button">
 				수정</button>

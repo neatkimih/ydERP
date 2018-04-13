@@ -39,7 +39,7 @@ public class SalesServiceImpl implements SalesService {
 		salesDAO.updateOrderStatus(salesVO);
 	}
 
-	/* 미승인 주문 기본 정보 삭제 */
+	/* 승인대기 주문취소 */
 	@Override	
 	public void deleteOrder(SalesVO salesVO) {
 		salesDAO.deleteOrder(salesVO);

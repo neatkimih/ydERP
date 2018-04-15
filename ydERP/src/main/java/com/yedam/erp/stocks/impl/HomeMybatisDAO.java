@@ -15,4 +15,8 @@ public class HomeMybatisDAO {
 	public List<Map<String, String>> getMostSoldItem() {
 		return sqlSession.selectList("stocks.getMostSoldItem");
 	}
+
+	public List<Map<String, Object>> getLookups() {
+		return sqlSession.selectList("stocks.getLookups");
+	}
 }

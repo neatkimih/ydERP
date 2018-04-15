@@ -34,7 +34,7 @@
 			type : "json",
 			success : function(datas) {
 				var data1 = [];
-				data1.push([ "품목명", "판매수량" ]);
+				data1.push([ "íëª©ëª", "íë§¤ìë" ]);
 				for (i = 0; i < datas.length; i++) {
 					data1.push([ datas[i].ITEM, parseInt(datas[i].QUANTITY) ]);
 				};

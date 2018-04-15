@@ -153,7 +153,7 @@
 	
 	<select id="getMostSoldItem" resultType="map">
 		<![CDATA[
-		SELECT itm.item_name item
+		SELECT item
 		      ,quantity
 		FROM   (SELECT st.item_code item
 		              ,TO_CHAR(SUM(st.in_qty)) quantity

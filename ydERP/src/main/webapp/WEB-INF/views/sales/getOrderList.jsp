@@ -170,6 +170,36 @@ var lastsel2;
 			success : function( ) { $("#orderList").trigger("reloadGrid"); }
 		})
 	}
+	
+	var timeoutHnd;
+	var flAuto = false;
+
+	function doSearch(ev) {
+		if(!flAuto)	return;
+		if(timeoutHnd) clearTimeout(timeoutHnd)
+		timeoutHnd = setTimeout(gridReload,500)
+	}
+
+	function gridReload() {
+		var orderCodeMask = jQuery("#orderCodePut").val();
+		var customerCodeMask = jQuery("#customerCodePut").val();
+		var orderDateMask = jQuery("#orderDatePut").val();
+		var orderCostMask = jQuery("#orderCostPut").val();
+		var deliveryAddrMask = jQuery("#deliveryAddrPut").val();
+		
+		jQuery("#saleList").jqGrid('setGridParam',{url:"getSaleByCondition.do?orderCode=" + orderCodeMask +
+																			"&customerCode=" + customerCodeMask +
+																			"&orderDate=" + orderDateMask +
+																			"&orderCost=" + orderCostMask +
+																			"&deliveryAddr=" + deliveryAddrMask
+													,page:1}).trigger("reloadGrid");
+	}
+	
+	function enableAutosubmit(state) {
+		flAuto = state;
+		jQuery("#submitButton").attr("disabled",state);
+	}
+	
 </script>
 <style type="text/css">
 #orderPageTitle {
@@ -190,21 +220,21 @@ var lastsel2;
 	margin-left : 25px;
 }
 
-.#orderListDiv {
+#orderListDiv {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	text-align: center;
+}
+
+#orderDetailDiv {
 	margin-left: auto;
 	margin-right: auto;
 	padding: 50px;
 	text-align: center;
 }
 
-.#orderDetailDiv {
-	margin-left: auto;
-	margin-right: auto;
-	padding: 50px;
-	text-align: center;
-}
-
-.#permitOrderDiv {
+#permitOrderDiv {
 	background-color: #3F7FFF;
 	padding : 50px;
 	float: left;
@@ -213,11 +243,9 @@ var lastsel2;
 
 #submitTr {
 	text-align : center;
-
-
 }
 
-.searchTd{
+#searchTd{
 	padding-right : 15px;
 	padding-top : 10px;
 	padding-bottom : 10px;
@@ -262,7 +290,6 @@ var lastsel2;
 		</table>
 		<div id="pagerOrderList"></div>
 	</div>
-	<br>
 	<div id="permitOrderDiv">
 					<%-- 배송 사원 : 
 			<select id="deliveryEmpSelect" name="searchEmployeeId">
@@ -281,9 +308,7 @@ var lastsel2;
 			<!--
 			<input type="button" value="주문 승인" onclick="()"/> -->		
 	</div>
-	<br>
 	<hr>
-	<br>
 	<div id="orderDetailDiv">
 		<table id="orderDetail">
 			<tr>

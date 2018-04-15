@@ -153,15 +153,59 @@
 	
 	<select id="getMostSoldItem" resultType="map">
 		<![CDATA[
-		SELECT item
+		SELECT itm.item_name item
 		      ,quantity
-		FROM   (SELECT item_code item
-		              ,TO_CHAR(SUM(in_qty)) quantity
-		        FROM   stocks_in_out
-		        GROUP  BY item_code
-		        ORDER  BY quantity DESC)
-		WHERE  ROWNUM <= 5
+		FROM   (SELECT st.item_code item
+		              ,TO_CHAR(SUM(st.in_qty)) quantity
+		        FROM   stocks_in_out st
+		        GROUP  BY st.item_code
+		        ORDER  BY quantity DESC) a
+		      ,items itm
+		WHERE  a.item = itm.item_code
+		AND    ROWNUM <= 5		
 		]]>
+	</select>
+	
+	<select id="getLookupsData" resultType="map">
+		<![CDATA[
+		SELECT lv.lookup
+		      ,lv.lookup_code
+		      ,lv.lookup_values
+		      ,lv.descriptions
+		      ,lv.flag
+		      ,lv.dff
+		      ,lv.reflag
+		FROM   lookups lk
+		JOIN   lookup_values lv
+		ON     lk.lookup = lv.lookup
+		ORDER  BY lk.lookup
+		         ,lv.lookup_code
+        ]]>
+	</select>
+
+	<select id="getLookupsData1" resultType="map">
+		<![CDATA[
+		SELECT DECODE(lv.reflag
+		             ,'Y'
+		             ,lk.lookup
+		             ,'') lookups
+		      ,DECODE(lv.reflag
+		             ,'Y'
+		             ,lk.lookup_description
+		             ,'') lookup_description
+		      ,lv.lookup
+		      ,lv.lookup_code
+		      ,lv.lookup_values
+		      ,lv.descriptions
+		      ,lv.flag
+		      ,lv.dff
+		      ,lv.reflag
+		FROM   lookups lk
+		JOIN   lookup_values lv
+		ON     lk.lookup = lv.lookup
+		ORDER  BY lk.lookup
+		         ,lv.lookup_code
+        ]]>
 	</select>
 
 </mapper>

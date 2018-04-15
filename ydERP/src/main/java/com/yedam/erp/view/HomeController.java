@@ -2,11 +2,11 @@ package com.yedam.erp.view;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import com.yedam.erp.stocks.impl.HomeServiceImpl;
  */
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	HomeServiceImpl homeServiceImpl;
 
@@ -49,9 +49,26 @@ public class HomeController {
 	@RequestMapping("getMostSoldItem.do")
 	@ResponseBody
 	public List<Map<String, String>> getMostSoldItem() {
-
 		return homeServiceImpl.getMostSoldItem();
-		
+	}
+
+	@RequestMapping("getCharts")
+	public String getCharts() {
+		return "stocks/getCharts";
+	}
+
+	@RequestMapping("getLookups.do")
+	@ResponseBody
+	public Map<String, Object> getLookupsDo(Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> list = homeServiceImpl.getLookups();
+		map.put("data", list);
+		return map;
+	}
+
+	@RequestMapping("getLookups")
+	public String getLookups() {
+		return "stocks/getLookups";
 	}
 
 }

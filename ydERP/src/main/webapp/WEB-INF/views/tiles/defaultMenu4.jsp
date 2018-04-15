@@ -9,6 +9,7 @@
 		<li><a href="getPurchaseRequestList">구매요청생성</a></li>
 		<li><a href="getPurchaseRequesting">구매요청승인</a></li>
 		<li><a href="getPurchaseReceipting">구매입고처리</a></li>
-		<li><a href="http://www.daum.net">DAUM</a></li>
+		<li><a href="getCharts">챠트 통계 자료</a></li>
+		<li><a href="getLookups">Lookup 관리</a></li>
 		<li><a href="getStockInOutListTest">입/출고Test</a></li>
 	</ul></li>

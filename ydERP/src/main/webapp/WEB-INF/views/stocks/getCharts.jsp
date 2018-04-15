@@ -34,9 +34,9 @@
 			type : "json",
 			success : function(datas) {
 				var data1 = [];
-				data1.push([ "íëª©ëª", "íë§¤ìë" ]);
+				data1.push([ "품목명", "판매량" ]);
 				for (i = 0; i < datas.length; i++) {
-					data1.push([ datas[i].ITEM, parseInt(datas[i].QUANTITY) ]);
+					data1.push([ datas[i].ITEM_NAME, parseInt(datas[i].QUANTITY) ]);
 				};
 				var options1 = {
 					title : 'Best Top 5'

@@ -19,38 +19,155 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 <script>
-function insertCustomer() {
-	document.register.submit();
-}
-
-function updateCustomer() {
-	document.register.action.value = 'updateCustomer';
-	document.register.submit();
-	
-}
-function restorePage() {
-	location.reload();
-}
+	//판매업체 등록 처리  
+	function insertCustomer() {
+		document.register.submit();
+	}
 </script>
+<script>
+	// 해결과제
+	// 필수 입력정보가 입력되었는지 확인하는 함수
+	function checkValue() {
+		if (!document.register.customerCode.value) {
+			alert("사업자등록번호를 입력해주세요.");
+			return false;
+		}
+		if (!document.register.customerName.value) {
+			alert("사업체명을 입력해주세요.");
+			return false;
+		}
+		if (!document.register.customerOwner.value) {
+			alert("이름을 입력해주세요.");
+			return false;
+		}
+		if (!document.register.customerPw.value) {
+			alert("비밀번호를 입력해주세요.");
+			return false;
+		}
+		if (!document.register.customerLoc.value) {
+			alert("주소를 입력해주세요.");
+			return false;
+		}
+		if (!document.register.customerPhone.value) {
+			alert("휴대폰 번호를 입력해주세요.");
+			return false;
+		}
+		if (!document.register.customerBank.value) {
+			alert("계좌정보를 선택해주세요.");
+			return false;
+		}
+		if (!document.register.customerAccount.value) {
+			alert("계좌번호를 입력해주세요.");
+			return false;
+		}
+		if (!document.register.customerBankowner.value) {
+			alert("계좌주를 입력해주세요.");
+			return false;
+		}
+		return insertCustomer();
+	}
+</script>
+<script>
+// 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
+
+	function pwcheck() {
+		if (document.register.customerPw.value != document.register.PwCheck.value) {
+			
+			pwcheckyn = false;
+		} else {
+			pwcheckyn = true;
+		}
+	}
+</script>
+
+<script type="text/javascript">
+	// 해결과제
+	// 사업자등록번호 중복체크.
+	var xmlhttp = new XMLHttpRequest();
+	function customerCodecheck() {
+		xmlhttp.open("post", "views/ItemsController?customerCode="
+			+ document.getElementById("customerCode").value);
+		xmlhttp.onreadystatechange = callback;
+		xmlhttp.send();
+	}
+
+	function callback() {
+		var table = document.getElementById("customerCode");
+		table.innerHTML = "";
+
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var object = eval('(' + xmlhttp.responseText + ')');
+			console.log(object.result);
+			if (object.result == true) {
+				document.getElementById("cuscode").innerHTML = "번호가 중복됩니다.";
+			} else {
+				document.getElementById("cuscode").innerHTML = "사용가능";
+			}
+
+		}
+	}
+</script>
+<script>
+	//판매업체 수정 처리
+	function updateCustomer() {
+		document.register.action.value = 'updateCustomer';
+		document.register.submit();
+
+	}
+</script>
+<script>
+	//업데이트 후 페이지 자동 새로고침
+	function restorePage() {
+		location.reload();
+	}
+</script>
+
+<script>
+ // 해결과제
+ // 열 선택시 정보를 가져와 오른쪽 정보창에 뿌려주는 함수
+ function onSelectRow(rowid, selected) {
+			
+	 if (rowid != null) {
+				selectedCustomerCode = $(this).getCell(rowid, 'customerCode');
+				jQuery("#customerCode").jqGrid('setGridParam', {
+					url : "/getCustomer?customerCode=" + selectedCustomerCode
+				});
+			}
+					console.log("선택된 판매코드 : " + selectedCustomerCode);
+		  } 
+ 
+ function getCustomerInfo() {
+  document.customerCode.value = ${customerCode};
+  document.customerName.value = ${customerName};
+  document.customerOwner.value = ${customerOwner};
+  document.customerLoc.value = ${customerLoc};
+  document.customerPhone.value = ${customerPhone};
+  document.customerBank.value = ${customerBank};
+  document.customerAccount.value = ${customerAccount};
+  document.customerBankowner.value = ${customerBankowner};
+ }
+ 
+</script>
+
 </head>
 <body>
 	<div class="page-header">
 		<h1>
 			판매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-			판매업체 관리 &emsp; &emsp; &nbsp;
-			<button class="btn btn-primary" type="button" onclick='insertCustomer()'>
-				가입</button>
-				<button class="btn btn-warning" type="button" onclick='updateCustomer()'>
-				수정</button>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 판매업체 관리 &emsp; &emsp;
+			&nbsp;
+			<button class="btn btn-primary" type="button"
+				onclick='insertCustomer()'>가입</button>
+			<button class="btn btn-warning" type="button"
+				onclick='updateCustomer()'>수정</button>
 			<button class="btn btn-danger" type="button" onclick='restorePage()'>취소</button>
 		</h1>
 	</div>
 
 	<script type="text/javascript">
 		$(function() {
-			var selectedCustomerCode;
 			
+	
 			$("#list").jqGrid({
 				url : "getCustomerList",
 				editurl : "CustomerEdit",
@@ -80,7 +197,6 @@ function restorePage() {
 					width : 120,
 					align : "right",
 					editable : true
-
 				} ],
 				pager : "#pager",
 				rowNum : 10,
@@ -91,15 +207,10 @@ function restorePage() {
 				gridview : false,
 				autoencode : true,
 				loadonce : true,
-				onSelectRow : function(rowid, selected) {
-					if (rowid != null) {
-						selectedCustomerCode = $(this).getCell(rowid, 'customerCode');
-						jQuery("#customerCode").jqGrid('setGridParam', {
-							url : "./getCustomerList?customerCode=" + selectedCustomerCode
-						});
-					}
-					console.log("선택된 판매코드 : " + selectedCustomerCode);
-				},
+				/* onSelectRow : function (id) {
+								
+							  jQuery(this).editRow(id, true)
+										}, */
 				rowNum : 10,
 				height : 'auto',
 				autowidth : true,
@@ -107,24 +218,22 @@ function restorePage() {
 				multiselect : true,
 				pager : "#pager"
 			});
-
+	
 			$('#list').jqGrid('navGrid', "#pager", {
-				search : true, // show search button on the toolbar
+				search : true, 
 				edit : false,
 				add : false,
 				del : true,
 				cancel : false,
 				refresh : false,
-
 			}, {}, {}, {
 				serializeDelData : function(postdata) {
-					console.dir( postdata+"===============");
 					return "oper=del&customerCode=" + postdata.id;
 				}
 			}
-			
+	
 			);
-
+	
 		});
 	</script>
 	<div class="row">
@@ -141,58 +250,62 @@ function restorePage() {
 			<br>
 		</div>
 
-<form class="form-horizontal" id="register" name="register" action="getRegister">
-		<div class="col-md-6">
+		<form class="form-horizontal" id="register" name="register"
+			action="getRegister" onsubmit="return checkValue()">
+			<div class="col-md-6">
 
-			
+
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerCode">사업자등록번호</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerCode" name="customerCode" type="text"
-							placeholder="ID">
+						<input class="form-control" id="customerCode" name="customerCode"
+							type="text" placeholder="ID" onchange="customerCodecheck()"><span id="50810087550">
+							사업자등록번호는 필수입력입니다. </span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerName">사업체명</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerName" name="customerName" type="text">
+						<input class="form-control" id="customerName" name="customerName"
+							type="text">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerOwner">이름</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerOwner" name="customerOwner" type="text">
+						<input class="form-control" id="customerOwner"
+							name="customerOwner" type="text">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerPw">비밀번호</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerPw" name="customerPw" type="password"
-							placeholder="비밀번호">
+						<input class="form-control" id="customerPw" name="customerPw"
+							type="password" placeholder="비밀번호">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="PwCheck">비밀번호
-						확인</label>
+					<label class="col-sm-3 control-label" for="PwCheck">비밀번호 확인</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="PwCheck"
-							type="password" placeholder="비밀번호 확인">
+						<input class="form-control" id="PwCheck" type="password"
+							placeholder="비밀번호 확인" onchange="pwcheck()">
 
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerLoc">주소</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerLoc" name="customerLoc" type="text"
-							placeholder="주소">
+						<input class="form-control" id="customerLoc" name="customerLoc"
+							type="text" placeholder="주소">
 					</div>
 				</div>
-				
+
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="customerPhone">휴대폰번호</label>
 					<div class="col-sm-6">
 						<div class="input-group">
-							<input type="text" class="form-control" name="customerPhone" id="customerPhone" />
+							<input type="text" class="form-control" name="customerPhone"
+								id="customerPhone" />
 
 
 						</div>
@@ -221,7 +334,8 @@ function restorePage() {
 						class="col-sm-2" for="customerAccount">계좌번호</label>
 					<div class="col-sm-3">
 						<div class="input-group">
-							<input type="text" class="form-control" name= "customerAccount" id="customerAccount" />
+							<input type="text" class="form-control" name="customerAccount"
+								id="customerAccount" />
 
 
 						</div>
@@ -233,8 +347,8 @@ function restorePage() {
 						class="col-sm-2" for="customerBankowner">계좌주</label>
 					<div class="col-sm-3">
 						<div class="input-group">
-							<input type="text" class="form-control"
-								id="customerBankowner" name="customerBankowner" />
+							<input type="text" class="form-control" id="customerBankowner"
+								name="customerBankowner" />
 
 
 						</div>
@@ -242,9 +356,9 @@ function restorePage() {
 
 				</div>
 
-			
-			
-		</div>
+
+
+			</div>
 		</form>
 	</div>
 

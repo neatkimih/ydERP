@@ -1,6 +1,7 @@
 package com.yedam.erp.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,15 @@ public class SalesMybatisDAO {
 	/* 승인대기 주문 검색 */
 	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {
 		return mybatis.selectList("sales.getOrderByCondition", salesVO);
+	}
+	
+	/* 배송 상태 Lookup 정보 가져오기 */
+	public List<Map<String, Object>> getLookupDelivery(SalesVO salesVO) {
+		return mybatis.selectList("sales.getLookupDelivery", salesVO);
+	}
+	
+	/* 결제 상태 Lookup 정보 가져오기 */
+	public List<Map<String, Object>> getLookupPayment(SalesVO salesVO) {
+		return mybatis.selectList("sales.getLookupPayment", salesVO);
 	}
 }

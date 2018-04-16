@@ -69,7 +69,9 @@ public class SalesController {
 		
 		List<EmployeesVO> empList = employeesService.getEmployeesList(employeesVO);
 		List<Map<String, Object>> lookupList = purchaseRequestService.getlookUpValueList(vo);
-
+		
+		
+		
 		String lookupStr = "";
 		String empStr = "";
 		EmployeesVO empNext = null;

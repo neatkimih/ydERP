@@ -16,7 +16,7 @@
 	type="text/javascript"></script>
 
 <script>
-
+//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수
 $(function(){
 	
 	$(document.body).on("change","#pGroup1", firstChange);
@@ -302,7 +302,7 @@ $(function(){
 			}
 		}, {
 			serializeDelData : function(postdata) {
-				return "oper=del&itemCode=" + postdata.id
+				return "op.del&itemCode=" + postdata.id
 			}
 		}
 

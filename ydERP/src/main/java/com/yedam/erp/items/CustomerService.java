@@ -9,4 +9,6 @@ public interface CustomerService {
 	public CustomerVO getCustomer(CustomerVO vo);
 	public List<CustomerVO> getCustomerList(CustomerVO vo);
 	public void deleteCustomer(CustomerVO vo);
+	
+	
 }

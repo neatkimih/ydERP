@@ -15,9 +15,11 @@
 	<!-- 판매 내역 상세 조회 -->
 	<!-- JQGRID MASTER에서 선택된 ROW의 SALE_CODE값을 가져와서 DETAIL을 조회 -->
 	<select id="getSaleDetail" resultType="saleDetails">
-		SELECT * 
-		FROM SALE_DETAILS 
+		SELECT SD.*, V.VENDOR_NAME 
+		FROM SALE_DETAILS SD JOIN VENDORS V 
+		ON SD.VENDOR_CODE = V.VENDOR_CODE 
 		WHERE SALE_CODE = #{saleCode} 
+		ORDER BY SALE_DETAIL_CODE
 	</select>
 	
 	<!-- 판매 내역 검색 -->
@@ -27,20 +29,26 @@
 			FROM SALES 
 			WHERE ORDER_PERMIT = 'Y' 
 		]]>
-			<if test="saleCode != null">
+			<if test="saleCode != null and saleCode != ''">
 				AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
 			</if>
-			<if test="customerCode != null">
+			<if test="customerCode != null and customerCode != ''">
 				AND CUSTOMER_CODE LIKE '%' || #{customerCode} || '%' 
 			</if>
-			<if test="saleDate != null">
+			<if test="saleDate != null and saleDate != ''">
 				AND TO_CHAR(SALE_DATE, 'YYYYMMDD HH24:MI') LIKE '%' || #{saleDate} || '%' 
 			</if>
-			<if test="saleCost != null">
+			<if test="saleCost != null and saleCost != ''">
 				AND SALE_COST = #{saleCost} 	
 			</if>
-			<if test="deliveryAddr != null">
+			<if test="deliveryAddr != null and deliveryAddr != ''">
 				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
+			</if>
+			<if test="deliveryStatus != null and deliveryStatus != ''">
+				AND DELIVERY_STATUS = #{deliveryStatus} 
+			</if>
+			<if test="payStatus != null and payStatus != ''">
+				AND PAY_STATUS = #{payStatus} 
 			</if>
 		ORDER BY SALE_CODE
 	</select>
@@ -163,29 +171,5 @@
 		{call common.out_txn(#{pTxnNo})}
 		]]>
 	</insert>
-	
-	<!-- 배송 상태 Lookup 정보 가져오기 -->
-	<select id="getLookUpDelivery" resultType="map">
-		<![CDATA[
-		SELECT lv.lookup_code 
-		      ,lv.lookup_values 
-		FROM   lookups lk 
-		JOIN   lookup_values lv 
-		ON     lk.lookup = lv.lookup 
-		WHERE  lk.lookup = 'DELIVERY'
-		]]>
-	</select>
-	
-	<!-- 결제 상태 Lookup 정보 가져오기 -->
-	<select id="getLookUpPayment" resultType="map">
-		<![CDATA[
-		SELECT lv.lookup_code 
-		      ,lv.lookup_values 
-		FROM   lookups lk 
-		JOIN   lookup_values lv 
-		ON     lk.lookup = lv.lookup 
-		WHERE  lk.lookup = 'PAYMENT'
-		]]>
-	</select>
 
 </mapper>

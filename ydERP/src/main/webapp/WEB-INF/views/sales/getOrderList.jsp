@@ -187,10 +187,10 @@ var lastsel2;
 		var orderCostMask = jQuery("#orderCostPut").val();
 		var deliveryAddrMask = jQuery("#deliveryAddrPut").val();
 		
-		jQuery("#saleList").jqGrid('setGridParam',{url:"getSaleByCondition.do?orderCode=" + orderCodeMask +
+		jQuery("#orderList").jqGrid('setGridParam',{url:"getOrderByCondition.do?saleCode=" + orderCodeMask +
 																			"&customerCode=" + customerCodeMask +
-																			"&orderDate=" + orderDateMask +
-																			"&orderCost=" + orderCostMask +
+																			"&saleDate=" + orderDateMask +
+																			"&saleCost=" + orderCostMask +
 																			"&deliveryAddr=" + deliveryAddrMask
 													,page:1}).trigger("reloadGrid");
 	}
@@ -205,14 +205,13 @@ var lastsel2;
 #orderPageTitle {
 	padding : 10px;
 	text-align : left;
-	background-color : #007FFF;
+	background-color : #7F7F7F;
 	color : #FFFFFF;
 }
 
 #pageName {
-	background-color : #00007F;
-	color : #00FFFF;
-	font-weight: bold;
+	background-color : #000000;
+	color : #FFFFFF;
 }
 
 #searchDiv {
@@ -230,7 +229,7 @@ var lastsel2;
 #orderDetailDiv {
 	margin-left: auto;
 	margin-right: auto;
-	padding: 50px;
+	padding: 10px;
 	text-align: center;
 }
 
@@ -241,11 +240,7 @@ var lastsel2;
 
 }
 
-#submitTr {
-	text-align : center;
-}
-
-#searchTd{
+.searchTd{
 	padding-right : 15px;
 	padding-top : 10px;
 	padding-bottom : 10px;
@@ -264,20 +259,16 @@ var lastsel2;
 		<table>
 				<tr>
 					<td class="searchTd">주문코드</td><td><input type="text" id="orderCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr class="searchTr">
 					<td class="searchTd">주문처 코드</td><td><input type="text" id="customerCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
 				</tr>
-				<tr class="searchTr">
+				<tr>
 					<td class="searchTd">주문일자</td><td><input type="text" id="orderDatePut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr class="searchTr">
 					<td class="searchTd">결제금액</td><td><input type="text" id="orderCostPut" onkeydown="doSearch(arguments[0]||event)" /></td>
 				</tr>
-				<tr class="searchTr">
+				<tr>
 					<td class="searchTd">배송주소</td><td><input type="text" id="deliveryAddrPut" onkeydown="doSearch(arguments[0]||event)" /></td>
 				</tr>
-				<tr class="searchTr">
+				<tr>
 					<td class="searchTd"></td><td id="submitTd"><button onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
 				</tr>
 		</table>
@@ -289,24 +280,6 @@ var lastsel2;
 			</tr>
 		</table>
 		<div id="pagerOrderList"></div>
-	</div>
-	<div id="permitOrderDiv">
-					<%-- 배송 사원 : 
-			<select id="deliveryEmpSelect" name="searchEmployeeId">
-				<option value="">사원 선택</option>
-				<c:forEach items="${employeeList}" var="emp">
-				<option value="${emp.id}">${emp.id} : ${emp.name}</option>
-				</c:forEach>
-			</select> --%>
-			<%-- 출하 창고 :
-			<select id="warehouseSelect" name="searchWarehouse">
-				<option value="">창고 선택</option>
-				<c:forEach items="${lookupValueList}" var="lkup">
-				<option value="${lkup.LOOKUP_CODE}">${lkup.LOOKUP_VALUES}</option>
-				</c:forEach>
-			</select> --%>
-			<!--
-			<input type="button" value="주문 승인" onclick="()"/> -->		
 	</div>
 	<hr>
 	<div id="orderDetailDiv">

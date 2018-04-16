@@ -1,6 +1,7 @@
 package com.yedam.erp.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,15 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {
 		return salesDAO.getOrderByCondition(salesVO);
+	}
+	
+	/* 배송 상태 Lookup 정보 가져오기 */
+	public List<Map<String, Object>> getLookupDelivery(SalesVO salesVO) {
+		return salesDAO.getLookupDelivery(salesVO);
+	}
+	
+	/* 결제 상태 Lookup 정보 가져오기 */
+	public List<Map<String, Object>> getLookupPayment(SalesVO salesVO) {
+		return salesDAO.getLookupPayment(salesVO);
 	}
 }

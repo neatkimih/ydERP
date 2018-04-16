@@ -17,10 +17,10 @@
 			url : "getSaleList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "판매코드", "판매처 코드", "판매일자", "결제금액", "배송주소", "배송사원", "배송상태", "결제상태", "출하창고"],
+			colNames : [ "판매코드", "판매처", "판매일자", "결제금액", "배송주소", "배송사원", "배송상태", "결제상태", "출하창고"],
 			colModel : [
 				{	name : "saleCode",		width : 120,		align : "center"	},
-				{	name : "customerCode",	width : 100,		align : "center"	},
+				{	name : "customerName",	width : 100,		align : "center"	},
 				{	name : "saleDate",		width : 160,		align : "center"	},
 				{	name : "saleCost",		width : 100,		align : "right"		},
 				{	name : "deliveryAddr",	width : 200,		align : "left"		},
@@ -109,13 +109,13 @@
 
 	function gridReload() {
 		var saleCodeMask = jQuery("#saleCodePut").val();
-		var customerCodeMask = jQuery("#customerCodePut").val();
+		var customerNameMask = jQuery("#customerNamePut").val();
 		var saleDateMask = jQuery("#saleDatePut").val();
 		var saleCostMask = jQuery("#saleCostPut").val();
 		var deliveryAddrMask = jQuery("#deliveryAddrPut").val();
 		
 		jQuery("#saleList").jqGrid('setGridParam',{url:"getSaleByCondition.do?saleCode=" + saleCodeMask +
-																			"&customerCode=" + customerCodeMask +
+																			"&customerName=" + customerNameMask +
 																			"&saleDate=" + saleDateMask +
 																			"&saleCost=" + saleCostMask +
 																			"&deliveryAddr=" + deliveryAddrMask
@@ -132,14 +132,13 @@
 #salePageTitle {
 	padding : 10px;
 	text-align : left;
-	background-color : #007FFF;
+	background-color : #7F7F7F;
 	color : #FFFFFF;
 }
 
 #pageName {
-	background-color : #00007F;
-	color : #00FFFF;
-	font-weight: bold;
+	background-color : #000000;
+	color : #FFFFFF;
 }
 
 #searchDiv {
@@ -161,43 +160,50 @@
 	text-align: center;
 }
 
-#submitTr {
+.submitTr {
 	text-align : center;
 
 
 }
 
-.searchTd{
+.searchTd {
 	padding-right : 15px;
 	padding-top : 10px;
 	padding-bottom : 10px;
+	size: auto;
+}
 
+.inputTd {
+	padding-right : 45px;
+	padding-top : 10px;
+	padding-bottom : 10px;
+	size : auto;
+}
+
+#saleCodePut, #customerCodePut, ##saleDatePut, #saleCostPut {
+	width : 1000px;
 }
 </style>
 <title>getSaleList.jsp</title>
 </head>
 <body>
 	<div id="salePageTitle">
-		<span id="pageName">[getSaleList.jsp]</span> 판매정보 ▷▶ 판매내역 - 검색
+		<span id="pageName">[getSaleList.jsp]</span>판매정보 ▷▶ 판매내역 - 검색
 	</div>
+	<hr>
 	<div id="searchDiv">
 		<table>
 				<tr>
-					<td class="searchTd">판매코드</td><td><input type="text" id="saleCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+					<td class="searchTd">판매코드</td><td class="inputTd"><input type="text" id="saleCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+					<td class="searchTd">판매처</td><td class="inputTd"><input type="text" id="customerNamePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+					<td class="searchTd">판매일자</td><td class="inputTd"><input type="text" id="saleDatePut" onkeydown="doSearch(arguments[0]||event)" /></td>
+				</tr>
+				<tr>
+					<td class="searchTd">결제금액</td><td class="inputTd"><input type="text" id="saleCostPut" onkeydown="doSearch(arguments[0]||event)" /></td>
+					<td class="searchTd">배송주소</td><td colspan="2"><input type="text" id="deliveryAddrPut" onkeydown="doSearch(arguments[0]||event)" /></td>
 				</tr>
 				<tr class="searchTr">
-					<td class="searchTd">판매처 코드</td><td><input type="text" id="customerCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr class="searchTr">
-					<td class="searchTd">판매일자</td><td><input type="text" id="saleDatePut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr class="searchTr">
-					<td class="searchTd">결제금액</td><td><input type="text" id="saleCostPut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr class="searchTr">
-					<td class="searchTd">배송주소</td><td><input type="text" id="deliveryAddrPut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr class="searchTr">
+					<td class="searchTd">배송상태</td><td class="inputTd"><select></select>					</td>
 					<td class="searchTd"></td><td id="submitTd"><button onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
 				</tr>
 		</table>

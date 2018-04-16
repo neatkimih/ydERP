@@ -5,6 +5,7 @@ public class SalesVO
 	private String saleCode;			// 판매코드
 	private String saleDate;			// 판매일자
 	private String customerCode;		// 판매처 코드
+	private String customerName;		// 판매처 이름
 	private Integer saleCost;			// 결제금액
 	
 	private String deliveryAddr;		// 배송지
@@ -28,6 +29,10 @@ public class SalesVO
 	/* customerCode - GET(), SET() */
 	public String getCustomerCode() { return customerCode; }
 	public void setCustomerCode(String customerCode) { this.customerCode = customerCode; }
+	
+	/* customerName - GET(), SET() */
+	public String getCustomerName() { return customerName;	}
+	public void setCustomerName(String customerName) { this.customerName = customerName; }
 	
 	/* saleCost - GET(), SET() */
 	public Integer getSaleCost() { return saleCost; }

@@ -46,16 +46,16 @@
 					gridview : true,
 					autoencode : true,
 					loadonce : true,
-					caption : "룩업코드",
+					caption : "룩업코드"
 					onSelectRow: 
-					function(id) {
-						if (id && id !== lastsel) {
-							jQuery('#list').jqGrid('restoreRow', lastsel);
-							jQuery('#list').jqGrid('editRow', id, true);
-							lastsel = id;
-						}
-					},
-					editurl: "server.php",
+						function(id) {
+							if (id && id !== lastsel) {
+								jQuery('#list').jqGrid('restoreRow', lastsel);
+								jQuery('#list').jqGrid('editRow', id, true);
+								lastsel = id;
+							}
+						},
+						editurl: "server.php",
 				});
 		jQuery("#list").jqGrid('navGrid', '#pager', {});
 	});
@@ -74,12 +74,14 @@
 
 	function gridReload() {
 		var vend_cd = jQuery("#warehouseSelect").val();
-		console.log(vend_cd + "=========================================")
-		jQuery("#list").jqGrid('setGridParam', {
-			url : "getLookups.do?LOOKUP=" + vend_cd,
-			datatype : "json",
-			page : 1
-		}).trigger("reloadGrid");
+		console.log(vend_cd+"=========================================")
+		jQuery("#list").jqGrid(
+				'setGridParam',
+				{
+					url : "getLookups.do?LOOKUP=" + vend_cd,
+					datatype : "json",
+					page : 1
+				}).trigger("reloadGrid");
 	}
 	function enableAutosubmit(state) {
 		flAuto = state;

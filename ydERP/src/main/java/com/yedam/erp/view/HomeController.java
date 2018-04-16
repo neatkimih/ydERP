@@ -2,7 +2,6 @@ package com.yedam.erp.view;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -59,9 +58,9 @@ public class HomeController {
 
 	@RequestMapping("getLookups.do")
 	@ResponseBody
-	public List<Map<String, Object>> getLookupsDo(Model model) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String, Object>> list = homeServiceImpl.getLookups();
+	public List<Map<String, Object>> getLookupsDo(Model model, String LOOKUP) {
+		// Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> list = homeServiceImpl.getLookups(LOOKUP);
 		// map.put("data", list);
 		return list;
 	}

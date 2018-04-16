@@ -16,8 +16,8 @@ public class HomeServiceImpl {
 		return dao.getMostSoldItem();
 	}
 
-	public List<Map<String, Object>> getLookups() {
-		return dao.getLookups();
+	public List<Map<String, Object>> getLookups(String LOOKUP) {
+		return dao.getLookups(LOOKUP);
 	}
 
 	public List<Map<String, String>> getLookValues() {

@@ -36,7 +36,7 @@
 				AND CUSTOMER_CODE LIKE '%' || #{customerCode} || '%' 
 			</if>
 			<if test="saleDate != null and saleDate != ''">
-				AND TO_CHAR(SALE_DATE, 'YYYYMMDD HH24:MI') LIKE '%' || #{saleDate} || '%' 
+				AND SALE_DATE = TO_DATE(#{saleDate}, 'YY/MM/DD') 
 			</if>
 			<if test="saleCost != null and saleCost != ''">
 				AND SALE_COST = #{saleCost} 	

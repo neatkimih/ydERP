@@ -184,7 +184,7 @@
 				<tr>
 					<td class="searchTd">판매코드</td><td class="inputTd"><input type="text" id="saleCodePut" name="saleCode"/></td>
 					<td class="searchTd">판매처</td><td class="inputTd"><input type="text" id="customerNamePut" name="customerName" /></td>
-					<td class="searchTd">판매일자</td><td class="inputTd"><input type="text" id="saleDatePut" name="saleDate"/></td>
+					<td class="searchTd">판매일자</td><td class="inputTd"><input type="date" id="saleDatePut" name="saleDate"/></td>
 				</tr>
 				<tr>
 					<td class="searchTd">결제금액</td><td class="inputTd"><input type="text" id="saleCostPut" name="saleCost"/></td>

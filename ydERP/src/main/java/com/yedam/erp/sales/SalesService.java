@@ -1,8 +1,6 @@
 package com.yedam.erp.sales;
 
 import java.util.List;
-import java.util.Map;
-
 import com.yedam.erp.sales.SalesVO;
 
 public interface SalesService {
@@ -34,10 +32,4 @@ public interface SalesService {
 	
 	/* 승인대기 주문 내역 검색 */
 	public List<SalesVO> getOrderByCondition(SalesVO salesVO);
-	
-	/* 배송 상태 Lookup 정보 가져오기 */
-	public List<Map<String, Object>> getLookupDelivery(SalesVO salesVO);
-	
-	/* 결제 상태 Lookup 정보 가져오기 */
-	public List<Map<String, Object>> getLookupPayment(SalesVO salesVO);
 }

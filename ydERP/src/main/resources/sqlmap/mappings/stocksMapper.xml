@@ -108,7 +108,7 @@
 			    )
 		]]>
 	</insert>
-	
+
 	<select id="getlookUpValueList" resultType="map">
 		<![CDATA[
 		SELECT lv.lookup_code
@@ -119,7 +119,7 @@
 		WHERE  lk.lookup = 'SUBINVENTORY'
 		]]>
 	</select>
-	
+
 	<select id="getVendorList" resultType="map">
 		<![CDATA[
 		SELECT vendor_code
@@ -128,7 +128,7 @@
 		ORDER  BY vendor_name
 		]]>
 	</select>
-	
+
 	<select id="getReceiptHeaders" resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
 		<![CDATA[
 		SELECT p.*, common.get_vendor_name(p.vendor_code) vendor_name
@@ -150,7 +150,7 @@
 		</where>
 		ORDER BY purchase_detail_code
 	</select>
-	
+
 	<select id="getMostSoldItem" resultType="map">
 		<![CDATA[
 		SELECT itm.item_name
@@ -165,34 +165,11 @@
 		AND    ROWNUM <= 5		
 		]]>
 	</select>
-	
+
 	<select id="getLookupsData" resultType="map">
 		<![CDATA[
-		SELECT lv.lookup
-		      ,lv.lookup_code
-		      ,lv.lookup_values
-		      ,lv.descriptions
-		      ,lv.flag
-		      ,lv.dff
-		      ,lv.reflag
-		FROM   lookups lk
-		JOIN   lookup_values lv
-		ON     lk.lookup = lv.lookup
-		ORDER  BY lk.lookup
-		         ,lv.lookup_code
-        ]]>
-	</select>
-
-	<select id="getLookupsData1" resultType="map">
-		<![CDATA[
-		SELECT DECODE(lv.reflag
-		             ,'Y'
-		             ,lk.lookup
-		             ,'') lookups
-		      ,DECODE(lv.reflag
-		             ,'Y'
-		             ,lk.lookup_description
-		             ,'') lookup_description
+		SELECT lk.lookup lookups
+		      ,lk.lookup_description
 		      ,lv.lookup
 		      ,lv.lookup_code
 		      ,lv.lookup_values
@@ -203,9 +180,30 @@
 		FROM   lookups lk
 		JOIN   lookup_values lv
 		ON     lk.lookup = lv.lookup
-		ORDER  BY lk.lookup
-		         ,lv.lookup_code
         ]]>
+		<where>
+			<if test="LOOKUP != null">
+				AND lk.lookup = NVL(#{LOOKUP}, 'ITEM_GROUP3')
+			</if>
+		</where>
+		ORDER BY lk.lookup
+		,lv.lookup_code
+	</select>
+
+	<select id="getLookupValues" resultType="map">
+		<![CDATA[
+		SELECT l.lookup
+		      ,l.lookup_description
+		FROM   lookups l
+		ORDER BY lookup
+        ]]>
+	</select>
+
+
+	<select id="selectLookups" parameterType="string" resultType="map">
+		SELECT *
+		FROM lookup_values
+		WHERE lookup = #{lookup}
 	</select>
 
 </mapper>

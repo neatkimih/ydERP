@@ -15,8 +15,17 @@ public class HomeServiceImpl {
 	public List<Map<String, String>> getMostSoldItem() {
 		return dao.getMostSoldItem();
 	}
-	
-	public List<Map<String, Object>> getLookups(){
+
+	public List<Map<String, Object>> getLookups() {
 		return dao.getLookups();
 	}
+
+	public List<Map<String, String>> getLookValues() {
+		return dao.getLookValues();
+	}
+
+	public List<Map<String, String>> selectLookups(String str) {
+		return dao.selectLookups(str);
+	}
+
 }

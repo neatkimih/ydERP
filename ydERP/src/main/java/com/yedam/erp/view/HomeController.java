@@ -59,15 +59,24 @@ public class HomeController {
 
 	@RequestMapping("getLookups.do")
 	@ResponseBody
-	public Map<String, Object> getLookupsDo(Model model) {
+	public List<Map<String, Object>> getLookupsDo(Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> list = homeServiceImpl.getLookups();
-		map.put("data", list);
-		return map;
+		// map.put("data", list);
+		return list;
 	}
 
 	@RequestMapping("getLookups")
-	public String getLookups() {
+	public String getLookups(Model model) {
+		List<Map<String, String>> list = homeServiceImpl.getLookValues();
+		List<Map<String, String>> dlist = homeServiceImpl.selectLookups("DELIVERY");
+		List<Map<String, String>> plist = homeServiceImpl.selectLookups("PAYMENT");
+		List<Map<String, String>> slist = homeServiceImpl.selectLookups("SUBINVENTORY");
+		model.addAttribute("dlist", dlist);
+		model.addAttribute("plist", plist);
+		model.addAttribute("slist", slist);
+
+		model.addAttribute("lookupList", list);
 		return "stocks/getLookups";
 	}
 

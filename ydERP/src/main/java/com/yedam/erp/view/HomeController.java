@@ -2,7 +2,6 @@ package com.yedam.erp.view;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.stocks.impl.HomeServiceImpl;
@@ -59,9 +59,12 @@ public class HomeController {
 
 	@RequestMapping("getLookups.do")
 	@ResponseBody
-	public List<Map<String, Object>> getLookupsDo(Model model) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String, Object>> list = homeServiceImpl.getLookups();
+	public List<Map<String, Object>> getLookupsDo(Model model, @RequestParam(required=false) String LOOKUP ) {
+		//Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> list = homeServiceImpl.getLookups(LOOKUP);
+		for (Map<String, Object> li : list) {
+			System.out.println("================" + li.toString());
+		}
 		// map.put("data", list);
 		return list;
 	}

@@ -166,7 +166,7 @@
 		]]>
 	</select>
 
-	<select id="getLookupsData" resultType="map">
+	<select id="getLookupsData" parameterType="string" resultType="map">
 		<![CDATA[
 		SELECT lk.lookup lookups
 		      ,lk.lookup_description
@@ -182,8 +182,8 @@
 		ON     lk.lookup = lv.lookup
         ]]>
 		<where>
-			<if test="LOOKUP != null">
-				AND lk.lookup = NVL(#{LOOKUP}, 'ITEM_GROUP3')
+			<if test=" _parameter != null and _parameter != '' ">
+				AND lk.lookup = #{_parameter}
 			</if>
 		</where>
 		ORDER BY lk.lookup

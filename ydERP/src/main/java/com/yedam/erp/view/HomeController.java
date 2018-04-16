@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.stocks.LookupCodes;
 import com.yedam.erp.stocks.impl.HomeServiceImpl;
 
 /**
@@ -63,6 +64,12 @@ public class HomeController {
 		List<Map<String, Object>> list = homeServiceImpl.getLookups(LOOKUP);
 		// map.put("data", list);
 		return list;
+	}
+
+	@RequestMapping("updateLookups.do")
+	@ResponseBody
+	public void updateLookupsDo(LookupCodes vo) {
+		homeServiceImpl.updateLookups(vo);
 	}
 
 	@RequestMapping("getLookups")

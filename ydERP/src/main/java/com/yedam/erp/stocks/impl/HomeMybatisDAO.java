@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yedam.erp.stocks.LookupCodes;
+
 @Repository
 public class HomeMybatisDAO {
 	@Autowired
@@ -26,5 +28,9 @@ public class HomeMybatisDAO {
 
 	public List<Map<String, String>> selectLookups(String str) {
 		return sqlSession.selectList("stocks.selectLookups", str);
+	}
+
+	public void updateLookups(LookupCodes vo) {
+		sqlSession.update("stocks.updateLookup", vo);
 	}
 }

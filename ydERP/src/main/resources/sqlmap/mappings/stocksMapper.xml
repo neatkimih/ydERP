@@ -205,5 +205,17 @@
 		FROM lookup_values
 		WHERE lookup = #{lookup}
 	</select>
+	
+	<update id="updateLookup" parameterType="com.yedam.erp.stocks.LookupCodes">
+		<![CDATA[
+		UPDATE lookup_values
+		SET    lookup_values = #{lookupValues}
+		      ,descriptions  = #{descriptions}
+		      ,flag          = #{flag}
+		      ,dff           = #{dff}
+		      ,reflag        = #{reflag}
+		WHERE  lookup_idx = #{lookupIdx}
+        ]]>
+	</update>
 
 </mapper>

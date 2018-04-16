@@ -81,7 +81,7 @@
 	}
 </script>
 </head>
-<body>
+<body><h3>getCharts.jsp</h3>
 	YedamERP Chart Page
 	<div id="piechart" style="width: 900px; height: 500px;"></div>
 	<div id="columnchart_values" style="width: 900px; height: 300px;"></div>

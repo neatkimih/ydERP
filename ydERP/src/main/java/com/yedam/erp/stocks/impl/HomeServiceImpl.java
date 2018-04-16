@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.erp.stocks.LookupCodes;
+
 @Service
 public class HomeServiceImpl {
 
@@ -26,6 +28,10 @@ public class HomeServiceImpl {
 
 	public List<Map<String, String>> selectLookups(String str) {
 		return dao.selectLookups(str);
+	}
+
+	public void updateLookups(LookupCodes vo) {
+		dao.updateLookups(vo);
 	}
 
 }

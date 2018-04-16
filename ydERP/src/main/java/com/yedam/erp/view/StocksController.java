@@ -45,7 +45,7 @@ public class StocksController {
 	@RequestMapping("getStockInOutListData")
 	@ResponseBody
 	public List<StockInOutViewVO> getStockInOutListData(StockInOutViewVO vo) {
-		System.out.println("--==================="+vo);
+		System.out.println("--===================" + vo);
 		return stockInOutService.getStockInOutList(vo);
 	}
 
@@ -62,7 +62,7 @@ public class StocksController {
 	}
 
 	@RequestMapping("getStockOnhandList")
-	public String getStockOnhandList(Model model, StockOnhandViewVO vo ) {
+	public String getStockOnhandList(Model model, StockOnhandViewVO vo) {
 		model.addAttribute("list", vo);
 		model.addAttribute("vendorList", stockOnhandService.getVendorList(vo));
 		return "stocks/getStockOnhandList";

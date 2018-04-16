@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +16,8 @@
 	type="text/javascript"></script>
 
 <script type="text/javascript">
+	var selectedItem;
+	var lastsel;
 	$(function() {
 		$("#list").jqGrid(
 				{
@@ -26,17 +28,46 @@
 					autoheight : true,
 					autowidth : true,
 
-					colNames : [ "룩업", "룩업코드", "코드값", "코드Value", "코드설명", "사용여부", "룩업DFF", "대표코드"],
-					colModel : [ 
-						{name : "LOOKUP_DESCRIPTION",width : 3},
-						{name : "LOOKUP",width : 5},
-						{name : "LOOKUP_CODE",width : 2}, 
-						{name : "LOOKUP_VALUES",width : 2,align : "right"}, 
-						{name : "DESCRIPTIONS",width: 2,align : "right"}, 
-						{name : "FLAG",width : 2,align : "right"},
-						{name : "DFF",width : 2,align : "right"}, 
-						{name : "REFLAG",width : 2,align : "right"},
-						],
+					colNames : [ "룩업", "룩업코드", "코드값", "코드Value", "코드설명",
+							"사용여부", "룩업DFF", "대표코드" ],
+					colModel : [ {
+						name : "LOOKUP_DESCRIPTION",
+						width : 3
+					}, {
+						name : "LOOKUP",
+						width : 5
+					}, {
+						name : "LOOKUP_CODE",
+						width : 2
+					}, {
+						name : "LOOKUP_VALUES",
+						width : 2,
+						align : "right",
+						editable : true
+					}, {
+						name : "DESCRIPTIONS",
+						width : 2,
+						align : "right",
+						editable : true
+					}, {
+						name : "FLAG",
+						width : 2,
+						align : "right",
+						editable : true
+
+					}, {
+						name : "DFF",
+						width : 2,
+						align : "right",
+						editable : true
+
+					}, {
+						name : "REFLAG",
+						width : 2,
+						align : "right",
+						editable : true
+
+					}, ],
 					pager : "#pager",
 					rowNum : 10,
 					rowList : [ 10, 20, 30 ],
@@ -46,18 +77,23 @@
 					gridview : true,
 					autoencode : true,
 					loadonce : true,
+					onSelectRow : function(id) {
+						if (id && id !== lastsel) {
+							console.log(id + "========--------");
+							jQuery('#rowed3').jqGrid('restoreRow', lastsel);
+							jQuery('#rowed3').jqGrid('editRow', id, true);
+							lastsel = id;
+							selectedItem = $(this).getCell(id, "lookupIdx");
+						}
+					},
+					editurl : "updateLookups.do?lookupIdx=" + selectedItem,
 					caption : "룩업코드"
-					onSelectRow: 
-						function(id) {
-							if (id && id !== lastsel) {
-								jQuery('#list').jqGrid('restoreRow', lastsel);
-								jQuery('#list').jqGrid('editRow', id, true);
-								lastsel = id;
-							}
-						},
-						editurl: "server.php",
 				});
-		jQuery("#list").jqGrid('navGrid', '#pager', {});
+		jQuery("#list").jqGrid('navGrid', '#pager', {
+			edit : false,
+			add : false,
+			del : false
+		});
 	});
 
 	var timeoutHnd;
@@ -74,14 +110,11 @@
 
 	function gridReload() {
 		var vend_cd = jQuery("#warehouseSelect").val();
-		console.log(vend_cd+"=========================================")
-		jQuery("#list").jqGrid(
-				'setGridParam',
-				{
-					url : "getLookups.do?LOOKUP=" + vend_cd,
-					datatype : "json",
-					page : 1
-				}).trigger("reloadGrid");
+		jQuery("#list").jqGrid('setGridParam', {
+			url : "getLookups.do?LOOKUP=" + vend_cd,
+			datatype : "json",
+			page : 1
+		}).trigger("reloadGrid");
 	}
 	function enableAutosubmit(state) {
 		flAuto = state;
@@ -94,7 +127,7 @@
 	<div class="col-lg-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">Search Condition</div>
-			<div class="container">
+			<div class="container" style="margin-top: 10px">
 				<div class="col-lg-3">
 					<select id="warehouseSelect" name="searchWarehouse"
 						class="form-control">
@@ -109,6 +142,7 @@
 						class="btn btn-outline btn-success btn-block">Search</button>
 				</div>
 			</div>
+			<br>
 		</div>
 	</div>
 	<br>

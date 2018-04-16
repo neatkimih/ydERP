@@ -46,7 +46,16 @@
 					gridview : true,
 					autoencode : true,
 					loadonce : true,
-					caption : "룩업코드"
+					caption : "룩업코드",
+					onSelectRow: 
+					function(id) {
+						if (id && id !== lastsel) {
+							jQuery('#list').jqGrid('restoreRow', lastsel);
+							jQuery('#list').jqGrid('editRow', id, true);
+							lastsel = id;
+						}
+					},
+					editurl: "server.php",
 				});
 		jQuery("#list").jqGrid('navGrid', '#pager', {});
 	});
@@ -54,25 +63,23 @@
 	var timeoutHnd;
 	var flAuto = false;
 
-	function doSearch(ev){
-		if(!flAuto)
+	function doSearch(ev) {
+		if (!flAuto)
 			return;
-//		var elem = ev.target||ev.srcElement;
-		if(timeoutHnd)
+		//		var elem = ev.target||ev.srcElement;
+		if (timeoutHnd)
 			clearTimeout(timeoutHnd)
-		timeoutHnd = setTimeout(gridReload,500)
+		timeoutHnd = setTimeout(gridReload, 500)
 	}
 
 	function gridReload() {
 		var vend_cd = jQuery("#warehouseSelect").val();
-		console.log(vend_cd+"=========================================")
-		jQuery("#list").jqGrid(
-				'setGridParam',
-				{
-					url : "getLookups.do?LOOKUP=" + vend_cd,
-					datatype : "json",
-					page : 1
-				}).trigger("reloadGrid");
+		console.log(vend_cd + "=========================================")
+		jQuery("#list").jqGrid('setGridParam', {
+			url : "getLookups.do?LOOKUP=" + vend_cd,
+			datatype : "json",
+			page : 1
+		}).trigger("reloadGrid");
 	}
 	function enableAutosubmit(state) {
 		flAuto = state;

@@ -19,16 +19,16 @@
 <script>
     $(document).ready(function(){
         $("#btnLogin").click(function(){
-            var CustomerId = $("#CustomerId").val();
-            var CustomerPw = $("#CustomerPw").val();
-            if(CustomerId == ""){
+            var customerCode = $("#customerCode").val();
+            var customerPw = $("#customerPw").val();
+            if(customerCode == ""){
                 alert("아이디(사업자등록번호)를 입력하세요.");
-                $("#CustomerId").focus(); 
+                $("#customerCode").focus(); 
                 return; 
             }
-            if(CustomerPw == ""){
+            if(customerPw == ""){
                 alert("비밀번호를 입력하세요.");
-                $("#CustomerPw").focus();
+                $("#customerPw").focus();
                 return;
             }
                 
@@ -56,9 +56,9 @@
                         <form role="form" name="form1" method="post" action="loginCheck">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="아이디(사업자등록번호)" name="CustomerId" id="CustomerId" type="text" autofocus>                                </div>
+                                    <input class="form-control" placeholder="아이디(사업자등록번호)" name="customerCode" id="customerCode" type="text" autofocus>                                </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="비밀번호" name="CustomerPw" id="CustomerPw" type="password" value="">
+                                    <input class="form-control" placeholder="비밀번호" name="customerPw" id="customerPw" type="password" value="">
                                 </div>
 					                                <c:if test="${msg == 'failure'}">
 					                    <div style="color: red">
@@ -67,7 +67,7 @@
 					                </c:if>
 					                <c:if test="${msg == 'logout'}">
 					                    <div style="color: red">
-					                        로그아웃되었습니다.
+					                        로그아웃되었습니다. 안녕히 가세요.
 					                    </div>
 					                </c:if>
                                 <a href="#" id="btnLogin" class="btn btn-lg btn-success btn-block">로그인</a>

@@ -19,7 +19,7 @@
 					<li><a href="getItemsList">품목정보</a></li>
 					<li><a href="morris.html">구매처정보</a></li>
 					<li><a href="morris.html">판매처정보</a></li>
-					<li><a href="getRegisterForm">판매업체 관리</a></li>
+					<li><a href="manageCustomer">판매업체 관리</a></li>
 					<li><a href="getPurchaseRequest">구매신청</a></li>
 					  
 				</ul></li>

@@ -21,12 +21,13 @@ var lastsel2;
 			editurl : "editOrderList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문코드", "주문처 코드", "주문일자", "결제금액", "배송지", "배송사원", "출하창고", "승인", "편집", "주문"],			
+			colNames : [ "주문코드", "주문일자", "결제금액", "주문처 이름", "주문처 코드", "배송주소", "배송사원", "창고 지정", "승인", "편집", "주문"],			
 			colModel : [
 				{	name : "saleCode",		width : 120,	align : "center",	editable : false,	key : true	},
-				{	name : "customerCode",	width : 100,	align : "center",	editable : false	},
 				{	name : "saleDate",		width : 120,	align : "center",	editable : false	},
 				{	name : "saleCost",		width : 100,	align : "right",	editable : false	},
+				{	name : "customerName",	width : 200,	align : "left",		editable : false	},				
+				{	name : "customerCode",	width : 100,	align : "center",	editable : false	},
 				{	name : "deliveryAddr",	width : 200,	align : "left",		editable : false	},
 				{	name : "deliveryEmp",	width : 200,	align : "center",	editable : true,
 					edittype : "select",	editoptions:{value:"${employeeList}"}					},					
@@ -40,9 +41,12 @@ var lastsel2;
 			autoheight : true,
 			autowidth : true,
 			rowNum : 10,
+			rowList : [10, 20, 30],
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
+			reccount : 15,
+			loadonce : true,
 			search : true,
 			sortname : "saleCode",
 			caption : "주문 내역 정보",
@@ -91,24 +95,26 @@ var lastsel2;
 			url : "getOrderDetail.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문상세코드", "주문품목코드", "주문품목명", "판매가(원)", "부가세", "주문수량", "사용연한(년)", "생산처 코드" ],
+			colNames : [ "상세코드", "품목코드", "품목명", "판매가(원)", "부가세", "수량", "사용연한(년)", "생산처" ],
 			colModel : [
 				{	name : "saleDetailCode",width : 100,	align : "center"	},
 				{	name : "saleItemCode",	width : 200,	align : "center"	},
-				{	name : "saleItemName",	width : 100,	align : "right"		},
-				{	name : "salePrice",		width : 200,	align : "left"		},
-				{	name : "itemTax",		width : 100,	align : "center"	},
-				{	name : "saleQty",		width : 100,	align : "center"	},
+				{	name : "saleItemName",	width : 100,	align : "left"		},
+				{	name : "salePrice",		width : 200,	align : "right"		},
+				{	name : "itemTax",		width : 100,	align : "right"	},
+				{	name : "saleQty",		width : 100,	align : "right"	},
 				{	name : "expireDate",	width : 100,	align : "center"	},
-				{	name : "vendorCode",	width : 100,	align : "center"	},
+				{	name : "vendorName",	width : 100,	align : "left"	},
 			],
-			
 			pager : "#pagerOrderDetail",
 			rowNum : 10,
+			rowList : [10, 20, 30],
 			sortname : "orderDetailCode",
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
+			reccount : 15,
+			loadonce : true,
 			autoheight : true,
 			autowidth : true,
 			search : true
@@ -116,21 +122,16 @@ var lastsel2;
 
 		// 주문 정보 검색, 취소, 삭제, 새로고침 버튼 
 		$('#orderList').jqGrid('navGrid', "#pagerOrderList", {
-			search : true,
+			search : false,
 			add : false,
 			edit : false,
-			cancel : true,
+			cancel : false,
 			del : false,
 			refresh : false
 		}, {
 			closeAfterAdd : true,
 			reloadAfterSubmit : true,
-			afterComplete : function() {
-				$("#orderList").setGridParam({
-					datatype : 'json',
-					page : 1
-				}).trigger('reloadGrid');
-			}
+			afterComplete : function() {	$("#orderList").setGridParam({	datatype : 'json',	page : 1	}).trigger('reloadGrid');	}
 		}, {
 			serializeDelData : function(postdata) {
 				return "oper=del&saleCode=" + postdata.id
@@ -140,11 +141,16 @@ var lastsel2;
 		);
 	});
 	
+	/* saveparameters = {
+			"aftersavefunc" : alert();
+			
+	} */
+	
 	/* 승인확인 버튼 생성 */
 	function permitBtn (cellvalue, options, rowObject) {
 		console.log("승인확인 버튼 생성");
 		console.dir(options);
-		return '<input type="button" onclick="jQuery(\'#orderList\').saveRow(\''+options.rowId+'\');" value="확인"/>';
+		return '<input type="button" onclick="jQuery(\'#orderList\').saveRow(\''+options.rowId+'\',saveparameters);" value="확인"/>';
 	};
 	
 	/* 편집취소 버튼 생성 */
@@ -181,18 +187,9 @@ var lastsel2;
 	}
 
 	function gridReload() {
-		var orderCodeMask = jQuery("#orderCodePut").val();
-		var customerCodeMask = jQuery("#customerCodePut").val();
-		var orderDateMask = jQuery("#orderDatePut").val();
-		var orderCostMask = jQuery("#orderCostPut").val();
-		var deliveryAddrMask = jQuery("#deliveryAddrPut").val();
+		var params = $('#orderSearchForm').serialize();
 		
-		jQuery("#orderList").jqGrid('setGridParam',{url:"getOrderByCondition.do?saleCode=" + orderCodeMask +
-																			"&customerCode=" + customerCodeMask +
-																			"&saleDate=" + orderDateMask +
-																			"&saleCost=" + orderCostMask +
-																			"&deliveryAddr=" + deliveryAddrMask
-													,page:1}).trigger("reloadGrid");
+		jQuery("#orderList").jqGrid('setGridParam', {url:"getOrderByCondition.do?"+params	,page:1}).trigger("reloadGrid");
 	}
 	
 	function enableAutosubmit(state) {
@@ -244,7 +241,14 @@ var lastsel2;
 	padding-right : 15px;
 	padding-top : 10px;
 	padding-bottom : 10px;
+	size: auto;
+}
 
+.inputTd {
+	padding-right : 45px;
+	padding-top : 10px;
+	padding-bottom : 10px;
+	size : auto;
 }
 
 </style>
@@ -256,23 +260,40 @@ var lastsel2;
 	</div>
 	<hr>
 	<div id="searchDiv">
-		<table>
-				<tr>
-					<td class="searchTd">주문코드</td><td><input type="text" id="orderCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
-					<td class="searchTd">주문처 코드</td><td><input type="text" id="customerCodePut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr>
-					<td class="searchTd">주문일자</td><td><input type="text" id="orderDatePut" onkeydown="doSearch(arguments[0]||event)" /></td>
-					<td class="searchTd">결제금액</td><td><input type="text" id="orderCostPut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr>
-					<td class="searchTd">배송주소</td><td><input type="text" id="deliveryAddrPut" onkeydown="doSearch(arguments[0]||event)" /></td>
-				</tr>
-				<tr>
-					<td class="searchTd"></td><td id="submitTd"><button onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
-				</tr>
-		</table>
+		<form id="orderSearchForm" name="orderSearchForm">
+			<table>
+					<tr>
+						<td class="searchTd">주문코드</td><td class="inputTd"><input type="text" id="orderCodePut" name="saleCode" /></td>
+						<td class="searchTd">주문처</td><td class="inputTd"><input type="text" id="customerNamePut" name="customerName" /></td>
+						<td class="searchTd">주문일자</td><td class="inputTd"><input type="date" id="orderDatePut" name="saleDate" /></td>
+					</tr>
+					<tr>
+						<td class="searchTd">결제금액</td><td class="inputTd"><input type="text" id="orderCostPut" name="saleCost" /></td>
+						<td class="searchTd">배송주소</td><td colspan="2"><input type="text" id="deliveryAddrPut" name="deliveryAddr" /></td>
+					</tr>
+					<tr class="searchTr">
+						<td class="searchTd">배송상태</td>
+						<td class="inputTd">
+							<select id="deliveryListSelect" name="deliveryStatus">
+							<c:forEach items="${lookupDeliveryList}" var="lkdl">						
+								<option value="${lkdl.LOOKUP_CODE}" >${lkdl.LOOKUP_VALUES}</option>			
+							</c:forEach>
+							</select>
+						</td>
+						<td class="searchTd">결제상태</td>
+						<td class="inputTd">
+							<select id="paymentListSelect" name="payStatus">
+								<c:forEach items="${lookupPaymentList}" var="lkpl">						
+								<option value="${lkpl.LOOKUP_CODE}">${lkpl.LOOKUP_VALUES}</option>					
+								</c:forEach>
+							</select>
+						</td>
+						<td class="searchTd"></td><td id="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
+					</tr>
+			</table>
+		</form>
 	</div>
+	<hr>
 	<div id="orderListDiv">
 		<table id="orderList">
 			<tr>

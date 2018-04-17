@@ -4,9 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 
-<!DOCTYPE html> 
-  <head>
-  
+<!DOCTYPE html>
+<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -16,22 +16,28 @@
 
 <!-- Bootstrap Core CSS -->
 <link
-	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- MetisMenu CSS -->
 <link
-	href="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.css"
+	rel="stylesheet">
 <!-- Custom CSS -->
 <link
-	href="${pageContext.request.contextPath}/resources/dist/css/sb-admin-2.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/dist/css/sb-admin-2.css"
+	rel="stylesheet">
 <!-- Morris Charts CSS -->
 <link
-	href="${pageContext.request.contextPath}/resources/vendor/morrisjs/morris.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/vendor/morrisjs/morris.css"
+	rel="stylesheet">
 <!-- Custom Fonts -->
 <link
-	href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
 <!--  Jquery UI CSS -->
 <link
-	href="${pageContext.request.contextPath}/resources/jquery/jquery-ui.min.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/jquery/jquery-ui.min.css"
+	rel="stylesheet">
 <!-- jQuery -->
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -46,7 +52,8 @@
     <![endif]-->
 
 <!-- Chat -->
-<link href="${pageContext.request.contextPath}/resources/chat/chat.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/chat/chat.css"
+	rel="stylesheet">
 
 <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -77,10 +84,10 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header"></h1>
-				</div>		
+				</div>
 			</div>
-			<tiles:insertAttribute name="content" />			
-			
+			<tiles:insertAttribute name="content" />
+
 			<!-- Metis Menu Plugin JavaScript -->
 			<script
 				src="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.js"></script>
@@ -88,86 +95,101 @@
 			<script
 				src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.js"></script>
 		</div>
-			
-	<!-- chat -->
-				
-	<div id="chat">		
-	Live Q&A
-	<div id="chatlogin">	상호명<input type="text" id="nickname">
- 	<input type="button" value="입장" onclick="login()" >
- 	</div>
-	<div id="chat-area">		
-	<textarea id="messageWindow" rows="20" cols="40" readonly="readonly"></textarea> -->
-	<br /> <input id="inputMessage" type="text" />
-	<input type="button"
-	value="보내기" onclick="send()"  />
-	<input type="button" value="나가기" onclick="logout()" />	
-	</div>		
+
+		<!-- chat -->
+
+		<div id="chat">
+			Live Q&A
+			<div id="chatlogin">
+				상호명<input type="text" id="nickname" onkeydown="enterlogin()" size = "18"> <input type="button"
+					value="입장" onclick="login()">
+			</div>
+			<div id="chat-area">
+				<textarea id="messageWindow" rows="20" cols="33" readonly="readonly"></textarea>
+				<br /> <input id="inputMessage" type="text" onkeydown="enterkey()" size = "13" />
+				<input type="button" value="보내기" onclick="send()" /> <input
+					type="button" value="나가기" onclick="logout()" />
+			</div>
 
 
-</div>			
+		</div>
 	</div>
 
-</body>
-<script type="text/javascript">
-var textarea = document.getElementById("messageWindow");
-var webSocket 
-var inputMessage = document.getElementById('inputMessage');
-var clientID	
 
-	//채팅방 로그인
-	function login(){
-		document.getElementById("chatlogin").style.display="none";
-		document.getElementById("chat-area").style.display="block";			
-		clientID =document.getElementById("nickname").value; 
-		webSocket = new WebSocket('ws://192.168.0.73/erp/websocket/broadcast.do');
-		
-		webSocket.onerror = function(event) {
-			onError(event)
-		};
-		webSocket.onopen = function(event) {
-			onOpen(event)
-		};
-		webSocket.onmessage = function(event) {
-			onMessage(event)
-		};
-		
-		function onMessage(event) {
-			textarea.value += event.data + "\n";
+	<script type="text/javascript">
+		var textarea = document.getElementById("messageWindow");
+		var webSocket
+		var inputMessage = document.getElementById('inputMessage');
+		var clientID
+	
+		//채팅방 로그인
+		function login() {
+			
+			document.getElementById("chatlogin").style.display = "none";
+			document.getElementById("chat-area").style.display = "block";
+			clientID = document.getElementById("nickname").value;
+			webSocket = new WebSocket('ws://192.168.0.73/erp/websocket/broadcast.do');
+	
+			webSocket.onerror = function(event) {
+				onError(event)
+			};
+			webSocket.onopen = function(event) {
+				onOpen(event)
+			};
+			webSocket.onmessage = function(event) {
+				onMessage(event)
+			};
+	
+			function onMessage(event) {
+				textarea.value += event.data + "\n";
+			}
+	
+			function onOpen(event) {
+				textarea.value += "연결 성공\n";
+			}
+	
+			function onError(event) {
+				console.log(event);
+				alert(event.data);
+			}
 		}
-		function onOpen(event) {
-			textarea.value += "연결 성공\n";
-		} 
-		function onError(event) {
-			console.log(event);
-			alert(event.data); 
+	
+		function send() {
+			// 서버로 전송할 데이터를 담을 msg 객체 생성.
+			var msg = {
+				cmd : "message",
+				msg : document.getElementById("inputMessage").value,
+				id : clientID
+			};
+			// Send the msg object as a JSON-formatted string.
+			webSocket.send(JSON.stringify(msg));
+			// Blank the text input element, ready to receive the next line of text from the user.
+			document.getElementById("inputMessage").value = "";
 		}
-	}
-	function send(){
-		// 서버로 전송할 데이터를 담을 msg 객체 생성.
-		var msg ={
-		cmd:"message",
-		msg: document.getElementById("inputMessage").value,
-		id: clientID	
+	
+	
+		function enterkey() {
+			if (window.event.keyCode == 13) {
+				if (document.getElementById("inputMessage").value != "")
+					send();
+			}
+		}
+	
+		function enterlogin() {
+			if (window.event.keyCode == 13) {
+				if (document.getElementById("nickname").value != "")
+					login();
+			}
+		}
+	
+		function logout() {
+			document.getElementById("chat-area").style.display = "none";
+			document.getElementById("chatlogin").style.display = "block";
 		};
-		// Send the msg object as a JSON-formatted string.
-		webSocket.send(JSON.stringify(msg));
-		// Blank the text input element, ready to receive the next line of text from the user.
-		document.getElementById("inputMessage").value ="";
-	function enterkey() {
-	        if (window.event.keyCode == 13) {
-	            send();
-	        }
-	    }
-		
-	}
-	function logout(){
-	document.getElementById("chat-area").style.display="none";
-	document.getElementById("chatlogin").style.display="block";
-	};
-	/*  $( function() {
-	    $( "#chat" ).draggable({handle: ''});
-	  });	
-	 */
-</script>
+		/*  $( function() {
+		    $( "#chat" ).draggable({handle: ''});
+		  });	
+		 */
+	</script>
+</body>
 </html>

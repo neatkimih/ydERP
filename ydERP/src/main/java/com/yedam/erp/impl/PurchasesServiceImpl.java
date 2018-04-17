@@ -1,6 +1,7 @@
 package com.yedam.erp.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,12 @@ public class PurchasesServiceImpl implements PurchasesService
 	public List<PurchasesVO> getPurchasesList(PurchasesVO vo) {
 		
 		return dao.getPurchasesList(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> getPurchasesListMap() {
+	
+		return dao.getPurchasesListMap();
 	}		
 
 	

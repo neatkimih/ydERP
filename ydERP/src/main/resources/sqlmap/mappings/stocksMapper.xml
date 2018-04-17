@@ -156,6 +156,21 @@
 		SELECT itm.item_name
 		      ,quantity
 		FROM   (SELECT st.item_code item
+		              ,TO_CHAR(SUM(st.out_qty)) quantity
+		        FROM   stocks_in_out st
+		        GROUP  BY st.item_code
+		        ORDER  BY quantity DESC) a
+		      ,items itm
+		WHERE  a.item = itm.item_code
+		AND    ROWNUM <= 5		
+		]]>
+	</select>
+	
+	<select id="getMostBuyItem" resultType="map">
+		<![CDATA[
+		SELECT itm.item_name
+		      ,quantity
+		FROM   (SELECT st.item_code item
 		              ,TO_CHAR(SUM(st.in_qty)) quantity
 		        FROM   stocks_in_out st
 		        GROUP  BY st.item_code
@@ -163,6 +178,20 @@
 		      ,items itm
 		WHERE  a.item = itm.item_code
 		AND    ROWNUM <= 5		
+		]]>
+	</select>
+	
+	<select id="getInOutQtyChart" resultType="map">
+		<![CDATA[
+		SELECT TO_CHAR(v.txn_date
+	              ,'rrrr/mm/dd') in_out_day
+		      ,SUM(v.in_qty) in_qty
+		      ,SUM(v.out_qty) out_qty
+		FROM   stock_in_out_vo v
+		GROUP  BY TO_CHAR(v.txn_date
+		                 ,'rrrr/mm/dd')
+		ORDER  BY TO_CHAR(v.txn_date
+		                 ,'rrrr/mm/dd')
 		]]>
 	</select>
 

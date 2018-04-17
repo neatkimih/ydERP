@@ -213,7 +213,10 @@
             customer_code AS customerCode,
             customer_name AS customerName,
             customer_owner AS customerOwner,
-            customer_loc AS customerLoc
+            customer_loc AS customerLoc,
+            customer_bank AS customerBank,
+            customer_account AS customerAccount,
+            customer_bankowner AS customerBankowner
         FROM customers
         WHERE customer_code = #{customerCode} AND customer_pw = #{customerPw}
     </select>

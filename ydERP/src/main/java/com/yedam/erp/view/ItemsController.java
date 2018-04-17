@@ -214,14 +214,17 @@ public class ItemsController {
     // 로그인 처리
 
 	@RequestMapping("loginCheck")
-    public ModelAndView loginCheck(@ModelAttribute CustomerVO vo, HttpSession session){
+    public ModelAndView loginCheck(@ModelAttribute CustomerVO vo, HttpSession session, Model model){
     	Logger logger = LoggerFactory.getLogger(ItemsController.class);
     	
     	boolean result = customerService.loginCheck(vo, session);
         ModelAndView mav = new ModelAndView();
         if (result == true) { // 로그인 성공
             // getPurchaseRequest.jsp로 이동
-            mav.setViewName("items/getPurchaseRequest");
+        	
+        	session.setAttribute("viewCustomer",vo);
+            
+        	mav.setViewName("items/getPurchaseRequest");
             mav.addObject("msg", "success");
         } else {    // 로그인 실패
             // login.jsp로 이동
@@ -229,7 +232,7 @@ public class ItemsController {
             mav.addObject("msg", "failure");
         }
         return mav;
-    }
+    } 
     
     // 로그아웃 처리
     @RequestMapping("logout")

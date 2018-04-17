@@ -182,7 +182,15 @@
 		}
 		temp.options[0].selected = true
 	}
+	
+
 </script>
+<form id="logout" action="logout">
+ <div class="logout">
+					<h3> 사업자 등록 번호 ${sessionScope.customerCode} 님 환영합니다. 
+					<input class="btn btn-alert" type="submit" name="logout" id="logout" value="로그아웃"/>
+					</h3></div>
+</form>					
 <div class="page-header">
 		<h1>
 			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
@@ -190,7 +198,7 @@
 			&nbsp; &emsp; &nbsp; &nbsp;  &nbsp; 
 			
 				<input class="btn btn-success" type="button" value="주문하기"
-					onclick="priceCalc()">
+					onclick="commitPurchaseRequest()">
 			
 		</h1>
 	</div>
@@ -280,8 +288,9 @@
 	<div id="pager"></div>
 </div>
 <!-- 구매신청 -->
-<div class="col-md-6">
+
 <form class="form-horizontal" id="FormPost" name="FormPost">
+<div class="col-md-6">
 		<div class="form-group">
 			<label for="Category" class="col-md-3 control-label">품목종류</label>
 			<div class="col-md-2">
@@ -389,8 +398,8 @@
 		</div>
 
 
-	</form>
-</div>
+</div>	</form>
+
 
 
 

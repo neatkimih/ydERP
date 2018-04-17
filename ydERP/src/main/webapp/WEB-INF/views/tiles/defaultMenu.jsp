@@ -17,10 +17,9 @@
 					기초정보관리<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="getItemsList">품목정보</a></li>
-					<li><a href="morris.html">구매처정보</a></li>
-					<li><a href="morris.html">판매처정보</a></li>
-					<li><a href="getRegisterForm">판매업체 관리</a></li>
-					<li><a href="getPurchaseRequest">구매신청</a></li>
+					<li><a href="getPurchase2">구매업체 관리</a></li>
+					<li><a href="manageCustomerForm">판매업체 관리</a></li>
+					<li><a href="getPurchaseRequest">판매업체 구매신청</a></li>
 					  
 				</ul></li>
 			<%@ include file="./defaultMenu2.jsp"%>

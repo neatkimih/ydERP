@@ -70,7 +70,7 @@
 					                        로그아웃되었습니다. 안녕히 가세요.
 					                    </div>
 					                </c:if>
-                                <a href="#" id="btnLogin" class="btn btn-lg btn-success btn-block">로그인</a>
+                                <a id="btnLogin" class="btn btn-lg btn-success btn-block">로그인</a>
                                 
                             </fieldset>
                         </form>

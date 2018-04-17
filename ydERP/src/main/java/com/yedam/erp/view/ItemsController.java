@@ -1,7 +1,10 @@
 package com.yedam.erp.view;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.items.ItemsVO;
+
+
 import com.yedam.erp.items.CustomerService;
 import com.yedam.erp.items.CustomerVO;
 import com.yedam.erp.items.ItemsService;
@@ -115,7 +120,12 @@ public class ItemsController {
 		return "items/getRegister";
 	}
 	
-	
+	//판매업체 한건 조회 (onselectedRow)
+	@RequestMapping("/getCustomer")
+	public CustomerVO getCustomer(CustomerVO vo) {
+		
+		return customerService.getCustomer(vo);
+	}
 	
 	// 판매업체 목록 가져오기
 	@RequestMapping("/getCustomerList")
@@ -161,4 +171,36 @@ public class ItemsController {
 	public String getPurchaseRequest() {
 		return "items/getPurchaseRequest";
 	}
+	
+	//<!-- 주문요청의 끝 -->
+	
+	
+	// 기타
+	// 해결 과제
+	// 사업자등록번호 중복 체크
+	@SuppressWarnings("null")
+	@RequestMapping("/checkCustomerCode")
+	public String getJSON(String customerCode) throws IOException {
+	HttpServletRequest request = null;
+	HttpServletResponse response = null;
+	response.setContentType("text/html; charset=UTF-8");
+	response.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
+	
+	customerCode = request.getParameter("customerCode");
+	response.getWriter().write(getJSON(customerCode));
+	
+	
+		if(customerCode == null) customerCode = "";
+		
+		return "items/getRegister";
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 }

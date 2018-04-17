@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.stocks.LookupCodes;
 import com.yedam.erp.stocks.impl.HomeServiceImpl;
 
 /**
@@ -23,7 +23,7 @@ import com.yedam.erp.stocks.impl.HomeServiceImpl;
  */
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	HomeServiceImpl homeServiceImpl;
 
@@ -49,9 +49,41 @@ public class HomeController {
 	@RequestMapping("getMostSoldItem.do")
 	@ResponseBody
 	public List<Map<String, String>> getMostSoldItem() {
-
 		return homeServiceImpl.getMostSoldItem();
-		
+	}
+
+	@RequestMapping("getCharts")
+	public String getCharts() {
+		return "stocks/getCharts";
+	}
+
+	@RequestMapping("getLookups.do")
+	@ResponseBody
+	public List<Map<String, Object>> getLookupsDo(Model model, String LOOKUP) {
+		// Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> list = homeServiceImpl.getLookups(LOOKUP);
+		// map.put("data", list);
+		return list;
+	}
+
+	@RequestMapping("updateLookups.do")
+	@ResponseBody
+	public void updateLookupsDo(LookupCodes vo) {
+		homeServiceImpl.updateLookups(vo);
+	}
+
+	@RequestMapping("getLookups")
+	public String getLookups(Model model) {
+		List<Map<String, String>> list = homeServiceImpl.getLookValues();
+		List<Map<String, String>> dlist = homeServiceImpl.selectLookups("DELIVERY");
+		List<Map<String, String>> plist = homeServiceImpl.selectLookups("PAYMENT");
+		List<Map<String, String>> slist = homeServiceImpl.selectLookups("SUBINVENTORY");
+		model.addAttribute("dlist", dlist);
+		model.addAttribute("plist", plist);
+		model.addAttribute("slist", slist);
+
+		model.addAttribute("lookupList", list);
+		return "stocks/getLookups";
 	}
 
 }

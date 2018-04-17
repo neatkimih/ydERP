@@ -20,6 +20,7 @@ import com.yedam.erp.sales.SalesService;
 import com.yedam.erp.sales.SalesVO;
 import com.yedam.erp.stocks.PurchaseRequestService;
 import com.yedam.erp.stocks.PurchaseRequestVO;
+import com.yedam.erp.stocks.impl.HomeServiceImpl;
 
 @Controller
 public class SalesController {
@@ -28,10 +29,16 @@ public class SalesController {
 	@Autowired SaleDetailsService saleDetailsService;
 	@Autowired EmployeesService employeesService;
 	@Autowired PurchaseRequestService purchaseRequestService;
+	@Autowired HomeServiceImpl homeServiceImpl;
 
 	/* 판매 내역 페이지 폼 */
 	@RequestMapping("/getSaleList")
-	public String getSaleListForm() {
+	public String getSaleListForm(Model model) {
+		List<Map<String, String>> lookupDeliveryList = homeServiceImpl.selectLookups("DELIVERY");
+		List<Map<String, String>> lookupPaymentList = homeServiceImpl.selectLookups("PAYMENT");
+		
+		model.addAttribute("lookupDeliveryList", lookupDeliveryList);
+		model.addAttribute("lookupPaymentList", lookupPaymentList);
 		return "sales/getSaleList";
 	}
 
@@ -39,6 +46,7 @@ public class SalesController {
 	@RequestMapping("/getSaleList.do")
 	@ResponseBody
 	public List<SalesVO> getSaleList(SalesVO salesVO, Paging page) {
+		
 		return salesService.getSaleList(salesVO);
 	}
 
@@ -69,7 +77,7 @@ public class SalesController {
 		
 		List<EmployeesVO> empList = employeesService.getEmployeesList(employeesVO);
 		List<Map<String, Object>> lookupList = purchaseRequestService.getlookUpValueList(vo);
-
+		
 		String lookupStr = "";
 		String empStr = "";
 		EmployeesVO empNext = null;

@@ -21,5 +21,7 @@
 <body>
 	<hr>
 	YedamERP 메인페이지입니다. TEST
+	<%-- <%@ include file="./stocks/getCharts.jsp"%> --%>
+
 </body>
 </html>

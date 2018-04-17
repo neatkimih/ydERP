@@ -11,6 +11,7 @@ public class SaleDetailsVO {
 	private Integer saleQty;			// 판매수량
 	private Integer expireDate;			// 사용연한
 	private String vendorCode;			// 생산처 코드
+	private String vendorName;			// 생산처 이름
 	
 	public String getSaleItemName() {
 		return saleItemName;
@@ -35,6 +36,13 @@ public class SaleDetailsVO {
 	}
 	public void setVendorCode(String vendorCode) {
 		this.vendorCode = vendorCode;
+	}
+	
+	public String getVendorName() {
+		return vendorName;
+	}
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
 	}
 	public String getSaleDetailCode() {
 		return saleDetailCode;

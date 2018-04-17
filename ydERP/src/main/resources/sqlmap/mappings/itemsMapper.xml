@@ -194,15 +194,10 @@
 		WHERE customer_code = #{customerCode}
 
 	</update>
-	<!-- 
-	 delete (거래 여러건 'N' 처리) 
-	<update id="deleteCustomerList" parameterType="list">
-		UPDATE customers
-		SET use_flag = 'N' IN
-		<foreach item="item" collection="list" open="(" separator=","
-			close=")">
-			#{customerCode}
-		</foreach>
-	</update>
- 	-->
+	
+	<select id="checkCustomerCode" parameterType="com.yedam.erp.items.CustomerVO">
+	SELECT customer_code from customers where customer_code = #{customerCode}
+	</select>
+	
+	
 </mapper>

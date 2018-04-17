@@ -1,6 +1,7 @@
 package com.yedam.erp.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,10 @@ public class PurchasesMybatisDAO {
 		System.out.println("mybatis getPurchasesList");
 		return sqlSession.selectList("purchases.getPurchasesList", vo);
 		
+	}
+	public List<Map<String, Object>> getPurchasesListMap() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("purchases.getPurchasesListMap");
 	}	
 	
 }

@@ -53,4 +53,9 @@ public class SalesMybatisDAO {
 	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {
 		return mybatis.selectList("sales.getOrderByCondition", salesVO);
 	}
+	
+	/* 승인 후 품목 재고 처리 */
+	public void afterPermitOrder(String saleCode) {
+		mybatis.insert("sales.afterPermitOrder", saleCode);
+	}
 }

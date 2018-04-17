@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.stocks.LookupCodes;
 import com.yedam.erp.stocks.impl.HomeServiceImpl;
 
 /**
@@ -51,6 +52,24 @@ public class HomeController {
 		return homeServiceImpl.getMostSoldItem();
 	}
 
+	@RequestMapping("getMostBuyItem.do")
+	@ResponseBody
+	public List<Map<String, String>> getMostBuyItem() {
+		return homeServiceImpl.getMostBuyItem();
+	}
+
+	@RequestMapping("getInOutQtyChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getInOutQtyChart() {
+		return homeServiceImpl.getInOutQtyChart();
+	}
+
+	@RequestMapping("getInOutAmtChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getInOutAmtChart() {
+		return homeServiceImpl.getInOutAmtChart();
+	}
+
 	@RequestMapping("getCharts")
 	public String getCharts() {
 		return "stocks/getCharts";
@@ -63,6 +82,12 @@ public class HomeController {
 		List<Map<String, Object>> list = homeServiceImpl.getLookups(LOOKUP);
 		// map.put("data", list);
 		return list;
+	}
+
+	@RequestMapping("updateLookups.do")
+	@ResponseBody
+	public void updateLookupsDo(LookupCodes vo) {
+		homeServiceImpl.updateLookups(vo);
 	}
 
 	@RequestMapping("getLookups")

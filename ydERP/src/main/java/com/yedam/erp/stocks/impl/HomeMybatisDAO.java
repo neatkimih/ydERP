@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yedam.erp.stocks.LookupCodes;
+
 @Repository
 public class HomeMybatisDAO {
 	@Autowired
@@ -14,6 +16,18 @@ public class HomeMybatisDAO {
 
 	public List<Map<String, String>> getMostSoldItem() {
 		return sqlSession.selectList("stocks.getMostSoldItem");
+	}
+
+	public List<Map<String, String>> getMostBuyItem() {
+		return sqlSession.selectList("stocks.getMostBuyItem");
+	}
+
+	public List<Map<String, Object>> getInOutQtyChart() {
+		return sqlSession.selectList("stocks.getInOutQtyChart");
+	}
+
+	public List<Map<String, Object>> getInOutAmtChart() {
+		return sqlSession.selectList("stocks.getInOutAmtChart");
 	}
 
 	public List<Map<String, Object>> getLookups(String LOOKUP) {
@@ -26,5 +40,9 @@ public class HomeMybatisDAO {
 
 	public List<Map<String, String>> selectLookups(String str) {
 		return sqlSession.selectList("stocks.selectLookups", str);
+	}
+
+	public void updateLookups(LookupCodes vo) {
+		sqlSession.update("stocks.updateLookup", vo);
 	}
 }

@@ -2,6 +2,8 @@ package com.yedam.erp.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,4 +36,20 @@ public class CustomerMybatisDAO {
 	public CustomerVO getCustomer(CustomerVO vo) {
 		return sqlSession.selectOne("items.getCustomer",vo);
 	}
+    // 회원 로그인체크
+    
+    public boolean loginCheck(CustomerVO vo) {
+        String name = sqlSession.selectOne("items.loginCheck", vo);
+        return (name == null) ? false : true;
+    }
+    // 회원 로그인 정보
+   
+    public CustomerVO viewCustomer(CustomerVO vo) {
+        return sqlSession.selectOne("items.viewCustomer", vo);
+    }
+    //회원 로그아웃
+    
+    public void logout(HttpSession sessin) {
+    }
+	
 }

@@ -12,34 +12,39 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 <script>
+	var selectedSaleCode;
 	$(document).ready(function() {
 		/* Sale List : 마스터 그리드 */
 		$("#saleList").jqGrid({
 			url : "getSaleList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "판매코드", "판매일자", "결제금액", "판매처", "배송주소", "배송사원", "출하창고"],
+			colNames : [ "판매코드", "판매일자", "결제금액", "판매처 이름", "판매처 코드", "배송주소", "배송사원", "출하창고"],
 			colModel : [
-				{	name : "saleCode",		width : 120,		align : "center"	},
+				{	name : "saleCode",		width : 120,		align : "center",	key : true	},
 				{	name : "saleDate",		width : 160,		align : "center"	},
 				{	name : "saleCost",		width : 100,		align : "right"		},
-				{	name : "customerName",	width : 100,		align : "center"	},
+				{	name : "customerName",	width : 200,		align : "left"		},
+				{	name : "customerCode",	width : 100,		align : "center"	},
 				{	name : "deliveryAddr",	width : 200,		align : "left"		},
-				{	name : "deliveryEmp",	width : 100,		align : "center"	},
+				{	name : "deliveryEmp",	width : 200,		align : "center"	},
 				{	name : "warehouse",		width : 80,			align : "center"	},
 			],
 			autoheight : true,	autowidth : true,
 			rowNum : 10,
+			rowList : [10, 20, 30],
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
+			reccount : 15,
+			loadonce : true,
 			search : true,
 			sortname : "saleCode",
 			caption : "판매 내역 정보",
 			pager : "#pagerSaleList",
 			onSelectRow : function(rowid, selected) {
 				if (rowid != null) {
-					var selectedSaleCode = $(this).getCell(rowid, 'saleCode');
+					selectedSaleCode = $(this).getCell(rowid, 'saleCode');
 					jQuery("#saleDetail").jqGrid('setGridParam', {
 						url : "./getSaleDetail.do?saleCode=" + selectedSaleCode
 					});
@@ -55,21 +60,25 @@
 			url : "getSaleDetail.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "상세코드", "품목명", "판매가", "부가세", "수량", "사용연한", "생산처" ],
+			colNames : [ "상세코드", "품목코드", "품목명", "판매가(원)", "부가세", "수량", "사용연한(년)", "생산처" ],
 			colModel : [
 				{	name : "saleDetailCode",	width : 100,	align : "center"	},
-				{	name : "saleItemName",		width : 100,	align : "right"		},
-				{	name : "salePrice",			width : 200,	align : "left"		},
-				{	name : "itemTax",			width : 100,	align : "center"	},
-				{	name : "saleQty",			width : 100,	align : "center"	},
+				{	name : "saleItemCode",		width : 200,	align : "center"	},
+				{	name : "saleItemName",		width : 100,	align : "left"		},
+				{	name : "salePrice",			width : 200,	align : "right"		},
+				{	name : "itemTax",			width : 100,	align : "right"	},
+				{	name : "saleQty",			width : 100,	align : "right"	},
 				{	name : "expireDate",		width : 100,	align : "center"	},
-				{	name : "vendorName",		width : 100,	align : "center"	},
+				{	name : "vendorName",		width : 100,	align : "left"	},
 			],
 			pager : "#pagerSaleDetail",
 			rowNum : 10,
+			rowList : [10, 20, 30],
 			sortname : "saleDetailCode",
 			viewrecords : true,
 			gridview : true,
+			reccount : 15,
+			loadonce : true,
 			autoencode : true,
 			autoheight : true,
 			autowidth : true,
@@ -179,37 +188,37 @@
 	</div>
 	<hr>
 	<div id="searchDiv">
-	<form id="saleSearchForm" name="saleSearchForm">
-		<table>
-				<tr>
-					<td class="searchTd">판매코드</td><td class="inputTd"><input type="text" id="saleCodePut" name="saleCode"/></td>
-					<td class="searchTd">판매처</td><td class="inputTd"><input type="text" id="customerNamePut" name="customerName" /></td>
-					<td class="searchTd">판매일자</td><td class="inputTd"><input type="text" id="saleDatePut" name="saleDate"/></td>
-				</tr>
-				<tr>
-					<td class="searchTd">결제금액</td><td class="inputTd"><input type="text" id="saleCostPut" name="saleCost"/></td>
-					<td class="searchTd">배송주소</td><td colspan="2"><input type="text" id="deliveryAddrPut" name="deliveryAddr"/></td>
-				</tr>
-				<tr class="searchTr">
-					<td class="searchTd">배송상태</td>
-					<td class="inputTd">
-						<select id="deliveryListSelect" name="deliveryStatus">
-						<c:forEach items="${lookupDeliveryList}" var="lkdl">						
-							<option value="${lkdl.LOOKUP_CODE}" >${lkdl.LOOKUP_VALUES}</option>			
-						</c:forEach>
-						</select>
-					</td>
-					<td class="searchTd">결제상태</td>
-					<td class="inputTd">
-						<select id="paymentListSelect" name="payStatus">
-							<c:forEach items="${lookupPaymentList}" var="lkpl">						
-							<option value="${lkpl.LOOKUP_CODE}">${lkpl.LOOKUP_VALUES}</option>					
+		<form id="saleSearchForm" name="saleSearchForm">
+			<table>
+					<tr>
+						<td class="searchTd">판매코드</td><td class="inputTd"><input type="text" id="saleCodePut" name="saleCode"/></td>
+						<td class="searchTd">판매처</td><td class="inputTd"><input type="text" id="customerNamePut" name="customerName" /></td>
+						<td class="searchTd">판매일자</td><td class="inputTd"><input type="date" id="saleDatePut" name="saleDate"/></td>
+					</tr>
+					<tr>
+						<td class="searchTd">결제금액</td><td class="inputTd"><input type="text" id="saleCostPut" name="saleCost"/></td>
+						<td class="searchTd">배송주소</td><td colspan="2"><input type="text" id="deliveryAddrPut" name="deliveryAddr"/></td>
+					</tr>
+					<tr class="searchTr">
+						<td class="searchTd">배송상태</td>
+						<td class="inputTd">
+							<select id="deliveryListSelect" name="deliveryStatus">
+							<c:forEach items="${lookupDeliveryList}" var="lkdl">						
+								<option value="${lkdl.LOOKUP_CODE}" >${lkdl.LOOKUP_VALUES}</option>			
 							</c:forEach>
-						</select>
-					</td>
-					<td class="searchTd"></td><td id="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
-				</tr>
-		</table>
+							</select>
+						</td>
+						<td class="searchTd">결제상태</td>
+						<td class="inputTd">
+							<select id="paymentListSelect" name="payStatus">
+								<c:forEach items="${lookupPaymentList}" var="lkpl">						
+								<option value="${lkpl.LOOKUP_CODE}">${lkpl.LOOKUP_VALUES}</option>					
+								</c:forEach>
+							</select>
+						</td>
+						<td class="searchTd"></td><td id="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
+					</tr>
+			</table>
 		</form>
 	</div>
 	<hr>

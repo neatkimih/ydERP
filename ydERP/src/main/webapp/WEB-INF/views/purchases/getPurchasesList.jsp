@@ -153,9 +153,9 @@
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
 			sortname : "purchaseDatailCode",
-			sortorder : "desc",
+			sortorder : "desc",			
 			viewrecords : true,
-			gridview : true,
+			gridview : true,			
 			autoencode : true,
 			editurl : "getPurchaseDetailList",
 			caption : "구매상세정보",			
@@ -198,7 +198,20 @@
                  }
              }
 		
-		})
+		}).navGrid("#pager1", {
+			 excel:true,
+			 edit:false,
+			 add:false,
+			 del:false,
+			 refresh:false,
+			 search:false  		
+  		}).navButtonAdd("#pager1", {
+  		
+  			caption:"Excel DownLoad",
+     	    onClickButton: function(e){ 
+     	   	jQuery("#list1").jqGrid('excelExport', 
+     	   			{url:'PurchaseView'});	
+     	    }});
 
 		function clearSelection() {
 			jQuery("#list1").jqGrid('setGridParam', {

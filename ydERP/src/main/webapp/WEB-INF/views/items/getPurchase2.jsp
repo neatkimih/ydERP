@@ -251,7 +251,7 @@
 		</div>
 
 		<form class="form-horizontal" id="register" name="register"
-			action="getRegister" onsubmit="return checkValue()">
+			action="manageCustomer" onsubmit="return checkValue()">
 			<div class="col-md-6">
 
 

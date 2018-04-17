@@ -182,7 +182,18 @@
 		}
 		temp.options[0].selected = true
 	}
+	
+	
+function logout() {
+	document.login["action"] = 'logout';
+}	
+	
 </script>
+ <div class="login">
+					<h3 align="right"> ${sessionScope.customerOwner} 님 환영합니다. </h3>
+					<input type="button" name="logout" id="logout" value="로그아웃" onclick="logout()"/>
+					</div>
+					
 <div class="page-header">
 		<h1>
 			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
@@ -190,7 +201,7 @@
 			&nbsp; &emsp; &nbsp; &nbsp;  &nbsp; 
 			
 				<input class="btn btn-success" type="button" value="주문하기"
-					onclick="priceCalc()">
+					onclick="commitPurchaseRequest()">
 			
 		</h1>
 	</div>

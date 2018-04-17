@@ -204,21 +204,24 @@ public class ItemsController {
 	// 기타2
 	// 해결 과제
     // 로그인 기능부분
-	private static final Logger logger = LoggerFactory.getLogger(ItemsController.class);
+	
     // 로그인 폼
     @RequestMapping("login")
     public String login(){
-    return "items/login";    // views/items/login.jsp로 포워드
+    return "items/login";    // views/items/login.jsp로 이동
     }
     
     // 로그인 처리
-    @RequestMapping("loginCheck")
+
+	@RequestMapping("loginCheck")
     public ModelAndView loginCheck(@ModelAttribute CustomerVO vo, HttpSession session){
-        boolean result = customerService.loginCheck(vo, session);
+    	Logger logger = LoggerFactory.getLogger(ItemsController.class);
+    	
+    	boolean result = customerService.loginCheck(vo, session);
         ModelAndView mav = new ModelAndView();
         if (result == true) { // 로그인 성공
-            // main.jsp로 이동
-            mav.setViewName("home");
+            // getPurchaseRequest.jsp로 이동
+            mav.setViewName("items/getPurchaseRequest");
             mav.addObject("msg", "success");
         } else {    // 로그인 실패
             // login.jsp로 이동

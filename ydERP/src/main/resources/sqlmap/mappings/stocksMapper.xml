@@ -184,14 +184,47 @@
 	<select id="getInOutQtyChart" resultType="map">
 		<![CDATA[
 		SELECT TO_CHAR(v.txn_date
-	              ,'rrrr/mm/dd') in_out_day
+	              ,'rr/mm/dd') in_out_day
 		      ,SUM(v.in_qty) in_qty
 		      ,SUM(v.out_qty) out_qty
 		FROM   stock_in_out_vo v
 		GROUP  BY TO_CHAR(v.txn_date
-		                 ,'rrrr/mm/dd')
+		                 ,'rr/mm/dd')
 		ORDER  BY TO_CHAR(v.txn_date
-		                 ,'rrrr/mm/dd')
+		                 ,'rr/mm/dd')
+		]]>
+	</select>
+	
+	<select id="getInOutAmtChart" resultType="map">
+		<![CDATA[
+		SELECT in_out_day
+		      ,SUM(sale_amt) sale_amt
+		      ,SUM(purchase_amt) purchase_amt
+		      ,SUM(sale_amt) - SUM(purchase_amt) var_amt
+		FROM   (SELECT TO_CHAR(sio.txn_date
+		                      ,'rr/mm/dd') in_out_day
+		              ,0 sale_amt
+		              ,SUM(sio.in_qty * pd.purchase_price) purchase_amt
+		        FROM   stocks_in_out sio
+		        JOIN   purchase_details pd
+		        ON     sio.dealer_code = pd.purchase_code
+		        AND    sio.item_code = pd.purchase_item
+		        GROUP  BY TO_CHAR(sio.txn_date
+		                         ,'rr/mm/dd')
+		        UNION ALL
+		        SELECT TO_CHAR(sio.txn_date
+		                      ,'rr/mm/dd') in_out_day
+		              ,SUM(sio.out_qty * NVL(sd.sale_price
+		                                    ,0)) sale_amt
+		              ,0 purchase_amt
+		        FROM   stocks_in_out sio
+		        JOIN   sale_details sd
+		        ON     sio.dealer_code = sd.sale_code
+		        AND    sio.item_code = sd.sale_item_code
+		        GROUP  BY TO_CHAR(sio.txn_date
+		                         ,'rr/mm/dd'))
+		GROUP  BY in_out_day
+		ORDER  BY in_out_day	
 		]]>
 	</select>
 

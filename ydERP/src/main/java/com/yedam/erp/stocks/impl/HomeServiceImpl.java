@@ -26,6 +26,10 @@ public class HomeServiceImpl {
 		return dao.getInOutQtyChart();
 	}
 
+	public List<Map<String, Object>> getInOutAmtChart() {
+		return dao.getInOutAmtChart();
+	}
+
 	public List<Map<String, Object>> getLookups(String LOOKUP) {
 		return dao.getLookups(LOOKUP);
 	}

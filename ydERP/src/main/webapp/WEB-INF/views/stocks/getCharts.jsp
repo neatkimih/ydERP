@@ -23,6 +23,8 @@
 	google.charts.load("current", {
 		packages : [ 'corechart' ]
 	});
+	google.charts.load('current', {'packages':['bar']});
+
 	google.charts.setOnLoadCallback(drawChart);
 
 	function drawChart() {
@@ -79,7 +81,7 @@
 					data3.push([ datas[i].IN_OUT_DAY, (datas[i].IN_QTY), (datas[i].OUT_QTY) ]);
 				};
 		        var options3 = {
-		                title: '[재고] 입고 출고 변화',
+		                title: '[재고] 일별 입/출고 변화',
 		                curveType: 'function',
 		                legend: { position: 'bottom' }
 		              };
@@ -98,35 +100,39 @@
 
  */
 		//ColumnChart
-		var data2 = google.visualization.arrayToDataTable([
-				[ "Element", "Density", {role : "style"} ], 
-				[ "Copper", 8.94, "#b87333" ],
-				[ "Silver", 10.49, "silver" ], 
-				[ "Gold", 19.30, "gold" ],
-				[ "Platinum", 21.45, "color: #e5e4e2" ] ]);
+/* 		var data2 = google.visualization.arrayToDataTable([
+	          ['Year', 'Sales', 'Expenses', 'Profit'],
+	          ['2014', 1000, 400, 200],
+	          ['2015', 1170, 460, 250],
+	          ['2016', 660, 1120, 300],
+	          ['2017', 1030, 540, 350]
+	        ]);
+ */
+	$.ajax({
+		url : "./getInOutAmtChart.do",
+		method : "POST",
+		type : "json",
+		success : function(datas){
+			var data2 = [];
+			data2.push([ "일별", "수입금액", "지출금액", "이익" ]);
+			for (i = 0; i < datas.length; i++) {
+				data2.push([ datas[i].IN_OUT_DAY, (datas[i].PURCHASE_AMT), (datas[i].SALE_AMT), (datas[i].VAR_AMT) ]);
+			};
+			var options2 = {
+				chart: {
+			    title: 'Company Performance',
+			    subtitle: 'Sales, Expenses, and Profit ' + '2017',
+			    }
+			};
 
-		var view = new google.visualization.DataView(data2);
-		view.setColumns([ 0, 1, {
-			calc : "stringify",
-			sourceColumn : 1,
-			type : "string",
-			role : "annotation"
-		}, 2 ]);
-
-		var options2 = {
-			title : "Density of Precious Metals, in g/cm^3",
-			width : 600,
-			height : 400,
-			bar : {
-				groupWidth : "95%"
-			},
-			legend : {
-				position : "none"
-			},
-		};
-		var chart2 = new google.visualization.ColumnChart(document
-				.getElementById("columnchart_values"));
-		chart2.draw(view, options2);
+	        //var chart3 = new google.visualization.LineChart(document.getElementById('curve_chart'));
+	        //chart3.draw(google.visualization.arrayToDataTable(data3), options3);
+			var chart2 = new google.charts.Bar(document.getElementById('columnchart_material'));
+	        //chart2.draw(google.visualization.arrayToDataTable(data2), google.charts.Bar.convertOptions(options2));
+			chart2.draw(google.visualization.arrayToDataTable(data2), options2);
+	        
+		}
+	});
 
 	}
 </script>
@@ -143,7 +149,8 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6" id="curve_chart" style="height: 500px;"></div>
-					<div class="col-lg-6" id="columnchart_values" style="height: 300px;"></div>
+					<div class="col-lg-6" id="columnchart_material" style="height: 500px;"></div>
+
 				</div>
 			</div>
 		</div>

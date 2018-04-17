@@ -64,6 +64,12 @@ public class HomeController {
 		return homeServiceImpl.getInOutQtyChart();
 	}
 
+	@RequestMapping("getInOutAmtChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getInOutAmtChart() {
+		return homeServiceImpl.getInOutAmtChart();
+	}
+
 	@RequestMapping("getCharts")
 	public String getCharts() {
 		return "stocks/getCharts";

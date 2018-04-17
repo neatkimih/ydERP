@@ -26,6 +26,10 @@ public class HomeMybatisDAO {
 		return sqlSession.selectList("stocks.getInOutQtyChart");
 	}
 
+	public List<Map<String, Object>> getInOutAmtChart() {
+		return sqlSession.selectList("stocks.getInOutAmtChart");
+	}
+
 	public List<Map<String, Object>> getLookups(String LOOKUP) {
 		return sqlSession.selectList("stocks.getLookupsData", LOOKUP);
 	}

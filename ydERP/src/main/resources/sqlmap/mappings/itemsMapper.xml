@@ -126,6 +126,9 @@
 		      ,customer_owner
 		      ,customer_loc
 		      ,customer_phone
+		      ,customer_bank
+		      ,customer_account
+		      ,customer_bankowner
 		     		      
 		FROM  customers
 		WHERE use_flag = 'Y'
@@ -145,8 +148,9 @@
 		      ,customer_pw
 		      ,customer_bank
 		      ,customer_account
-		      ,customer_backowner
+		      ,customer_bankowner
 		FROM  customers
+		WHERE customer_code = #{customerCode}
 			
 
 	</select>	
@@ -179,8 +183,8 @@
 		    ,customer_phone = #{customerPhone}
 		    ,customer_pw = #{customerPw}
 		    ,customer_bank = #{customerBank}
-		    ,customer_account = #{customerOwner}
-		    ,customer_bankowner = #{customerAccount}
+		    ,customer_account = #{customerAccount}
+		    ,customer_bankowner = #{customerBankowner}
 				
 		WHERE customer_code = #{customerCode}
 
@@ -198,6 +202,21 @@
 	<select id="checkCustomerCode" parameterType="com.yedam.erp.items.CustomerVO">
 	SELECT customer_code from customers where customer_code = #{customerCode}
 	</select>
+	
+	  <select id="loginCheck" resultType="String">
+        SELECT customer_owner AS customerOwner FROM customers
+        WHERE customer_code = #{customerCode} AND customer_pw = #{customerPw}
+    </select>
+    
+    <select id="viewCustomer" resultType="com.yedam.erp.items.CustomerVO">
+        SELECT 
+            customer_code AS customerCode,
+            customer_name AS customerName,
+            customer_owner AS customerOwner,
+            customer_loc AS customerLoc
+        FROM customers
+        WHERE customer_code = #{customerCode} AND customer_pw = #{customerPw}
+    </select>
 	
 	
 </mapper>

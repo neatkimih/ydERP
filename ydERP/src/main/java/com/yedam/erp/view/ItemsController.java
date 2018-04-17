@@ -1,24 +1,33 @@
 package com.yedam.erp.view;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.yedam.erp.items.ItemsVO;
-
-
+import com.yedam.erp.sales.CustomersVO;
 import com.yedam.erp.items.CustomerService;
 import com.yedam.erp.items.CustomerVO;
 import com.yedam.erp.items.ItemsService;
+ 
 
 
 @Controller
@@ -104,20 +113,28 @@ public class ItemsController {
 	}
 	// <!-- 품목 (Items)의 끝 -->
 	
+	// 여기서부터 구매업체 관리
+	
+	// 판매 업체 관리폼
+		@RequestMapping("/getPurchase2")
+		public String getPurchase2(CustomerVO vo) {
+			return "items/getPurchase2";
+		}
+	
 	
 	// 여기서부터 판매업체 관리 
 	
 	// 판매 업체 관리폼
-	@RequestMapping("/getRegisterForm")
-	public String getRegisterForm(CustomerVO vo) {
-		return "items/getRegister";
+	@RequestMapping("/manageCustomerForm")
+	public String manageCustomerForm(CustomerVO vo) {
+		return "items/manageCustomer";
 	}
 	
 	// 판매 업체 등록
-	@RequestMapping("/getRegister")
-	public String getRegister(CustomerVO vo) {
+	@RequestMapping("/insertCustomer")
+	public String insertCustomer(CustomerVO vo) {
 		customerService.insertCustomer(vo);
-		return "items/getRegister";
+		return "items/manageCustomer";
 	}
 	
 	//판매업체 한건 조회 (onselectedRow)
@@ -140,7 +157,7 @@ public class ItemsController {
 		@RequestMapping("/updateCustomer")
 		public String updateCustomer(CustomerVO vo) {
 			customerService.updateCustomer(vo);
-			return "items/getRegister";
+			return "items/manageCustomer";
 	}
 	
 	//판매 업체 여러건 삭제 (거래중단으로 update)
@@ -148,11 +165,8 @@ public class ItemsController {
 	@ResponseBody
 	public void deleteCustomer(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, CustomerVO vo,
 								@RequestParam(value = "customerCode", defaultValue = "", required = false) String customerCode) {
-		System.out.println("=========================88888====" + vo);
 		if (oper.equals("del")) {
-			System.out.println("=========================77777====" + vo);
 			customerService.deleteCustomer(vo);
-			System.out.println("=========================66666====" + vo);
 			if (customerCode.length() > 0) {
 				for (String i : customerCode.split(",")) {
 					
@@ -164,7 +178,6 @@ public class ItemsController {
 	}
 	//<!-- 판매 업체 관리의 끝 -->
 
-	
 	// 여기서부터 주문요청 관리
 	// 주문요청
 	@RequestMapping("/getPurchaseRequest")
@@ -176,31 +189,59 @@ public class ItemsController {
 	
 	
 	// 기타
-	// 해결 과제
 	// 사업자등록번호 중복 체크
-	@SuppressWarnings("null")
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("/checkCustomerCode")
-	public String getJSON(String customerCode) throws IOException {
-	HttpServletRequest request = null;
-	HttpServletResponse response = null;
-	response.setContentType("text/html; charset=UTF-8");
-	response.setCharacterEncoding("UTF-8");
-	request.setCharacterEncoding("UTF-8");
-	
-	customerCode = request.getParameter("customerCode");
-	response.getWriter().write(getJSON(customerCode));
-	
-	
-		if(customerCode == null) customerCode = "";
-		
-		return "items/getRegister";
-	
+	@ResponseBody
+	public Map getCustomerCode(CustomerVO vo) {
+	CustomerVO customerCode = customerService.getCustomer(vo);
+
+	Map<String, Object> result = new HashMap<String, Object>();
+	result.put("result", customerCode == null ? Boolean.TRUE : Boolean.FALSE);
+	return result;
 	}
 	
-	
-	
-	
-	
-	
-	
+	// 기타2
+	// 해결 과제
+    // 로그인 기능부분
+	private static final Logger logger = LoggerFactory.getLogger(ItemsController.class);
+    // 로그인 폼
+    @RequestMapping("login")
+    public String login(){
+    return "items/login";    // views/items/login.jsp로 포워드
+    }
+    
+    // 로그인 처리
+    @RequestMapping("loginCheck")
+    public ModelAndView loginCheck(@ModelAttribute CustomerVO vo, HttpSession session){
+        boolean result = customerService.loginCheck(vo, session);
+        ModelAndView mav = new ModelAndView();
+        if (result == true) { // 로그인 성공
+            // main.jsp로 이동
+            mav.setViewName("home");
+            mav.addObject("msg", "success");
+        } else {    // 로그인 실패
+            // login.jsp로 이동
+            mav.setViewName("items/login");
+            mav.addObject("msg", "failure");
+        }
+        return mav;
+    }
+    
+    // 로그아웃 처리
+    @RequestMapping("logout")
+    public ModelAndView logout(HttpSession session){
+        customerService.logout(session);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("items/login");
+        mav.addObject("msg", "logout");
+	        return mav;
+	    }
+
 }
+	
+	
+	
+	
+	
+

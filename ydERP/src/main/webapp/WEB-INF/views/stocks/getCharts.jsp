@@ -114,7 +114,7 @@
 		type : "json",
 		success : function(datas){
 			var data2 = [];
-			data2.push([ "일별", "수입금액", "지출금액", "이익" ]);
+			data2.push([ "일별", "수입금액", "판매금액", "이익" ]);
 			for (i = 0; i < datas.length; i++) {
 				data2.push([ datas[i].IN_OUT_DAY, (datas[i].PURCHASE_AMT), (datas[i].SALE_AMT), (datas[i].VAR_AMT) ]);
 			};

@@ -4,21 +4,23 @@
 
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/jquery/date_calendar.css">
+<link rel="stylesheet" 
+	href="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.css">
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script
+	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
+	type="text/javascript"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
+	type="text/javascript"></script>	
+<script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/daumaddr/daumAddr.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
-	type="text/javascript"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
-	type="text/javascript"></script>
+
+
 
 
 <script>

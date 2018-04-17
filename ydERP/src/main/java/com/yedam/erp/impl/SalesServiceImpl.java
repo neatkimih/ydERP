@@ -54,4 +54,10 @@ public class SalesServiceImpl implements SalesService {
 	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {
 		return salesDAO.getOrderByCondition(salesVO);
 	}
+	
+	/* 승인 후 품목 재고 처리 */
+	@Override
+	public void afterPermitOrder(String saleCode) {
+		salesDAO.afterPermitOrder(saleCode);
+	}
 }

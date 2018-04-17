@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.erp.sales.SaleDetailsService;
 import com.yedam.erp.sales.SaleDetailsVO;
+import com.yedam.erp.stocks.StockOnhandVO;
 
 @Service
 public class SaleDetailsServiceImpl implements SaleDetailsService {
@@ -24,5 +25,11 @@ public class SaleDetailsServiceImpl implements SaleDetailsService {
 	@Override
 	public List<SaleDetailsVO> getOrderDetail(SaleDetailsVO saleDetailsVO) {
 		return saleDetailsDAO.getOrderDetail(saleDetailsVO);	
+	}
+	
+	/* 승인 전 재고 확인 */
+	@Override
+	public StockOnhandVO getStock(SaleDetailsVO saleDetailsVO) {
+		return saleDetailsDAO.getStock(saleDetailsVO);
 	}
 }

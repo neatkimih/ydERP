@@ -47,4 +47,6 @@ public class ItemsMybatisDAO {
 	public int getCount(ItemsVO vo) {
 		return sqlSession.selectOne("items.getCount",vo);
 	}
+	
+	
 }

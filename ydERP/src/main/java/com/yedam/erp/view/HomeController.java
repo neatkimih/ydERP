@@ -52,6 +52,24 @@ public class HomeController {
 		return homeServiceImpl.getMostSoldItem();
 	}
 
+	@RequestMapping("getMostBuyItem.do")
+	@ResponseBody
+	public List<Map<String, String>> getMostBuyItem() {
+		return homeServiceImpl.getMostBuyItem();
+	}
+
+	@RequestMapping("getInOutQtyChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getInOutQtyChart() {
+		return homeServiceImpl.getInOutQtyChart();
+	}
+
+	@RequestMapping("getInOutAmtChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getInOutAmtChart() {
+		return homeServiceImpl.getInOutAmtChart();
+	}
+
 	@RequestMapping("getCharts")
 	public String getCharts() {
 		return "stocks/getCharts";

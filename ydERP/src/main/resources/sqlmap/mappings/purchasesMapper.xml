@@ -27,5 +27,13 @@
 		PURCHASE_DETAIL_CODE=#{purchaseDetailCode}
 	</update>
 
+	<select id="getPurchasesListMap" resultType="map">
+	<![CDATA[
+   SELECT p.*, i.item_name
+   FROM purchase_detail_vo p
+   join items i on p.item_name = i.item_name
+   WHERE purchase_code = purchase_Code
+	]]>
+	</select>
 
 </mapper>

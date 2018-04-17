@@ -18,6 +18,18 @@ public class HomeServiceImpl {
 		return dao.getMostSoldItem();
 	}
 
+	public List<Map<String, String>> getMostBuyItem() {
+		return dao.getMostBuyItem();
+	}
+
+	public List<Map<String, Object>> getInOutQtyChart() {
+		return dao.getInOutQtyChart();
+	}
+
+	public List<Map<String, Object>> getInOutAmtChart() {
+		return dao.getInOutAmtChart();
+	}
+
 	public List<Map<String, Object>> getLookups(String LOOKUP) {
 		return dao.getLookups(LOOKUP);
 	}

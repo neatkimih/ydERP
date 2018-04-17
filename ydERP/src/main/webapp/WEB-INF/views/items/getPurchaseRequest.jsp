@@ -1,14 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/jquery/date_calendar.css">
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.css">
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
+<script
+	src="${pageContext.request.contextPath}/resources/datetimepicker/moment.min.js"></script>
+	<script
+	src="${pageContext.request.contextPath}/resources/datetimepicker/ko.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script
@@ -182,16 +188,30 @@
 		}
 		temp.options[0].selected = true
 	}
+	
+	function PurchaseRequestcancel() {
+		location.reload();
+	}
 </script>
+<form id="logout" action="logout">
+ <div class="logout">
+ 				<c:if test="${not empty sessionScope.viewCustomer}">
+  					<h3> 사업자 등록 번호 ${sessionScope.viewCustomer.customerName} 님 환영합니다. 
+					<input class="btn btn-alert" type="submit" name="logout" id="logout" value="로그아웃"/>
+					</h3></c:if>
+					</div>
+			
+</form>					
 <div class="page-header">
 		<h1>
 			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
-			&nbsp; &emsp; &nbsp; &nbsp;  &nbsp; 
+			&nbsp;  &nbsp; &nbsp;  
 			
-				<input class="btn btn-success" type="button" value="주문하기"
-					onclick="priceCalc()">
-			
+				<input class="btn btn-primary" type="button" value="주문하기"
+					onclick="commitPurchaseRequest()">
+				<input class="btn btn-success" type="button" value="취소"
+					onclick="PurchaseRequestcancel()">
 		</h1>
 	</div>
 
@@ -246,7 +266,7 @@
 			height : 'auto',
 			autowidth : true,
 			responsive : true,
-			multiselect : true,
+			multiselect : false,
 			pager : "#pager"
 		});
 
@@ -280,6 +300,8 @@
 	<div id="pager"></div>
 </div>
 <!-- 구매신청 -->
+
+
 <div class="col-md-6">
 <form class="form-horizontal" id="FormPost" name="FormPost">
 		<div class="form-group">
@@ -388,9 +410,9 @@
 
 		</div>
 
+</form>
+</div>	
 
-	</form>
-</div>
 
 
 

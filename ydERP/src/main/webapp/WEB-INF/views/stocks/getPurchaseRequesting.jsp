@@ -8,7 +8,6 @@
 <title>구매전체조회</title>
 <link rel="stylesheet" type="text/css" media="screen" 
 	href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
-<script src="./scripts/jquery-3.3.1.min.js"></script>
 <script src="./scripts/json.min.js"></script>
 
 <script type="text/javascript">
@@ -66,30 +65,40 @@
 
 </script>
 </head>
-<body><h3>getPurchaseRequesting.jsp</h3>
+<body>
+	<h3>getPurchaseRequesting.jsp</h3>
+	<div class="col-lg-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">구매요청처리</div>
+			<div class="container">
+				<div class="col-lg-3" style="margin-top: 10px">
+					<button id="btn1" class="btn btn-outline btn-success btn-block">주문요청승인</button>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+
 	<form name="frm" action="createPurchaseRequest">
-		<input type="button" value="주문요청승인" id="btn1" />
+		<!-- <input type="button" value="주문요청승인" id="btn1" /> -->
 		<div class="col-lg-12">
-			<table id="list" border="1" class="table table-striped table-bordered table-hover">
-				<thead><tr>
-					<th>주문상세코드</th>
-					<th>주문코드</th>
-					<th>주문수량</th>
-					<th>주문단가</th>
-					<th>부가세</th>
-					<th>품목코드</th>
-					<th>폼목명</th>
-				</tr></thead>
+			<table id="list" border="1"
+				class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>주문상세코드</th>
+						<th>주문코드</th>
+						<th>주문수량</th>
+						<th>주문단가</th>
+						<th>부가세</th>
+						<th>품목코드</th>
+						<th>폼목명</th>
+					</tr>
+				</thead>
 				<tbody></tbody>
 			</table>
 			<div id="pager"></div>
 		</div>
-	<select id="warehouseSelect" name="searchWarehouse">
-		<option value="">창고 선택</option>
-		<c:forEach items="${lookUpValue}" var="lkup">
-			<option value="${lkup.LOOKUP_CODE}">${lkup.LOOKUP_VALUES}</option>
-		</c:forEach>
-	</select>
 	</form>
 </body>
 </html>

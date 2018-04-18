@@ -13,8 +13,9 @@
 	type="text/javascript"></script>
 <script>
 var lastsel2;
-	var selectedOrderCode;
+
 	$(document).ready(function() {
+		var selectedOrderCode;
 		/* Order List : 마스터 그리드 */
 		$("#orderList").jqGrid({
 			url : "getOrderList.do",
@@ -46,7 +47,6 @@ var lastsel2;
 			gridview : true,
 			autoencode : true,
 			reccount : 15,
-			loadonce : true,
 			search : true,
 			sortname : "saleCode",
 			caption : "주문 내역 정보",
@@ -64,8 +64,8 @@ var lastsel2;
 					jQuery("#orderDetail").jqGrid('setGridParam', {
 						url : "./getOrderDetail.do?saleCode=" + selectedOrderCode
 					});
-					jQuery("#orderDetail").jqGrid('setCaption', '주문 코드 : ' + selectedOrderCode);
-					jQuery("#orderDetail").trigger("reloadGrid");
+					jQuery('#orderDetail').jqGrid('setCaption', '주문 코드 : ' + selectedOrderCode);
+					jQuery('#orderDetail').trigger("reloadGrid");
 				}
 				console.log("선택된 주문 코드 : " + selectedOrderCode);
 			},
@@ -114,7 +114,6 @@ var lastsel2;
 			gridview : true,
 			autoencode : true,
 			reccount : 15,
-			loadonce : true,
 			autoheight : true,
 			autowidth : true,
 			search : true
@@ -131,7 +130,7 @@ var lastsel2;
 		}, {
 			closeAfterAdd : true,
 			reloadAfterSubmit : true,
-			afterComplete : function() {	$("#orderList").setGridParam({	datatype : 'json',	page : 1	}).trigger('reloadGrid');	}
+			afterComplete : function() {	$("#orderList").setGridParam({	datatype : 'json',	page : 1	}).trigger("reloadGrid");	}
 		}, {
 			serializeDelData : function(postdata) {
 				return "oper=del&saleCode=" + postdata.id
@@ -141,10 +140,16 @@ var lastsel2;
 		);
 	});
 	
-	/* saveparameters = {
-			"aftersavefunc" : alert();
-			
-	} */
+	saveparameters = {
+			"successfunc" : function(response) {
+				if(response.responseJSON.result == "false") {
+					alert(response.responseJSON.data);
+					}
+				else if(response.responseJSON.result == "true") {
+					alert("주문이 승인되었습니다.");
+					}
+				}
+	};
 	
 	/* 승인확인 버튼 생성 */
 	function permitBtn (cellvalue, options, rowObject) {
@@ -189,7 +194,7 @@ var lastsel2;
 	function gridReload() {
 		var params = $('#orderSearchForm').serialize();
 		
-		jQuery("#orderList").jqGrid('setGridParam', {url:"getOrderByCondition.do?"+params	,page:1}).trigger("reloadGrid");
+		jQuery("#orderList").jqGrid('setGridParam', {url:"getOrderByCondition.do?"+params ,page:1}).trigger("reloadGrid");
 	}
 	
 	function enableAutosubmit(state) {
@@ -272,21 +277,7 @@ var lastsel2;
 						<td class="searchTd">배송주소</td><td colspan="2"><input type="text" id="deliveryAddrPut" name="deliveryAddr" /></td>
 					</tr>
 					<tr class="searchTr">
-						<td class="searchTd">배송상태</td>
-						<td class="inputTd">
-							<select id="deliveryListSelect" name="deliveryStatus">
-							<c:forEach items="${lookupDeliveryList}" var="lkdl">						
-								<option value="${lkdl.LOOKUP_CODE}" >${lkdl.LOOKUP_VALUES}</option>			
-							</c:forEach>
-							</select>
-						</td>
-						<td class="searchTd">결제상태</td>
-						<td class="inputTd">
-							<select id="paymentListSelect" name="payStatus">
-								<c:forEach items="${lookupPaymentList}" var="lkpl">						
-								<option value="${lkpl.LOOKUP_CODE}">${lkpl.LOOKUP_VALUES}</option>					
-								</c:forEach>
-							</select>
+						<td>
 						</td>
 						<td class="searchTd"></td><td id="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
 					</tr>

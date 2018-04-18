@@ -12,54 +12,29 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script
+	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
+	type="text/javascript"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
+	type="text/javascript"></script>	
+<script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/moment.min.js"></script>
 	<script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/ko.js"></script>
+
 <script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/daumaddr/daumAddr.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
-	type="text/javascript"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
-	type="text/javascript"></script>
+
 
 
 <script>
-	//해결 과제
-	//검색시 DB에서 ItemsName 값을 Mapping하여 자동완성기능
-	$(function() {
-		$("#autocomplete").autocomplete({
-			source : function(request, response) {
-				$.ajax({
-					type : 'post',
-					url : "/getItemsList.do",
-					dataType : "json",
-					data : {
-						value : request.term
-					},
-					success : function(data) {
-						response(
-							$.map(data, function(item) {
-								return {
-									label : item.data,
-									value : item.data
-								}
-							})
-						);
-					}
-				});
-			},
-			//조회를 위한 최소글자수
-			minLength : 2,
-			select : function(event, ui) {
-				// 만약 검색리스트에서 선택하였을때 선택한 데이터에 의한 이벤트발생
-			}
-		});
-	})
+
+	
+	
 </script>
+
 <script>
 	//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수
 	$(function() {
@@ -103,6 +78,8 @@
 			temp.options[i] = new Option(group[x][i].text, group[x][i].value);
 		}
 		temp.options[0].selected = true
+		var param = {pGroup1:$("#first").val()};
+		lastCondition(param);
 	}
 
 	function secondChange() {
@@ -187,31 +164,59 @@
 			temp.options[i] = new Option(group[x][i].text, group[x][i].value)
 		}
 		temp.options[0].selected = true
+		var param = {pGroup2:$("#second").val()};
+		lastCondition(param);
 	}
 	
+	function thirdChange() {
+		var param = {pGroup3:$("#third").val()};
+		lastCondition(param);
+	}	
+	
+</script>
+	 
+	 
+<script>
+	function submit() {
+		document.FormPost.submit();
+	}
+	
+	
 	function PurchaseRequestcancel() {
+		
 		location.reload();
 	}
+	
+	
+	
+	function lastCondition(params) {
+		$.ajax({
+			url : "./getItemsList2",
+			data : params,
+			dataType : "json",
+			success : function(datas) {
+				console.dir(datas);
+				$("#itemList option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					$("#itemList").append("<option value='"+datas[i].itemCode+"'>" + datas[i].itemName);
+				}
+			}
+		});
+	}	
+	
 </script>
-<form id="logout" action="logout">
- <div class="logout">
- 				<c:if test="${not empty sessionScope.viewCustomer}">
-  					<h3> 사업자 등록 번호 ${sessionScope.viewCustomer.customerName} 님 환영합니다. 
-					<input class="btn btn-alert" type="submit" name="logout" id="logout" value="로그아웃"/>
-					</h3></c:if>
-					</div>
-			
-</form>					
+<body>
 <div class="page-header">
 		<h1>
 			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
-			&nbsp;  &nbsp; &nbsp;  
+			&nbsp; &nbsp;  &nbsp; 
 			
 				<input class="btn btn-primary" type="button" value="주문하기"
-					onclick="commitPurchaseRequest()">
+					onclick="submit()">
 				<input class="btn btn-success" type="button" value="취소"
 					onclick="PurchaseRequestcancel()">
+			
 		</h1>
 	</div>
 
@@ -220,8 +225,8 @@
 
 
 		$("#list").jqGrid({
-			url : "getCustomerList",
-			editurl : "CustomerEdit",
+			url : "getSales_tempList",
+			editurl : "Sales_tempEdit",
 			datatype : "json",
 			styleUI : 'Bootstrap',
 			colModel : [ {
@@ -229,30 +234,41 @@
 				name : "customerCode",
 				key : true,
 				align : "center",
+				width : 100,
+				editable : false
+				
+			}, {
+				label : "주문 품목명",
+				name : "itemName",
 				width : 120,
 				editable : false
-			}, {
-				label : "품목명",
-				name : "customerName",
-				width : 120,
+			},{
+				label : "주문 수량",
+				name : "requestQty",
+				width : 80,
 				editable : false
 			}, {
-				label : "도착지",
-				name : "customerLoc",
-				width : 250,
+				label : "주문 날짜",
+				name : "createDate",
+				width : 130,
 				align : "left",
-				editable : true
+				editable : true,
+				formatter: "date",
+                formatoptions: { srcformat:'U/1000', newformat: " Y/m/d" }
+
 			}, {
-				label : "연락처",
-				name : "customerPhone",
-				width : 120,
+				label : "희망 배송 날짜",
+				name : "needDate",
+				width : 130,
 				align : "right",
-				editable : true
+				editable : true,
+				formatter: "date",
+				formatoptions: { srcformat:'U/1000', newformat: " Y/m/d" }
 			} ],
 			pager : "#pager",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
-			sortname : "customerCode",
+			sortname : "itemName",
 			sortorder : "desc",
 			viewrecords : true,
 			gridview : false,
@@ -300,10 +316,8 @@
 	<div id="pager"></div>
 </div>
 <!-- 구매신청 -->
-
-
 <div class="col-md-6">
-<form class="form-horizontal" id="FormPost" name="FormPost">
+<form class="form-horizontal" id="FormPost" name="FormPost" action="insertSales_temp">
 		<div class="form-group">
 			<label for="Category" class="col-md-3 control-label">품목종류</label>
 			<div class="col-md-2">
@@ -323,7 +337,7 @@
 				</select>
 			</div>
 			<div class="col-md-2">
-				<select class="form-control" id="third" name="third">
+				<select class="form-control" id="third" name="third" onchange="thirdChange()">
 					<option value=''>소분류</option>
 				</select>
 			</div>
@@ -332,8 +346,15 @@
 		<div class="form-group">
 			<label for="departureSize" class="col-md-3 control-label">품목명</label>
 			<div class="col-md-6">
-				<input class="form-control" type="text" id="autocomplete"
-					name="autocomplete" />
+				<input class="form-control" type="hidden" id="itemCode"
+					name="itemCode" />
+				<select class="form-control" id="itemList"
+					name="itemList">
+					<option value="">선택</option>
+							<c:forEach items="${getItemsList}" var="lkup">
+								<option value="${itemCode}">${itemName}</option>
+							</c:forEach>
+				</select>
 			</div>
 		</div>
 
@@ -353,7 +374,7 @@
 			<label for="departureSize" class="col-md-2 control-label">수량</label>
 			<div class="col-md-2">
 				<input class="form-control" type="number" id="itemQty"
-					name="itemQty" />
+					name="itemQty" min="1"/>
 			</div>
 		</div>
 
@@ -371,7 +392,7 @@
 						showClear : true,
 						showTodayButton : true,
 						stepping : 30,
-						defaultDate : new Date(),
+						//defaultDate : new Date(),
 						sideBySide : true
 					});
 				</script>
@@ -393,7 +414,7 @@
 				<input class="form-control" type="text" id="cellphone"
 					name="cellphone" />
 			</div>
-
+ 
 
 		</div>
 
@@ -402,7 +423,7 @@
 			<label for="fullprice" class="col-md-3 control-label">총 금액</label>
 			<div class="col-md-3">
 				<input type="text" class="form-control" id="fullprice"
-					placeholder="총 금액">
+					placeholder="총 금액" readonly="readonly">
 			</div>
 
 
@@ -410,9 +431,9 @@
 
 		</div>
 
-</form>
-</div>	
 
-
+	</form>
+</div>
+</body>
 
 

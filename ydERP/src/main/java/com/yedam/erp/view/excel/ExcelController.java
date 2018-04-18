@@ -43,11 +43,14 @@ public class ExcelController {
 	public ModelAndView excelView(HttpServletResponse response) throws IOException {
 		List<Map<String, Object>> list = purchasesService.getPurchasesListMap();
 		Map<String, Object> map = new HashMap<String, Object>();
-		/*String[] header = { "PURCHASECODE", "PURCHASE_DATE", "VENDORCODE", "PURCHASE_DETAIL_CODE" };*/
+		String[] header = {"PURCHASE_DETAIL_CODE", "PURCHASE_CODE", "PURCHASE_ITEM", "ITEM_NAME", "PURCHASE_QTY", "PURCHASE_PRICE", "ITEM_TAX", "INCOMING_FLAG"};
+		String[] headertitle = {"구매상세코드", "구매코드", "품목코드", "품목명", "품목수량", "품목단가", "부가세", "입고여부"};
 		map.put("filenmame", "");
 		map.put("datas", list);
 		map.put("filename", "PurchaseView");
-		/*map.put("headers", header);*/
+		map.put("headers", header);
+		map.put("headertitle", headertitle);
 		return new ModelAndView("commonExcelView", map);
-	}
+		
+	}	
 }

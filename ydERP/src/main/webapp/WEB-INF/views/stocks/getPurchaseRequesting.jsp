@@ -8,7 +8,6 @@
 <title>구매전체조회</title>
 <link rel="stylesheet" type="text/css" media="screen" 
 	href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
-<script src="./scripts/jquery-3.3.1.min.js"></script>
 <script src="./scripts/json.min.js"></script>
 
 <script type="text/javascript">

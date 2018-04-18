@@ -52,14 +52,23 @@
 		FROM   stock_onhands_vo v
 		]]>
 		<where>
-			<if test="itemCode != null">
+			<if test="itemCode != null and itemCode != '' ">
 				AND item_code like '%'||#{itemCode}||'%'
 			</if>
-			<if test="itemName != null">
+			<if test="itemName != null and itemName != '' ">
 				AND item_name like '%'||#{itemName}||'%'
 			</if>
-			<if test="vendorCode != null">
+			<if test="vendorCode != null and vendorCode != '' ">
 				AND vendor_code like #{vendorCode}||'%'
+			</if>
+			<if test="group1 != null and group1 != '' ">
+				AND SUBSTR(item_code,1,1) = #{group1}
+			</if>
+			<if test="group2 != null and group2 != '' ">
+				AND SUBSTR(item_code,2,1) = #{group2}
+			</if>
+			<if test="group3 != null and group3 != '' ">
+				AND SUBSTR(item_code,3,1) = #{group3}
 			</if>
 		</where>
 		ORDER BY item_code
@@ -280,4 +289,49 @@
         ]]>
 	</update>
 
+	<select id="getItemGroup1" resultType="map">
+		<![CDATA[
+		SELECT lv.descriptions "grp_name"
+		      ,lv.lookup_code  "grp_code"
+		FROM   lookups       lk
+		      ,lookup_values lv
+		WHERE  lk.lookup = lv.lookup
+		AND    lk.lookup = 'ITEM_GROUP1'
+		ORDER BY lv.descriptions
+		]]>
+	</select>
+
+	<select id="getItemGroup2" parameterType="string" resultType="map">
+		<![CDATA[
+		SELECT lv.descriptions "grp_name"
+		      ,lv.lookup_code  "grp_code"
+		FROM   lookups       lk
+		      ,lookup_values lv
+		WHERE  lk.lookup = lv.lookup
+		AND    lk.lookup = 'ITEM_GROUP2'
+		]]>
+			<if test=" _parameter != null and _parameter != '' ">
+				AND    lv.dff = #{_parameter}
+			</if>
+		<![CDATA[
+		ORDER BY lv.descriptions
+		]]>
+	</select>
+
+	<select id="getItemGroup3" parameterType="string" resultType="map">
+		<![CDATA[
+		SELECT lv.descriptions "grp_name"
+		      ,lv.lookup_code  "grp_code"
+		FROM   lookups       lk
+		      ,lookup_values lv
+		WHERE  lk.lookup = lv.lookup
+		AND    lk.lookup = 'ITEM_GROUP3'
+		]]>
+			<if test=" _parameter != null and _parameter != '' ">
+				AND    lv.dff = #{_parameter}
+			</if>
+		<![CDATA[
+		ORDER BY lv.descriptions
+		]]>
+	</select>
 </mapper>

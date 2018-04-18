@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.erp.items.ItemsVO;
 import com.yedam.erp.items.Sales_tempService;
 import com.yedam.erp.items.Sales_tempVO;
 
@@ -13,6 +14,9 @@ public class Sales_tempServiceimpl implements Sales_tempService {
 
 	@Autowired
 	Sales_tempMybatisDAO dao;
+	
+	@Autowired
+	ItemsMybatisDAO dao2;
 	
 	@Override
 	public void insertSales_temp(Sales_tempVO vo) {
@@ -43,6 +47,14 @@ public class Sales_tempServiceimpl implements Sales_tempService {
 		dao.deleteSales_temp(vo);
 		
 	}
+
+	@Override
+	public List<ItemsVO> getItemsList(ItemsVO vo) {
+		
+		return dao2.getItemsList(vo);
+	}
+
+
 
 	
 	

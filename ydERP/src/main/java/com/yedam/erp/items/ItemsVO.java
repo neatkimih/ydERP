@@ -19,6 +19,8 @@ public class ItemsVO {
 	private String pGroup3;
 	private Integer minQty;
 	private String msg;
+	
+	
 
 	public String getItemCode() {
 		return itemCode;

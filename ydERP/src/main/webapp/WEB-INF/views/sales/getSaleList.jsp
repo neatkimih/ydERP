@@ -37,7 +37,6 @@
 			gridview : true,
 			autoencode : true,
 			reccount : 15,
-			loadonce : true,
 			search : true,
 			sortname : "saleCode",
 			caption : "판매 내역 정보",
@@ -78,7 +77,6 @@
 			viewrecords : true,
 			gridview : true,
 			reccount : 15,
-			loadonce : true,
 			autoencode : true,
 			autoheight : true,
 			autowidth : true,
@@ -203,16 +201,18 @@
 						<td class="searchTd">배송상태</td>
 						<td class="inputTd">
 							<select id="deliveryListSelect" name="deliveryStatus">
-							<c:forEach items="${lookupDeliveryList}" var="lkdl">						
-								<option value="${lkdl.LOOKUP_CODE}" >${lkdl.LOOKUP_VALUES}</option>			
-							</c:forEach>
+								<option value="">전체</option>
+								<c:forEach items="${lookupDeliveryList}" var="lkdl">						
+									<option value="${lkdl.LOOKUP_CODE}" >${lkdl.LOOKUP_VALUES}</option>			
+								</c:forEach>
 							</select>
 						</td>
 						<td class="searchTd">결제상태</td>
 						<td class="inputTd">
 							<select id="paymentListSelect" name="payStatus">
+								<option value="">전체</option>
 								<c:forEach items="${lookupPaymentList}" var="lkpl">						
-								<option value="${lkpl.LOOKUP_CODE}">${lkpl.LOOKUP_VALUES}</option>					
+									<option value="${lkpl.LOOKUP_CODE}">${lkpl.LOOKUP_VALUES}</option>					
 								</c:forEach>
 							</select>
 						</td>

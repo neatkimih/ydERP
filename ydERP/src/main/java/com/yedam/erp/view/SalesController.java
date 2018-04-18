@@ -163,7 +163,7 @@ public class SalesController {
 			// 주문 상세 목록 받아오기
 			List<SaleDetailsVO> saleDetailList = saleDetailsService.getOrderDetail(saleDetailsVO);
 			
-			
+			strNotEnoughItem = "[품목재고 부족으로 승인불가]\n";
 			for(SaleDetailsVO saleDetail : saleDetailList) {
 				saleCnt = saleDetail.getSaleQty();										// 각 품목 주문 수량 받아오기
 				stockCnt = saleDetailsService.getStock(saleDetail).getOnhandQty();		// 각 품목 재고 수량 받아오기
@@ -171,19 +171,20 @@ public class SalesController {
 				/* 품목 하나라도 충분하지 않으면 승인이 되지 않게 flag를 false로 설정 */
 				if(saleCnt > stockCnt) {
 					flag = false;
-					strNotEnoughItem += saleDetail.getSaleItemName() + " " + (Math.abs(stockCnt-saleCnt) + "개, ");
+					strNotEnoughItem += saleDetail.getSaleItemName() + " " + (Math.abs(stockCnt-saleCnt) + "개, \n");
 					System.out.println(strNotEnoughItem);
 				}
 			}
-			
-			
+			strNotEnoughItem = strNotEnoughItem.substring(0, strNotEnoughItem.length()-3);
+			System.out.println(strNotEnoughItem);
 			/* 재고가 충분하면 */
 			if(flag == true) {
-				// salesService.updateOrderStatus(salesVO);					// 주문을 승인하고
-				// salesService.afterPermitOrder(salesVO.getSaleCode());		// 재고를 감소시킨다.
+				result.put("result",  "true");
+				salesService.updateOrderStatus(salesVO);				// 주문을 승인하고
+				salesService.afterPermitOrder(salesVO.getSaleCode());	// 재고를 감소시킨다.
 			}
-			else {
-				result.put("result", false);
+			else {	/* 재고가 충분하지 않으면 */
+				result.put("result", "false");
 				result.put("data", strNotEnoughItem);
 				return result;
 			}

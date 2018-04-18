@@ -3,10 +3,12 @@ package com.yedam.erp.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.yedam.erp.items.Sales_tempService;
 import com.yedam.erp.items.Sales_tempVO;
 
+@Service
 public class Sales_tempServiceimpl implements Sales_tempService {
 
 	@Autowired

@@ -23,7 +23,7 @@ public class CommonExcelView extends AbstractXlsxView {
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Sheet sheet = workbook.createSheet("Datatypes in Java");
+		Sheet sheet = workbook.createSheet("sheet1");
 		Row row;
 		Cell cell;
 		int rowNum = 0;
@@ -33,21 +33,28 @@ public class CommonExcelView extends AbstractXlsxView {
 		//컬럼수 만큼 병합, title 출력
 		
 		// header 출력
-		String[] headers = (String[]) model.get("headers");
-		if (headers != null) {
+		String[] headertitle = (String[]) model.get("headertitle");
+		if (headertitle != null) {
 			row = sheet.createRow(rowNum++);
 			int colNum = 0;
-			for (String header : headers) {
-				row.createCell(colNum++).setCellValue(header);
+			for (String header : headertitle) {				
+				//셀 오토사이즈 수정해야함.
+				cell = row.createCell(colNum);
+				sheet.autoSizeColumn((short)colNum);
+				sheet.setColumnWidth(colNum, (sheet.getColumnWidth(colNum))+512 );
+				cell.setCellValue(header);
+				colNum++;
 			}
 		}
 		// body 출력
+		String[] headers = (String[]) model.get("headers");
 		List<Map<String, Object>> list = (List<Map<String, Object>>) model.get("datas");
-		System.out.println(list);
+		System.out.println(list); 
 		if (headers != null) {
 			for (Map<String, Object> map : list) {
-				row = sheet.createRow(rowNum++);
+				row = sheet.createRow(rowNum++);			
 				int colNum = 0;
+				sheet.autoSizeColumn((short)colNum);
 				for (String header : headers) {
 					cell = row.createCell(colNum++);
 					//
@@ -65,6 +72,7 @@ public class CommonExcelView extends AbstractXlsxView {
 					} else {
 						cell.setCellValue(field.toString());
 					}
+					
 				}
 			}
 		} else {
@@ -85,7 +93,9 @@ public class CommonExcelView extends AbstractXlsxView {
 						cell.setCellValue(field.toString());
 					}
 				}
-			}
+			}	
+				
+			
 		}
 		LOGGER.debug("### buildExcelDocument Map : {} end!!");
 	}

@@ -1,8 +1,12 @@
 package com.yedam.erp.view;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import com.yedam.erp.sales.SalesService;
 import com.yedam.erp.sales.SalesVO;
 import com.yedam.erp.stocks.PurchaseRequestService;
 import com.yedam.erp.stocks.PurchaseRequestVO;
+import com.yedam.erp.stocks.StockOnhandService;
 import com.yedam.erp.stocks.impl.HomeServiceImpl;
 
 @Controller
@@ -30,7 +35,8 @@ public class SalesController {
 	@Autowired EmployeesService employeesService;
 	@Autowired PurchaseRequestService purchaseRequestService;
 	@Autowired HomeServiceImpl homeServiceImpl;
-
+	@Autowired StockOnhandService stockOnhandService;
+	
 	/* 판매 내역 페이지 폼 */
 	@RequestMapping("/getSaleList")
 	public String getSaleListForm(Model model) {
@@ -42,7 +48,7 @@ public class SalesController {
 		return "sales/getSaleList";
 	}
 
-	/* 전체 판매 내역 조회 처리 */
+	/* 판매 내역 기본 정보 조회 */
 	@RequestMapping("/getSaleList.do")
 	@ResponseBody
 	public List<SalesVO> getSaleList(SalesVO salesVO, Paging page) {
@@ -50,7 +56,7 @@ public class SalesController {
 		return salesService.getSaleList(salesVO);
 	}
 
-	/* 상세 판매 내역 조회 처리 */
+	/* 판매 내역 상세 정보 조회 */
 	@RequestMapping(value = "/getSaleDetail.do")
 	@ResponseBody
 	public List<SaleDetailsVO> getSaleDetail(SaleDetailsVO saleDetailsVO, Paging page) {
@@ -77,6 +83,12 @@ public class SalesController {
 		
 		List<EmployeesVO> empList = employeesService.getEmployeesList(employeesVO);
 		List<Map<String, Object>> lookupList = purchaseRequestService.getlookUpValueList(vo);
+		
+		List<Map<String, String>> lookupDeliveryList = homeServiceImpl.selectLookups("DELIVERY");
+		List<Map<String, String>> lookupPaymentList = homeServiceImpl.selectLookups("PAYMENT");
+		
+		model.addAttribute("lookupDeliveryList", lookupDeliveryList);
+		model.addAttribute("lookupPaymentList", lookupPaymentList);
 		
 		String lookupStr = "";
 		String empStr = "";
@@ -117,14 +129,6 @@ public class SalesController {
 		return null;
 	}
 
-	/* 주문 승인 처리 */
-	/*@RequestMapping(value = "/updateOrderStatus.do")
-	@ResponseBody
-	public String updateOrderStatus(SalesVO salesVO) {
-		salesService.updateOrderStatus(salesVO);
-		return "redirect:/getOrderList";
-	}*/
-
 	/* 승인대기 주문취소 처리 */
 	@RequestMapping("/deleteOrderList.do")
 	@ResponseBody
@@ -140,17 +144,52 @@ public class SalesController {
 		return salesService.getOrderByCondition(salesVO);
 	}
 	
-
 	/* 승인대기 주문 그리드 편집 */
 	@RequestMapping("/editOrderList.do")
 	@ResponseBody
-	public void editOrderList(@RequestParam(value = "oper", required = false) String op, SalesVO salesVO) {
+	public Map<String, Object> editOrderList(@RequestParam(value = "oper", required = false) String op, SalesVO salesVO, SaleDetailsVO saleDetailsVO,
+			HttpServletResponse response) throws IOException {
 		System.out.println("sdafasfda");
+		int saleCnt = 0;
+		int stockCnt = 0;
+		String strNotEnoughItem = "";
+		boolean flag = true;
+		Map<String, Object> result = new HashMap<String, Object>();
 		if (op.equals("edit")) {
-			salesService.updateOrderStatus(salesVO);
+			
+			// saleDetails.itemQty > stockOnHandList.onhand_qty 이면
+			// saleDetails.itemName을 alert에 표시하기
+			
+			// 주문 상세 목록 받아오기
+			List<SaleDetailsVO> saleDetailList = saleDetailsService.getOrderDetail(saleDetailsVO);
+			
+			
+			for(SaleDetailsVO saleDetail : saleDetailList) {
+				saleCnt = saleDetail.getSaleQty();										// 각 품목 주문 수량 받아오기
+				stockCnt = saleDetailsService.getStock(saleDetail).getOnhandQty();		// 각 품목 재고 수량 받아오기
+				
+				/* 품목 하나라도 충분하지 않으면 승인이 되지 않게 flag를 false로 설정 */
+				if(saleCnt > stockCnt) {
+					flag = false;
+					strNotEnoughItem += saleDetail.getSaleItemName() + " " + (Math.abs(stockCnt-saleCnt) + "개, ");
+					System.out.println(strNotEnoughItem);
+				}
+			}
+			
+			
+			/* 재고가 충분하면 */
+			if(flag == true) {
+				// salesService.updateOrderStatus(salesVO);					// 주문을 승인하고
+				// salesService.afterPermitOrder(salesVO.getSaleCode());		// 재고를 감소시킨다.
+			}
+			else {
+				result.put("result", false);
+				result.put("data", strNotEnoughItem);
+				return result;
+			}
 		} else if (op.equals("del")) {
 			salesService.deleteOrder(salesVO);
 		}
+		return result;
 	}
-
 }

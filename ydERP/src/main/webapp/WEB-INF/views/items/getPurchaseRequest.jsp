@@ -12,19 +12,21 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script
+	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
+	type="text/javascript"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
+	type="text/javascript"></script>	
+<script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/moment.min.js"></script>
 	<script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/ko.js"></script>
+
 <script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/daumaddr/daumAddr.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
-	type="text/javascript"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
-	type="text/javascript"></script>
+
 
 
 <script>
@@ -189,29 +191,24 @@
 		temp.options[0].selected = true
 	}
 	
+	
 	function PurchaseRequestcancel() {
+		
 		location.reload();
 	}
+	
 </script>
-<form id="logout" action="logout">
- <div class="logout">
- 				<c:if test="${not empty sessionScope.viewCustomer}">
-  					<h3> 사업자 등록 번호 ${sessionScope.viewCustomer.customerName} 님 환영합니다. 
-					<input class="btn btn-alert" type="submit" name="logout" id="logout" value="로그아웃"/>
-					</h3></c:if>
-					</div>
-			
-</form>					
 <div class="page-header">
 		<h1>
 			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
-			&nbsp;  &nbsp; &nbsp;  
+			&nbsp; &nbsp;  &nbsp; 
 			
 				<input class="btn btn-primary" type="button" value="주문하기"
-					onclick="commitPurchaseRequest()">
+					onclick="priceCalc()">
 				<input class="btn btn-success" type="button" value="취소"
 					onclick="PurchaseRequestcancel()">
+			
 		</h1>
 	</div>
 
@@ -266,7 +263,7 @@
 			height : 'auto',
 			autowidth : true,
 			responsive : true,
-			multiselect : false,
+			multiselect : true,
 			pager : "#pager"
 		});
 
@@ -300,8 +297,6 @@
 	<div id="pager"></div>
 </div>
 <!-- 구매신청 -->
-
-
 <div class="col-md-6">
 <form class="form-horizontal" id="FormPost" name="FormPost">
 		<div class="form-group">
@@ -371,7 +366,7 @@
 						showClear : true,
 						showTodayButton : true,
 						stepping : 30,
-						defaultDate : new Date(),
+						//defaultDate : new Date(),
 						sideBySide : true
 					});
 				</script>
@@ -410,9 +405,9 @@
 
 		</div>
 
-</form>
-</div>	
 
+	</form>
+</div>
 
 
 

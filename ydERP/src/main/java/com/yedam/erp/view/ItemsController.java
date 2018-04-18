@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yedam.erp.items.ItemsVO;
+import com.yedam.erp.items.Sales_tempService;
+import com.yedam.erp.items.Sales_tempVO;
 import com.yedam.erp.sales.CustomersVO;
 import com.yedam.erp.items.CustomerService;
 import com.yedam.erp.items.CustomerVO;
@@ -38,6 +40,9 @@ public class ItemsController {
 
 	@Autowired
 	CustomerService customerService;
+	
+	@Autowired
+	Sales_tempService sales_tempService;
 	
 	// 품목 등록 폼
 	@RequestMapping("/insertItemsForm")
@@ -179,11 +184,57 @@ public class ItemsController {
 	//<!-- 판매 업체 관리의 끝 -->
 
 	// 여기서부터 주문요청 관리
-	// 주문요청
+	// 판매 업체 주문 요청 폼
 	@RequestMapping("/getPurchaseRequest")
 	public String getPurchaseRequest() {
 		return "items/getPurchaseRequest";
 	}
+	
+	// 판매 업체 주문 요청 등록
+		@RequestMapping("/insertSales_temp")
+		public String insertSales_temp(Sales_tempVO vo) {
+			sales_tempService.insertSales_temp(vo);
+			return "items/manageCustomer";
+		}
+		
+		//판매 업체 주문 요청 한건 조회 (onselectedRow)
+		@RequestMapping("/getSales_temp")
+		public Sales_tempVO getSales_temp(Sales_tempVO vo) {
+			
+			return sales_tempService.getSales_temp(vo);
+		}
+		
+		// 판매 업체 주문 요청 목록 가져오기
+		@RequestMapping("/getSales_tempList")
+		@ResponseBody
+		public List<Sales_tempVO> getSales_tempList(Model model, Sales_tempVO vo) {
+			vo.setFirst(1);
+			vo.setLast(30);
+			return sales_tempService.getSales_tempList(vo);
+		}
+		
+		// 판매 업체 주문 요청 수정처리
+			@RequestMapping("/updateSales_temp")
+			public String updateSales_temp(Sales_tempVO vo) {
+				sales_tempService.updateSales_temp(vo);
+				return "items/managSales_temp";
+		}
+		//판매 업체 여러건 삭제 (거래중단으로 update)
+		@RequestMapping("/Sales_tempEdit")
+		@ResponseBody
+		public void deleteSales_temp(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, Sales_tempVO vo,
+									@RequestParam(value = "customerCode", defaultValue = "", required = false) String customerCode) {
+			if (oper.equals("del")) {
+				sales_tempService.deleteSales_temp(vo);
+				if (customerCode.length() > 0) {
+					for (String i : customerCode.split(",")) {
+						
+						vo.setCustomerCode(i);
+						sales_tempService.deleteSales_temp(vo);
+					}
+				}
+			}
+		}	
 	
 	//<!-- 주문요청의 끝 -->
 	
@@ -202,9 +253,8 @@ public class ItemsController {
 	}
 	
 	// 기타2
-	// 해결 과제
     // 로그인 기능부분
-	
+
     // 로그인 폼
     @RequestMapping("login")
     public String login(){
@@ -212,10 +262,9 @@ public class ItemsController {
     }
     
     // 로그인 처리
-
-	@RequestMapping("loginCheck")
+    @RequestMapping("loginCheck")
     public ModelAndView loginCheck(@ModelAttribute CustomerVO vo, HttpSession session, Model model){
-    	Logger logger = LoggerFactory.getLogger(ItemsController.class);
+    	//Logger logger = LoggerFactory.getLogger(ItemsController.class);
     	
     	boolean result = customerService.loginCheck(vo, session);
         ModelAndView mav = new ModelAndView();

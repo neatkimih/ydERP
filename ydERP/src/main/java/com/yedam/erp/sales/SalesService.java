@@ -32,4 +32,7 @@ public interface SalesService {
 	
 	/* 승인대기 주문 내역 검색 */
 	public List<SalesVO> getOrderByCondition(SalesVO salesVO);
+	
+	/* 승인 후 품목 재고 처리 */
+	public void afterPermitOrder(String saleCode);
 }

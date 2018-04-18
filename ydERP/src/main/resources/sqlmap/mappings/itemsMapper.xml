@@ -4,10 +4,8 @@
 
 <mapper namespace="items">
 
-	<!-- <select id="getitemsList" resultMap="itemsResult"> -->
+	<!--  -->
 	<select id="getItemsList" resultType="items">
-		<![CDATA[
-		
 		SELECT i.item_code
 		      ,i.item_name
 		      ,i.uom
@@ -18,48 +16,44 @@
 		      ,i.expire_date
 		      ,i.vendor_code		      
 		FROM   items i
+		<where>
+			<if test="pGroup1 != null and pGroup1 != '' ">
+					AND item_code like '%' || #{pGroup1} || '%'
+			</if>
+			<if test="pGroup2 != null and pGroup2 != '' ">
+					AND item_code like '%' || #{pGroup2} || '%'
+			</if>
+			<if test="pGroup3 != null and pGroup3 != '' ">
+					AND item_code like '%' || #{pGroup3} || '%'
+			</if>
+		</where>
 		ORDER BY item_code DESC
-		]]>
-
-
 	</select>
 	<!-- -->
-	<select id="getItems" resultType="items" parameterType="items">
+	<select id="getItems" parameterType="items" resultType="com.yedam.erp.items.Sales_tempVO">
 		<![CDATA[
 		SELECT * FROM items 
 		]]>
-		<where>
-			<if test="searchKeyword != null and searchKeyword != '' ">
-				<if test="searchCondition == 'item_code' ">
-					AND item_code like '%' || #{searchKeyword} || '%'
-				</if>
-				<if test="searchCondition == 'item_name' ">
-					AND item_name like '%' || #{searchKeyword} || '%'
-				</if>
-			</if>
-		</where>
+		
+		
 
 	</select>
 	<!-- -->
 	<select id="getCount" resultType="int" parameterType="items">
 		SELECT Count(*) FROM items
 		<where>
-			<if test="searchKeyword != null and searchKeyword != '' ">
-				<if test="searchCondition == 'item_code' ">
-					AND item_code like '%' || #{searchKeyword} || '%'
+			<if test="item_code != null and item_code != '' ">
+				<if test="item_code == 'item_code' ">
+					AND searchCondition like '%' || #{item_code} || '%'
 				</if>
-				<if test="searchCondition == 'item_name' ">
-					AND item_name like '%' || #{searchKeyword} || '%'
+				<if test="item_name == 'item_name' ">
+					AND searchCondition like '%' || #{item_name} || '%'
 				</if>
 			</if>
 		</where>
 	</select>
 	<!-- -->
-	<!-- <insert id="insertItems" parameterType="items"> INSERT INTO items (item_code 
-		,item_name ,uom ,in_qty ,supply_price ,selling_price ,item_tax ,expire_date 
-		,vendor_code ) values (#{itemCode},#{itemName},#{uom},#{inQty},#{supplyPrice}, 
-		#{sellingPrice},#{itemTax},#{expireDate},#{vendorCode}) </insert> -->
-	<!-- -->
+	
 	<insert id="insertItems" parameterType="items" statementType="CALLABLE">
 		<![CDATA[
 		{call items_ins_proc( #{pGroup1}    
@@ -225,14 +219,16 @@
 	<select id="getSales_tempList" resultType="com.yedam.erp.items.Sales_tempVO">
 		
 		
-		SELECT customer_code
-		      ,item_code
-		      ,request_qty
-		      ,need_date
-		      ,create_date
+		SELECT st.customer_code
+		      ,i.item_code
+		      ,i.item_name
+		      ,st.request_qty
+		      ,st.need_date
+		      ,st.create_date
 		      	     		      
-		FROM  Sales_temp
-		WHERE item_code IS NOT NULL
+		FROM  Sales_temp st, Items i
+		WHERE st.item_code = i.item_code
+		AND st.item_code IS NOT NULL
 		ORDER BY customer_code DESC
 		
 	</select>
@@ -260,13 +256,15 @@
 							      ,item_code
 							      ,request_qty
 							      ,need_date
-							      ,create_date) 
+							      ,create_date
+							      ,phone) 
 				      
 				      values (#{customerCode}    
                           	 ,#{ItemCode}      
                              ,#{requestQty}      
                              ,#{needDate}     
                              ,sysdate
+                             ,#{phone}
                              )
 		
 		]]>
@@ -293,6 +291,46 @@
 		FROM Sales_temp
 		WHERE customer_code = ${customerCode}
 	</delete>
+	
+<!-- 	<select id="item_group1" parameterType="com.yedam.erp.items.Sales_tempVO">
+		대분류
+		SELECT lv.descriptions
+		      ,lv.lookup_code
+		FROM   lookups       lk
+		      ,lookup_values lv
+		WHERE  lk.lookup = lv.lookup
+		AND    lk.lookup = 'ITEM_GROUP1';
+	</select>
+
+	<select id="item_group2" parameterType="string" resultType="com.yedam.erp.items.Sales_tempVO">
+		중분류
+		SELECT lv.descriptions
+		      ,lv.lookup_code
+		      ,lv.dff
+		FROM   lookups       lk
+		      ,lookup_values lv
+		WHERE  lk.lookup = lv.lookup
+		AND    lk.lookup = 'ITEM_GROUP2'
+		AND    lv.dff = 'O';
+	</select>
+	<select id="item_group3" parameterType="string" resultType="com.yedam.erp.items.Sales_tempVO">
+		소분류
+		SELECT lv.descriptions
+		      ,lv.lookup_code
+		      ,lv.dff
+		FROM   lookups       lk
+		      ,lookup_values lv
+		WHERE  lk.lookup = lv.lookup
+		AND    lk.lookup = 'ITEM_GROUP3'
+		AND    lv.dff = 'G';
+	</select> -->
+	
+<!-- 	<select id="item_group" parameterType="string" resultType="com.yedam.erp.items.Sales_tempVO">
+		
+		SELECT *
+		FROM   items
+	
+	</select> -->
 	
 	
 	

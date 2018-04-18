@@ -7,9 +7,11 @@ public class Sales_tempVO {
 	
 	private String customerCode;
 	private String itemCode;
+	private String itemName;
 	private Integer requestQty;
 	private Date needDate;
 	private Date createDate;
+	private String phone;
 	private int first;
 	private int last;
 	
@@ -44,6 +46,12 @@ public class Sales_tempVO {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public int getFirst() {
 		return first;
 	}
@@ -56,12 +64,20 @@ public class Sales_tempVO {
 	public void setLast(int last) {
 		this.last = last;
 	}
+	
+	
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 	@Override
 	public String toString() {
-		return "Sales_tempVO [customerCode=" + customerCode + ", itemCode=" + itemCode + ", requestQty=" + requestQty
-				+ ", needDate=" + needDate + ", createDate=" + createDate + ", first=" + first + ", last=" + last + "]";
+		return "Sales_tempVO [customerCode=" + customerCode + ", itemCode=" + itemCode + ", itemName=" + itemName
+				+ ", requestQty=" + requestQty + ", needDate=" + needDate + ", createDate=" + createDate + ", phone="
+				+ phone + ", first=" + first + ", last=" + last + "]";
 	}
-	
 	
 	
 }

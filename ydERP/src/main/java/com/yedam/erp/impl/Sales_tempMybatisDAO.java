@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yedam.erp.items.ItemsVO;
 import com.yedam.erp.items.Sales_tempVO;
 
 @Repository
@@ -33,5 +34,10 @@ public class Sales_tempMybatisDAO {
 	public Sales_tempVO getSales_temp(Sales_tempVO vo) {
 		return sqlSession.selectOne("items.getSales_temp",vo);
 	}
+	
+	public List<ItemsVO> getItemsList(ItemsVO vo) {
+		return sqlSession.selectList("items.getItemsList",vo);
+	}
+		
 	
 }

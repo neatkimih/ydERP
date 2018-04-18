@@ -1,17 +1,13 @@
 package com.yedam.erp.view;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yedam.erp.items.ItemsVO;
 import com.yedam.erp.items.Sales_tempService;
 import com.yedam.erp.items.Sales_tempVO;
-import com.yedam.erp.sales.CustomersVO;
 import com.yedam.erp.items.CustomerService;
 import com.yedam.erp.items.CustomerVO;
 import com.yedam.erp.items.ItemsService;
@@ -82,7 +77,7 @@ public class ItemsController {
 
 	//품목 전체 조회 폼
 	@RequestMapping("/getItemsList")
-	public String getItems() {
+	public String getItemsList() {
 		return "items/getitemsList";
 	}
 	
@@ -194,8 +189,18 @@ public class ItemsController {
 		@RequestMapping("/insertSales_temp")
 		public String insertSales_temp(Sales_tempVO vo) {
 			sales_tempService.insertSales_temp(vo);
-			return "items/manageCustomer";
+			return "items/getPurchaseRequest";
 		}
+	
+		
+	// 검색 조건. (자동완성 기능 추가예정)	
+		@RequestMapping("/getItemsList2")
+		@ResponseBody
+		public List<ItemsVO> getItems(ItemsVO vo) {
+			
+			return sales_tempService.getItemsList(vo);
+		}
+		
 		
 		//판매 업체 주문 요청 한건 조회 (onselectedRow)
 		@RequestMapping("/getSales_temp")
@@ -217,7 +222,7 @@ public class ItemsController {
 			@RequestMapping("/updateSales_temp")
 			public String updateSales_temp(Sales_tempVO vo) {
 				sales_tempService.updateSales_temp(vo);
-				return "items/managSales_temp";
+				return "items/getPurchaseRequest";
 		}
 		//판매 업체 여러건 삭제 (거래중단으로 update)
 		@RequestMapping("/Sales_tempEdit")
@@ -251,6 +256,7 @@ public class ItemsController {
 	result.put("result", customerCode == null ? Boolean.TRUE : Boolean.FALSE);
 	return result;
 	}
+	
 	
 	// 기타2
     // 로그인 기능부분

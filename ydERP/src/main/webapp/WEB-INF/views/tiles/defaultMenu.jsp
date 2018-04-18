@@ -31,6 +31,7 @@
 					<li><a href="showSale">매출분석</a></li>
 				</ul></li>
 			<%@ include file="./defaultMenu4.jsp"%>
+			<%@ include file="./defaultMenu5.jsp"%>
 		</ul>
 	</div>
 </div>

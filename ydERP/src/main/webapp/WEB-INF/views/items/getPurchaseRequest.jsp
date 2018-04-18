@@ -198,8 +198,7 @@
 				console.dir(datas);
 				$("#itemList option:gt(0)").remove();
 				for (i = 0; i < datas.length; i++) {
-					console.log(i + "=====" + datas[i].item_code + ", " + datas[i].item_name);
-					$("#itemList").append("<option value='"+datas[i].item_code+"'>" + datas[i].item_name);
+					$("#itemList").append("<option value='"+datas[i].itemCode+"'>" + datas[i].itemName);
 				}
 			}
 		});
@@ -353,7 +352,7 @@
 					name="itemList">
 					<option value="">선택</option>
 							<c:forEach items="${getItemsList}" var="lkup">
-								<option value="${item_code}">${item_name}</option>
+								<option value="${itemCode}">${itemName}</option>
 							</c:forEach>
 				</select>
 			</div>
@@ -364,9 +363,10 @@
 			<div class="col-md-2">
 				<select class="form-control" id="uom" name="uom">
 					<option value=''>선택</option>
-					<c:forEach items="${getItemsList}" var="lkup">
-								<option value="${item_code}">${uom}</option>
-							</c:forEach>
+					<option value='Set'>Set</option>
+					<option value='Box'>Box</option>
+					<option value='Other'>Other</option>
+					<option value='Another'>Another</option>
 				</select>
 			</div>
 

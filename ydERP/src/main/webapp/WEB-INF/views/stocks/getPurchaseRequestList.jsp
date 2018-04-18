@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,6 +79,74 @@
 </script>
 </head>
 <body><h3>getPurchaseRequestList.jsp</h3>
+	<div class="col-lg-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">Search Condition</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3">
+						<input type="checkbox" id="autosearch"
+							onclick="enableAutosubmit(this.checked)"> Enable Autosearch
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-3">
+						<select id="itemgroup1" name="itemgroup1" class="form-control"
+							onchange="changeGroup1()">
+							<option value="">대분류 선택</option>
+							<c:forEach items="${itemGroup1}" var="lkup">
+								<option value="${lkup.grp_code}">${lkup.grp_name}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-lg-3">
+						<select id="itemgroup2" name="itemgroup2" class="form-control"
+							onchange="changeGroup2()">
+							<option value="">중분류 선택</option>
+							<c:forEach items="${itemGroup2}" var="lkup">
+								<option value="${lkup.grp_code}">${lkup.grp_name}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-lg-3">
+						<select id="itemgroup3" name="itemgroup3" class="form-control"
+							>
+							<option value="">소분류 선택</option>
+							<c:forEach items="${itemGroup3}" var="lkup">
+								<option value="${lkup.grp_code}">${lkup.grp_name}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-3">
+						<input type="text" id="item_cd" class="form-control"
+							placeholder="==> Enter ItemCode"
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-3">
+						<input type="text" id="item_nm" class="form-control"
+							placeholder="==> Enter ItemName"
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-3">
+						<select id="warehouseSelect" name="warehouseSelect"
+							class="form-control">
+							<option value="">구매업체 선택</option>
+							<c:forEach items="${vendorList}" var="lkup">
+								<option value="${lkup.VENDOR_CODE}">${lkup.VENDOR_NAME}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-lg-3">
+						<button onclick="gridReload()" id="submitButton"
+							class="btn btn-outline btn-success btn-block">Search</button>
+					</div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
 	<form name="frm" action="insertPurchaseRequest">
 		<input type="button" value="주문요청생성" id="btn1" />
 		<div class="col-lg-12">

@@ -14,8 +14,7 @@ public class Sales_tempMybatisDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-public List<Sales_tempVO> getSales_tempList(Sales_tempVO vo) {
-		
+	public List<Sales_tempVO> getSales_tempList(Sales_tempVO vo) {
 		return sqlSession.selectList("items.getSales_tempList",vo);
 	}
 

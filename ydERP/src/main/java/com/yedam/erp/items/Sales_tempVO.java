@@ -10,6 +10,10 @@ public class Sales_tempVO {
 	private Integer requestQty;
 	private Date needDate;
 	private Date createDate;
+	private int first;
+	private int last;
+	
+	
 	public String getCustomerCode() {
 		return customerCode;
 	}
@@ -40,11 +44,24 @@ public class Sales_tempVO {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	public int getFirst() {
+		return first;
+	}
+	public void setFirst(int first) {
+		this.first = first;
+	}
+	public int getLast() {
+		return last;
+	}
+	public void setLast(int last) {
+		this.last = last;
+	}
 	@Override
 	public String toString() {
 		return "Sales_tempVO [customerCode=" + customerCode + ", itemCode=" + itemCode + ", requestQty=" + requestQty
-				+ ", needDate=" + needDate + ", createDate=" + createDate + "]";
+				+ ", needDate=" + needDate + ", createDate=" + createDate + ", first=" + first + ", last=" + last + "]";
 	}
+	
 	
 	
 }

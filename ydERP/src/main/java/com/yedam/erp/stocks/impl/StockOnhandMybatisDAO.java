@@ -1,6 +1,7 @@
 package com.yedam.erp.stocks.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,19 @@ public class StockOnhandMybatisDAO {
 
 	public List<StockOnhandViewVO> getVendorList(StockOnhandViewVO vo) {
 		return sqlSession.selectList("stocks.getVendorList", vo);
+	}
+
+	public List<Map<String, String>> getItemGroup1() {
+		return sqlSession.selectList("stocks.getItemGroup1");
+	}
+
+	public List<Map<String, String>> getItemGroup2(String str) {
+		System.out.println(str);
+		return sqlSession.selectList("stocks.getItemGroup2", str);
+	}
+
+	public List<Map<String, String>> getItemGroup3(String str) {
+		return sqlSession.selectList("stocks.getItemGroup3", str);
 	}
 
 }

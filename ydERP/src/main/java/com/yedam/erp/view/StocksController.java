@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.stocks.PurchaseDetailTempVO;
@@ -61,9 +62,24 @@ public class StocksController {
 		return stockInOutService.getItemInOutList(vo);
 	}
 
+	@RequestMapping("getItemGroup2.do")
+	@ResponseBody
+	public List<Map<String, String>> getItemGroup2Data(@RequestParam String grp_code) {
+		return stockOnhandService.getItemGroup2(grp_code);
+	}
+
+	@RequestMapping("getItemGroup3.do")
+	@ResponseBody
+	public List<Map<String, String>> getItemGroup3Data(@RequestParam String grp_code) {
+		return stockOnhandService.getItemGroup3(grp_code);
+	}
+
 	@RequestMapping("getStockOnhandList")
-	public String getStockOnhandList(Model model, StockOnhandViewVO vo) {
+	public String getStockOnhandList(Model model, StockOnhandViewVO vo, String str2, String str3) {
 		model.addAttribute("list", vo);
+		model.addAttribute("itemGroup1", stockOnhandService.getItemGroup1());
+		model.addAttribute("itemGroup2", stockOnhandService.getItemGroup2(str2));
+		model.addAttribute("itemGroup3", stockOnhandService.getItemGroup3(str3));
 		model.addAttribute("vendorList", stockOnhandService.getVendorList(vo));
 		return "stocks/getStockOnhandList";
 	}

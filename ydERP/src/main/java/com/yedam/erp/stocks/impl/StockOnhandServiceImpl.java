@@ -1,6 +1,7 @@
 package com.yedam.erp.stocks.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,19 @@ public class StockOnhandServiceImpl implements StockOnhandService {
 	public List<StockOnhandViewVO> getVendorList(StockOnhandViewVO vo) {
 		return dao.getVendorList(vo);
 	}
+
+	public List<Map<String, String>> getItemGroup1() {
+		return dao.getItemGroup1();
+	};
+
+	public List<Map<String, String>> getItemGroup2(String str) {
+		return dao.getItemGroup2(str);
+
+	};
+
+	public List<Map<String, String>> getItemGroup3(String str) {
+		return dao.getItemGroup3(str);
+
+	};
 
 }

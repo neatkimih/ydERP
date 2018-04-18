@@ -141,10 +141,16 @@ var lastsel2;
 		);
 	});
 	
-	/* saveparameters = {
-			"aftersavefunc" : alert();
-			
-	} */
+	saveparameters = {
+			"successfunc" : function(response) {
+				if(response.responseJSON.result == "false") {
+					alert(response.responseJSON.data);
+					}
+				else if(response.responseJSON.result == "true") {
+					alert("주문이 승인되었습니다.");
+					}
+				}
+	};
 	
 	/* 승인확인 버튼 생성 */
 	function permitBtn (cellvalue, options, rowObject) {
@@ -189,7 +195,7 @@ var lastsel2;
 	function gridReload() {
 		var params = $('#orderSearchForm').serialize();
 		
-		jQuery("#orderList").jqGrid('setGridParam', {url:"getOrderByCondition.do?"+params	,page:1}).trigger("reloadGrid");
+		jQuery("#orderList").jqGrid('setGridParam', {url:"getOrderByCondition.do?"+params ,page:1}).trigger("reloadGrid");
 	}
 	
 	function enableAutosubmit(state) {

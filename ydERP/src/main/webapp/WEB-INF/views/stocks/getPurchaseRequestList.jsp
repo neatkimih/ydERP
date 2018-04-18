@@ -57,19 +57,19 @@
 		allData = datas.data;
 		$("tbody").empty();
 		$.each(datas.data, function(idx, item) {
-			$("<tr>").append($("<td> <input type='checkbox' value='"+idx+"' name='check' >"))
+			$("<tr>").append($("<td align='center'> <input type='checkbox' value='"+idx+"' name='check' >"))
 					 .append($("<td name='itemCode'>").html(item.itemCode))
 					 .append($("<td name='itemName'>").html(item.itemName))
 					 .append($("<td name='uom'>").html(item.uom))
-					 .append($("<td name='inQty'>").html(item.inQty))
-					 .append($("<td name='supplyPrice'>").html(item.supplyPrice))
-					 .append($("<td name='sellingPrice'>").html(item.sellingPrice))
-					 .append($("<td name='itemTax'>").html(item.itemTax))
+					 .append($("<td align='right' name='inQty'>").html(item.inQty))
+					 .append($("<td align='right' name='supplyPrice'>").html(item.supplyPrice))
+					 .append($("<td align='right' name='sellingPrice'>").html(item.sellingPrice))
+					 .append($("<td align='right' name='itemTax'>").html(item.itemTax))
 					 .append($("<td name='expireDate'>").html(item.expireDate))
 					 .append($("<td name='vendorName'>").html(item.vendorName))
-					 .append($("<td name='minQty'>").html(item.minQty))
-					 .append($("<td name='onhandQty'>").html(item.onhandQty))
-					 .append($("<td name='reqQty'>").html(item.reqQty))
+					 .append($("<td align='right' name='minQty'>").html(item.minQty))
+					 .append($("<td align='right' name='onhandQty'>").html(item.onhandQty))
+					 .append($("<td align='right' name='reqQty'>").html(item.reqQty))
 					 //.append($("<td>").html("<button id=\'btnSelect\' >조회</button>"))
 					 //.append($("<td>").html("<button id=\'btnDelete\' >삭제</button>"))
 					 //.append($("<input type=\"hidden\" id=\'hidden_id\' />").val(item.seq))
@@ -117,6 +117,10 @@
 							</c:forEach>
 						</select>
 					</div>
+					<div class="col-lg-3">
+						<button onclick="gridReload()" id="submitButton"
+							class="btn btn-outline btn-success btn-block">Search</button>
+					</div>
 				</div>
 				<div class="row" style="margin-top: 10px">
 					<div class="col-lg-3">
@@ -139,8 +143,7 @@
 						</select>
 					</div>
 					<div class="col-lg-3">
-						<button onclick="gridReload()" id="submitButton"
-							class="btn btn-outline btn-success btn-block">Search</button>
+						<button id="btn1" class="btn btn-outline btn-success btn-block">주문요청생성</button>
 					</div>
 				</div>
 				<br>
@@ -148,7 +151,7 @@
 		</div>
 	</div>
 	<form name="frm" action="insertPurchaseRequest">
-		<input type="button" value="주문요청생성" id="btn1" />
+		<!-- <input type="button" value="주문요청생성" id="btn1" /> -->
 		<div class="col-lg-12">
 			<table id="list" border="1" class="table table-striped table-bordered table-hover">
 				<thead>

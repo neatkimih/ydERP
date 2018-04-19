@@ -233,7 +233,8 @@ public class ItemsController {
 
 	// 판매 업체 주문 요청 등록
 	@RequestMapping("/insertSales_temp")
-	public String insertSales_temp(Sales_tempVO vo) {
+	public String insertSales_temp(Sales_tempVO vo, HttpSession session) {
+		vo.setCustomerCode(((CustomerVO)session.getAttribute("viewCustomer")).getCustomerCode());
 		sales_tempService.insertSales_temp(vo);
 		return "items/getVendorequest";
 	}
@@ -256,9 +257,10 @@ public class ItemsController {
 	// 판매 업체 주문 요청 목록 가져오기
 	@RequestMapping("/getSales_tempList")
 	@ResponseBody
-	public List<Sales_tempVO> getSales_tempList(Model model, Sales_tempVO vo) {
+	public List<Sales_tempVO> getSales_tempList(Model model, Sales_tempVO vo, HttpSession session) {
+		vo.setCustomerCode(((CustomerVO)session.getAttribute("viewCustomer")).getCustomerCode());
 		vo.setFirst(1);
-		vo.setLast(30);
+		vo.setLast(1000);
 		return sales_tempService.getSales_tempList(vo);
 	}
 
@@ -323,7 +325,7 @@ public class ItemsController {
 			// session에 로그인정보값을 저장한다.
 			session.setAttribute("viewCustomer", vo);
 			// getVendorequest.jsp로 이동
-			mav.setViewName("items/getVendorequest");
+			mav.setViewName("items/getPurchaseRequest");
 			mav.addObject("msg", "success");
 		} else { // 로그인 실패
 			// login.jsp로 이동

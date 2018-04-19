@@ -279,7 +279,6 @@
 		SET
 		use_flag = 'N'
 		WHERE customer_code = #{customerCode}
-
 	</update>
 
 	<select id="checkCustomerCode" parameterType="com.yedam.erp.items.CustomerVO">
@@ -303,12 +302,17 @@
 		FROM customers
 		WHERE customer_code = #{customerCode} AND customer_pw = #{customerPw}
 	</select>
+	
+	<!-- 판매업체 관리의 끝 -->
+
+
 
 	<!-- 여기서부터 판매업체 구매 요청 -->
+	<!-- 판매업체 구매 요청 정보 리스트 -->
 	<select id="getSales_tempList" resultType="com.yedam.erp.items.Sales_tempVO">
 
 
-		SELECT st.customer_code
+		SELECT st.custom_seq
 		,i.item_code
 		,i.item_name
 		,i.uom
@@ -319,9 +323,12 @@
 
 		FROM Sales_temp st, Items i, customers ct
 		WHERE st.item_code = i.item_code
-		AND ct.customer_code = ${ct.customerCode}
-		AND st.item_code IS NOT NULL
-		ORDER BY customer_code DESC
+		AND ct.customer_code = #{customerCode} = st.customer_code
+		
+		
+		
+		
+		ORDER BY st.customer_code DESC
 
 	</select>
 
@@ -372,7 +379,7 @@
 	<update id="updateSales_temp" parameterType="com.yedam.erp.items.Sales_tempVO">
 
 		UPDATE Sales_temp
-		SET item_code = #{customerOwner}
+		SET customer_owner = #{customerOwner}
 		,customer_loc = #{customerLoc}
 		,request_qty = #{requestQty}
 		,need_date = #{needDate}
@@ -385,9 +392,9 @@
 	<!-- delete (구매코드 삭제 처리) -->
 	<delete id="deleteSales_temp" parameterType="com.yedam.erp.items.Sales_tempVO">
 
-		DELETE item_code
+		DELETE custom_seq
 		FROM Sales_temp
-		WHERE customer_code = ${customerCode}
+		WHERE custom_seq = ${customSeq}
 	</delete>
 
 	<!-- <select id="item_group1" parameterType="com.yedam.erp.items.Sales_tempVO"> 

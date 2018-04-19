@@ -230,8 +230,8 @@
 			datatype : "json",
 			styleUI : 'Bootstrap',
 			colModel : [ {
-				label : "사업자번호",
-				name : "customerCode",
+				label : "구매번호",
+				name : "customSeq",
 				key : true,
 				align : "center",
 				width : 100,

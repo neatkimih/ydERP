@@ -6,6 +6,7 @@ public class Sales_tempVO {
 
 	private String itemList;
 	private String customerCode;
+	private String customSeq;
 	private String itemCode;
 	private String itemName;
 	private Integer requestQty;
@@ -29,6 +30,12 @@ public class Sales_tempVO {
 	}
 	public void setCustomerCode(String customerCode) {
 		this.customerCode = customerCode;
+	}
+	public String getCustomSeq() {
+		return customSeq;
+	}
+	public void setCustomSeq(String customSeq) {
+		this.customSeq = customSeq;
 	}
 	public String getItemCode() {
 		return itemCode;
@@ -86,11 +93,12 @@ public class Sales_tempVO {
 	}
 	@Override
 	public String toString() {
-		return "Sales_tempVO [itemList=" + itemList + ", customerCode=" + customerCode + ", itemCode=" + itemCode
-				+ ", itemName=" + itemName + ", requestQty=" + requestQty + ", needDate=" + needDate + ", createDate="
-				+ createDate + ", deliveryAddr=" + deliveryAddr + ", phone=" + phone + ", first=" + first + ", last="
-				+ last + "]";
+		return "Sales_tempVO [itemList=" + itemList + ", customerCode=" + customerCode + ", customSeq=" + customSeq
+				+ ", itemCode=" + itemCode + ", itemName=" + itemName + ", requestQty=" + requestQty + ", needDate="
+				+ needDate + ", createDate=" + createDate + ", deliveryAddr=" + deliveryAddr + ", phone=" + phone
+				+ ", first=" + first + ", last=" + last + "]";
 	}
+	
 	
 	
 	

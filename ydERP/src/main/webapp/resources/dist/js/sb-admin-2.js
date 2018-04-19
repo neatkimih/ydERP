@@ -37,7 +37,10 @@ $(function() {
     var element = $('ul.nav a').filter(function() {
     	
     	if (this.href == url ){
-    		if(title_nav){title_nav=""}
+    		if(title_nav){
+    			//title_nav="";
+    			console.log(title_nav)
+    		}
     		console.dir($(this));
     		$(".page-header").html($(this).parent().parents("li").find("a:first").text()+"▶"+$(this).html()+":"+title_nav);
     		//var heading1 = $(".panel-heading").html();

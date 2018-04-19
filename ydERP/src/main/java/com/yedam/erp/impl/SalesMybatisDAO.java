@@ -1,6 +1,7 @@
 package com.yedam.erp.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,15 @@ public class SalesMybatisDAO {
 	/* 승인 후 품목 재고 처리 */
 	public void afterPermitOrder(String saleCode) {
 		mybatis.insert("sales.afterPermitOrder", saleCode);
+	}
+	
+	/* 월일별 판매액 통계 처리 */
+	public List<Map<String, Object>> getSaleChart(SalesVO salesVO) {
+		return mybatis.selectList("sales.getSaleChart", salesVO);
+	}
+	
+	/* 월일별 순이익 통계 처리 */
+	public List<Map<String, Object>> getProfitChart(SalesVO salesVO) {
+		return mybatis.selectList("sales.getProfitChart", salesVO);
 	}
 }

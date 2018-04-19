@@ -193,4 +193,24 @@ public class SalesController {
 		}
 		return result;
 	}
+	
+	/* 차트 폼 */
+	@RequestMapping("/getSaleChart")
+	public String getSaleChartForm() {
+		return "sales/getSaleChart";
+	}	
+	
+	/* 월일별 판매액 통계 처리 */
+	@RequestMapping("/getSaleChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getSaleChart(SalesVO salesVO) {
+		return salesService.getSaleChart(salesVO);
+	}
+	
+	/* 월일별 순이익 통계 처리 */
+	@RequestMapping("/getProfitChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getProfitChart(SalesVO salesVO) {
+		return salesService.getProfitChart(salesVO);
+	}
 }

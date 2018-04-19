@@ -123,6 +123,7 @@
 		jQuery("#submitButton").attr("disabled",state);
 	}
 	
+	title_nav = "[ getSaleList.jsp :::  판매내역 관리 (검색 | 조회)]";
 </script>
 <style type="text/css">
 #salePageTitle {

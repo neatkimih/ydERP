@@ -28,7 +28,7 @@
 				<ul class="nav nav-second-level">
 					<li><a href="getSaleList">판매내역</a></li>
 					<li><a href="getOrderList">주문내역</a></li>
-					<li><a href="showSale">매출분석</a></li>
+					<li><a href="getSaleChart">매출분석</a></li>
 				</ul></li>
 			<%@ include file="./defaultMenu4.jsp"%>
 			<%@ include file="./defaultMenu5.jsp"%>

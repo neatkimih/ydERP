@@ -1,6 +1,8 @@
 package com.yedam.erp.sales;
 
 import java.util.List;
+import java.util.Map;
+
 import com.yedam.erp.sales.SalesVO;
 
 public interface SalesService {
@@ -14,9 +16,6 @@ public interface SalesService {
 	/* 판매 내역 검색 */
 	public List<SalesVO> getSaleByCondition(SalesVO salesVO);
 
-	/* 주문 기본 정보 등록 */
-	// public void insertOrder(SalesVO salesVO);
-	
 	/* 주문 수정 */
 	// public void updateSale(SalesVO salesVO);
 	
@@ -35,4 +34,10 @@ public interface SalesService {
 	
 	/* 승인 후 품목 재고 처리 */
 	public void afterPermitOrder(String saleCode);
+	
+	/* 월일별 판매액 통계 처리 */
+	public List<Map<String, Object>> getSaleChart(SalesVO salesVO);
+	
+	/* 월일별 순이익 통계 처리 */
+	public List<Map<String, Object>> getProfitChart(SalesVO salesVO);
 }

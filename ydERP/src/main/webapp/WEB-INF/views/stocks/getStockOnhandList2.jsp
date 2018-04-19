@@ -102,15 +102,21 @@
 
 </script>
 </head>
-<body><h3>getStockOnhandList2.jsp</h3>
+<body>
+	<div class="col-lg-5">
+		<div class="panel panel-default">
+			<div class="panel-heading">[ 재고 조회2 : getStockOnhandList2.jsp ] >>> 품목의 재고 및 입출고 조회</div>
+			<div class="container"></div>
+		</div>
+	</div>
 	<div class="col-lg-12">
 		<table id="list">
 			<tr>
 				<td></td>
 			</tr>
 		</table>
-		<div id="pager"></div>
 	</div>
+	<div id="pager"></div>
 	<div class="col-lg-10">
 		<div id="detailsPlaceholder">
 			<table id="listDetail"></table>

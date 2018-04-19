@@ -59,9 +59,9 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
  -->
- <script >
- var title_nav = ""
- </script>
+<script>
+	var title_nav = ""
+</script>
 </head>
 
 <body>
@@ -80,9 +80,7 @@
 				<a class="navbar-brand" href="/erp">YedamERP</a>
 			</div>
 		</nav>
-
 		<tiles:insertAttribute name="menu" />
-
 		<div id="page-wrapper">
 			<tiles:insertAttribute name="header" />
 			<tiles:insertAttribute name="content" />
@@ -100,20 +98,20 @@
 		<div id="chat">
 			Live Q&A
 			<div id="chatlogin">
-				상호명<input type="text" id="nickname" onkeydown="enterlogin()" size = "18"> <input type="button"
-					value="입장" onclick="login()">
+				상호명<input type="text" id="nickname" onkeydown="enterlogin()"
+					size="18"> <input type="button" value="입장"
+					onclick="login()">
 			</div>
 			<div id="chat-area">
 				<textarea id="messageWindow" rows="20" cols="33" readonly="readonly"></textarea>
-				<br /> <input id="inputMessage" type="text" onkeydown="enterkey()" size = "13" />
-				<input type="button" value="보내기" onclick="send()" /> <input
-					type="button" value="나가기" onclick="logout()" />
+				<br /> <input id="inputMessage" type="text" onkeydown="enterkey()"
+					size="13" /> <input type="button" value="보내기" onclick="send()" />
+				<input type="button" value="나가기" onclick="logout()" />
 			</div>
 
 
 		</div>
 	</div>
-
 
 	<script type="text/javascript">
 		var textarea = document.getElementById("messageWindow");
@@ -190,5 +188,6 @@
 		  });	
 		 */
 	</script>
+
 </body>
 </html>

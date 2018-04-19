@@ -328,7 +328,7 @@ public class ItemsController {
 			session.setAttribute("viewCustomer", vo);
 			// getPurchaseRequest.jsp로 이동
 			if (vo.getCustomerCode().equals("admin12345") && vo.getCustomerPw().equals("12345")) {
-				mav.setViewName("/home");
+				mav.setViewName("stocks/getCharts");
 				mav.addObject("msg", "success");
 							
 			} else {

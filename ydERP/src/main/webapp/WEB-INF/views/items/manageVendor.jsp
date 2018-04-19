@@ -20,97 +20,82 @@
 	type="text/javascript"></script>
 <script>
 	//판매업체 등록 처리  
-	function insertCustomer() {
-		document.register.submit();
+	function insertVendor() {
+		if (checkValue())
+			document.register.submit();
 	}
 </script>
 <script>
-	// 해결과제
+
 	// 필수 입력정보가 입력되었는지 확인하는 함수
 	function checkValue() {
-		if (!document.register.customerCode.value) {
+		if (!document.register.vendorCode.value) {
 			alert("사업자등록번호를 입력해주세요.");
 			return false;
 		}
-		if (!document.register.customerName.value) {
+		if (!document.register.vendorName.value) {
 			alert("사업체명을 입력해주세요.");
 			return false;
 		}
-		if (!document.register.customerOwner.value) {
+		if (!document.register.vendorOwner.value) {
 			alert("이름을 입력해주세요.");
 			return false;
 		}
-		if (!document.register.customerPw.value) {
-			alert("비밀번호를 입력해주세요.");
-			return false;
-		}
-		if (!document.register.customerLoc.value) {
+		if (!document.register.vendorLoc.value) {
 			alert("주소를 입력해주세요.");
 			return false;
 		}
-		if (!document.register.customerPhone.value) {
+		if (!document.register.vendorPhone.value) {
 			alert("휴대폰 번호를 입력해주세요.");
 			return false;
 		}
-		if (!document.register.customerBank.value) {
+		if (!document.register.vendorBank.value) {
 			alert("계좌정보를 선택해주세요.");
 			return false;
 		}
-		if (!document.register.customerAccount.value) {
+		if (!document.register.vendorAccount.value) {
 			alert("계좌번호를 입력해주세요.");
 			return false;
 		}
-		if (!document.register.customerBankowner.value) {
+		if (!document.register.vendorBankowner.value) {
 			alert("계좌주를 입력해주세요.");
 			return false;
 		}
-		return insertCustomer();
-	}
-</script>
-<script>
-// 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
-
-	function pwcheck() {
-		if (document.register.customerPw.value != document.register.PwCheck.value) {
-			
-			pwcheckyn = false;
-		} else {
-			pwcheckyn = true;
-		}
+		return true;
 	}
 </script>
 
 <script type="text/javascript">
-	// 해결과제
-	// 사업자등록번호 중복체크.
+
 	var xmlhttp = new XMLHttpRequest();
-	function customerCodecheck() {
-		xmlhttp.open("post", "views/ItemsController?customerCode="
-			+ document.getElementById("customerCode").value);
+	function vendorCodecheck() {
+		xmlhttp.open("post", "checkVendorCode?vendorCode="
+			+ document.getElementById("vendorCode").value);
 		xmlhttp.onreadystatechange = callback;
 		xmlhttp.send();
 	}
 
 	function callback() {
-		var table = document.getElementById("customerCode");
+		var table = document.getElementById("vendorCode");
 		table.innerHTML = "";
 
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			var object = eval('(' + xmlhttp.responseText + ')');
 			console.log(object.result);
-			if (object.result == true) {
-				document.getElementById("cuscode").innerHTML = "번호가 중복됩니다.";
+			if (object.result == false) {
+				document.getElementById("50810087550").innerHTML = "번호가 중복됩니다.";
 			} else {
-				document.getElementById("cuscode").innerHTML = "사용가능";
+				document.getElementById("50810087550").innerHTML = "사용가능";
 			}
 
 		}
 	}
-</script>
-<script>
+
+
 	//판매업체 수정 처리
-	function updateCustomer() {
-		document.register.action.value = 'updateCustomer';
+	function updateVendor() {
+		document.register["action"] = 'updateVendor';
+		
 		document.register.submit();
 
 	}
@@ -128,94 +113,126 @@
  function onSelectRow(rowid, selected) {
 			
 	 if (rowid != null) {
-				selectedCustomerCode = $(this).getCell(rowid, 'customerCode');
-				jQuery("#customerCode").jqGrid('setGridParam', {
-					url : "/getCustomer?customerCode=" + selectedCustomerCode
+				selectedVendorCode = $(this).getCell(rowid, 'vendorCode');
+				jQuery("#vendorCode").jqGrid('setGridParam', {
+					url : "/getVendor?vendorCode=" + selectedVendorCode
 				});
 			}
-					console.log("선택된 판매코드 : " + selectedCustomerCode);
+					console.log("선택된 판매코드 : " + selectedVendorCode);
 		  } 
  
- function getCustomerInfo() {
-  document.customerCode.value = ${customerCode};
-  document.customerName.value = ${customerName};
-  document.customerOwner.value = ${customerOwner};
-  document.customerLoc.value = ${customerLoc};
-  document.customerPhone.value = ${customerPhone};
-  document.customerBank.value = ${customerBank};
-  document.customerAccount.value = ${customerAccount};
-  document.customerBankowner.value = ${customerBankowner};
- }
- 
+
 </script>
 
 </head>
 <body>
+	<div class="col-md-24">
 	<div class="page-header">
 		<h1>
-			판매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 판매업체 관리 &emsp; &emsp;
+			구매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매업체 관리 &emsp; &emsp;
 			&nbsp;
 			<button class="btn btn-primary" type="button"
-				onclick='insertCustomer()'>가입</button>
+				onclick='insertVendor()'>가입</button>
 			<button class="btn btn-warning" type="button"
-				onclick='updateCustomer()'>수정</button>
+				onclick='updateVendor()'>수정</button>
 			<button class="btn btn-danger" type="button" onclick='restorePage()'>취소</button>
 		</h1>
 	</div>
-
+	</div>
 	<script type="text/javascript">
 		$(function() {
 			
 	
 			$("#list").jqGrid({
-				url : "getCustomerList",
-				editurl : "CustomerEdit",
+				url : "getVendorList",
+				editurl : "VendorEdit",
 				datatype : "json",
 				styleUI : 'Bootstrap',
 				colModel : [ {
 					label : "사업자등록번호",
-					name : "customerCode",
+					name : "vendorCode",
 					key : true,
 					align : "center",
 					width : 120,
 					editable : false
 				}, {
 					label : "사업체명",
-					name : "customerName",
+					name : "vendorName",
 					width : 120,
 					editable : false
 				}, {
+					label : "대표자명",
+					name : "vendorOwner",
+					width : 120,
+					hidden : true,
+					editable : false
+				}, {
 					label : "소재지",
-					name : "customerLoc",
+					name : "vendorLoc",
 					width : 250,
 					align : "left",
 					editable : true
 				}, {
 					label : "연락처",
-					name : "customerPhone",
+					name : "vendorPhone",
 					width : 120,
 					align : "right",
 					editable : true
+				}, {
+					label : "은행",
+					name : "vendorBank",
+					width : 120,
+					hidden : true,
+					editable : false
+				}, {
+					label : "계좌번호",
+					name : "vendorAccount",
+					width : 120,
+					hidden : true,
+					editable : false
+					
+				}, {
+					label : "계좌주",
+					name : "vendorBankowner",
+					width : 120,
+					hidden : true,
+					editable : false
 				} ],
 				pager : "#pager",
 				rowNum : 10,
 				rowList : [ 10, 20, 30 ],
-				sortname : "customerCode",
+				sortname : "vendorCode",
 				sortorder : "desc",
 				viewrecords : true,
 				gridview : false,
 				autoencode : true,
 				loadonce : true,
-				/* onSelectRow : function (id) {
-								
-							  jQuery(this).editRow(id, true)
-										}, */
+				onSelectRow : function (rowid) {
+					 	
+						if (rowid >= 0) {
+					      var rowData = jQuery('#list').jqGrid ('getRowData', rowid);
+				    
+					     console.log(rowid);
+					     
+					     document.register.vendorCode.value = rowData.vendorCode;
+					     document.register.vendorName.value = rowData.vendorName;
+					     document.register.vendorOwner.value = rowData.vendorOwner;
+					     document.register.vendorLoc.value = rowData.vendorLoc;
+					     document.register.vendorPhone.value = rowData.vendorPhone;
+					     document.register.vendorBank.value = rowData.vendorBank;
+					     document.register.vendorAccount.value = rowData.vendorAccount;
+					     document.register.vendorBankowner.value = rowData.vendorBankowner;
+						}
+					 
+				 },
+													
+										
 				rowNum : 10,
 				height : 'auto',
 				autowidth : true,
 				responsive : true,
-				multiselect : true,
+				multiselect : false,
 				pager : "#pager"
 			});
 	
@@ -228,7 +245,7 @@
 				refresh : false,
 			}, {}, {}, {
 				serializeDelData : function(postdata) {
-					return "oper=del&customerCode=" + postdata.id;
+					return "oper=del&vendorCode=" + postdata.id;
 				}
 			}
 	
@@ -251,61 +268,47 @@
 		</div>
 
 		<form class="form-horizontal" id="register" name="register"
-			action="manageCustomer" onsubmit="return checkValue()">
+			action="insertVendor">
 			<div class="col-md-6">
 
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="customerCode">사업자등록번호</label>
+					<label class="col-sm-3 control-label" for="vendorCode">사업자등록번호</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerCode" name="customerCode"
-							type="text" placeholder="ID" onchange="customerCodecheck()"><span id="50810087550">
-							사업자등록번호는 필수입력입니다. </span>
+						<input class="form-control" id="vendorCode" name="vendorCode"
+							type="text" placeholder="ID" onchange="vendorCodecheck()"><span
+							id="50810087550"> 사업자등록번호는 필수입력입니다. </span>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="customerName">사업체명</label>
+					<label class="col-sm-3 control-label" for="vendorName">사업체명</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerName" name="customerName"
+						<input class="form-control" id="vendorName" name="vendorName"
 							type="text">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="customerOwner">이름</label>
+					<label class="col-sm-3 control-label" for="vendorOwner">이름</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerOwner"
-							name="customerOwner" type="text">
+						<input class="form-control" id="vendorOwner"
+							name="vendorOwner" type="text">
 					</div>
 				</div>
+				
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="customerPw">비밀번호</label>
+					<label class="col-sm-3 control-label" for="vendorLoc">주소</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="customerPw" name="customerPw"
-							type="password" placeholder="비밀번호">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="PwCheck">비밀번호 확인</label>
-					<div class="col-sm-6">
-						<input class="form-control" id="PwCheck" type="password"
-							placeholder="비밀번호 확인" onchange="pwcheck()">
-
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="customerLoc">주소</label>
-					<div class="col-sm-6">
-						<input class="form-control" id="customerLoc" name="customerLoc"
+						<input class="form-control" id="vendorLoc" name="vendorLoc"
 							type="text" placeholder="주소">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="customerPhone">휴대폰번호</label>
+					<label class="col-sm-3 control-label" for="vendorPhone">휴대폰번호</label>
 					<div class="col-sm-6">
 						<div class="input-group">
-							<input type="text" class="form-control" name="customerPhone"
-								id="customerPhone" />
+							<input type="text" class="form-control" name="vendorPhone"
+								id="vendorPhone" />
 
 
 						</div>
@@ -316,7 +319,7 @@
 					<label class="col-sm-3 control-label" for="inputBankInfo">계좌정보</label>
 					<div class="col-sm-2">
 						<div class="input-group">
-							<select id="inputBank" class="form-control" name="customerBank">
+							<select id="inputBank" class="form-control" name="vendorBank">
 								<option value="">선택</option>
 								<option value="하나">하나</option>
 								<option value="국민">국민</option>
@@ -331,24 +334,22 @@
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="none"></label> <label
-						class="col-sm-2" for="customerAccount">계좌번호</label>
+						class="col-sm-2" for="vendorAccount">계좌번호</label>
 					<div class="col-sm-3">
 						<div class="input-group">
-							<input type="text" class="form-control" name="customerAccount"
-								id="customerAccount" />
-
-
+							<input type="text" class="form-control" name="vendorAccount"
+								id="vendorAccount" />
 						</div>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="none2"></label> <label
-						class="col-sm-2" for="customerBankowner">계좌주</label>
+						class="col-sm-2" for="vendorBankowner">계좌주</label>
 					<div class="col-sm-3">
 						<div class="input-group">
-							<input type="text" class="form-control" id="customerBankowner"
-								name="customerBankowner" />
+							<input type="text" class="form-control" id="vendorBankowner"
+								name="vendorBankowner" />
 
 
 						</div>

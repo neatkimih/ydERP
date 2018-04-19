@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>Simple Map</title>
-<meta name="viewport" content="initial-scale=1.0">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 <style>
 /* Always set the map height explicitly to define the size of the div
@@ -18,49 +18,40 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
+
 </style>
 </head>
 <body>
 	<div id="map"></div>
-	<script>
-   /*    var myLatLng = {lat: 35.872037, lng: 128.589378};
-      function initMap() {
-       var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 35.872037, lng: 128.589378},
-          zoom: 15
-        });
-        //마커표시 및 애니메이션 추가
-       	var marker = new google.maps.Marker({
-    	    position: myLatLng,
-    	    map: map,
-    	    title: 'YedamERP'    	
-    	  	draggable: true,
-    	    animation: google.maps.Animation.DROP
-        });
-       	marker.addListener('click', toggleBounce);       	
-      }
-      function toggleBounce() {
-    	  if (marker.getAnimation() !== null) {
-    	    marker.setAnimation(null);
-    	  } else {
-    	    marker.setAnimation(google.maps.Animation.BOUNCE);
-    	  }
-      } */
-      var marker;
+	<script>   
 
+	var marker;
+	
       function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
-          center: {lat: 35.870560, lng: 128.589244}
-        });
+    	  var myLatlng = new google.maps.LatLng(35.870560,128.589244); 
+    	  var mapOptions = {
+  				zoom: 13,
+  				center: myLatlng
+  			};
+    	 var map = new google.maps.Map(document.getElementById('map'), mapOptions);  
+        
+          marker = new google.maps.Marker({
+          map: map,          
+          animation: google.maps.Animation.DROP,          
+          position: myLatlng,         
+          title: 'YedamERP'
+        });                
 
-        marker = new google.maps.Marker({
-          map: map,
-          draggable: true,
-          animation: google.maps.Animation.DROP,
-          position: {lat: 35.870560, lng: 128.589244}      
-        });
-        marker.addListener('click', toggleBounce);
+        var content = "YedamERP 본사"; // 말풍선 안에 들어갈 내용
+        
+        // 마커를 클릭했을 때의 이벤트. 말풍선 뿅~
+        var infowindow = new google.maps.InfoWindow({ content: content});
+ 
+        google.maps.event.addListener(marker, "mouseover", function() {
+            infowindow.open(map,marker);
+        });        
+        
+        marker.addListener('mouseover', toggleBounce);
       }
 
       function toggleBounce() {
@@ -69,7 +60,8 @@ html, body {
         } else {
           marker.setAnimation(google.maps.Animation.BOUNCE);
         }
-      }     
+      }                 
+  
       
     </script>
 	<script

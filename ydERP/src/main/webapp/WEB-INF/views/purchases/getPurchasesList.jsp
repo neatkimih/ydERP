@@ -235,6 +235,11 @@
 
 </head>
 <body> 
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">[ 구매 정보 조회 : getPurchasesList.jsp ] >>> 구매 정보 조회 및 확인</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-8">
 			<table id="list">
@@ -245,8 +250,6 @@
 			<div id="pager"></div>
 		</div>
 	</div>
-	<br>
-	<br>
 	<br>
 	<h3>구매상세정보</h3>
 	<div class="row">

@@ -123,10 +123,9 @@
 </script>
 </head>
 <body>
-	<h3>getLookups.jsp</h3>
 	<div class="col-lg-6">
 		<div class="panel panel-default">
-			<div class="panel-heading">Search Condition</div>
+			<div class="panel-heading">[ Lookup 관리 : getLookups.jsp ] >>> 룩업 조회 및 관리</div>
 			<div class="container" style="margin-top: 10px">
 				<div class="col-lg-3">
 					<select id="warehouseSelect" name="searchWarehouse"

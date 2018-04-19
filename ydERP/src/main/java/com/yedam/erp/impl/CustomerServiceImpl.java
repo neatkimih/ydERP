@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.erp.items.CustomerService;
 import com.yedam.erp.items.CustomerVO;
-import com.yedam.erp.sales.CustomersVO;
 
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {

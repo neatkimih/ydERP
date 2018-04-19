@@ -212,7 +212,13 @@
 </script>
 
 </head>
-<body><h3>getPurchaseReceipting.jsp</h3>
+<body>
+	<div class="col-lg-5">
+		<div class="panel panel-default">
+			<div class="panel-heading">[ 구매 입고 처리 : getPurchaseReceipting.jsp ] >>> 승인건에 대한 입고처리</div>
+			<div class="container"></div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-10">
 			<table id="list">
@@ -223,8 +229,6 @@
 			<div id="pager"></div>
 		</div>
 	</div>
-	<br>
-	<br>
 	<br>
 	<div class="row">
 		<div class="col-lg-12">

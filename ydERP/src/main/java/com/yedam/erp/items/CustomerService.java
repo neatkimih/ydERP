@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.yedam.erp.sales.CustomersVO;
 
 public interface CustomerService {
 
@@ -20,4 +19,6 @@ public interface CustomerService {
     //로그아웃
     public void logout(HttpSession session);
 	
+    
+    
 }

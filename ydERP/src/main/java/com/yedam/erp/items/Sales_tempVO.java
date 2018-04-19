@@ -4,23 +4,38 @@ import java.util.Date;
 
 public class Sales_tempVO {
 
-	
+	private String itemList;
 	private String customerCode;
+	private String customSeq;
 	private String itemCode;
 	private String itemName;
 	private Integer requestQty;
 	private Date needDate;
 	private Date createDate;
+	private String deliveryAddr;
 	private String phone;
 	private int first;
 	private int last;
 	
 	
+	
+	public String getItemList() {
+		return itemList;
+	}
+	public void setItemList(String itemList) {
+		this.itemList = itemList;
+	}
 	public String getCustomerCode() {
 		return customerCode;
 	}
 	public void setCustomerCode(String customerCode) {
 		this.customerCode = customerCode;
+	}
+	public String getCustomSeq() {
+		return customSeq;
+	}
+	public void setCustomSeq(String customSeq) {
+		this.customSeq = customSeq;
 	}
 	public String getItemCode() {
 		return itemCode;
@@ -64,8 +79,12 @@ public class Sales_tempVO {
 	public void setLast(int last) {
 		this.last = last;
 	}
-	
-	
+	public String getDeliveryAddr() {
+		return deliveryAddr;
+	}
+	public void setDeliveryAddr(String deliveryAddr) {
+		this.deliveryAddr = deliveryAddr;
+	}
 	public String getItemName() {
 		return itemName;
 	}
@@ -74,10 +93,13 @@ public class Sales_tempVO {
 	}
 	@Override
 	public String toString() {
-		return "Sales_tempVO [customerCode=" + customerCode + ", itemCode=" + itemCode + ", itemName=" + itemName
-				+ ", requestQty=" + requestQty + ", needDate=" + needDate + ", createDate=" + createDate + ", phone="
-				+ phone + ", first=" + first + ", last=" + last + "]";
+		return "Sales_tempVO [itemList=" + itemList + ", customerCode=" + customerCode + ", customSeq=" + customSeq
+				+ ", itemCode=" + itemCode + ", itemName=" + itemName + ", requestQty=" + requestQty + ", needDate="
+				+ needDate + ", createDate=" + createDate + ", deliveryAddr=" + deliveryAddr + ", phone=" + phone
+				+ ", first=" + first + ", last=" + last + "]";
 	}
+	
+	
 	
 	
 }

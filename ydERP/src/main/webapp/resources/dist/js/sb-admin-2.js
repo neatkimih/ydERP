@@ -30,13 +30,16 @@ $(function() {
     });
 
     var url = window.location;
+    var path = window.location.pathname;
     // var element = $('ul.nav a').filter(function() {
     //     return this.href == url;
     // }).addClass('active').parent().parent().addClass('in').parent();
     var element = $('ul.nav a').filter(function() {
+    	
+    	if (this.href == url )
+    		$(".page-header").html("♣♣♣"+$(this).html()+" ("+path+")♣♣♣");
         return this.href == url;
-        $(".page-header").html(this.html());
-        console.log("aaaa" + this.html());
+        
     }).addClass('active').parent();
 
     while (true) {

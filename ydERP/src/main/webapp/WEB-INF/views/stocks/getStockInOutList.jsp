@@ -83,7 +83,6 @@
 </script>
 </head>
 <body>
-	<h3></h3>
 	<div class="col-lg-7">
 		<div class="panel panel-default">
 			<div class="panel-heading">[ 입출고 조회 : getStockInOutList.jsp ] >>> 조건별 입출고 현황조회</div>

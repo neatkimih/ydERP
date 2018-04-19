@@ -198,7 +198,7 @@
 				console.dir(datas);
 				$("#itemList option:gt(0)").remove();
 				for (i = 0; i < datas.length; i++) {
-					$("#itemList").append("<option value='"+datas[i].customerCode+"'>" + datas[i].customerName);
+					$("#itemList").append("<option value='"+datas[i].itemCode+"'>" + datas[i].itemName);
 				}
 			}
 		});
@@ -211,7 +211,7 @@
 </script>
 <body>
 <div class="col-md-24">
-<div class="page-header">
+<div class="panel-heading">
 					
 					<c:if test="${not empty sessionScope.viewCustomer.customerCode}"> 
 					<div class="col-md-24">

@@ -10,11 +10,11 @@ public class SalesVO
 	
 	private String deliveryAddr;		// 배송지
 	private String deliveryEmp;			// 배송사원
-	private char deliveryStatus;		// 배송상태
+	private String deliveryStatus;		// 배송상태
 	private String deliveryDate;		// 배송희망일자
-	private char payStatus;				// 결제상태
-	private char warehouse;				// 출하창고
-	private char orderPermit;			// 주문허가
+	private String payStatus;			// 결제상태
+	private String warehouse;			// 출하창고
+	private String orderPermit;			// 주문허가
 	
 	private String pTxnNo;
 	
@@ -47,20 +47,20 @@ public class SalesVO
 	public void setDeliveryEmp(String deliveryEmp) { this.deliveryEmp = deliveryEmp; }
 	
 	/* deliveryStatus - GET(), SET() */
-	public char getDeliveryStatus() { return deliveryStatus; }
-	public void setDeliveryStatus(char deliveryStatus) { this.deliveryStatus = deliveryStatus; }
+	public String getDeliveryStatus() { return deliveryStatus; }
+	public void setDeliveryStatus(String deliveryStatus) { this.deliveryStatus = deliveryStatus; }
 	
 	/* payStatus - GET(), SET() */
-	public char getPayStatus() { return payStatus; }
-	public void setPayStatus(char payStatus) { this.payStatus = payStatus; }
+	public String getPayStatus() { return payStatus; }
+	public void setPayStatus(String payStatus) { this.payStatus = payStatus; }
 	
 	/* warehouse - GET(), SET() */
-	public char getWarehouse() { return warehouse; }
-	public void setWarehouse(char warehouse) { this.warehouse = warehouse; }
+	public String getWarehouse() { return warehouse; }
+	public void setWarehouse(String warehouse) { this.warehouse = warehouse; }
 	
 	/* orderPermit - GET(), SET() */	
-	public char getOrderPermit() { return orderPermit; }
-	public void setOrderPermit(char orderPermit) { this.orderPermit = orderPermit; }
+	public String getOrderPermit() { return orderPermit; }
+	public void setOrderPermit(String orderPermit) { this.orderPermit = orderPermit; }
 	
 	/* deliveryDate - GET(), SET() */	
 	public String getDeliveryDate() { return deliveryDate; }

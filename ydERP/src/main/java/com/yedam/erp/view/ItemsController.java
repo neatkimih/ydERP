@@ -233,9 +233,10 @@ public class ItemsController {
 
 	// 판매 업체 주문 요청 등록
 	@RequestMapping("/insertSales_temp")
-	public String insertSales_temp(Sales_tempVO vo) {
+	public String insertSales_temp(Sales_tempVO vo, HttpSession session) {
+		vo.setCustomerCode(((CustomerVO)session.getAttribute("viewCustomer")).getCustomerCode());
 		sales_tempService.insertSales_temp(vo);
-		return "items/getVendorequest";
+		return "items/getPurchaseRequest";
 	}
 
 	// 검색 조건. (자동완성 기능 추가예정)
@@ -256,9 +257,10 @@ public class ItemsController {
 	// 판매 업체 주문 요청 목록 가져오기
 	@RequestMapping("/getSales_tempList")
 	@ResponseBody
-	public List<Sales_tempVO> getSales_tempList(Model model, Sales_tempVO vo) {
+	public List<Sales_tempVO> getSales_tempList(Model model, Sales_tempVO vo, HttpSession session) {
+		vo.setCustomerCode(((CustomerVO)session.getAttribute("viewCustomer")).getCustomerCode());
 		vo.setFirst(1);
-		vo.setLast(30);
+		vo.setLast(1000);
 		return sales_tempService.getSales_tempList(vo);
 	}
 
@@ -266,7 +268,7 @@ public class ItemsController {
 	@RequestMapping("/updateSales_temp")
 	public String updateSales_temp(Sales_tempVO vo) {
 		sales_tempService.updateSales_temp(vo);
-		return "items/getVendorequest";
+		return "items/getPurchaseRequest";
 	}
 
 	// 판매 업체 여러건 삭제 (거래중단으로 update)
@@ -320,11 +322,20 @@ public class ItemsController {
 		ModelAndView mav = new ModelAndView();
 		if (result == true) { // 로그인 성공
 
+			vo = customerService.getCustomer(vo);
+			
 			// session에 로그인정보값을 저장한다.
 			session.setAttribute("viewCustomer", vo);
-			// getVendorequest.jsp로 이동
-			mav.setViewName("items/getVendorequest");
-			mav.addObject("msg", "success");
+			// getPurchaseRequest.jsp로 이동
+			if (vo.getCustomerCode().equals("admin12345") && vo.getCustomerPw().equals("12345")) {
+				mav.setViewName("/home");
+				mav.addObject("msg", "success");
+							
+			} else {
+				mav.setViewName("items/getPurchaseRequest");
+				mav.addObject("msg", "success");
+			}
+					
 		} else { // 로그인 실패
 			// login.jsp로 이동
 			mav.setViewName("items/login");

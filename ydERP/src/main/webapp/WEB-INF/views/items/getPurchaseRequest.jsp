@@ -26,10 +26,10 @@
 	src="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/daumaddr/daumAddr.js"></script>
+ 
 
 
-
-<script>
+<script> 
 
 	
 	
@@ -198,15 +198,30 @@
 				console.dir(datas);
 				$("#itemList option:gt(0)").remove();
 				for (i = 0; i < datas.length; i++) {
-					$("#itemList").append("<option value='"+datas[i].itemCode+"'>" + datas[i].itemName);
+					$("#itemList").append("<option value='"+datas[i].customerCode+"'>" + datas[i].customerName);
 				}
 			}
 		});
 	}	
 	
+	function logoutcheck() {
+		location.href='logout';
+	}
+	
 </script>
 <body>
+<div class="col-md-24">
 <div class="page-header">
+					
+					<c:if test="${not empty sessionScope.viewCustomer.customerCode}"> 
+					<div class="col-md-24">
+					<h3> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+					 ${sessionScope.viewCustomer.customerName}님 환영합니다. 
+					<input class="btn btn-primary" type="button" name="logout" value="로그아웃" onclick="logoutcheck()"/>
+					 </h3>
+					 </div>
+					</c:if>
 		<h1>
 			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
@@ -219,6 +234,7 @@
 			
 		</h1>
 	</div>
+	</div>
 
 <script type="text/javascript">
 	$(function() {
@@ -230,8 +246,8 @@
 			datatype : "json",
 			styleUI : 'Bootstrap',
 			colModel : [ {
-				label : "사업자번호",
-				name : "customerCode",
+				label : "구매번호",
+				name : "customSeq",
 				key : true,
 				align : "center",
 				width : 100,

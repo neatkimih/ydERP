@@ -1,6 +1,8 @@
 package com.yedam.erp.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +61,17 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public void afterPermitOrder(String saleCode) {
 		salesDAO.afterPermitOrder(saleCode);
+	}
+
+	/* 월일별 판매액 통계 처리 */
+	@Override
+	public List<Map<String, Object>> getSaleChart(SalesVO salesVO) {
+		return salesDAO.getSaleChart(salesVO);
+	}
+
+	/* 월일별 순이익 통계 처리 */
+	@Override
+	public List<Map<String, Object>> getProfitChart(SalesVO salesVO) {
+		return salesDAO.getProfitChart(salesVO);
 	}
 }

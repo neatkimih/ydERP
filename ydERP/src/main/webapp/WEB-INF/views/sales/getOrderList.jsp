@@ -202,6 +202,7 @@ var lastsel2;
 		jQuery("#submitButton").attr("disabled",state);
 	}
 	
+	title_nav = "[ getOrderList.jsp :::  주문내역 관리 (검색 | 조회 | 승인 | 폐기)]";
 </script>
 <style type="text/css">
 #orderPageTitle {

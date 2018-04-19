@@ -126,12 +126,13 @@
 		})
 
 	}
+	title_nav = "[ getStockOnhandList.jsp >>> 품목별 재고 조회 ]";
 </script>
 </head>
 <body>
 	<div class="col-lg-9">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ 재고조회 : getStockOnhandList.jsp ] >>> 품목별 재고 조회</div>
+			<div class="panel-heading">[ ]</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-3">

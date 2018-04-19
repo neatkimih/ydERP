@@ -209,13 +209,14 @@
 			}
 		})
 	};
+	title_nav = "[ getPurchaseReceipting.jsp >>> 승인건에 대한 입고처리 ]";
 </script>
 
 </head>
 <body>
 	<div class="col-lg-5">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ 구매 입고 처리 : getPurchaseReceipting.jsp ] >>> 승인건에 대한 입고처리</div>
+			<div class="panel-heading">[  ]</div>
 			<div class="container"></div>
 		</div>
 	</div>

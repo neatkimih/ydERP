@@ -206,7 +206,7 @@
 	
 </script>
 <body>
-<div class="page-header">
+<div class="panel-heading">
 		<h1>
 			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;

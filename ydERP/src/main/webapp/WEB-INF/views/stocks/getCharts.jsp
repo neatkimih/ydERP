@@ -117,12 +117,13 @@
 			}
 		});
 	}
+	title_nav = "[ getCharts.jsp ::: Chart 확인 ]";
 </script>
 </head>
 <body>
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ 차트 통계 자료 : getCharts.jsp ] >>> Chart </div>
+			<div class="panel-heading">[  ]</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6" id="columnchart_material" style="height: 400px;"></div>

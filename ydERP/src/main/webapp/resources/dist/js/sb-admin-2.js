@@ -36,8 +36,13 @@ $(function() {
     // }).addClass('active').parent().parent().addClass('in').parent();
     var element = $('ul.nav a').filter(function() {
     	
-    	if (this.href == url )
-    		$(".page-header").html("♣♣♣"+$(this).html()+" ("+path+")♣♣♣");
+    	if (this.href == url ){
+    		if(title_nav){title_nav=""}
+    		console.dir($(this));
+    		$(".page-header").html($(this).parent().parents("li").find("a:first").text()+"▶"+$(this).html()+":"+title_nav);
+    		//var heading1 = $(".panel-heading").html();
+    		//$(".panel-heading").html($(this).html() + title_nav)
+    	}
         return this.href == url;
         
     }).addClass('active').parent();

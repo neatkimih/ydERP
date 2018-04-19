@@ -129,12 +129,13 @@
 				chk[i].checked = true; */
 		}
 	}
+	title_nav = "[ getPurchaseRequestList.jsp >>> 최저재고 확보를 위한 구매요청화면 ]";
 </script>
 </head>
 <body>
 	<div class="col-lg-9">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ 구매요청생성:getPurchaseRequestList.jsp ] >>> 최저재고 확보를 위한 구매요청화면</div>
+			<div class="panel-heading">[ ]</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-3">

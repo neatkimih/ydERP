@@ -78,8 +78,22 @@
 		<![CDATA[
 		SELECT common.get_vendor_name(v.vendor_code) vendor_name, v.*
 		FROM   purchase_request_vo v
-		ORDER BY vendor_code, item_code
 		]]>
+		<where>
+			<if test=" group1 != null and group1 != '' ">
+				AND SUBSTR(item_code,1,1) = #{group1}
+			</if>
+			<if test=" group2 != null and group2 != '' ">
+				AND SUBSTR(item_code,2,1) = #{group2}
+			</if>
+			<if test=" group3 != null and group3 != '' ">
+				AND SUBSTR(item_code,3,1) = #{group3}
+			</if>
+			<if test=" vendorCode != null and vendorCode != '' ">
+				AND vendor_code = #{vendorCode}
+			</if>
+		</where>
+		ORDER BY vendor_code, item_code
 	</select>
 
 	<insert id="insertPurchaseProc" parameterType="purchaserequest"
@@ -174,7 +188,7 @@
 		AND    ROWNUM <= 5		
 		]]>
 	</select>
-	
+
 	<select id="getMostBuyItem" resultType="map">
 		<![CDATA[
 		SELECT itm.item_name
@@ -189,7 +203,7 @@
 		AND    ROWNUM <= 5		
 		]]>
 	</select>
-	
+
 	<select id="getInOutQtyChart" resultType="map">
 		<![CDATA[
 		SELECT TO_CHAR(v.txn_date
@@ -203,7 +217,7 @@
 		                 ,'rr/mm/dd')
 		]]>
 	</select>
-	
+
 	<select id="getInOutAmtChart" resultType="map">
 		<![CDATA[
 		SELECT in_out_day
@@ -276,7 +290,7 @@
 		FROM lookup_values
 		WHERE lookup = #{lookup}
 	</select>
-	
+
 	<update id="updateLookup" parameterType="com.yedam.erp.stocks.LookupCodes">
 		<![CDATA[
 		UPDATE lookup_values
@@ -310,9 +324,9 @@
 		WHERE  lk.lookup = lv.lookup
 		AND    lk.lookup = 'ITEM_GROUP2'
 		]]>
-			<if test=" _parameter != null and _parameter != '' ">
-				AND    lv.dff = #{_parameter}
-			</if>
+		<if test=" _parameter != null and _parameter != '' ">
+			AND lv.dff = #{_parameter}
+		</if>
 		<![CDATA[
 		ORDER BY lv.descriptions
 		]]>
@@ -327,9 +341,9 @@
 		WHERE  lk.lookup = lv.lookup
 		AND    lk.lookup = 'ITEM_GROUP3'
 		]]>
-			<if test=" _parameter != null and _parameter != '' ">
-				AND    lv.dff = #{_parameter}
-			</if>
+		<if test=" _parameter != null and _parameter != '' ">
+			AND lv.dff = #{_parameter}
+		</if>
 		<![CDATA[
 		ORDER BY lv.descriptions
 		]]>

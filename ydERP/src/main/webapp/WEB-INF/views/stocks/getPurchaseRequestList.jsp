@@ -22,7 +22,7 @@
 		$("#btn1").click(function() {
 			var params = [];
 
-			$("[name=check]:checked").each(function(idx, check) {
+			$("[name=checkSeq]:checked").each(function(idx, check) {
 				//console.dir($(check).val())
 				var rowid = $(check).val();
 				params.push(allData[rowid]);
@@ -45,8 +45,12 @@
 	}
 
 	function requestList() {
+		var group1 = $("#itemgroup1").val();
+		var group2 = $("#itemgroup2").val();
+		var group3 = $("#itemgroup3").val();
+		var warehs = $("#warehouseSelect").val();
 		$.ajax({
-			url : "getPurchaseRequestListData",
+			url : "getPurchaseRequestListData?group1="+group1+"&group2="+group2+"&group3="+group3+"&vendorCode="+warehs,
 			type : "GET",
 			dataType : "json",
 			contentType : "application/json;charset=utf-8",
@@ -57,7 +61,7 @@
 		allData = datas.data;
 		$("tbody").empty();
 		$.each(datas.data, function(idx, item) {
-			$("<tr>").append($("<td align='center'> <input type='checkbox' value='"+idx+"' name='check' >"))
+			$("<tr>").append($("<td align='center'> <input type='checkbox' value='"+idx+"' name='checkSeq' >"))
 					 .append($("<td name='itemCode'>").html(item.itemCode))
 					 .append($("<td name='itemName'>").html(item.itemName))
 					 .append($("<td name='uom'>").html(item.uom))
@@ -76,17 +80,66 @@
 					 .appendTo("tbody");
 		});
 	}
+	function changeGroup1() {
+		//alert("change");
+		var grp1 = jQuery("#itemgroup1").val();
+		console.log("grp1 =========" + grp1);
+		$.ajax({
+			url : "getItemGroup2.do?grp_code=" + grp1,
+			datatype : "json",
+			method : "POST",
+			success : function(datas) {
+				$("#itemgroup2 option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					console.log(i + "=====" + datas[i].grp_code + ", " + datas[i].grp_name);
+					$("#itemgroup2").append("<option value='"+datas[i].grp_code+"'>" + datas[i].grp_name);
+				}
+			}
+		})
+
+	}
+
+	function changeGroup2() {
+		//alert("change");
+		var grp2 = jQuery("#itemgroup2").val();
+		console.log("grp2 =========" + grp2);
+		$.ajax({
+			url : "getItemGroup3.do?grp_code=" + grp2,
+			datatype : "json",
+			method : "POST",
+			success : function(datas) {
+				$("#itemgroup3 option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					console.log(i + "=====" + datas[i].grp_code + ", " + datas[i].grp_name);
+					$("#itemgroup3").append("<option value='"+datas[i].grp_code+"'>" + datas[i].grp_name);
+				}
+			}
+		})
+
+	}
+
+
+	function allCheck(cdata) {
+		var chk = document.getElementsByName("checkSeq");
+		for (i = 0; i < chk.length; i++) {
+			chk[i].checked = cdata;
+		/* if (chk[i].checked == true)
+				chk[i].checked = false;
+			else
+				chk[i].checked = true; */
+		}
+	}
 </script>
 </head>
-<body><h3>getPurchaseRequestList.jsp</h3>
+<body>
 	<div class="col-lg-9">
 		<div class="panel panel-default">
-			<div class="panel-heading">Search Condition</div>
+			<div class="panel-heading">[ 구매요청생성:getPurchaseRequestList.jsp ] >>> 최저재고 확보를 위한 구매요청화면</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-3">
 						<input type="checkbox" id="autosearch"
-							onclick="enableAutosubmit(this.checked)"> Enable Autosearch
+							onclick="allCheck(this.checked)"> 전체선택
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px">
@@ -118,7 +171,7 @@
 						</select>
 					</div>
 					<div class="col-lg-3">
-						<button onclick="gridReload()" id="submitButton"
+						<button onclick="requestList()" id="submitButton"
 							class="btn btn-outline btn-success btn-block">Search</button>
 					</div>
 				</div>

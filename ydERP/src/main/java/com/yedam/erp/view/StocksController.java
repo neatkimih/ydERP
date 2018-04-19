@@ -113,7 +113,12 @@ public class StocksController {
 	}
 
 	@RequestMapping("/getPurchaseRequestList")
-	public String getPurchaseRequestList() {
+	public String getPurchaseRequestList(Model model, StockOnhandViewVO vo, String str2, String str3) {
+		model.addAttribute("itemGroup1", stockOnhandService.getItemGroup1());
+		model.addAttribute("itemGroup2", stockOnhandService.getItemGroup2(str2));
+		model.addAttribute("itemGroup3", stockOnhandService.getItemGroup3(str3));
+		model.addAttribute("vendorList", stockOnhandService.getVendorList(vo));
+
 		return "stocks/getPurchaseRequestList";
 	}
 

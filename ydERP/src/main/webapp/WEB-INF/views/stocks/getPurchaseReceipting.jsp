@@ -212,7 +212,7 @@
 </script>
 
 </head>
-<body><h3></h3>
+<body>
 	<div class="col-lg-5">
 		<div class="panel panel-default">
 			<div class="panel-heading">[ 구매 입고 처리 : getPurchaseReceipting.jsp ] >>> 승인건에 대한 입고처리</div>

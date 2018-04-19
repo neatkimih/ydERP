@@ -311,22 +311,6 @@
 	<!-- 판매업체 구매 요청 정보 리스트 -->
 	<select id="getSales_tempList" resultType="com.yedam.erp.items.Sales_tempVO">
 
-<<<<<<< HEAD
-		SELECT st.customer_code
-		      ,common.get_customer_name(st.customer_code) AS customer_name
-		      ,st.item_code
-		      ,common.get_item_name(st.item_code) AS item_name
-		      ,st.request_qty
-		      ,st.need_date
-		      ,st.create_date
-		      ,st.phone
-		      ,st.delivery_addr
-		      ,st.custom_seq
-		FROM   sales_temp st
-		WHERE  1 = 1
-		AND    customer_code = #{customerCode}
-		ORDER  BY st.item_code
-=======
       SELECT st.customer_code
             ,common.get_customer_name(st.customer_code) AS customer_name
             ,st.item_code
@@ -342,7 +326,6 @@
       AND    customer_code = #{customerCode}
       ORDER  BY st.item_code
 
->>>>>>> branch 'master' of https://github.com/neatkimih/ydERP.git
 	</select>
 
 	<!-- JqGrid 클릭 이벤트시 가져올 판매업체 구매목록 중 한 개의 정보 -->

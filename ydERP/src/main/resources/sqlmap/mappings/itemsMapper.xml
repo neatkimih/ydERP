@@ -16,7 +16,7 @@
 		,i.expire_date
 		,i.vendor_code
 		FROM items i
-		<where> 
+		<where>  
 			<if test="pGroup1 != null and pGroup1 != '' ">
 				AND item_code like '%' || #{pGroup1} || '%'
 			</if>

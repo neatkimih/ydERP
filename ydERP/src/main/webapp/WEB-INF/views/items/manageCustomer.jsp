@@ -143,7 +143,9 @@
 
 </head>
 <body>
-	<div class="page-header">
+	
+		<div class="col-md-24">
+		<div class="page-header">
 		<h1>
 			판매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 판매업체 관리 &emsp; &emsp;
@@ -154,6 +156,7 @@
 				onclick='updateCustomer()'>수정</button>
 			<button class="btn btn-danger" type="button" onclick='restorePage()'>취소</button>
 		</h1>
+	</div>
 	</div>
 
 	<script type="text/javascript">

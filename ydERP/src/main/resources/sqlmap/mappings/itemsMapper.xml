@@ -311,24 +311,20 @@
 	<!-- 판매업체 구매 요청 정보 리스트 -->
 	<select id="getSales_tempList" resultType="com.yedam.erp.items.Sales_tempVO">
 
-
-		SELECT st.custom_seq
-		,i.item_code
-		,i.item_name
-		,i.uom
-		,st.request_qty
-		,st.delivery_addr
-		,st.need_date
-		,st.create_date
-
-		FROM Sales_temp st, Items i, customers ct
-		WHERE st.item_code = i.item_code
-		AND ct.customer_code = #{customerCode} = st.customer_code
-		
-		
-		
-		
-		ORDER BY st.customer_code DESC
+      SELECT st.customer_code
+            ,common.get_customer_name(st.customer_code) AS customer_name
+            ,st.item_code
+            ,common.get_item_name(st.item_code) AS item_name
+            ,st.request_qty
+            ,st.need_date
+            ,st.create_date
+            ,st.phone
+            ,st.delivery_addr
+            ,st.custom_seq
+      FROM   sales_temp st
+      WHERE  1 = 1
+      AND    customer_code = #{customerCode}
+      ORDER  BY st.item_code
 
 	</select>
 

@@ -228,7 +228,7 @@ public class ItemsController {
 	// 판매 업체 주문 요청 폼
 	@RequestMapping("/getPurchaseRequestForm")
 	public String getVendorequest() {
-		return "items/getPurchaserequest";
+		return "items/getPurchaseRequest";
 	}
 
 	// 판매 업체 주문 요청 등록

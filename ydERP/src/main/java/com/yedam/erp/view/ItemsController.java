@@ -236,7 +236,7 @@ public class ItemsController {
 	public String insertSales_temp(Sales_tempVO vo, HttpSession session) {
 		vo.setCustomerCode(((CustomerVO)session.getAttribute("viewCustomer")).getCustomerCode());
 		sales_tempService.insertSales_temp(vo);
-		return "items/getVendorequest";
+		return "items/getPurchaseRequest";
 	}
 
 	// 검색 조건. (자동완성 기능 추가예정)
@@ -268,7 +268,7 @@ public class ItemsController {
 	@RequestMapping("/updateSales_temp")
 	public String updateSales_temp(Sales_tempVO vo) {
 		sales_tempService.updateSales_temp(vo);
-		return "items/getVendorequest";
+		return "items/getPurchaseRequest";
 	}
 
 	// 판매 업체 여러건 삭제 (거래중단으로 update)
@@ -322,11 +322,20 @@ public class ItemsController {
 		ModelAndView mav = new ModelAndView();
 		if (result == true) { // 로그인 성공
 
+			vo = customerService.getCustomer(vo);
+			
 			// session에 로그인정보값을 저장한다.
 			session.setAttribute("viewCustomer", vo);
-			// getVendorequest.jsp로 이동
-			mav.setViewName("items/getPurchaseRequest");
-			mav.addObject("msg", "success");
+			// getPurchaseRequest.jsp로 이동
+			if (vo.getCustomerCode().equals("admin12345") && vo.getCustomerPw().equals("12345")) {
+				mav.setViewName("/home");
+				mav.addObject("msg", "success");
+							
+			} else {
+				mav.setViewName("items/getPurchaseRequest");
+				mav.addObject("msg", "success");
+			}
+					
 		} else { // 로그인 실패
 			// login.jsp로 이동
 			mav.setViewName("items/login");

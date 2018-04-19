@@ -126,6 +126,7 @@
 
 </head>
 <body>
+	<div class="col-md-24">
 	<div class="page-header">
 		<h1>
 			구매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
@@ -138,7 +139,7 @@
 			<button class="btn btn-danger" type="button" onclick='restorePage()'>취소</button>
 		</h1>
 	</div>
-
+	</div>
 	<script type="text/javascript">
 		$(function() {
 			

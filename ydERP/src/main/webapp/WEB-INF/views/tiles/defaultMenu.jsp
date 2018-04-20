@@ -29,7 +29,7 @@
 				</div> <!-- /input-group -->
 			</li>
 			<c:if test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode!='admin12345'}">
-				<li><a href="getPurchaseRequestForm">판매업체 구매신청</a></li>
+				<li><a href="getPurchaseRequestForm">판매업체 구매신청</a></li> 
 			</c:if>
 			<c:if test="${sessionScope.viewCustomer.customerCode=='admin12345'}">
 				<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>

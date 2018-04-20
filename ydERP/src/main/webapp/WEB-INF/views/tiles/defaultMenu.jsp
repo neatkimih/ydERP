@@ -45,9 +45,9 @@
 				<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
 						판매정보<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
-						<li><a href="getSaleList">판매내역</a></li>
 						<li><a href="getOrderList">주문내역</a></li>
-						<li><a href="getSaleChart">매출분석</a></li>
+						<li><a href="getSaleList">판매내역</a></li>
+						<li><a href="getSaleChart">판매차트</a></li>
 					</ul></li>
 				<%@ include file="./defaultMenu4.jsp"%>
 				<%@ include file="./defaultMenu5.jsp"%>

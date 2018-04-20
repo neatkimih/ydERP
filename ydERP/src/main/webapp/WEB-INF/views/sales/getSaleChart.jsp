@@ -4,9 +4,14 @@
 <html>
 	<head>
 		<title>getSaleChart.jsp</title>
-		<link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
-		<script src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
-		<script src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"	type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" media="screen"
+			href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
+		<script
+			src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
+			type="text/javascript"></script>
+		<script
+			src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
+			type="text/javascript"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script src="./scripts/json.min.js"></script>
 		<script>
@@ -77,7 +82,7 @@
 						profitChartData.push([datas[i].profitDay, datas[i].profitSum ]);
 					};
 					var profitChartOptions = {
-						title : '[매출]',
+						title : '[순이익]',
 						width: 600,
 				        height: 400,
 				        bar: {groupWidth: "95%"},
@@ -98,6 +103,22 @@
 	    	})
 	    }
 	  </script>
+	  <style>
+	  	#saleChartDiv {
+	  		margin-left: auto;
+	  		margin-right: auto;
+	  		margin-bottom: 50px;
+	  		margin-top: 50px;
+	  	
+	  	}
+	  	
+	  	#profitChartDiv {
+	  	
+	  	
+	  	}
+	  
+	  
+	  </style>
 	</head>
 	<body>
 		<div class="col-lg-12">
@@ -118,6 +139,9 @@
 						</select>
 						<div id="saleChartDiv" class="col-lg-6" style="width: 900px; height: 300px;"></div>
 					</div>
+					<br>
+					<hr>
+					<br>
 					<div class="row">
 						<select id="selectProfitYear" onchange="drawProfitChart()">
 							<c:forEach begin="2018" end="2018" var="year">

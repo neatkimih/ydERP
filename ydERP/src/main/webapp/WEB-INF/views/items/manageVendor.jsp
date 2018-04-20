@@ -118,7 +118,7 @@
 					url : "/getVendor?vendorCode=" + selectedVendorCode
 				});
 			}
-					console.log("선택된 판매코드 : " + selectedVendorCode);
+					console.log("선택된 구매업체 코드 번호 : " + selectedVendorCode);
 		  } 
  
 
@@ -127,7 +127,8 @@
 </head>
 <body>
 	<div class="col-md-24">
-	<div class="page-header">
+	<div class="panel-heading">
+	
 		<h1>
 			구매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매업체 관리 &emsp; &emsp;
@@ -180,6 +181,11 @@
 					align : "right",
 					editable : true
 				}, {
+					label : "거래상태",
+					name : "useFlag",
+					width : 60,
+					editable : true,
+				}, {
 					label : "은행",
 					name : "vendorBank",
 					width : 120,
@@ -195,7 +201,7 @@
 				}, {
 					label : "계좌주",
 					name : "vendorBankowner",
-					width : 120,
+					width : 60,
 					hidden : true,
 					editable : false
 				} ],
@@ -223,6 +229,7 @@
 					     document.register.vendorBank.value = rowData.vendorBank;
 					     document.register.vendorAccount.value = rowData.vendorAccount;
 					     document.register.vendorBankowner.value = rowData.vendorBankowner;
+					     document.register.useFlag.value = rowData.useFlag;					     
 						}
 					 
 				 },
@@ -356,14 +363,35 @@
 					</div>
 
 				</div>
-
-
-
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="useflagStatus">거래 상태</label>
+				</div>	
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="useflagStatus"></label>
+					<label class="col-sm-2" for="useflagStatusOn">거래 중</label>
+					
+						<div class="input-group">
+							<input type="radio" name="useFlag" id="useFlag" value="Y"/>
+						</div>
+					
+				
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="useflagStatus"></label>
+					
+					<label class="col-sm-2" for="useflagStatusOff">거래 중단된 업체</label>
+					
+						<div class="input-group">
+							<input type="radio" name="useFlag" id="useFlag" value="N"/>
+						</div>
+					
+					
+				</div>
 			</div>
 		</form>
 	</div>
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 </body>
 </html>

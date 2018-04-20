@@ -10,7 +10,7 @@ public class VendorVO {
 	private String vendorBank;
 	private String vendorAccount;
 	private String vendorBankowner;
-
+	private String useFlag;
 	private int first;
 	private int last;
 
@@ -54,6 +54,16 @@ public class VendorVO {
 		this.vendorPhone = vendorPhone;
 	}
 
+	
+	
+	public String getUseFlag() {
+		return useFlag;
+	}
+
+	public void setUseFlag(String useFlag) {
+		this.useFlag = useFlag;
+	}
+
 	public String getVendorBank() {
 		return vendorBank;
 	}
@@ -77,7 +87,7 @@ public class VendorVO {
 	public void setVendorBankowner(String vendorBankowner) {
 		this.vendorBankowner = vendorBankowner;
 	}
-
+	
 	public int getFirst() {
 		return first;
 	}
@@ -98,8 +108,12 @@ public class VendorVO {
 	public String toString() {
 		return "VendorVO [vendorCode=" + vendorCode + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner
 				+ ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank
-				+ ", vendorAccount=" + vendorAccount + ", vendorBankowner=" + vendorBankowner + ", first=" + first
-				+ ", last=" + last + "]";
+				+ ", vendorAccount=" + vendorAccount + ", vendorBankowner=" + vendorBankowner + ", useFlag=" + useFlag
+				+ ", first=" + first + ", last=" + last + "]";
 	}
+
+	
+
+	
 
 }

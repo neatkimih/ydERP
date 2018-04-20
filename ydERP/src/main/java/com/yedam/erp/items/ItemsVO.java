@@ -1,5 +1,7 @@
 package com.yedam.erp.items;
 
+import java.util.Date;
+
 public class ItemsVO {
 	private String itemCode;
 	private String itemName;
@@ -10,6 +12,8 @@ public class ItemsVO {
 	private Integer itemTax;
 	private Integer expireDate;
 	private String vendorCode;
+	private String vendorName;
+	private Date addDate;
 	private int first;
 	private int last;
 	private String searchCondition;
@@ -20,6 +24,7 @@ public class ItemsVO {
 	private Integer minQty;
 	private String msg;
 	
+
 	
 
 	public String getItemCode() {
@@ -94,6 +99,14 @@ public class ItemsVO {
 		this.vendorCode = vendorCode;
 	}
 
+	public Date getAddDate() {
+		return addDate;
+	}
+	
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+	
 	public int getFirst() {
 		return first;
 	}
@@ -165,14 +178,25 @@ public class ItemsVO {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
+	
+	
+
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
 
 	@Override
 	public String toString() {
 		return "ItemsVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty=" + inQty
 				+ ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax
-				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", first=" + first + ", last=" + last
-				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", pGroup1=" + pGroup1
-				+ ", pGroup2=" + pGroup2 + ", pGroup3=" + pGroup3 + ", minQty=" + minQty + ", msg=" + msg + "]";
+				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", vendorName=" + vendorName
+				+ ", addDate=" + addDate + ", first=" + first + ", last=" + last + ", searchCondition="
+				+ searchCondition + ", searchKeyword=" + searchKeyword + ", pGroup1=" + pGroup1 + ", pGroup2=" + pGroup2
+				+ ", pGroup3=" + pGroup3 + ", minQty=" + minQty + ", msg=" + msg + "]";
 	}
 
 	

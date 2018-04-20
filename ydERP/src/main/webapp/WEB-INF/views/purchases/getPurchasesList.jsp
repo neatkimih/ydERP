@@ -231,13 +231,14 @@
             return -1;
         }
 	});
+	title_nav = "[ 구매 정보 조회 : getPurchasesList.jsp >>> 구매 정보 조회 및 확인  ]";
 </script>
 
 </head>
 <body> 
 	<div class="col-lg-6">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ 구매 정보 조회 : getPurchasesList.jsp ] >>> 구매 정보 조회 및 확인</div>
+			<div class="panel-heading">[ ]</div>
 		</div>
 	</div>
 	<div class="row">

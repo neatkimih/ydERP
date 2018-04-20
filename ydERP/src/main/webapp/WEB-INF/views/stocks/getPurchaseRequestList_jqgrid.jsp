@@ -55,9 +55,10 @@
 				});
 		jQuery("#list").jqGrid('navGrid', '#pager', {});
 	});
+	title_nav = "[ getPurchaseRequestList_jqgrid.jsp :::  ]";
 </script>
 </head>
-<body><h3>getPurchaseRequestList_jqgrid.jsp</h3>
+<body>
 	<form name="frm" action="insertPurchaseRequest">
 		<input type="submit" value="주문요청생성" />
 		<div class="col-lg-12">

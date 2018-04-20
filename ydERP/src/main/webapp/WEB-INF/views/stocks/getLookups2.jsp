@@ -80,10 +80,10 @@
 		flAuto = state;
 		jQuery("#submitButton").attr("disabled", state);
 	}
+	title_nav = "[ getLookups.jsp ::: 룩업 관리 ]";
 </script>
 </head>
 <body>
-	<h3>getLookups.jsp</h3>
 	<div class="col-lg-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">Search Condition</div>

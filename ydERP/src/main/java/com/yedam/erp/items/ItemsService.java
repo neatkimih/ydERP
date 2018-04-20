@@ -14,4 +14,5 @@ public interface ItemsService {
 	public List<ItemsVO> getItemsList(ItemsVO vo);
 	public void deleteItemsList(ArrayList<String> seq);
 	public int getCount(ItemsVO vo);
+	public List<ItemsVO> getVendorList2(ItemsVO vo);
 }

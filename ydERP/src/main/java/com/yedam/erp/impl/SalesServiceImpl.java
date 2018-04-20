@@ -63,15 +63,27 @@ public class SalesServiceImpl implements SalesService {
 		salesDAO.afterPermitOrder(saleCode);
 	}
 
-	/* 월일별 판매액 통계 처리 */
+	/* 월별 판매액 차트 연산 처리 */
 	@Override
-	public List<Map<String, Object>> getSaleChart(SalesVO salesVO) {
-		return salesDAO.getSaleChart(salesVO);
+	public List<Map<String, Object>> getSaleChartYear(SalesVO salesVO) {
+		return salesDAO.getSaleChartYear(salesVO);
+	}
+	
+	/* 일별 판매액 차트 연산 처리 */
+	@Override
+	public List<Map<String, Object>> getSaleChartMonth(SalesVO salesVO) {
+		return salesDAO.getSaleChartMonth(salesVO);
 	}
 
-	/* 월일별 순이익 통계 처리 */
+	/* 월별 순이익 차트 연산 처리 */
 	@Override
-	public List<Map<String, Object>> getProfitChart(SalesVO salesVO) {
-		return salesDAO.getProfitChart(salesVO);
+	public List<Map<String, Object>> getProfitChartYear(SalesVO salesVO) {
+		return salesDAO.getProfitChartYear(salesVO);
+	}
+	
+	/* 일별 순이익 차트 연산 처리 */
+	@Override
+	public List<Map<String, Object>> getProfitChartMonth(SalesVO salesVO) {
+		return salesDAO.getProfitChartMonth(salesVO);
 	}
 }

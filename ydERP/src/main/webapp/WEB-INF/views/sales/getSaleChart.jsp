@@ -1,103 +1,163 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html>
 	<head>
 		<title>getSaleChart.jsp</title>
-		<link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
-		<script src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
-		<script src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"	type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" media="screen"
+			href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
+		<script
+			src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
+			type="text/javascript"></script>
+		<script
+			src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
+			type="text/javascript"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script src="./scripts/json.min.js"></script>
 		<script>
-			google.charts.load("current", {packages:['corechart']});
-			google.charts.setOnLoadCallback(drawChart);
-						
-			function drawChart() {
-				
-				/* 월별, 일별 순이익 차트 : Bar Chart */
-				$.ajax({
-					url : "./getProfitData.do",
-					method : "POST",
-					type : "json",
-					success : function(datas) {
-						var dataProfit = [];
-						dataProfit.push([
-						
-					}
-					
-					
-				})
-				
-			
-				var data = google.visualization.arrayToDataTable([
-				["Element", "Density", { role: "style" } ],
-				["Copper", 8.94, "#b87333"],
-			        ["Silver", 10.49, "silver"],
-			        ["Gold", 19.30, "gold"],
-			        ["Platinum", 21.45, "color: #e5e4e2"]
-			      ]);
-
-			      var view = new google.visualization.DataView(data);
-			      view.setColumns([0, 1,
-			                       { calc: "stringify",
-			                         sourceColumn: 1,
-			                         type: "string",
-			                         role: "annotation" },
-			                       2]);
-
-			      var options = {
-			        title: "Density of Precious Metals, in g/cm^3",
-			        width: 600,
-			        height: 400,
-			        bar: {groupWidth: "95%"},
-			        legend: { position: "none" },
-			      };
-			      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-			      chart.draw(view, options);
-			
-			
-			
-			
-			
-			
-			function drawChart() {
-				var data = google.visualization.arrayToDataTable([
-		          ['Year', 'Sales', 'Expenses'],
-		          ['2014', 1000, 400],
-		          ['2015', 1170, 460],
-		          ['2016', 660, 1120],
-		          ['2017', 1030, 540]
-		        ]);
-		
-		        var options = {
-		          chart: {
-		            title: 'Company Performance',
-		            subtitle: 'Sales, Expenses: 2014-2017',
-		          },
-		          bars: 'vertical',
-		          vAxis: {format: 'decimal'},
-		          height: 400,
-		          colors: ['#1b9e77', '#d95f02']
-		        };
-		
-		        var chart = new google.charts.Bar(document.getElementById('chart_div'));
-		
-		        chart.draw(data, google.charts.Bar.convertOptions(options));
-		
-		        var btns = document.getElementById('btn-group');
-		
-		        btns.onclick = function (e) {
-		
-		          if (e.target.tagName === 'BUTTON') {
-		            options.vAxis.format = e.target.id === 'none' ? '' : e.target.id;
-		            chart.draw(data, google.charts.Bar.convertOptions(options));
-		          }
-		        }
-		      }
-      </script>
+		google.charts.load("current", {packages:['corechart']});
+	    google.charts.setOnLoadCallback(drawSaleChart);
+	    google.charts.setOnLoadCallback(drawProfitChart);
+	    
+	    /* 매출 차트 그리기 */
+	    function drawSaleChart() {
+	    	var selectSaleYear = $("#selectSaleYear").val();								// JAVASCRIPT
+	    	var selectSaleMonth = document.getElementById("selectSaleMonth").value;			// DOM
+	    	if(selectSaleYear == "") {
+	    		selectSaleYear = "2018";
+	    	}
+	    	var param = {selectSaleYear:selectSaleYear,selectSaleMonth:selectSaleMonth}
+	    	
+	    	$.ajax({
+	    		url : "./getSaleChart.do",
+	    		data : param,
+				method : "POST",
+				type : "json",
+				success : function(datas) {
+					var saleChartData = [];
+					saleChartData.push([ "기간", "매출"]);
+					for (i = 0; i < datas.length; i++) {
+						saleChartData.push([datas[i].saleDay, datas[i].saleSum ]);
+					};
+					var saleChartOptions = {
+						title : '[매출]',
+						width: 600,
+				        height: 400,
+				        bar: {groupWidth: "95%"},
+				        legend: { position: "bottom" }
+					};
+/* 
+					var saleChartView = new google.visualization.DataView(data);
+				      view.setColumns([0, 1,
+	                       { calc: "stringify",
+	                         sourceColumn: 1,
+	                         type: "string",
+	                         role: "annotation" },
+	                       2]); */
+					console.log(saleChartData);
+					var saleChart = new google.visualization.ColumnChart(document.getElementById("saleChartDiv"));
+					saleChart.draw(google.visualization.arrayToDataTable(saleChartData), saleChartOptions);
+				}
+	    	})
+	    }
+	    
+	    /* 순이익 차트 그리기 */
+	    function drawProfitChart() {
+	    	var selectProfitYear = $("#selectProfitYear").val();								// JAVASCRIPT
+	    	var selectProfitMonth = document.getElementById("selectProfitMonth").value;			// DOM
+	    	if(selectProfitYear == "") {
+	    		selectProfitYear = "2018";
+	    	}
+	    	var param = {selectProfitYear:selectProfitYear,selectProfitMonth:selectProfitMonth}
+	    	
+	    	$.ajax({
+	    		url : "./getProfitChart.do",
+	    		data : param,
+				method : "POST",
+				type : "json",
+				success : function(datas) {
+					var profitChartData = [];
+					profitChartData.push([ "기간", "순이익"]);
+					for (i = 0; i < datas.length; i++) {
+						profitChartData.push([datas[i].profitDay, datas[i].profitSum ]);
+					};
+					var profitChartOptions = {
+						title : '[순이익]',
+						width: 600,
+				        height: 400,
+				        bar: {groupWidth: "95%"},
+				        legend: { position: "bottom" }
+					};
+/* 
+					var saleChartView = new google.visualization.DataView(data);
+				      view.setColumns([0, 1,
+	                       { calc: "stringify",
+	                         sourceColumn: 1,
+	                         type: "string",
+	                         role: "annotation" },
+	                       2]); */
+					console.log(profitChartData);
+					var profitChart = new google.visualization.ColumnChart(document.getElementById("profitChartDiv"));
+					profitChart.draw(google.visualization.arrayToDataTable(profitChartData), profitChartOptions);
+				}
+	    	})
+	    }
+	  </script>
+	  <style>
+	  	#saleChartDiv {
+	  		margin-left: auto;
+	  		margin-right: auto;
+	  		margin-bottom: 50px;
+	  		margin-top: 50px;
+	  	
+	  	}
+	  	
+	  	#profitChartDiv {
+	  	
+	  	
+	  	}
+	  
+	  
+	  </style>
 	</head>
 	<body>
-		
-		
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">차트 [getSaleCharts.jsp] </div>
+				<div class="container">
+					<div class="row">
+						<select id="selectSaleYear" onchange="drawSaleChart()">
+							<c:forEach begin="2018" end="2018" var="year">
+								<option value="${year}">${year}년</option>
+							</c:forEach>
+						</select>
+						<select id="selectSaleMonth" onchange="drawSaleChart()">
+								<option value="">전체</option>
+							<c:forEach begin="1" end="12" var="month">
+								<option value="${month}">${month}월</option>
+							</c:forEach>
+						</select>
+						<div id="saleChartDiv" class="col-lg-6" style="width: 900px; height: 300px;"></div>
+					</div>
+					<br>
+					<hr>
+					<br>
+					<div class="row">
+						<select id="selectProfitYear" onchange="drawProfitChart()">
+							<c:forEach begin="2018" end="2018" var="year">
+								<option value="${year}">${year}년</option>
+							</c:forEach>
+						</select>
+						<select id="selectProfitMonth" onchange="drawProfitChart()">
+								<option value="">전체</option>
+							<c:forEach begin="1" end="12" var="month">
+								<option value="${month}">${month}월</option>
+							</c:forEach>
+						</select>
+						<div id="profitChartDiv" class="col-lg-6" style="width: 900px; height: 300px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>		
 	</body>
 </html>

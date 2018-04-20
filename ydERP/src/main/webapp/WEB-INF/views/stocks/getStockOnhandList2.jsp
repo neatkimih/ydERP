@@ -99,13 +99,13 @@
 		}
 
 	});
-
+	title_nav = "getStockOnhandList2.jsp >>> 품목의 재고 및 입출고 조회";
 </script>
 </head>
 <body>
 	<div class="col-lg-5">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ 재고 조회2 : getStockOnhandList2.jsp ] >>> 품목의 재고 및 입출고 조회</div>
+			<div class="panel-heading">[ ]</div>
 			<div class="container"></div>
 		</div>
 	</div>

@@ -59,6 +59,14 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
  -->
+<script>
+	var title_nav = ""
+</script>
+<script>
+	function logoutcheck() {
+		location.href = 'logout';
+	}
+</script>
 </head>
 
 <body>
@@ -74,12 +82,27 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/erp">YedamERP</a>
+				<c:if test="${not empty sessionScope.viewCustomer.customerCode}">
+					<h3>
+						${sessionScope.viewCustomer.customerName}님 환영합니다. <input
+							class="btn btn-primary" type="button" name="logout" value="로그아웃"
+							onclick="logoutcheck()" />
+					</h3>
+				</c:if>
+
+				<!-- jstl 코어 태그 -->
+				<c:choose>
+					<c:when test="${empty sessionScope.viewCustomer.customerCode}">
+						<a class="navbar-brand" href="./">YedamERP</a>
+					</c:when>
+
+				</c:choose>
+
+				<hr>
+				
 			</div>
 		</nav>
-
 		<tiles:insertAttribute name="menu" />
-
 		<div id="page-wrapper">
 			<tiles:insertAttribute name="header" />
 			<tiles:insertAttribute name="content" />
@@ -97,35 +120,36 @@
 		<div id="chat">
 			Live Q&A
 			<div id="chatlogin">
-				상호명<input type="text" id="nickname" onkeydown="enterlogin()" size = "18"> <input type="button"
-					value="입장" onclick="login()">
+				상호명<input type="text" id="nickname" onkeydown="enterlogin()"
+					size="18"> <input type="button" value="입장"
+					onclick="login()">
 			</div>
 			<div id="chat-area">
 				<textarea id="messageWindow" rows="20" cols="33" readonly="readonly"></textarea>
-				<br /> <input id="inputMessage" type="text" onkeydown="enterkey()" size = "13" />
-				<input type="button" value="보내기" onclick="send()" /> <input
-					type="button" value="나가기" onclick="logout()" />
+				<br /> <input id="inputMessage" type="text" onkeydown="enterkey()"
+					size="13" /> <input type="button" value="보내기" onclick="send()" />
+				<input type="button" value="나가기" onclick="logout()" />
 			</div>
 
 
 		</div>
 	</div>
 
-
 	<script type="text/javascript">
 		var textarea = document.getElementById("messageWindow");
 		var webSocket
 		var inputMessage = document.getElementById('inputMessage');
 		var clientID
-	
+
 		//채팅방 로그인
 		function login() {
-			
+
 			document.getElementById("chatlogin").style.display = "none";
 			document.getElementById("chat-area").style.display = "block";
 			clientID = document.getElementById("nickname").value;
-			webSocket = new WebSocket('ws://192.168.0.73/erp/websocket/broadcast.do');
-	
+			webSocket = new WebSocket(
+					'ws://192.168.0.73/erp/websocket/broadcast.do');
+
 			webSocket.onerror = function(event) {
 				onError(event)
 			};
@@ -135,21 +159,21 @@
 			webSocket.onmessage = function(event) {
 				onMessage(event)
 			};
-	
+
 			function onMessage(event) {
 				textarea.value += event.data + "\n";
 			}
-	
+
 			function onOpen(event) {
 				textarea.value += "연결 성공\n";
 			}
-	
+
 			function onError(event) {
 				console.log(event);
 				alert(event.data);
 			}
 		}
-	
+
 		function send() {
 			// 서버로 전송할 데이터를 담을 msg 객체 생성.
 			var msg = {
@@ -162,22 +186,21 @@
 			// Blank the text input element, ready to receive the next line of text from the user.
 			document.getElementById("inputMessage").value = "";
 		}
-	
-	
+
 		function enterkey() {
 			if (window.event.keyCode == 13) {
 				if (document.getElementById("inputMessage").value != "")
 					send();
 			}
 		}
-	
+
 		function enterlogin() {
 			if (window.event.keyCode == 13) {
 				if (document.getElementById("nickname").value != "")
 					login();
 			}
 		}
-	
+
 		function logout() {
 			document.getElementById("chat-area").style.display = "none";
 			document.getElementById("chatlogin").style.display = "block";
@@ -187,5 +210,6 @@
 		  });	
 		 */
 	</script>
+
 </body>
 </html>

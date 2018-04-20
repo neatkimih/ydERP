@@ -190,4 +190,29 @@ public class StocksController {
 		return "success";
 	}
 
+	@RequestMapping("getSalesRequesting")
+	public String getSalesRequesting() {
+		return "stocks/getSalesRequesting";
+	}
+
+	@RequestMapping("getSalesRequest.do")
+	@ResponseBody
+	public List<PurchaseRequestVO> getSalesRequest(PurchaseRequestVO vo) {
+		return purchaseRequestService.getSalesRequest(vo);
+	}
+
+	@RequestMapping("getSalesRequestDetail.do")
+	@ResponseBody
+	public List<PurchaseRequestVO> getSalesRequestDetail(PurchaseRequestVO vo) {
+		return purchaseRequestService.getSalesRequestDetail(vo);
+	}
+
+	@RequestMapping("insertSalesProc")
+	@ResponseBody
+	public String insertSalesProc(PurchaseRequestVO vo) {
+		purchaseRequestService.insertSalesProc(vo);
+
+		return "success";
+	}
+
 }

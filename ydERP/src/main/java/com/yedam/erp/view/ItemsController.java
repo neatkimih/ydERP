@@ -47,7 +47,7 @@ public class ItemsController {
 
 	// 품목 등록 처리
 	@RequestMapping("/insertItems")
-	public String insertItems(ItemsVO vo) {
+	public String insertItems(ItemsVO vo) {		
 		itemsService.insertItems(vo);
 		return "items/getitemsList";
 	}
@@ -77,8 +77,19 @@ public class ItemsController {
 
 	// 품목 전체 조회 폼
 	@RequestMapping("/getItemsList")
-	public String getItemsList() {
+	public String getitemsList(ItemsVO vo) {
 		return "items/getitemsList";
+	}
+	
+	
+	//구매업체 조회 처리
+	@RequestMapping("/getVendorList2.do")
+	@ResponseBody
+	public List<ItemsVO> getItemsList(ItemsVO vo, Model model) {
+		//List<ItemsVO> list = itemsService.getVendorList2(vo);
+		//model.addAttribute("vendorList",list);
+		//return "items/getitemsList";
+		return itemsService.getVendorList2(vo);
 	}
 
 	// 품목 전체 조회 처리
@@ -87,8 +98,10 @@ public class ItemsController {
 	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo) {
 		vo.setFirst(1);
 		vo.setLast(30);
+		model.addAttribute("vendorName",vo);
 		return itemsService.getItemsList(vo);
 	}
+
 
 	// 품목 추가, 수정, 삭제 기능
 	@RequestMapping("/getItemsDataEdit")
@@ -328,7 +341,7 @@ public class ItemsController {
 			session.setAttribute("viewCustomer", vo);
 			// getPurchaseRequest.jsp로 이동
 			if (vo.getCustomerCode().equals("admin12345") && vo.getCustomerPw().equals("12345")) {
-				mav.setViewName("/home");
+				mav.setViewName("stocks/getCharts");
 				mav.addObject("msg", "success");
 							
 			} else {

@@ -16,12 +16,12 @@
 	type="text/javascript"></script>
 
 <script>
-//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수
+//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수 2개 + 구매업체 이름을 DB에서 가져와서 등록할시 구매코드로 등록하게 하는 함수 1개
 $(function(){
 	
 	$(document.body).on("change","#pGroup1", firstChange);
 	$(document.body).on("change","#pGroup2", secondChange);
-	
+	$(document.body).on("selectVendor", "#vendorCode", selectVendor);
 
 });
 
@@ -147,10 +147,32 @@ $(function(){
 		temp.options[0].selected = true
 	}
 	
-	
+</script>
+<script>
+	function selectVendor() {
+		
+	}
+
 </script>
 <!-- jqGrid -->
 <script type="text/javascript">
+var vendorData = ":선택";
+var params;
+
+$(function() {
+	$.ajax({
+		url : "./getVendorList2.do",
+		data : params,
+		async : false,
+		dataType : "json",
+		success : function(params) {
+			 for (i = 0; i < params.length; i++) {
+				vendorData += ";" + params[i].vendorCode +":" + params[i].vendorName;
+			} 
+		}
+	});
+});
+	
 	$(function() {
 	
 		$("#list").jqGrid({
@@ -257,11 +279,19 @@ $(function(){
 				align : "right",
 				editable : true
 			}, {
-				label : "판매자코드",
-				name : "vendorCode",
+				label : "구매 업체코드",
+				name : "vendorList",
 				width : 90,
 				align : "right",
+				edittype : "select",
+ 				editoptions : {value:vendorData},
 				editable : true
+			}, {
+				label : "품목 등록 일자",
+				name : "addDate",
+				width : 90,
+				editable : false,
+				formatoptions: { srcformat:'U/1000', newformat: " Y/m/d" }
 			}],
 			pager : "#pager",
 			rowNum : 10,
@@ -319,6 +349,19 @@ $(function(){
 </head>
 
 <body>
+
+	<div class="col-md-24">
+	 <div class="panel-heading">
+	 <h1>
+			품목 리스트
+	</h1>
+	<div class="col-md-24">
+	</div>
+	</div>
+	</div>
+
+	
+	
 
 	<table id="list">
 

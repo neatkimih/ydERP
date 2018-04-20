@@ -50,9 +50,10 @@
 					caption : "품목 입출고 현황조회"
 				});
 	});
+	title_nav = "[ getItemInOutList.jsp ::: 품목 입출고 정보 ]";
 </script>
 </head>
-<body><h3>getItemInOutList.jsp</h3>
+<body>
 	<div class="col-lg-12">
 		<table id="list">
 			<tr>

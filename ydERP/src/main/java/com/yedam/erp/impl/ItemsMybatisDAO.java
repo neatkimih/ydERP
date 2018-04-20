@@ -48,7 +48,10 @@ public class ItemsMybatisDAO {
 		return sqlSession.selectOne("items.getCount",vo);
 	}
 
-
+	public List<ItemsVO> getVendorList2(ItemsVO vo) {
+		System.out.println(sqlSession.selectList("items.getVendorList2",vo));
+		return sqlSession.selectList("items.getVendorList2",vo);
+	}
 	
 	
 }

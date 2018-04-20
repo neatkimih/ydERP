@@ -4,7 +4,7 @@
 <html>
 
 <head>
-<title>구매전체조회</title>
+<title>판매주문승인</title>
 <link rel="stylesheet" type="text/css" media="screen" 
 		href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
 <script src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js" type="text/javascript"></script>
@@ -16,23 +16,23 @@
 
 		// master grid
 		$("#list").jqGrid({
-			url : "getReceiptHeadersData",
+			url : "getSalesRequest.do",
 			datatype : "json",
 			mtype : "GET",
 			styleUI : "Bootstrap",
 			autowidth : true,
 			colModel : [
-				{	label : "구매코드", name : "purchaseCode", width : 110 },
-				{	label : "구매일자", name : "purchaseDate", width : 85 },
-				{	label : "구매처", name : "vendorCode", width : 80, align : "right" },
-				{	label : "구매처명", name : "vendorName", width : 80, align : "right" },
-				{   label : "결제금액", name : "purchaseCost", width : 80, align : "right" },
-				{   label : "입고처리", name :'act',index:'act', width : 100 ,sortable:false, formatter: delButton}
+				{	label : "고객코드", name : "customerCode", width : 3 },
+				{	label : "고객명", name : "customerName", width : 5 },
+				{	label : "예상입고일자", name : "needDate", width : 4, align : "right" },
+				{	label : "요청수량합계", name : "requestQty", width : 3, align : "right" },
+				{   label : "요청금액합계", name : "sellingPrice", width : 3, align : "right" },
+				{   label : "주문생성처리", name :'act',index:'act', width : 3 ,sortable:false, formatter: delButton}
 			],
 			pager : "#pager",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
-			sortname : "purchaseCode",
+			sortname : "customerCode",
 			sortorder : "desc",
 			loadonce : true,
 			viewrecords : true,
@@ -42,18 +42,18 @@
 			},
 			gridview : true,
 			autoencode : true,
-			caption : "구매정보",
+			caption : "주문요청정보",
 			onSelectRow : function(rowid, selected) {
 				if (rowid != null) {
-					var selectedPurchaseCode = $(this).getCell(rowid, 'purchaseCode');
+					var selectedPurchaseCode = $(this).getCell(rowid, 'customerCode');
 					jQuery("#list1").jqGrid('setGridParam', {
-						url : "getReceiptLinesData?purchaseCode=" + selectedPurchaseCode,
+						url : "getSalesRequestDetail.do?customerCode=" + selectedPurchaseCode,
 						datatype : 'json'
 					}); // the last setting is for demo only
-					jQuery("#list1").jqGrid('setCaption', '구매코드 : ' + selectedPurchaseCode);
+					jQuery("#list1").jqGrid('setCaption', '주문요청코드 : ' + selectedPurchaseCode);
 					jQuery("#list1").trigger("reloadGrid");
 				}
-				console.log("선택된 구매코드 : " + selectedPurchaseCode);
+				console.log("선택된 주문요청코드 : " + selectedPurchaseCode);
 			}
 			
 		// use the onSelectRow that is triggered on row click to show a details grid							
@@ -61,7 +61,7 @@
 
 		function delButton(cellvalue, options, rowObject) {
 			//return '<input type="button" onclick="delete('+cellvalue+')" value="DEL"/>';
-			return "<input style='height:22px;width:80px;' type='button' value='입고' onclick='receipt_proc(\"" + options.rowId + "\")' />";
+			return "<input style='height:22px;width:80px;' type='button' value='생성' onclick='receipt_proc(\"" + options.rowId + "\")' />";
 		};
 
 		$("#list1").jqGrid({
@@ -69,27 +69,27 @@
 			styleUI : "Bootstrap",
 			autowidth : true,
 			colModel : [
-				{   label : "구매상세코드", name : "purchaseDetailCode", width : 110, editable : true },
-				{   label : "구매코드", name : "purchaseCode", width : 110, editable : true },
-				{   label : "품목코드", name : "purchaseItem", width : 85, editable : true },
-				{   label : "품목명", name : "itemName", width : 85, editable : true },
-				{   label : "품목수량", name : "purchaseQty", width : 80, align : "right", editable : true },
-				{   label : "품목단가", name : "purchasePrice", width : 80, align : "right", editable : true },
-				{   label : "부가세", name : "itemTax", width : 80, align : "center", editable : true },
-				{   label : "입고여부", name : "incomingFlag", width : 80, editable : true, sortable : false, align : "center", formatter : "checkbox",
+				{   label : "상세번호", name : "customSeq", width : 3, align : "center", editable : true },
+				{   label : "업체코드", name : "customerCode", width : 3, editable : true },
+				{   label : "품목명", name : "itemName", width : 6, editable : true },
+				{   label : "품목코드", name : "itemCode", width : 3, editable : true },
+				{   label : "판매단가", name : "sellingPrice", width : 3, editable : true },
+				{   label : "판매수량", name : "requestQty", width : 3, align : "right", editable : true },
+				{   label : "부가세", name : "itemTax", width : 3, align : "right", editable : true }
+				/* {   label : "입고여부", name : "incomingFlag", width : 80, editable : true, sortable : false, align : "center", formatter : "checkbox",
 					editoptions : { value : 'Y:N', defaultValue : 'N' },
-					formatoptions : { disabled : false } }
+					formatoptions : { disabled : false } } */
 			],
 			pager : "#pager1",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
-			sortname : "purchaseDatailCode",
+			sortname : "customSeq",
 			sortorder : "desc",
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
-			editurl : "getReceiptLinesData",
-			caption : "구매상세정보",
+			editurl : "getSalesRequestDetail.do",
+			caption : "주문상세정보",
 
 			/* 			onCellSelect : function(rowid, iCol) {
 							if (rowid != null) {			 
@@ -172,7 +172,7 @@
 
 		function clearSelection() {
 			jQuery("#list1").jqGrid('setGridParam', {
-				url : "getPurchaseDetailList",
+				url : "getSalesRequestDetail.do",
 				datatype : 'json'
 			}); // the last setting is for demo purpose only
 			jQuery("#list1").jqGrid('setCaption', "purchaseDatailCode");
@@ -191,17 +191,17 @@
 
 	function receipt_proc(rowid) {
 		console.log("start rowid= " + rowid);
-		var selectedPurchaseCode = $("#list").getCell(rowid, 'purchaseCode');
+		var selectedPurchaseCode = $("#list").getCell(rowid, 'customerCode');
 		//common.in_txn(selectedPurchaseCode);//ajax controller
 		jQuery.ajax({
 			type : "POST",
 			datatype : 'json',
-			url : "insertPurchaseProc?pTxnNo=" + selectedPurchaseCode,
+			url : "insertSalesProc?pVendorCode=" + selectedPurchaseCode,
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
 			success : function() {
 				alert("succss: "+selectedPurchaseCode);
 				jQuery("#list").jqGrid('setGridParam', {
-					url : "getReceiptHeadersData",
+					url : "getSalesRequest.do",
 					datatype : 'json'
 				});
 				jQuery("#list").trigger("reloadGrid");
@@ -209,7 +209,7 @@
 			}
 		})
 	};
-	title_nav = "[ getPurchaseReceipting.jsp >>> 승인건에 대한 입고처리 ]";
+	title_nav = "[ getSalesRequesting.jsp >>> 판매주문요청에 대한 접수(승인처리) ]";
 </script>
 
 </head>

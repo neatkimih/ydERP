@@ -15,6 +15,7 @@
 		,i.item_tax
 		,i.expire_date
 		,i.vendor_code
+		,i.add_date
 		FROM items i
 		<where>  
 			<if test="pGroup1 != null and pGroup1 != '' ">
@@ -55,6 +56,14 @@
 	</select>
 	<!-- -->
 
+	<!-- 구매업체 코드 및 이름 조회 -->
+
+	<select id="getVendorList2" resultType="com.yedam.erp.items.ItemsVO">
+		SELECT vendor_code, vendor_name
+		FROM vendors
+		WHERE use_flag = 'Y'
+	</select>
+
 	<insert id="insertItems" parameterType="items" statementType="CALLABLE">
 		<![CDATA[
 		{call items_ins_proc( #{pGroup1}    
@@ -68,7 +77,8 @@
                              ,#{itemTax}       
                              ,#{expireDate}
                              ,#{vendorCode}  
-                             ,#{minQty}      
+                             ,#{minQty}
+                             ,sysdate     
                              ,#{msg, mode=OUT, jdbcType=VARCHAR, javaType=string}          
 						
 		)}
@@ -121,9 +131,8 @@
 		      ,vendor_bank
 		      ,vendor_account
 		      ,vendor_bankowner
-		     		      
+		      ,use_flag 		      
 		FROM  vendors
-		WHERE use_flag = 'Y'
 		ORDER BY vendor_code DESC
 		]]>
 	</select>
@@ -175,6 +184,7 @@
 		,vendor_bank = #{vendorBank}
 		,vendor_account = #{vendorAccount}
 		,vendor_bankowner = #{vendorBankowner}
+		,use_flag = #{useFlag}
 
 		WHERE vendor_code = #{vendorCode}
 

@@ -60,13 +60,23 @@ public class SalesMybatisDAO {
 		mybatis.insert("sales.afterPermitOrder", saleCode);
 	}
 	
-	/* 월일별 판매액 통계 처리 */
-	public List<Map<String, Object>> getSaleChart(SalesVO salesVO) {
-		return mybatis.selectList("sales.getSaleChart", salesVO);
+	/* 월별 판매액 차트 연산 처리 */
+	public List<Map<String, Object>> getSaleChartYear(SalesVO salesVO) {
+		return mybatis.selectList("sales.getSaleChartYear", salesVO);
 	}
 	
-	/* 월일별 순이익 통계 처리 */
-	public List<Map<String, Object>> getProfitChart(SalesVO salesVO) {
-		return mybatis.selectList("sales.getProfitChart", salesVO);
+	/* 일별 판매액 차트 연산 처리 */
+	public List<Map<String, Object>> getSaleChartMonth(SalesVO salesVO) {
+		return mybatis.selectList("sales.getSaleChartMonth", salesVO);
+	}
+	
+	/* 월별 순이익 차트 연산 처리 */
+	public List<Map<String, Object>> getProfitChartYear(SalesVO salesVO) {
+		return mybatis.selectList("sales.getProfitChartYear", salesVO);
+	}
+	
+	/* 일별 순이익 차트 연산 처리 */
+	public List<Map<String, Object>> getProfitChartMonth(SalesVO salesVO) {
+		return mybatis.selectList("sales.getProfitChartMonth", salesVO);
 	}
 }

@@ -35,9 +35,15 @@ public interface SalesService {
 	/* 승인 후 품목 재고 처리 */
 	public void afterPermitOrder(String saleCode);
 	
-	/* 월일별 판매액 통계 처리 */
-	public List<Map<String, Object>> getSaleChart(SalesVO salesVO);
+	/* 월별 판매액 차트 연산 처리 */
+	public List<Map<String, Object>> getSaleChartYear(SalesVO salesVO);
 	
-	/* 월일별 순이익 통계 처리 */
-	public List<Map<String, Object>> getProfitChart(SalesVO salesVO);
+	/* 일별 판매액 차트 연산 처리 */
+	public List<Map<String, Object>> getSaleChartMonth(SalesVO salesVO);
+	
+	/* 월별 순이익 차트 연산 처리 */
+	public List<Map<String, Object>> getProfitChartYear(SalesVO salesVO);
+	
+	/* 일별 순이익 차트 연산 처리 */
+	public List<Map<String, Object>> getProfitChartMonth(SalesVO salesVO);
 }

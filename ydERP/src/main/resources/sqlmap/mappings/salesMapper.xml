@@ -33,8 +33,8 @@
 			<if test="saleCode != null and saleCode != ''">
 				AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
 			</if>
-			<if test="customerCode != null and customerCode != ''">
-				AND C.CUSTOMER_CODE LIKE '%' || #{customerCode} || '%' 
+			<if test="customerName != null and customerName != ''">
+				AND C.CUSTOMER_NAME LIKE '%' || #{customerName} || '%' 
 			</if>
 			<if test="saleDate != null and saleDate != ''">
 				<![CDATA[
@@ -81,7 +81,7 @@
 			<if test="deliveryAddr != null and deliveryAddr != ''">
 				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
 			</if>
-		ORDER BY SALE_CODE
+		ORDER BY SALE_DATE	DESC
 	</select>
 	
 	<!-- 주문 등록 : 주문 기본 정보 -->
@@ -169,55 +169,55 @@
 		ORDER BY ITEM_CODE	
 	</select>
 	
-	<!-- 일별 매출 통계 -->
-	<select id="getSaleChart" resultType="map">
-		<!-- 기준 달을 선택하지 않았을 경우 그룹 기준은 달이 된다. -->	
-		<if test="(selectYear != null and selectYear != '') and (selectMonth = null or selectMonth = '')">
-			<![CDATA[
-				SELECT 		TO_DATE(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "saleMonth", 
-							SUM(SD.SALE_PRICE * SD.SALE_QTY) 
-				FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
-	        	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
-				WHERE 		S.ORDER_PERMIT = 'Y' 
-				GROUP BY	TO_DATE(TRUNC(S.SALE_DATE), 'YYYY-MM')
-			]]>
-		</if>
-		 <!-- 기준 달을 선택하였을 경우 그룹 기준은 날이 된다. -->
-		<if test="(selectYear != null and selectYear != '') and (selectMonth != null and selectMonth != '')">
-			<![CDATA[
-				SELECT 		TRUNC(S.SALE_DATE) AS "saleDay",
-						 	SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) 
-				FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
-	        	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
-				WHERE 		S.ORDER_PERMIT = 'Y' 
-				GROUP BY 	TRUNC(S.SALE_DATE)			
-			]]>
-		</if>	
-	</select>	
+	<!-- 매출 통계 : 그룹 기준(월) -->
+	<select id="getSaleChartYear" resultType="map">
+		<![CDATA[
+			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "saleMonth",
+						SUM(SD.SALE_PRICE * SD.SALE_QTY) AS "saleSum" 
+			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
+	       	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+			GROUP BY	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM')
+			ORDER BY    1
+		]]>
+	</select>
 	
-	<!-- 일별 순이익 통계 -->
-	<select id="getProfitChart" resultType="map">
-		<!-- 기준 달을 선택하지 않았을 경우 그룹 기준은 달이 된다. -->	
-		<if test="(selectYear != null and selectYear != '') and (selectMonth = null or selectMonth = '')">
-			<![CDATA[
-				SELECT 		TO_DATE(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "profitMonth", 
-							SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) 
-				FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
-	        	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
-				WHERE 		S.ORDER_PERMIT = 'Y' 
-				GROUP BY	TO_DATE(TRUNC(S.SALE_DATE), 'YYYY-MM')
-			]]>
-		</if>
-		 <!-- 기준 달을 선택하였을 경우 그룹 기준은 날이 된다. -->
-		<if test="(selectYear != null and selectYear != '') and (selectMonth != null and selectMonth != '')">
-			<![CDATA[
-				SELECT 		TRUNC(S.SALE_DATE) AS "profitDay",
-						 	SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) 
-				FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
-	        	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
-				WHERE 		S.ORDER_PERMIT = 'Y' 
-				GROUP BY 	TRUNC(s.sale_date)			
-			]]>
-		</if>
+	<!-- 매출 통계 : 그룹 기준(일) -->
+	<select id="getSaleChartMonth" resultType="map">
+		<![CDATA[
+			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE)) AS "saleDay",
+					 	SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) AS "saleSum" 
+			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
+	       	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+			GROUP BY 	TO_CHAR(TRUNC(S.SALE_DATE))
+            ORDER BY    1
+		]]>
+	</select>
+	
+	<!-- 순익 통계 : 그룹 기준(월)-->
+	<select id="getProfitChartYear" resultType="map">
+		<![CDATA[
+			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "profitMonth", 
+						SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) AS "profitSum" 
+			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
+	       	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+			GROUP BY	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM')
+			ORDER BY    1
+		]]>
+	</select>
+	
+	<!-- 순익 통계 : 그룹 기준(일) -->
+	<select id="getProfitChartMonth" resultType="map">
+		<![CDATA[
+			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE)) AS "profitDay",
+					 	SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) AS "profitSum" 
+			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
+        	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+			GROUP BY 	TO_CHAR(TRUNC(S.SALE_DATE))
+            ORDER BY    1
+		]]>
 	</select>
 </mapper>

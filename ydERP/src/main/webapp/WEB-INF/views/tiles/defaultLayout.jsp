@@ -62,6 +62,11 @@
 <script>
 	var title_nav = ""
 </script>
+<script>
+	function logoutcheck() {
+		location.href = 'logout';
+	}
+</script>
 </head>
 
 <body>
@@ -77,7 +82,24 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/erp">YedamERP</a>
+				<c:if test="${not empty sessionScope.viewCustomer.customerCode}">
+					<h3>
+						${sessionScope.viewCustomer.customerName}님 환영합니다. <input
+							class="btn btn-primary" type="button" name="logout" value="로그아웃"
+							onclick="logoutcheck()" />
+					</h3>
+				</c:if>
+
+				<!-- jstl 코어 태그 -->
+				<c:choose>
+					<c:when test="${empty sessionScope.viewCustomer.customerCode}">
+						<a class="navbar-brand" href="login">YedamERP</a>
+					</c:when>
+
+				</c:choose>
+
+				<hr>
+				
 			</div>
 		</nav>
 		<tiles:insertAttribute name="menu" />
@@ -118,15 +140,16 @@
 		var webSocket
 		var inputMessage = document.getElementById('inputMessage');
 		var clientID
-	
+
 		//채팅방 로그인
 		function login() {
-			
+
 			document.getElementById("chatlogin").style.display = "none";
 			document.getElementById("chat-area").style.display = "block";
 			clientID = document.getElementById("nickname").value;
-			webSocket = new WebSocket('ws://192.168.0.73/erp/websocket/broadcast.do');
-	
+			webSocket = new WebSocket(
+					'ws://192.168.0.73/erp/websocket/broadcast.do');
+
 			webSocket.onerror = function(event) {
 				onError(event)
 			};
@@ -136,21 +159,21 @@
 			webSocket.onmessage = function(event) {
 				onMessage(event)
 			};
-	
+
 			function onMessage(event) {
 				textarea.value += event.data + "\n";
 			}
-	
+
 			function onOpen(event) {
 				textarea.value += "연결 성공\n";
 			}
-	
+
 			function onError(event) {
 				console.log(event);
 				alert(event.data);
 			}
 		}
-	
+
 		function send() {
 			// 서버로 전송할 데이터를 담을 msg 객체 생성.
 			var msg = {
@@ -163,22 +186,21 @@
 			// Blank the text input element, ready to receive the next line of text from the user.
 			document.getElementById("inputMessage").value = "";
 		}
-	
-	
+
 		function enterkey() {
 			if (window.event.keyCode == 13) {
 				if (document.getElementById("inputMessage").value != "")
 					send();
 			}
 		}
-	
+
 		function enterlogin() {
 			if (window.event.keyCode == 13) {
 				if (document.getElementById("nickname").value != "")
 					login();
 			}
 		}
-	
+
 		function logout() {
 			document.getElementById("chat-area").style.display = "none";
 			document.getElementById("chatlogin").style.display = "block";

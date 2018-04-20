@@ -16,6 +16,10 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 <script>
+	if ('${sessionScope.viewCustomer.customerName}'=='') {
+		location.href = 'login';
+	}
+
 	function logoutcheck() {
 		location.href = 'logout';
 	}

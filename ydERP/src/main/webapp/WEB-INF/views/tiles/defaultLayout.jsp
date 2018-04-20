@@ -93,7 +93,7 @@
 				<!-- jstl 코어 태그 -->
 				<c:choose>
 					<c:when test="${empty sessionScope.viewCustomer.customerCode}">
-						<a class="navbar-brand" href="login">YedamERP</a>
+						<a class="navbar-brand" href="./">YedamERP</a>
 					</c:when>
 
 				</c:choose>

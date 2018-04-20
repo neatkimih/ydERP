@@ -81,7 +81,7 @@
 			<if test="deliveryAddr != null and deliveryAddr != ''">
 				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
 			</if>
-		ORDER BY SALE_DATE	DESC
+		ORDER BY SALE_DATE DESC
 	</select>
 	
 	<!-- 주문 등록 : 주문 기본 정보 -->
@@ -118,7 +118,7 @@
 		FROM SALES S JOIN CUSTOMERS C 
 		ON S.CUSTOMER_CODE = C.CUSTOMER_CODE 
 		WHERE ORDER_PERMIT = 'N' 
-		ORDER BY SALE_CODE
+		ORDER BY SALE_DATE DESC
 	</select>
 
 	<!-- 주문 상세 조회 -->
@@ -175,7 +175,7 @@
 			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "saleDay",
 						SUM(SD.SALE_PRICE * SD.SALE_QTY) AS "saleSum" 
 			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
-	       	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+	       						JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
 			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
 			GROUP BY	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM')
 			ORDER BY    1
@@ -186,9 +186,9 @@
 	<select id="getSaleChartMonth" resultType="map">
 		<![CDATA[
 			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE)) AS "saleDay",
-					 	SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) AS "saleSum" 
+					 	SUM((SD.SALE_PRICE) * SD.SALE_QTY) AS "saleSum" 
 			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
-	       	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+	       						JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
 			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
 			GROUP BY 	TO_CHAR(TRUNC(S.SALE_DATE))
             ORDER BY    1
@@ -201,7 +201,7 @@
 			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "profitDay", 
 						SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) AS "profitSum" 
 			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
-	       	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+	       						JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
 			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
 			GROUP BY	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM')
 			ORDER BY    1
@@ -214,10 +214,37 @@
 			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE)) AS "profitDay",
 					 	SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) AS "profitSum" 
 			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
-        	JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+        						JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
 			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
 			GROUP BY 	TO_CHAR(TRUNC(S.SALE_DATE))
             ORDER BY    1
+		]]>
+	</select>
+	
+	<!-- 판매량 TOP 10 통계 : 그룹 기준 (월) -->
+	<select id="getToptenChartYear" resultType="map">
+		<![CDATA[
+			SELECT * 
+			FROM 	(	SELECT      sd.SALE_ITEM_NAME AS "saleItem", SUM(sd.SALE_QTY) AS "saleQty" 
+						FROM        sales s JOIN sale_details sd ON s.sale_code = sd.sale_code 
+						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+						GROUP BY	sd.SALE_ITEM_NAME 
+						ORDER BY    2 DESC ) 
+			WHERE ROWNUM <= 10
+		]]>
+	</select>
+	
+	
+	<!-- 판매량 TOP 10 통계 : 그룹 기준 (일) -->
+	<select id="getToptenChartMonth" resultType="map">
+		<![CDATA[
+		SELECT * 
+			FROM 	(	SELECT      sd.SALE_ITEM_NAME AS "saleItem", SUM(sd.SALE_QTY) AS "saleQty" 
+						FROM        sales s JOIN sale_details sd ON s.sale_code = sd.sale_code 
+						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+						GROUP BY	sd.SALE_ITEM_NAME 
+						ORDER BY    2 DESC ) 
+			WHERE ROWNUM <= 5
 		]]>
 	</select>
 </mapper>

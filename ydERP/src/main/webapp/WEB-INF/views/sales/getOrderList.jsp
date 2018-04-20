@@ -22,10 +22,10 @@ var lastsel2;
 			editurl : "editOrderList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문코드", "주문일자", "결제금액", "주문처 이름", "주문처 코드", "배송주소", "배송사원", "창고 지정", "승인", "편집", "주문"],			
+			colNames : [ "주문일자", "주문코드", "결제금액", "주문처 이름", "주문처 코드", "배송주소", "배송사원", "창고 지정", "승인", "편집", "주문"],			
 			colModel : [
-				{	name : "saleCode",		width : 120,	align : "center",	editable : false,	key : true	},
 				{	name : "saleDate",		width : 120,	align : "center",	editable : false	},
+				{	name : "saleCode",		width : 120,	align : "center",	editable : false,	key : true	},
 				{	name : "saleCost",		width : 100,	align : "right",	editable : false	},
 				{	name : "customerName",	width : 200,	align : "left",		editable : false	},				
 				{	name : "customerCode",	width : 100,	align : "center",	editable : false	},

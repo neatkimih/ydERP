@@ -257,4 +257,30 @@ public class SalesController {
 			return salesService.getProfitChartYear(salesVO);
 		}
 	}
+	
+	/* 월일별 판매량 Top10 통계 처리 */
+	@RequestMapping("/getToptenChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getToptenChart(HttpServletRequest request,
+													SalesVO salesVO,
+													Model model) {
+		String selectToptenYear = request.getParameter("selectToptenYear");
+		String selectToptenMonth = request.getParameter("selectToptenMonth");
+		
+		if(selectToptenMonth != null && selectToptenMonth != "") {
+			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
+			if(Integer.parseInt(selectToptenMonth) < 10) {
+				selectToptenMonth = "0" + selectToptenMonth;
+			}
+			salesVO.setSaleDate(selectToptenYear + "-" + selectToptenMonth);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getToptenChartMonth(salesVO);
+		}
+		else {
+			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
+			salesVO.setSaleDate(selectToptenYear);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getToptenChartYear(salesVO);
+		}
+	}
 }

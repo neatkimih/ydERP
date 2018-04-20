@@ -86,4 +86,18 @@ public class SalesServiceImpl implements SalesService {
 	public List<Map<String, Object>> getProfitChartMonth(SalesVO salesVO) {
 		return salesDAO.getProfitChartMonth(salesVO);
 	}
+
+	/* 월별 판매량 TOP 10 차트 연산 처리 */
+	@Override
+	public List<Map<String, Object>> getToptenChartYear(SalesVO salesVO) {
+		return salesDAO.getToptenChartYear(salesVO);
+	}
+
+	/* 일별 판매량 TOP 10 차트 연산 처리 */
+	@Override
+	public List<Map<String, Object>> getToptenChartMonth(SalesVO salesVO) {
+		return salesDAO.getToptenChartMonth(salesVO);
+	}
+	
+	
 }

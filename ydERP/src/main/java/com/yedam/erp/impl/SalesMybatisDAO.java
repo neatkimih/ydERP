@@ -79,4 +79,14 @@ public class SalesMybatisDAO {
 	public List<Map<String, Object>> getProfitChartMonth(SalesVO salesVO) {
 		return mybatis.selectList("sales.getProfitChartMonth", salesVO);
 	}
+	
+	/* 월별 판매량 TOP 10 차트 연산 처리 */
+	public List<Map<String, Object>> getToptenChartYear(SalesVO salesVO) {
+		return mybatis.selectList("sales.getToptenChartYear", salesVO);
+	}
+	
+	/* 일별 판매량 TOP 10 차트 연산 처리 */
+	public List<Map<String, Object>> getToptenChartMonth(SalesVO salesVO) {
+		return mybatis.selectList("sales.getToptenChartMonth", salesVO);
+	}
 }

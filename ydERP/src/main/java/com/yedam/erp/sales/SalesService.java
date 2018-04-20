@@ -46,4 +46,10 @@ public interface SalesService {
 	
 	/* 일별 순이익 차트 연산 처리 */
 	public List<Map<String, Object>> getProfitChartMonth(SalesVO salesVO);
+	
+	/* 월별 판매량 TOP 10 연산 처리 */
+	public List<Map<String, Object>> getToptenChartYear(SalesVO salesVO);
+	
+	/* 일별 판매량 TOP 10 연산 처리 */
+	public List<Map<String, Object>> getToptenChartMonth(SalesVO salesVO);
 }

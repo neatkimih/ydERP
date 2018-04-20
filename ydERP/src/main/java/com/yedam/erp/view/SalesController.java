@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -203,14 +204,57 @@ public class SalesController {
 	/* 월일별 판매액 통계 처리 */
 	@RequestMapping("/getSaleChart.do")
 	@ResponseBody
-	public List<Map<String, Object>> getSaleChart(SalesVO salesVO) {
-		return salesService.getSaleChart(salesVO);
+	public List<Map<String, Object>> getSaleChart(	@RequestParam String selectSaleYear,
+													@RequestParam(required=false) String selectSaleMonth,
+													SalesVO salesVO,
+													Model model ) {
+		// SPRING QUICK START p.382
+		// Command객체(JavaBean)에 없는 Parameter를 Controller 클래스에서 사용하려면 @RequestParam을 사용해야 한다.
+		// required : Parameter에 null이 들어갈 수도 있는 경우 생략여부
+		
+		System.out.println(selectSaleYear);
+		System.out.println(selectSaleMonth);
+		
+		if(selectSaleMonth != null && selectSaleMonth != "") {
+			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
+			if(Integer.parseInt(selectSaleMonth) < 10) {
+				selectSaleMonth = "0" + selectSaleMonth;
+			}
+			salesVO.setSaleDate(selectSaleYear + "-" + selectSaleMonth);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getSaleChartMonth(salesVO);
+		}
+		else {
+			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
+			salesVO.setSaleDate(selectSaleYear);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getSaleChartYear(salesVO);
+		}
 	}
 	
 	/* 월일별 순이익 통계 처리 */
 	@RequestMapping("/getProfitChart.do")
 	@ResponseBody
-	public List<Map<String, Object>> getProfitChart(SalesVO salesVO) {
-		return salesService.getProfitChart(salesVO);
+	public List<Map<String, Object>> getProfitChart(HttpServletRequest request,
+													SalesVO salesVO,
+													Model model) {
+		String selectProfitYear = request.getParameter("selectProfitYear");
+		String selectProfitMonth = request.getParameter("selectProfitMonth");
+		
+		if(selectProfitMonth != null && selectProfitMonth != "") {
+			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
+			if(Integer.parseInt(selectProfitMonth) < 10) {
+				selectProfitMonth = "0" + selectProfitMonth;
+			}
+			salesVO.setSaleDate(selectProfitYear + "-" + selectProfitMonth);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getProfitChartMonth(salesVO);
+		}
+		else {
+			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
+			salesVO.setSaleDate(selectProfitYear);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getProfitChartYear(salesVO);
+		}
 	}
 }

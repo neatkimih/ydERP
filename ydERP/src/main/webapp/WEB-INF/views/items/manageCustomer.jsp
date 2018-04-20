@@ -145,7 +145,7 @@
 <body>
 	
 		<div class="col-md-24">
-		<div class="page-header">
+		<div class="panel-heading">
 		<h1>
 			판매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 판매업체 관리 &emsp; &emsp;
@@ -242,6 +242,7 @@
 					     document.register.customerBank.value = rowData.customerBank;
 					     document.register.customerAccount.value = rowData.customerAccount;
 					     document.register.customerBankowner.value = rowData.customerBankowner;
+					     document.register.useFlag.value = rowData.useFlag;
 						}
 					 
 				 },

@@ -51,4 +51,10 @@ public class ItemsServiceImpl implements ItemsService {
 		return dao.getCount(vo);
 	}
 
+	@Override
+	public List<ItemsVO> getVendorList2(ItemsVO vo) {
+		
+		return dao.getVendorList2(vo);
+	}
+
 }

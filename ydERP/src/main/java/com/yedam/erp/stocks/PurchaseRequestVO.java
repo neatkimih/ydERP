@@ -24,38 +24,13 @@ public class PurchaseRequestVO {
 	String group1;
 	String group2;
 	String group3;
-
-	public String getGroup1() {
-		return group1;
-	}
-
-	public void setGroup1(String group1) {
-		this.group1 = group1;
-	}
-
-	public String getGroup2() {
-		return group2;
-	}
-
-	public void setGroup2(String group2) {
-		this.group2 = group2;
-	}
-
-	public String getGroup3() {
-		return group3;
-	}
-
-	public void setGroup3(String group3) {
-		this.group3 = group3;
-	}
-
-	public String getpTxnNo() {
-		return pTxnNo;
-	}
-
-	public void setpTxnNo(String pTxnNo) {
-		this.pTxnNo = pTxnNo;
-	}
+	Integer saleReqQty;
+	String customerCode;
+	String customerName;
+	String needDate;
+	Integer requestQty;
+	Integer customSeq;
+	String pVendorCode;
 
 	public String getItemCode() {
 		return itemCode;
@@ -209,6 +184,94 @@ public class PurchaseRequestVO {
 		this.pMsg = pMsg;
 	}
 
+	public String getpTxnNo() {
+		return pTxnNo;
+	}
+
+	public void setpTxnNo(String pTxnNo) {
+		this.pTxnNo = pTxnNo;
+	}
+
+	public String getGroup1() {
+		return group1;
+	}
+
+	public void setGroup1(String group1) {
+		this.group1 = group1;
+	}
+
+	public String getGroup2() {
+		return group2;
+	}
+
+	public void setGroup2(String group2) {
+		this.group2 = group2;
+	}
+
+	public String getGroup3() {
+		return group3;
+	}
+
+	public void setGroup3(String group3) {
+		this.group3 = group3;
+	}
+
+	public Integer getSaleReqQty() {
+		return saleReqQty;
+	}
+
+	public void setSaleReqQty(Integer saleReqQty) {
+		this.saleReqQty = saleReqQty;
+	}
+
+	public String getCustomerCode() {
+		return customerCode;
+	}
+
+	public void setCustomerCode(String customerCode) {
+		this.customerCode = customerCode;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getNeedDate() {
+		return needDate;
+	}
+
+	public void setNeedDate(String needDate) {
+		this.needDate = needDate;
+	}
+
+	public Integer getRequestQty() {
+		return requestQty;
+	}
+
+	public void setRequestQty(Integer requestQty) {
+		this.requestQty = requestQty;
+	}
+
+	public Integer getCustomSeq() {
+		return customSeq;
+	}
+
+	public void setCustomSeq(Integer customSeq) {
+		this.customSeq = customSeq;
+	}
+
+	public String getpVendorCode() {
+		return pVendorCode;
+	}
+
+	public void setpVendorCode(String pVendorCode) {
+		this.pVendorCode = pVendorCode;
+	}
+
 	@Override
 	public String toString() {
 		return "PurchaseRequestVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty="
@@ -216,7 +279,10 @@ public class PurchaseRequestVO {
 				+ vendorCode + ", minQty=" + minQty + ", itemTax=" + itemTax + ", onhandQty=" + onhandQty + ", reqQty="
 				+ reqQty + ", expireDate=" + expireDate + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner
 				+ ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank
-				+ ", vendorAccount=" + vendorAccount + ", pMsg=" + pMsg + ", pTxnNo=" + pTxnNo + "]";
+				+ ", vendorAccount=" + vendorAccount + ", pMsg=" + pMsg + ", pTxnNo=" + pTxnNo + ", group1=" + group1
+				+ ", group2=" + group2 + ", group3=" + group3 + ", saleReqQty=" + saleReqQty + ", customerCode="
+				+ customerCode + ", customerName=" + customerName + ", needDate=" + needDate + ", requestQty="
+				+ requestQty + ", customSeq=" + customSeq + ", pVendorCode=" + pVendorCode + "]";
 	}
 
 }

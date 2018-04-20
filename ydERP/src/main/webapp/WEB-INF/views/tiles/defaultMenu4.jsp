@@ -8,5 +8,4 @@
 		<li><a href="getStockInOutList">입/출고조회</a></li>
 		<li><a href="getCharts">챠트 통계 자료</a></li>
 		<li><a href="getLookups">Lookup 관리</a></li>
-		<!-- <li><a href="getStockInOutListTest">입/출고Test</a></li> -->
 	</ul></li>

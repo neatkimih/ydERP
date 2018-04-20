@@ -38,7 +38,8 @@
 						<li><a href="getItemsList">품목정보</a></li>
 						<li><a href="manageVendorForm">구매업체 관리</a></li>
 						<li><a href="manageCustomerForm">판매업체 관리</a></li>
-						<li><a href="getPurchaseRequestForm">판매업체 구매신청</a></li>
+						<!-- <li><a href="getPurchaseRequestForm">판매업체 구매신청</a></li> -->
+						<li><a href="getSalesRequesting">판매주문승인처리</a></li>
 
 					</ul></li>
 				<%@ include file="./defaultMenu2.jsp"%>

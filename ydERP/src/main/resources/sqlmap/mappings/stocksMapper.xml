@@ -348,4 +348,36 @@
 		ORDER BY lv.descriptions
 		]]>
 	</select>
+
+	<select id="getSalesRequest" resultType="purchaserequest">
+		<![CDATA[
+		SELECT a.customer_code
+		      ,a.customer_name
+		      ,a.need_date
+		      ,SUM(a.request_qty) request_qty
+		      ,SUM(a.selling_price * a.request_qty) selling_price
+		FROM   sales_temp_vo a
+		GROUP  BY a.customer_code
+		         ,a.customer_name
+		         ,a.need_date
+		]]>
+	</select>
+
+
+	<select id="getSalesRequestDetail" resultType="purchaserequest">
+		<![CDATA[
+			SELECT *
+			FROM   sales_temp_vo
+			WHERE  customer_code = #{customerCode} 
+		]]>
+	</select>
+
+	<insert id="insertSalesProc" parameterType="purchaserequest"
+		statementType="CALLABLE">
+		<![CDATA[
+		{call common.create_sales_order(#{pVendorCode}, #{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
+		]]>
+	</insert>
+
+
 </mapper>

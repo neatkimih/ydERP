@@ -72,6 +72,7 @@
 					 .append($("<td name='expireDate'>").html(item.expireDate))
 					 .append($("<td name='vendorName'>").html(item.vendorName))
 					 .append($("<td align='right' name='minQty'>").html(item.minQty))
+					 .append($("<td align='right' name='saleReqQty'>").html(item.saleReqQty))
 					 .append($("<td align='right' name='onhandQty'>").html(item.onhandQty))
 					 .append($("<td align='right' name='reqQty'>").html(item.reqQty))
 					 //.append($("<td>").html("<button id=\'btnSelect\' >조회</button>"))
@@ -221,6 +222,7 @@
 						<th>사용연한</th>
 						<th>구매업체</th>
 						<th>최저재고</th>
+						<th>예약수량</th>
 						<th>현재고</th>
 						<th>요청수량</th>
 					</tr>

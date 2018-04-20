@@ -45,9 +45,22 @@ public class PurchaseRequestMybatisDAO {
 	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo) {
 		return sqlSession.selectList("stocks.getReceiptLines", vo);
 	}
-	
+
 	public void insertPurchaseProc(PurchaseRequestVO vo) {
 		sqlSession.insert("stocks.insertPurchaseProc", vo);
+	}
+
+	public List<PurchaseRequestVO> getSalesRequest(PurchaseRequestVO vo) {
+		return sqlSession.selectList("stocks.getSalesRequest", vo);
+	}
+
+	public List<PurchaseRequestVO> getSalesRequestDetail(PurchaseRequestVO vo) {
+		return sqlSession.selectList("stocks.getSalesRequestDetail", vo);
+
+	}
+
+	public void insertSalesProc(PurchaseRequestVO vo) {
+		sqlSession.insert("stocks.insertSalesProc", vo);
 	}
 
 }

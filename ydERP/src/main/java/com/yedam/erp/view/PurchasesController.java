@@ -1,6 +1,7 @@
 package com.yedam.erp.view;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,14 +58,23 @@ public class PurchasesController
 	@ResponseBody
 	public List<PurchasesVO> getPurchasesList(PurchasesVO vo) {			
 		
-	return purchasesService.getPurchasesList(vo);											
+		return purchasesService.getPurchasesList(vo);											
 	}
 	
 	//상세목록
-		@RequestMapping("getPurchaseDetailList") 
-		@ResponseBody
-		public List<PurchaseDetailVO> getPurchaseDetailList(PurchasesVO vo) {			
+	@RequestMapping("getPurchaseDetailList") 
+	@ResponseBody
+	public List<PurchaseDetailVO> getPurchaseDetailList(PurchasesVO vo) {			
 			
 		return purchaseDetailService.getPurchaseDetailList(vo);											
-		}	
+	}	
+		
+	//GPS
+	@RequestMapping("getDeliveryListMap") 
+	@ResponseBody
+	public List<Map<String, Object>> getDeliveryListMap() {			
+		
+		return purchasesService.getDeliveryListMap();											
+	}
+	
 }

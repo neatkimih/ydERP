@@ -16,7 +16,7 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 <script>
-	if ('${sessionScope.viewCustomer.customerName}'=='') {
+	if ('${sessionScope.viewCustomer.customerName}' == '') {
 		location.href = 'login';
 	}
 
@@ -27,21 +27,9 @@
 </head>
 <body>
 	<hr>
-	YedamERP 메인페이지입니다.<br>
-	<%-- <%@ include file="./stocks/getCharts.jsp"%> --%>
-
-	
+	YedamERP 메인페이지입니다.
+	<br>
 	<!-- jstl 코어 태그 -->
-
-
-			<a href="login" type="button">로그인하러가기</a>
-
-
-
-
-	<hr>
-
+	<a href="login" type="button">로그인하러가기</a>
 </body>
 </html>
-
-

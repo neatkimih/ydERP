@@ -76,9 +76,9 @@
 				{   label : "품목수량", name : "purchaseQty", width : 80, align : "right", editable : true },
 				{   label : "품목단가", name : "purchasePrice", width : 80, align : "right", editable : true },
 				{   label : "부가세", name : "itemTax", width : 80, align : "center", editable : true },
-				{   label : "입고여부", name : "incomingFlag", width : 80, editable : true, sortable : false, align : "center", formatter : "checkbox",
+				/* {   label : "입고여부", name : "incomingFlag", width : 80, editable : true, sortable : false, align : "center", formatter : "checkbox",
 					editoptions : { value : 'Y:N', defaultValue : 'N' },
-					formatoptions : { disabled : false } }
+					formatoptions : { disabled : false } } */
 			],
 			pager : "#pager1",
 			rowNum : 10,

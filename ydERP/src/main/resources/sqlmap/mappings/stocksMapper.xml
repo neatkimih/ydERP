@@ -154,10 +154,21 @@
 
 	<select id="getReceiptHeaders" resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
 		<![CDATA[
-		SELECT p.*, common.get_vendor_name(p.vendor_code) vendor_name
+		SELECT p.*
+		      ,common.get_vendor_name(p.vendor_code) vendor_name
 		FROM   purchases p
-		WHERE NVL(in_flag,'N') = 'N'
-		ORDER BY purchase_code DESC
+		WHERE  1 = 1
+		AND    NVL(in_flag
+		          ,'N') = 'N'
+		OR     (NVL(in_flag
+		           ,'N') = 'Y' AND EXISTS
+		       (SELECT 1
+		         FROM   purchase_details pd
+		         WHERE  1 = 1
+		         AND    p.purchase_code = pd.purchase_code
+		         AND    NVL(pd.incoming_flag
+		                   ,'N') = 'N'))
+		ORDER  BY purchase_code DESC
 		]]>
 	</select>
 
@@ -169,6 +180,12 @@
 		<where>
 			<if test="purchaseCode != null">
 				AND purchase_code = #{purchaseCode}
+				AND    NVL(p.incoming_flag, 'N') = 'Y'
+				AND    NOT EXISTS
+	             (SELECT 1
+	                    FROM   stocks_in_out s
+	                    WHERE  s.dealer_code = p.purchase_code
+	                    AND    s.item_code = p.purchase_item)
 			</if>
 		</where>
 		ORDER BY purchase_detail_code

@@ -75,6 +75,7 @@
 				{   label : "품목코드", name : "itemCode", width : 3, editable : true },
 				{   label : "판매단가", name : "sellingPrice", width : 3, editable : true },
 				{   label : "판매수량", name : "requestQty", width : 3, align : "right", editable : true },
+				{   label : "재고수량", name : "onhandQty", width : 3, align : "right", editable : true },
 				{   label : "부가세", name : "itemTax", width : 3, align : "right", editable : true }
 				/* {   label : "입고여부", name : "incomingFlag", width : 80, editable : true, sortable : false, align : "center", formatter : "checkbox",
 					editoptions : { value : 'Y:N', defaultValue : 'N' },

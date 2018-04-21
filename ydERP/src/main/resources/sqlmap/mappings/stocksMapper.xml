@@ -70,6 +70,9 @@
 			<if test="group3 != null and group3 != '' ">
 				AND SUBSTR(item_code,3,1) = #{group3}
 			</if>
+			<if test="zeroFlag != null and zeroFlag != '' ">
+				AND (DECODE(NVL(onhand_qty,0),0,'Y','N') = #{zeroFlag})
+			</if>
 		</where>
 		ORDER BY item_code
 	</select>
@@ -370,13 +373,15 @@
 		<![CDATA[
 		SELECT a.customer_code
 		      ,a.customer_name
-		      ,a.need_date
+		      ,TO_CHAR(a.need_date
+		              ,'rrrr/mm/dd') need_date
 		      ,SUM(a.request_qty) request_qty
 		      ,SUM(a.selling_price * a.request_qty) selling_price
 		FROM   sales_temp_vo a
 		GROUP  BY a.customer_code
 		         ,a.customer_name
-		         ,a.need_date
+		         ,TO_CHAR(a.need_date
+		                 ,'rrrr/mm/dd')
 		]]>
 	</select>
 

@@ -14,6 +14,15 @@ public class StockOnhandViewVO extends StockOnhandVO {
 	String group1;
 	String group2;
 	String group3;
+	String zeroFlag;
+
+	public String getZeroFlag() {
+		return zeroFlag;
+	}
+
+	public void setZeroFlag(String zeroFlag) {
+		this.zeroFlag = zeroFlag;
+	}
 
 	public String getGroup1() {
 		return group1;

@@ -36,4 +36,8 @@ public class StockOnhandMybatisDAO {
 		return sqlSession.selectList("stocks.getItemGroup3", str);
 	}
 
+	public void updateLookups(String str) {
+		sqlSession.update("stocks.updateLookups", str);
+	}
+
 }

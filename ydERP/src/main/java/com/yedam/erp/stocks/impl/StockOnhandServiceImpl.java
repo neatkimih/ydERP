@@ -37,4 +37,8 @@ public class StockOnhandServiceImpl implements StockOnhandService {
 
 	};
 
+	public void updateLookups(String str) {
+		dao.updateLookups(str);
+	}
+
 }

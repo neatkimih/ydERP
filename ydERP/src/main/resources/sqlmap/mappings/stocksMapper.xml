@@ -46,7 +46,8 @@
 		ORDER BY txn_date
 	</select>
 
-	<select id="getStockOnhandList" resultType="com.yedam.erp.stocks.StockOnhandViewVO">
+	<select id="getStockOnhandList"
+		resultType="com.yedam.erp.stocks.StockOnhandViewVO">
 		<![CDATA[
 		SELECT v.*, common.get_vendor_name(v.vendor_code) vendor_name
 		FROM   stock_onhands_vo v
@@ -106,14 +107,15 @@
 		]]>
 	</insert>
 
-	<insert id="insertPurchaseRequest" parameterType="purchaserequest"
-		statementType="CALLABLE">
+	<insert id="insertPurchaseRequest"
+		parameterType="purchaserequest" statementType="CALLABLE">
 		<![CDATA[
 		{call common.create_purchase_info(#{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
 		]]>
 	</insert>
 
-	<select id="getPurchaseRequestTempListData" resultType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+	<select id="getPurchaseRequestTempListData"
+		resultType="com.yedam.erp.stocks.PurchaseDetailTempVO">
 		<![CDATA[
 		SELECT *
 		FROM   purchase_detail_temp_vo v
@@ -121,7 +123,8 @@
 		]]>
 	</select>
 
-	<insert id="insertPurchaseRequestTemp" parameterType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+	<insert id="insertPurchaseRequestTemp"
+		parameterType="com.yedam.erp.stocks.PurchaseDetailTempVO">
 		<![CDATA[
 		INSERT INTO purchase_detail_temp
 		VALUES  (TO_CHAR(purchase_detail_seq.nextval)
@@ -155,7 +158,8 @@
 		]]>
 	</select>
 
-	<select id="getReceiptHeaders" resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
+	<select id="getReceiptHeaders"
+		resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
 		<![CDATA[
 		SELECT p.*
 		      ,common.get_vendor_name(p.vendor_code) vendor_name
@@ -175,7 +179,8 @@
 		]]>
 	</select>
 
-	<select id="getReceiptLines" resultType="com.yedam.erp.stocks.PurchaseDetailsVO">
+	<select id="getReceiptLines"
+		resultType="com.yedam.erp.stocks.PurchaseDetailsVO">
 		<![CDATA[
 		SELECT p.*, common.get_item_name(p.purchase_item) item_name
 		FROM   purchase_details p
@@ -183,12 +188,13 @@
 		<where>
 			<if test="purchaseCode != null">
 				AND purchase_code = #{purchaseCode}
-				AND    NVL(p.incoming_flag, 'N') = 'Y'
-				AND    NOT EXISTS
-	             (SELECT 1
-	                    FROM   stocks_in_out s
-	                    WHERE  s.dealer_code = p.purchase_code
-	                    AND    s.item_code = p.purchase_item)
+				AND
+				NVL(p.incoming_flag, 'N') = 'Y'
+				AND NOT EXISTS
+				(SELECT 1
+				FROM stocks_in_out s
+				WHERE s.dealer_code = p.purchase_code
+				AND s.item_code = p.purchase_item)
 			</if>
 		</where>
 		ORDER BY purchase_detail_code
@@ -271,7 +277,8 @@
 		]]>
 	</select>
 
-	<select id="getLookupsData" parameterType="string" resultType="map">
+	<select id="getLookupsData" parameterType="string"
+		resultType="map">
 		<![CDATA[
 		SELECT lk.lookup lookups
 		      ,lk.lookup_description
@@ -305,13 +312,27 @@
 	</select>
 
 
-	<select id="selectLookups" parameterType="string" resultType="map">
+	<select id="selectLookups" parameterType="string"
+		resultType="map">
 		SELECT *
 		FROM lookup_values
 		WHERE lookup = #{lookup}
 	</select>
 
-	<update id="updateLookup" parameterType="com.yedam.erp.stocks.LookupCodes">
+	<!-- 1.homecontroll lookup -->
+	<update id="updateLookup" parameterType="com.yedam.erp.stocks.LookupCodesVO">
+		<![CDATA[
+		UPDATE lookup_values
+		SET    lookup_values = #{lookupValues}
+		      ,descriptions  = #{descriptions}
+		      ,flag          = #{flag}
+		      ,dff           = #{dff}
+		      ,reflag        = #{reflag}
+		WHERE  lookup_idx = #{lookupIdx}
+        ]]>
+	</update>
+
+	<update id="updateLookups" parameterType="com.yedam.erp.stocks.LookupCodesVO">
 		<![CDATA[
 		UPDATE lookup_values
 		SET    lookup_values = #{lookupValues}
@@ -335,7 +356,8 @@
 		]]>
 	</select>
 
-	<select id="getItemGroup2" parameterType="string" resultType="map">
+	<select id="getItemGroup2" parameterType="string"
+		resultType="map">
 		<![CDATA[
 		SELECT lv.descriptions "grp_name"
 		      ,lv.lookup_code  "grp_code"
@@ -352,7 +374,8 @@
 		]]>
 	</select>
 
-	<select id="getItemGroup3" parameterType="string" resultType="map">
+	<select id="getItemGroup3" parameterType="string"
+		resultType="map">
 		<![CDATA[
 		SELECT lv.descriptions "grp_name"
 		      ,lv.lookup_code  "grp_code"

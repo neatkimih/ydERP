@@ -1,6 +1,6 @@
 package com.yedam.erp.stocks;
 
-public class LookupCodes {
+public class LookupCodesVO {
 	String lookupCode;
 	String lookup;
 	String lookupValues;

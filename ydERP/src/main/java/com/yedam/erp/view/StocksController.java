@@ -186,7 +186,6 @@ public class StocksController {
 	@ResponseBody
 	public String insertPurchaseProc(PurchaseRequestVO vo) {
 		purchaseRequestService.insertPurchaseProc(vo);
-
 		return "success";
 	}
 

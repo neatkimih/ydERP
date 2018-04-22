@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.yedam.erp.stocks.LookupCodes;
+import com.yedam.erp.stocks.LookupCodesVO;
 
 @Repository
 public class HomeMybatisDAO {
@@ -42,7 +42,7 @@ public class HomeMybatisDAO {
 		return sqlSession.selectList("stocks.selectLookups", str);
 	}
 
-	public void updateLookups(LookupCodes vo) {
+	public void updateLookups(LookupCodesVO vo) {
 		sqlSession.update("stocks.updateLookup", vo);
 	}
 }

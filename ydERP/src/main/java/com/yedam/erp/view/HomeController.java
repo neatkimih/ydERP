@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yedam.erp.stocks.LookupCodes;
+import com.yedam.erp.stocks.LookupCodesVO;
 import com.yedam.erp.stocks.impl.HomeServiceImpl;
 
 /**
@@ -86,7 +86,7 @@ public class HomeController {
 
 	@RequestMapping("updateLookups.do")
 	@ResponseBody
-	public void updateLookupsDo(LookupCodes vo) {
+	public void updateLookupsDo(LookupCodesVO vo) {
 		homeServiceImpl.updateLookups(vo);
 	}
 

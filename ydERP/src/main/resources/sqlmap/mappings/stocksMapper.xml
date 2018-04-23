@@ -79,6 +79,7 @@
 
 	<select id="getPurchaseRequestList" resultType="purchaserequest">
 		<![CDATA[
+		select a.* from ( select rownum rn, b.* from (
 		SELECT common.get_vendor_name(v.vendor_code) vendor_name, v.*
 		FROM   purchase_request_vo v
 		]]>
@@ -97,6 +98,28 @@
 			</if>
 		</where>
 		ORDER BY vendor_code, item_code
+		) b ) a where rn between #{first} and #{last}
+	</select>
+
+	<select id="getCount" parameterType="purchaserequest" resultType="int">
+		<![CDATA[
+		SELECT count(*) cnt
+		FROM   purchase_request_vo v
+		]]>
+		<where>
+			<if test=" group1 != null and group1 != '' ">
+				AND SUBSTR(item_code,1,1) = #{group1}
+			</if>
+			<if test=" group2 != null and group2 != '' ">
+				AND SUBSTR(item_code,2,1) = #{group2}
+			</if>
+			<if test=" group3 != null and group3 != '' ">
+				AND SUBSTR(item_code,3,1) = #{group3}
+			</if>
+			<if test=" vendorCode != null and vendorCode != '' ">
+				AND vendor_code = #{vendorCode}
+			</if>
+		</where>
 	</select>
 
 	<insert id="insertPurchaseProc" parameterType="purchaserequest"

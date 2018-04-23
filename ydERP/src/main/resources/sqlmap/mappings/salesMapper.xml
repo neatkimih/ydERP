@@ -221,8 +221,8 @@
 		]]>
 	</select>
 	
-	<!-- 판매량 TOP 10 통계 : 그룹 기준 (월) -->
-	<select id="getToptenChartYear" resultType="map">
+	<!-- 품목별 판매량 TOP 통계 : 그룹 기준 (월) -->
+	<select id="getTopItemChartYear" resultType="map">
 		<![CDATA[
 			SELECT * 
 			FROM 	(	SELECT      sd.SALE_ITEM_NAME AS "saleItem", SUM(sd.SALE_QTY) AS "saleQty" 
@@ -230,15 +230,15 @@
 						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
 						GROUP BY	sd.SALE_ITEM_NAME 
 						ORDER BY    2 DESC ) 
-			WHERE ROWNUM <= 10
+			WHERE ROWNUM <= 5
 		]]>
 	</select>
 	
 	
-	<!-- 판매량 TOP 10 통계 : 그룹 기준 (일) -->
-	<select id="getToptenChartMonth" resultType="map">
+	<!-- 품목별 판매량 TOP 통계 : 그룹 기준 (일) -->
+	<select id="getTopItemChartMonth" resultType="map">
 		<![CDATA[
-		SELECT * 
+			SELECT * 
 			FROM 	(	SELECT      sd.SALE_ITEM_NAME AS "saleItem", SUM(sd.SALE_QTY) AS "saleQty" 
 						FROM        sales s JOIN sale_details sd ON s.sale_code = sd.sale_code 
 						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
@@ -246,5 +246,33 @@
 						ORDER BY    2 DESC ) 
 			WHERE ROWNUM <= 5
 		]]>
+	</select>
+	
+	<!-- 판매처별 판매량 TOP 통계 : 그룹 기준 (월) -->
+	<select id="getTopCustomerChartYear" resultType="map">
+		<![CDATA[
+			SELECT * 
+			FROM 	(	SELECT      c.CUSTOMER_NAME AS "customerName", SUM(sd.SALE_QTY) AS "saleQty" 
+						FROM        customers c JOIN sales s ON c.CUSTOMER_CODE = s.CUSTOMER_CODE
+                                                JOIN sale_details sd ON s.SALE_CODE = sd.SALE_CODE 
+						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+						GROUP BY	c.CUSTOMER_NAME
+						ORDER BY    2 DESC ) 
+			WHERE ROWNUM <= 5		
+		]]>	
+	</select>
+	
+	<!-- 판매처별 판매량 TOP 통계 : 그룹 기준 (일) -->
+	<select id="getTopCustomerChartMonth" resultType="map">
+		<![CDATA[
+			SELECT * 
+			FROM 	(	SELECT      c.CUSTOMER_NAME AS "customerName", SUM(sd.SALE_QTY) AS "saleQty" 
+						FROM        customers c JOIN sales s ON c.CUSTOMER_CODE = s.CUSTOMER_CODE
+                                                JOIN sale_details sd ON s.SALE_CODE = sd.SALE_CODE 
+						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+						GROUP BY	c.CUSTOMER_NAME
+						ORDER BY    2 DESC ) 
+			WHERE ROWNUM <= 5		
+		]]>	
 	</select>
 </mapper>

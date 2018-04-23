@@ -60,33 +60,43 @@ public class SalesMybatisDAO {
 		mybatis.insert("sales.afterPermitOrder", saleCode);
 	}
 	
-	/* 월별 판매액 차트 연산 처리 */
+	/* 월별 매출 차트 처리 */
 	public List<Map<String, Object>> getSaleChartYear(SalesVO salesVO) {
 		return mybatis.selectList("sales.getSaleChartYear", salesVO);
 	}
 	
-	/* 일별 판매액 차트 연산 처리 */
+	/* 일별 매출 차트 처리 */
 	public List<Map<String, Object>> getSaleChartMonth(SalesVO salesVO) {
 		return mybatis.selectList("sales.getSaleChartMonth", salesVO);
 	}
 	
-	/* 월별 순이익 차트 연산 처리 */
+	/* 월별 순이익 차트 처리 */
 	public List<Map<String, Object>> getProfitChartYear(SalesVO salesVO) {
 		return mybatis.selectList("sales.getProfitChartYear", salesVO);
 	}
 	
-	/* 일별 순이익 차트 연산 처리 */
+	/* 일별 순이익 차트 처리 */
 	public List<Map<String, Object>> getProfitChartMonth(SalesVO salesVO) {
 		return mybatis.selectList("sales.getProfitChartMonth", salesVO);
 	}
 	
-	/* 월별 판매량 TOP 10 차트 연산 처리 */
-	public List<Map<String, Object>> getToptenChartYear(SalesVO salesVO) {
-		return mybatis.selectList("sales.getToptenChartYear", salesVO);
+	/* 월별 품목별 판매량 TOP 차트 처리 */
+	public List<Map<String, Object>> getTopItemChartYear(SalesVO salesVO) {
+		return mybatis.selectList("sales.getTopItemChartYear", salesVO);
 	}
 	
-	/* 일별 판매량 TOP 10 차트 연산 처리 */
-	public List<Map<String, Object>> getToptenChartMonth(SalesVO salesVO) {
-		return mybatis.selectList("sales.getToptenChartMonth", salesVO);
+	/* 일별 품목별 판매량 TOP 차트 처리 */
+	public List<Map<String, Object>> getTopItemChartMonth(SalesVO salesVO) {
+		return mybatis.selectList("sales.getTopItemChartMonth", salesVO);
+	}
+	
+	/* 월별 판매처별 판매량 TOP 차트 처리 */
+	public List<Map<String, Object>> getTopCustomerChartYear(SalesVO salesVO) {
+		return mybatis.selectList("sales.getTopCustomerChartYear", salesVO);
+	}
+	
+	/* 일별 판매처별 판매량 TOP 차트 처리 */
+	public List<Map<String, Object>> getTopCustomerChartMonth(SalesVO salesVO) {
+		return mybatis.selectList("sales.getTopCustomerChartMonth", salesVO);
 	}
 }

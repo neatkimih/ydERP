@@ -58,7 +58,7 @@ html, body {
                       			path = [];
                       		}
                       		var addr = [];
-                      		addr.push(result[i].NAME);
+                      		addr.push(result[i].NAME + " : " +result[i].LOCATION_DATE);
                       		addr.push(Number(result[i].LOCATION_X));
                       		addr.push(Number(result[i].LOCATION_Y));
                       		deliverys.push(addr);                      		

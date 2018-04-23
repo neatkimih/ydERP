@@ -201,7 +201,7 @@ public class SalesController {
 		return "sales/getSaleChart";
 	}	
 	
-	/* 월일별 판매액 통계 처리 */
+	/* 월일별 판매액 차트 처리 */
 	@RequestMapping("/getSaleChart.do")
 	@ResponseBody
 	public List<Map<String, Object>> getSaleChart(	@RequestParam String selectSaleYear,
@@ -232,7 +232,7 @@ public class SalesController {
 		}
 	}
 	
-	/* 월일별 순이익 통계 처리 */
+	/* 월일별 순이익 차트 처리 */
 	@RequestMapping("/getProfitChart.do")
 	@ResponseBody
 	public List<Map<String, Object>> getProfitChart(HttpServletRequest request,
@@ -258,29 +258,55 @@ public class SalesController {
 		}
 	}
 	
-	/* 월일별 판매량 Top10 통계 처리 */
-	@RequestMapping("/getToptenChart.do")
+	/* 월일별 품목별 판매량 Top 차트 처리 */
+	@RequestMapping("/getTopItemChart.do")
 	@ResponseBody
-	public List<Map<String, Object>> getToptenChart(HttpServletRequest request,
+	public List<Map<String, Object>> getTopItemChart(HttpServletRequest request,
 													SalesVO salesVO,
 													Model model) {
-		String selectToptenYear = request.getParameter("selectToptenYear");
-		String selectToptenMonth = request.getParameter("selectToptenMonth");
+		String selectTopItemYear = request.getParameter("selectTopItemYear");
+		String selectTopItemMonth = request.getParameter("selectTopItemMonth");
 		
-		if(selectToptenMonth != null && selectToptenMonth != "") {
+		if(selectTopItemMonth != null && selectTopItemMonth != "") {
 			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
-			if(Integer.parseInt(selectToptenMonth) < 10) {
-				selectToptenMonth = "0" + selectToptenMonth;
+			if(Integer.parseInt(selectTopItemMonth) < 10) {
+				selectTopItemMonth = "0" + selectTopItemMonth;
 			}
-			salesVO.setSaleDate(selectToptenYear + "-" + selectToptenMonth);
+			salesVO.setSaleDate(selectTopItemYear + "-" + selectTopItemMonth);
 			System.out.println(salesVO.getSaleDate());
-			return salesService.getToptenChartMonth(salesVO);
+			return salesService.getTopItemChartMonth(salesVO);
 		}
 		else {
 			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
-			salesVO.setSaleDate(selectToptenYear);
+			salesVO.setSaleDate(selectTopItemYear);
 			System.out.println(salesVO.getSaleDate());
-			return salesService.getToptenChartYear(salesVO);
+			return salesService.getTopItemChartYear(salesVO);
+		}
+	}
+	
+	/* 월일별 판매처별 판매량 Top 차트 처리 */
+	@RequestMapping("/getTopCustomerChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getTopCustomerChart(HttpServletRequest request,
+													SalesVO salesVO,
+													Model model) {
+		String selectTopCustomerYear = request.getParameter("selectTopCustomerYear");
+		String selectTopCustomerMonth = request.getParameter("selectTopCustomerMonth");
+		
+		if(selectTopCustomerMonth != null && selectTopCustomerMonth != "") {
+			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
+			if(Integer.parseInt(selectTopCustomerMonth) < 10) {
+				selectTopCustomerMonth = "0" + selectTopCustomerMonth;
+			}
+			salesVO.setSaleDate(selectTopCustomerYear + "-" + selectTopCustomerMonth);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getTopCustomerChartMonth(salesVO);
+		}
+		else {
+			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
+			salesVO.setSaleDate(selectTopCustomerYear);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getTopCustomerChartYear(salesVO);
 		}
 	}
 }

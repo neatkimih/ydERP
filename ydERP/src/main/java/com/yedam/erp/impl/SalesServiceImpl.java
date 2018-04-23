@@ -63,41 +63,51 @@ public class SalesServiceImpl implements SalesService {
 		salesDAO.afterPermitOrder(saleCode);
 	}
 
-	/* 월별 판매액 차트 연산 처리 */
+	/* 월별 매출 차트 처리 */
 	@Override
 	public List<Map<String, Object>> getSaleChartYear(SalesVO salesVO) {
 		return salesDAO.getSaleChartYear(salesVO);
 	}
 	
-	/* 일별 판매액 차트 연산 처리 */
+	/* 일별 매출 차트 처리 */
 	@Override
 	public List<Map<String, Object>> getSaleChartMonth(SalesVO salesVO) {
 		return salesDAO.getSaleChartMonth(salesVO);
 	}
 
-	/* 월별 순이익 차트 연산 처리 */
+	/* 월별 순이익 차트 처리 */
 	@Override
 	public List<Map<String, Object>> getProfitChartYear(SalesVO salesVO) {
 		return salesDAO.getProfitChartYear(salesVO);
 	}
 	
-	/* 일별 순이익 차트 연산 처리 */
+	/* 일별 순이익 차트 처리 */
 	@Override
 	public List<Map<String, Object>> getProfitChartMonth(SalesVO salesVO) {
 		return salesDAO.getProfitChartMonth(salesVO);
 	}
 
-	/* 월별 판매량 TOP 10 차트 연산 처리 */
+	/* 월별 품목별 판매량 TOP 차트 처리 */
 	@Override
-	public List<Map<String, Object>> getToptenChartYear(SalesVO salesVO) {
-		return salesDAO.getToptenChartYear(salesVO);
+	public List<Map<String, Object>> getTopItemChartYear(SalesVO salesVO) {
+		return salesDAO.getTopItemChartYear(salesVO);
 	}
 
-	/* 일별 판매량 TOP 10 차트 연산 처리 */
+	/* 일별 품목별 판매량 TOP 차트 처리 */
 	@Override
-	public List<Map<String, Object>> getToptenChartMonth(SalesVO salesVO) {
-		return salesDAO.getToptenChartMonth(salesVO);
+	public List<Map<String, Object>> getTopItemChartMonth(SalesVO salesVO) {
+		return salesDAO.getTopItemChartMonth(salesVO);
 	}
 	
+	/* 월별 판매처별 판매량 TOP 처리 */
+	@Override
+	public List<Map<String, Object>> getTopCustomerChartYear(SalesVO salesVO) {
+		return salesDAO.getTopCustomerChartYear(salesVO);
+	};
 	
+	/* 일별 판매처별 판매량 TOP 처리 */
+	@Override
+	public List<Map<String, Object>> getTopCustomerChartMonth(SalesVO salesVO) {
+		return salesDAO.getTopCustomerChartMonth(salesVO);
+	};
 }

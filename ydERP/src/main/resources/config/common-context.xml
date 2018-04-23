@@ -75,6 +75,14 @@
 			handler="myHandler" />
 	</websocket:handlers>
 
-
+	<mvc:interceptors>
+        <mvc:interceptor>
+           <mvc:mapping path="/*" />
+           <!-- 여러개 컨트롤러 추가 가능 -->
+           <mvc:exclude-mapping path="/log*" />
+           <!-- 로그인체크 인터셉터 클래스 -->
+           <bean class="com.yedam.erp.interceptor.Interceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

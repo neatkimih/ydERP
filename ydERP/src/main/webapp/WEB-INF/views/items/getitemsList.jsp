@@ -152,6 +152,7 @@ $(function(){
 	function selectVendor() {
 		
 	}
+	title_nav = "[ getitemsList.jsp ::: 품목기초정보 관리화면(입력/수정/삭제 처리) ]";
 
 </script>
 <!-- jqGrid -->
@@ -302,7 +303,6 @@ $(function() {
 			gridview : true,
 			autoencode : true,
 			loadonce : true,
-			//onSelectRow : editRow,
 			rowNum : 10,
 			height : 'auto',
 			autowidth : true,

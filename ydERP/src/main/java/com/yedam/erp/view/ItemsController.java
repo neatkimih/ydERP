@@ -99,6 +99,7 @@ public class ItemsController {
 		vo.setFirst(1);
 		vo.setLast(30);
 		model.addAttribute("vendorName",vo);
+		System.out.println(vo.getAddDate());
 		return itemsService.getItemsList(vo);
 	}
 

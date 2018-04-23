@@ -18,7 +18,10 @@
 <script type="text/javascript">
 	var selectedItem;
 	var lastsel;
-
+	var vid;
+	var ret;
+	var idx;
+	
 	$(function() {
 		jQuery("#list").jqGrid(
 				{
@@ -30,7 +33,7 @@
 					autowidth : true,
 
 					colNames : [ "룩업", "룩업코드", "코드값", "코드Value", "코드설명",
-							"사용여부", "룩업DFF", "대표코드" ],
+							"사용여부", "룩업DFF", "대표코드", "id" ],
 
 					colModel : [ {
 						name : "LOOKUP_DESCRIPTION",
@@ -95,16 +98,6 @@
 						editoptions : {
 							value : "Yes:No"
 						}
-					 }, {
-						name : 'ship_via',
-						index : 'ship_via',
-						width : 70,
-						key : true,
-						editable : true,
-						edittype : "select",
-						editoptions : {
-							value : "FE:FedEx;TN:TNT"
-						} 
 					}, {
 						name : "REFLAG",
 						width : 2,
@@ -115,40 +108,65 @@
 							rows : "2",
 							cols : "20"
 						}
+					}, {
+						name : 'LOOKUP_IDX',
+						index : 'LOOKUP_IDX',
+						width : 1,
+						key : true,
+						/* editable : true,
+						edittype : "select",
+						editoptions : {
+							value : "FE:FedEx;TN:TNT"
+						}, */
+						editrules : {
+							required : true,
+							edithidden : false
+						},
 					} ],
 					rowNum : 10,
 					rowList : [ 10, 20, 30 ],
 					pager : '#pager',
-					sortname : 'LOOKUP',
+					sortname : 'lookup',
 					viewrecords : true,
 					loadonce : true,
 					sortorder : "desc",
-					editurl : "updateLookups.do",
+					editurl : "updateLookups2.do",
 					caption : "룩업코드",
 					height : 400
 				});
 
 		jQuery("#list").jqGrid('navGrid', '#pager', {
-			edit : false,
-			add : false,
-			del : false
+			edit : true,
+			add : true,
+			del : true
 		}, //options 
 		{
-			height : 400,
+			height : 450,
 			reloadAfterSubmit : false,
-			complete : $("#list").click(function() {
-				var gr = jQuery("#list").jqGrid('getGridParam', 'selrow');
-				if (gr != null)
-					jQuery("#list").jqGrid('editGridRow', gr, {
-						height : 280,
-						reloadAfterSubmit : false
-					});
-				else
+			/* afterComplete : function() {
+				$("#list").setGridParam({
+					datatype : 'json',
+					page : 1
+				}).trigger('reloadGrid');
+			} */
+			/* complete : $("#list").click(function() {
+				
+				vid = jQuery("#list").jqGrid('getGridParam', 'selrow');
+				if (vid != null) {
+					 ret = jQuery("#list").jqGrid('getRowData',vid);
+					// jQuery("#list").jqGrid('editGridRow', gr, { height : 450, reloadAfterSubmit : false })
+					console.log(vid + "==" + ret.FLAG + ret.LOOKUP_IDX);
+					idx = ret.LOOKUP_IDX;
+
+				} else
 					alert("Please Select Row");
-			})
+			}),
+			success : function(){
+				alert("select...")
+			} */
 		}, // edit options 
 		{
-			height : 400,
+			height : 450,
 			reloadAfterSubmit : false
 		}, // add options 
 		{

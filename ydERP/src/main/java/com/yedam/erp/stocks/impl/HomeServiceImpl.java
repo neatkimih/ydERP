@@ -30,8 +30,12 @@ public class HomeServiceImpl {
 		return dao.getInOutAmtChart();
 	}
 
-	public List<Map<String, Object>> getLookups(String LOOKUP) {
-		return dao.getLookups(LOOKUP);
+	public List<Map<String, Object>> getLookups(String str) {
+		return dao.getLookups(str);
+	}
+
+	public List<Map<String, Object>> getLookups2(LookupCodesVO vo) {
+		return dao.getLookups2(vo);
 	}
 
 	public List<Map<String, String>> getLookValues() {
@@ -43,7 +47,13 @@ public class HomeServiceImpl {
 	}
 
 	public void updateLookups(LookupCodesVO vo) {
+		System.out.println("service====" + vo);
 		dao.updateLookups(vo);
+	}
+
+	public void updateLookups2(Map str) {
+		System.out.println("service====" + str);
+		dao.updateLookups2(str);
 	}
 
 }

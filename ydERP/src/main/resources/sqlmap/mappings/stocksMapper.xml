@@ -46,8 +46,7 @@
 		ORDER BY txn_date
 	</select>
 
-	<select id="getStockOnhandList"
-		resultType="com.yedam.erp.stocks.StockOnhandViewVO">
+	<select id="getStockOnhandList" resultType="com.yedam.erp.stocks.StockOnhandViewVO">
 		<![CDATA[
 		SELECT v.*, common.get_vendor_name(v.vendor_code) vendor_name
 		FROM   stock_onhands_vo v
@@ -107,15 +106,13 @@
 		]]>
 	</insert>
 
-	<insert id="insertPurchaseRequest"
-		parameterType="purchaserequest" statementType="CALLABLE">
+	<insert id="insertPurchaseRequest" parameterType="purchaserequest" statementType="CALLABLE">
 		<![CDATA[
 		{call common.create_purchase_info(#{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
 		]]>
 	</insert>
 
-	<select id="getPurchaseRequestTempListData"
-		resultType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+	<select id="getPurchaseRequestTempListData" resultType="com.yedam.erp.stocks.PurchaseDetailTempVO">
 		<![CDATA[
 		SELECT *
 		FROM   purchase_detail_temp_vo v
@@ -123,8 +120,7 @@
 		]]>
 	</select>
 
-	<insert id="insertPurchaseRequestTemp"
-		parameterType="com.yedam.erp.stocks.PurchaseDetailTempVO">
+	<insert id="insertPurchaseRequestTemp" parameterType="com.yedam.erp.stocks.PurchaseDetailTempVO">
 		<![CDATA[
 		INSERT INTO purchase_detail_temp
 		VALUES  (TO_CHAR(purchase_detail_seq.nextval)
@@ -158,8 +154,7 @@
 		]]>
 	</select>
 
-	<select id="getReceiptHeaders"
-		resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
+	<select id="getReceiptHeaders" resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
 		<![CDATA[
 		SELECT p.*
 		      ,common.get_vendor_name(p.vendor_code) vendor_name
@@ -179,8 +174,7 @@
 		]]>
 	</select>
 
-	<select id="getReceiptLines"
-		resultType="com.yedam.erp.stocks.PurchaseDetailsVO">
+	<select id="getReceiptLines" resultType="com.yedam.erp.stocks.PurchaseDetailsVO">
 		<![CDATA[
 		SELECT p.*, common.get_item_name(p.purchase_item) item_name
 		FROM   purchase_details p
@@ -277,8 +271,7 @@
 		]]>
 	</select>
 
-	<select id="getLookupsData" parameterType="string"
-		resultType="map">
+	<select id="getLookupsData" parameterType="string" resultType="map">
 		<![CDATA[
 		SELECT lk.lookup lookups
 		      ,lk.lookup_description
@@ -289,6 +282,7 @@
 		      ,lv.flag
 		      ,lv.dff
 		      ,lv.reflag
+		      ,lv.lookup_idx
 		FROM   lookups lk
 		JOIN   lookup_values lv
 		ON     lk.lookup = lv.lookup
@@ -299,7 +293,32 @@
 			</if>
 		</where>
 		ORDER BY lk.lookup
-		,lv.lookup_code
+		     ,lv.lookup_code
+	</select>
+
+	<select id="getLookupsData2" parameterType="com.yedam.erp.stocks.LookupCodesVO" resultType="map">
+		<![CDATA[
+		SELECT lk.lookup lookups
+		      ,lk.lookup_description
+		      ,lv.lookup
+		      ,lv.lookup_code
+		      ,lv.lookup_values
+		      ,lv.descriptions
+		      ,lv.flag
+		      ,lv.dff
+		      ,lv.reflag
+		      ,lv.lookup_idx
+		FROM   lookups lk
+		JOIN   lookup_values lv
+		ON     lk.lookup = lv.lookup
+        ]]>
+		<where>
+			<if test=" lookup != null and lookup != '' ">
+				AND lk.lookup = #{lookup}
+			</if>
+		</where>
+		ORDER BY lk.lookup
+			 ,lv.lookup_code
 	</select>
 
 	<select id="getLookupValues" resultType="map">
@@ -312,11 +331,19 @@
 	</select>
 
 
-	<select id="selectLookups" parameterType="string"
-		resultType="map">
-		SELECT *
-		FROM lookup_values
-		WHERE lookup = #{lookup}
+	<select id="selectLookups" parameterType="string" resultType="map">
+		<![CDATA[
+		SELECT v.lookup
+		      ,v.lookup_code
+		      ,v.lookup_values
+		      ,v.descriptions
+		      ,v.flag
+		      ,v.dff
+		      ,v.reflag
+		      ,v.lookup_idx
+		FROM   lookup_values v
+		WHERE v.lookup = #{lookup}
+        ]]>
 	</select>
 
 	<!-- 1.homecontroll lookup -->
@@ -332,15 +359,15 @@
         ]]>
 	</update>
 
-	<update id="updateLookups" parameterType="com.yedam.erp.stocks.LookupCodesVO">
+	<update id="updateLookup2" parameterType="map">
 		<![CDATA[
 		UPDATE lookup_values
-		SET    lookup_values = #{lookupValues}
-		      ,descriptions  = #{descriptions}
-		      ,flag          = #{flag}
-		      ,dff           = #{dff}
-		      ,reflag        = #{reflag}
-		WHERE  lookup_idx = #{lookupIdx}
+		SET    lookup_values = #{LOOKUP_VALUES}
+		      ,descriptions  = #{DESCRIPTIONS}
+		      ,flag          = #{FLAG}
+		      ,dff           = #{DFF}
+		      ,reflag        = #{REFLAG}
+		WHERE  lookup_idx = #{id}
         ]]>
 	</update>
 

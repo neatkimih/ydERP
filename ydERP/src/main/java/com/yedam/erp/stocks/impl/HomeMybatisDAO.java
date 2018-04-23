@@ -30,8 +30,14 @@ public class HomeMybatisDAO {
 		return sqlSession.selectList("stocks.getInOutAmtChart");
 	}
 
-	public List<Map<String, Object>> getLookups(String LOOKUP) {
-		return sqlSession.selectList("stocks.getLookupsData", LOOKUP);
+	// 기존
+	public List<Map<String, Object>> getLookups(String str) {
+		return sqlSession.selectList("stocks.getLookupsData", str);
+	}
+
+	// 변경
+	public List<Map<String, Object>> getLookups2(LookupCodesVO vo) {
+		return sqlSession.selectList("stocks.getLookupsData2", vo);
 	}
 
 	public List<Map<String, String>> getLookValues() {
@@ -43,6 +49,13 @@ public class HomeMybatisDAO {
 	}
 
 	public void updateLookups(LookupCodesVO vo) {
+		System.out.println("dao===="+vo);
 		sqlSession.update("stocks.updateLookup", vo);
 	}
+
+	public void updateLookups2(Map str) {
+		System.out.println("dao===="+str);
+		sqlSession.update("stocks.updateLookup2", str);
+	}
+
 }

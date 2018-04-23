@@ -81,13 +81,13 @@
 					<span class="sr-only">Toggle navigation</span> <span
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
-				</button>
+				</button> 
 				<c:if test="${not empty sessionScope.viewCustomer.customerCode}">
 					<h3>
-						${sessionScope.viewCustomer.customerName}님 환영합니다. <input
-							class="btn btn-primary" type="button" name="logout" value="로그아웃"
-							onclick="logoutcheck()" />
+						${sessionScope.viewCustomer.customerName}님 환영합니다. 
 					</h3>
+					<input class="btn btn-primary" type="button" name="logout" value="로그아웃"
+							onclick="logoutcheck()" />
 				</c:if>
 
 				<!-- jstl 코어 태그 -->

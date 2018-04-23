@@ -18,15 +18,14 @@
 		google.charts.load("current", {packages:['corechart']});
 	    google.charts.setOnLoadCallback(drawSaleChart);
 	    google.charts.setOnLoadCallback(drawProfitChart);
-	    google.charts.setOnLoadCallback(drawToptenChart);
+	    google.charts.setOnLoadCallback(drawTopItemChart);
+	    google.charts.setOnLoadCallback(drawTopCustomerChart);
 	    
 	    /* 매출 차트 그리기 */
 	    function drawSaleChart() {
 	    	var selectSaleYear = $("#selectSaleYear").val();								// JAVASCRIPT
 	    	var selectSaleMonth = document.getElementById("selectSaleMonth").value;			// DOM
-	    	if(selectSaleYear == "") {
-	    		selectSaleYear = "2018";
-	    	}
+	    	if(selectSaleYear == "") {selectSaleYear = "2018";}
 	    	var param = {selectSaleYear:selectSaleYear,selectSaleMonth:selectSaleMonth}
 	    	
 	    	$.ajax({
@@ -66,9 +65,7 @@
 	    function drawProfitChart() {
 	    	var selectProfitYear = $("#selectProfitYear").val();								// JAVASCRIPT
 	    	var selectProfitMonth = document.getElementById("selectProfitMonth").value;			// DOM
-	    	if(selectProfitYear == "") {
-	    		selectProfitYear = "2018";
-	    	}
+	    	if(selectProfitYear == "") {selectProfitYear = "2018";}
 	    	var param = {selectProfitYear:selectProfitYear,selectProfitMonth:selectProfitMonth}
 	    	
 	    	$.ajax({
@@ -96,49 +93,83 @@
 	    	})
 	    }
 	    
-	    /* Top 10 차트 그리기 */
-	    function drawToptenChart() {
-	    	var selectToptenYear = $("#selectToptenYear").val();
-	    	var selectToptenMonth = $("#selectToptenMonth").val();
-	    	if(selectToptenYear == "") {
-	    		selectToptenYear == "2018";
-	    	}
-	    	var param = {selectToptenYear:selectToptenYear,selectToptenMonth:selectToptenMonth}
+	    /* 품목별 판매량 Top 차트 그리기 */
+	    function drawTopItemChart() {
+	    	var selectTopItemYear = $("#selectTopItemYear").val();
+	    	var selectTopItemMonth = $("#selectTopItemMonth").val();
+	    	if(selectTopItemYear == "") {selectTopItemYear == "2018";}
+	    	var param = {selectTopItemYear:selectTopItemYear,selectTopItemMonth:selectTopItemMonth}
 	    	
 	    	$.ajax({
-	    		url : "./getToptenChart.do",
+	    		url : "./getTopItemChart.do",
 	    		data : param,
 	    		method : "POST",
 	    		type : "json",
 	    		success : function(datas) {
-	    			var toptenChartData = [];
-	    			toptenChartData.push(["품목명", "판매량"]);
+	    			var topItemChartData = [];
+	    			topItemChartData.push(["품목명", "판매량"]);
 	    			for (i = 0; i < datas.length; i++) {
-	    				toptenChartData.push([datas[i].saleItem, datas[i].saleQty]);
+	    				topItemChartData.push([datas[i].saleItem, datas[i].saleQty]);
 	    			};
-	    			var toptenChartOptions = {
-	    					title : '[판매량 Topten10]',
+	    			var topItemChartOptions = {
+	    					title : '[품목별 판매량 Top]',
 	    					width : 500,
 	    					height : 500,
-	    					bar : {groupWidth : "25%"},
+	    					bar : {groupWidth : "100%"},
 	    					legend: {position: "bottom" },
 	    					is3D : true
+	    			}
+	    		console.log(topItemChartData);
+	    		var topItemChart = new google.visualization.PieChart(document.getElementById('topItemChartDiv'));
+	    		topItemChart.draw(google.visualization.arrayToDataTable(topItemChartData), topItemChartOptions);
+	    	}
+	    })
+	  }
+	    
+	 /* 판매처별 판매량 Top 차트 그리기 */
+	function drawTopCustomerChart() {
+		var selectTopCustomerYear = $("#selectTopCustomerYear").val();
+	   	var selectTopCustomerMonth = $("#selectTopCustomerMonth").val();
+	    if(selectTopCustomerYear == "") {selectTopCustomerYear == "2018";}
+	    	var param = {selectTopCustomerYear:selectTopCustomerYear,selectTopCustomerMonth:selectTopCustomerMonth}
+	    	
+	    	$.ajax({
+	    		url : "./getTopCustomerChart.do",
+	    		data : param,
+	    		method : "POST",
+	    		type : "json",
+	    		success : function(datas) {
+	    			var topCustomerChartData = [];
+	    			topCustomerChartData.push(["판매처", "판매량"]);
+	    			for (i = 0; i < datas.length; i++) {
+	    				topCustomerChartData.push([datas[i].customerName, datas[i].saleQty]);
 	    			};
-	    			console.log(toptenChartData);
-	    			var toptenChart = new google.visualization.PieChart(document.getElementById('toptenChartDiv'));
-	    	        toptenChart.draw(google.visualization.arrayToDataTable(toptenChartData), toptenChartOptions);
-	    		}
-	    	})
-	      }
+	    			var topCustomerChartOptions = {
+	    					title : '[판매처별 판매량 Top]',
+	    					width : 500,
+	    					height : 500,
+	    					bar : {groupWidth : "100%"},
+	    					legend: {position: "bottom" },
+	    					is3D : true
+	    			}
+	    		console.log(topCustomerChartData);
+	    		var topCustomerChart = new google.visualization.PieChart(document.getElementById('topCustomerChartDiv'));
+	    		topCustomerChart.draw(google.visualization.arrayToDataTable(topCustomerChartData), topCustomerChartOptions);
+	    	}
+	    })
+	  }
 	  </script>
 	  <style>
-	  	#saleChartDiv, #profitChartDiv, #toptenChartDiv {
+	  	#saleChartDiv, #profitChartDiv, #topItemChartDiv, #topCustomerChartDiv {
 	  		margin-bottom: 25px;
 	  		margin-top: 25px;
 	  	}
 	  	
-	  	#saleChartCol, #profitChartCol, #toptenChartCol {
-	  		background-color: #cfcfcf;
+	  	#saleChartCol, #profitChartCol, #topItemChartCol, #topCustomerChartCol {
+	  		margin-top : 25px;
+	  		background-color: #ffffff;
+	  		border-color : black;
+	  		border-style: 4px solid black;
 	  	}
 	  	
 	  	.chartSpan {
@@ -185,20 +216,35 @@
 						</div>
 					</div>
 					<div class="row">
-						<div id="toptenChartCol" class="col-lg-6">
-							<span class="chartSpan">[판매량 Top10 차트]</span> 기준 기간 선택 : 
-							<select id="selectToptenYear" onchange="drawToptenChart()">
+						<div id="topItemChartCol" class="col-lg-6">
+							<span class="chartSpan">[품목별 판매량 TOP 차트]</span> 기준 기간 선택 : 
+							<select id="selectTopItemYear" onchange="drawTopItemChart()">
 								<c:forEach begin="2018" end="2018" var="year">
 									<option value="${year}">${year}년</option>
 								</c:forEach>
 							</select>
-							<select id="selectToptenMonth" onchange="drawToptenChart()">
+							<select id="selectTopItemMonth" onchange="drawTopItemChart()">
 									<option value="">전체</option>
 								<c:forEach begin="1" end="12" var="month">
 									<option value="${month}">${month}월</option>
 								</c:forEach>
 							</select>
-							<div id="toptenChartDiv" class="col-lg-6" style="width: 500px; height: 500px;"></div>
+							<div id="topItemChartDiv" class="col-lg-6" style="width: 500px; height: 500px;"></div>
+						</div>
+						<div id="topCustomerChartCol" class="col-lg-6">
+							<span class="chartSpan">[판매처별 판매량 TOP 차트]</span> 기준 기간 선택 : 
+							<select id="selectTopCustomerYear" onchange="drawTopCustomerChart()">
+								<c:forEach begin="2018" end="2018" var="year">
+									<option value="${year}">${year}년</option>
+								</c:forEach>
+							</select>
+							<select id="selectTopCustomerMonth" onchange="drawTopCustomerChart()">
+									<option value="">전체</option>
+								<c:forEach begin="1" end="12" var="month">
+									<option value="${month}">${month}월</option>
+								</c:forEach>
+							</select>
+							<div id="topCustomerChartDiv" class="col-lg-6" style="width: 500px; height: 500px;"></div>
 						</div>
 					</div>
 				</div>

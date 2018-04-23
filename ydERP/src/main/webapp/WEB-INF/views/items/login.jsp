@@ -13,7 +13,7 @@
    <!-- Custom CSS -->
     <link href="${pageContext.request.contextPath}/resources/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Style -->
-    <link href="css/style.css" rel="stylesheet">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script>

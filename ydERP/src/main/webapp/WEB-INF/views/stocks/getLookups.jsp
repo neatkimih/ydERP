@@ -95,15 +95,16 @@
 						editoptions : {
 							value : "Yes:No"
 						}
-					/* }, {
+					 }, {
 						name : 'ship_via',
 						index : 'ship_via',
 						width : 70,
+						key : true,
 						editable : true,
 						edittype : "select",
 						editoptions : {
 							value : "FE:FedEx;TN:TNT"
-						} */
+						} 
 					}, {
 						name : "REFLAG",
 						width : 2,

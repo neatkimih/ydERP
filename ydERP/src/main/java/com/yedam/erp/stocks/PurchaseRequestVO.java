@@ -31,6 +31,33 @@ public class PurchaseRequestVO {
 	Integer requestQty;
 	Integer customSeq;
 	String pVendorCode;
+	int first;
+	int last;
+	int cnt;
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public int getFirst() {
+		return first;
+	}
+
+	public void setFirst(int first) {
+		this.first = first;
+	}
+
+	public int getLast() {
+		return last;
+	}
+
+	public void setLast(int last) {
+		this.last = last;
+	}
 
 	public String getItemCode() {
 		return itemCode;
@@ -274,15 +301,11 @@ public class PurchaseRequestVO {
 
 	@Override
 	public String toString() {
-		return "PurchaseRequestVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty="
-				+ inQty + ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", vendorCode="
-				+ vendorCode + ", minQty=" + minQty + ", itemTax=" + itemTax + ", onhandQty=" + onhandQty + ", reqQty="
-				+ reqQty + ", expireDate=" + expireDate + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner
-				+ ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank
-				+ ", vendorAccount=" + vendorAccount + ", pMsg=" + pMsg + ", pTxnNo=" + pTxnNo + ", group1=" + group1
-				+ ", group2=" + group2 + ", group3=" + group3 + ", saleReqQty=" + saleReqQty + ", customerCode="
-				+ customerCode + ", customerName=" + customerName + ", needDate=" + needDate + ", requestQty="
-				+ requestQty + ", customSeq=" + customSeq + ", pVendorCode=" + pVendorCode + "]";
+		return "PurchaseRequestVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty=" + inQty + ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice
+				+ ", vendorCode=" + vendorCode + ", minQty=" + minQty + ", itemTax=" + itemTax + ", onhandQty=" + onhandQty + ", reqQty=" + reqQty + ", expireDate=" + expireDate + ", vendorName="
+				+ vendorName + ", vendorOwner=" + vendorOwner + ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank + ", vendorAccount=" + vendorAccount
+				+ ", pMsg=" + pMsg + ", pTxnNo=" + pTxnNo + ", group1=" + group1 + ", group2=" + group2 + ", group3=" + group3 + ", saleReqQty=" + saleReqQty + ", customerCode=" + customerCode
+				+ ", customerName=" + customerName + ", needDate=" + needDate + ", requestQty=" + requestQty + ", customSeq=" + customSeq + ", pVendorCode=" + pVendorCode + "]";
 	}
 
 }

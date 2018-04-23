@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.erp.common.Paging;
 import com.yedam.erp.stocks.PurchaseDetailTempVO;
 import com.yedam.erp.stocks.PurchaseDetailsVO;
 import com.yedam.erp.stocks.PurchaseHeadersVO;
@@ -105,19 +106,30 @@ public class StocksController {
 
 	@RequestMapping(value = "/getPurchaseRequestListData", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> getPurchaseRequestListData(PurchaseRequestVO vo) {
+	public Map<String, Object> getPurchaseRequestListData(Model model, PurchaseRequestVO vo, Paging paging) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		paging.setPageUnit(10);
+		paging.setTotalRecord(purchaseRequestService.getCount(vo));
+		// vo 의 first, last setting
+		vo.setFirst(paging.getFirst());
+		vo.setLast(paging.getLast());
+		System.out.println(vo.getFirst()+"===="+paging.getTotalRecord()+"......"+purchaseRequestService.getCount(vo));
+		model.addAttribute("paging", paging);
+
 		List<PurchaseRequestVO> requestlist = purchaseRequestService.getPurchaseRequestList(vo);
 		map.put("data", requestlist);
+		map.put("paging", paging);
 		return map;
 	}
 
 	@RequestMapping("/getPurchaseRequestList")
-	public String getPurchaseRequestList(Model model, StockOnhandViewVO vo, String str2, String str3) {
+	public String getPurchaseRequestList(Model model, StockOnhandViewVO vo, String str2, String str3 ) {
 		model.addAttribute("itemGroup1", stockOnhandService.getItemGroup1());
 		model.addAttribute("itemGroup2", stockOnhandService.getItemGroup2(str2));
 		model.addAttribute("itemGroup3", stockOnhandService.getItemGroup3(str3));
 		model.addAttribute("vendorList", stockOnhandService.getVendorList(vo));
+
+		 
 
 		return "stocks/getPurchaseRequestList";
 	}

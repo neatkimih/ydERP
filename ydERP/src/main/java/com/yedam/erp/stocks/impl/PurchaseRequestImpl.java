@@ -67,4 +67,8 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 	public void insertSalesProc(PurchaseRequestVO vo) {
 		dao.insertSalesProc(vo);
 	}
+
+	public int getCount(PurchaseRequestVO vo) {
+		return dao.getCount(vo);
+	}
 }

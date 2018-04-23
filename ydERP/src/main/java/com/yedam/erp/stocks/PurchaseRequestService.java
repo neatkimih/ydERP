@@ -24,6 +24,9 @@ public interface PurchaseRequestService {
 	public List<PurchaseRequestVO> getSalesRequest(PurchaseRequestVO vo);
 
 	public List<PurchaseRequestVO> getSalesRequestDetail(PurchaseRequestVO vo);
-	
+
 	public void insertSalesProc(PurchaseRequestVO vo);
+
+	public int getCount(PurchaseRequestVO vo);
+
 }

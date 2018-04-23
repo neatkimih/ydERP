@@ -63,4 +63,8 @@ public class PurchaseRequestMybatisDAO {
 		sqlSession.insert("stocks.insertSalesProc", vo);
 	}
 
+	public int getCount(PurchaseRequestVO vo) {
+		System.out.println("getCount=================" + sqlSession.selectOne("stocks.getCount", vo) + "...." + vo);
+		return sqlSession.selectOne("stocks.getCount", vo);
+	}
 }

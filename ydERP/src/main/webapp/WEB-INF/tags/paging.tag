@@ -1,5 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
-<%@ attribute name="paging" type="com.yedam.app.common.Paging"%>
+<%@ attribute name="paging" type="com.yedam.erp.common.Paging"%>
 <%@ attribute name="jsfunc"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="pagination">

@@ -44,15 +44,7 @@
 					name : "vendorCode",
 					width : 80,
 					align : "right"
-				},
-
-				{
-					label : "결제금액",
-					name : "purchaseCost",
-					width : 80,
-					align : "right"
 				}
-
 			],
 			pager : "#pager",
 			rowNum : 10,
@@ -133,9 +125,9 @@
 					width : 80,
 					align : "center",
 					editable : true
-				},
+				}
 
-				{
+			/* 	{
 					label : "입고여부",
 					name : "incomingFlag",
 					width : 80,					
@@ -146,7 +138,7 @@
 				    editoptions :{value:'Y:N', defaultValue:'N'},
 				    formatoptions: {disabled: false}					  
 				    
-				}
+				} */
 
 			],
 			pager : "#pager1",

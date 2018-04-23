@@ -17,22 +17,24 @@
 						${sessionScope.viewCustomer.customerName}님 환영합니다.<br>
 						<input class="btn btn-primary" type="button" name="logout" value="로그아웃" onclick="logoutcheck()"/>
 					</c:if>
-				</div>
+				</div> 
 
 				<div class="input-group custom-search-form">
-					<input type="text" class="form-control" placeholder="Search...">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">
+					<!-- <input type="text" class="form-control" placeholder="Search..."> -->
+					<!-- <span class="input-group-btn"> -->
+						<!-- <button class="btn btn-default" type="button">
 							<i class="fa fa-search"></i>
-						</button>
-					</span>
+						</button> -->
+					<!-- </span> -->
 				</div> <!-- /input-group -->
 			</li>
+					
+			
 			<c:if test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode!='admin12345'}">
 				<li><a href="getPurchaseRequestForm">판매업체 구매신청</a></li>
 			</c:if>
 			<c:if test="${sessionScope.viewCustomer.customerCode=='admin12345'}">
-				<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
+				<li><a href="index.html"><i class="fa fa-info fa-fw"></i>
 						기초정보관리<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li><a href="getItemsList">품목정보</a></li>
@@ -42,7 +44,7 @@
 
 					</ul></li>
 				<%@ include file="./defaultMenu2.jsp"%>
-				<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
+				<li><a href="tables.html"><i class="fa fa-krw fa-fw"></i>
 						판매정보<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li><a href="getOrderList">주문내역</a></li>

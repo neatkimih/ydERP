@@ -207,7 +207,8 @@
 	function logoutcheck() {
 		location.href='logout';
 	}
-	
+	title_nav = "[ getPurchaseRequest.jsp ::: 판매주문정보 요청화면(판매정보 입력) ]";
+
 </script>
 <body>
 <div class="col-md-24">

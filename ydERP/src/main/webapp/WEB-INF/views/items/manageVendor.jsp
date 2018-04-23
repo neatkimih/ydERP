@@ -121,6 +121,7 @@
 					console.log("선택된 구매업체 코드 번호 : " + selectedVendorCode);
 		  } 
  
+	title_nav = "[ manageVendor.jsp ::: 구매업체 관리화면(구매업체 추가/수정/삭제) ]";
 
 </script>
 

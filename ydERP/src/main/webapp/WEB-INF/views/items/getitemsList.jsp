@@ -303,7 +303,6 @@ $(function() {
 			gridview : true,
 			autoencode : true,
 			loadonce : true,
-			//onSelectRow : editRow,
 			rowNum : 10,
 			height : 'auto',
 			autowidth : true,

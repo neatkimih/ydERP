@@ -78,7 +78,7 @@ public class SalesController {
 		return "sales/insertOrder";
 	}
 
-	/* 승인대기 주문 내역 페이지 폼 */
+	/* 주문 내역 페이지 폼 */
 	@RequestMapping("/getOrderList")
 	public String getOrderListForm(Model model, EmployeesVO employeesVO, PurchaseRequestVO vo) {
 		
@@ -113,14 +113,14 @@ public class SalesController {
 		return "sales/getOrderList";
 	}
 
-	/* 승인대기 주문 기본 정보 조회 */
+	/* 주문 기본 정보 조회 */
 	@RequestMapping("/getOrderList.do")
 	@ResponseBody
 	public List<SalesVO> getOrderList(SalesVO salesVO, Paging page) {
 		return salesService.getOrderList(salesVO);
 	}
 
-	/* 승인대기 주문 상세 정보 조회 */
+	/* 주문 상세 정보 조회 */
 	@RequestMapping(value = "/getOrderDetail.do")
 	@ResponseBody
 	public List<SaleDetailsVO> getOrderDetail(SaleDetailsVO saleDetailsVO, Paging page) {
@@ -130,7 +130,7 @@ public class SalesController {
 		return null;
 	}
 
-	/* 승인대기 주문취소 처리 */
+	/* 주문취소 처리 */
 	@RequestMapping("/deleteOrderList.do")
 	@ResponseBody
 	public String deleteOrderList(SalesVO salesVO) {
@@ -138,7 +138,7 @@ public class SalesController {
 		return "redirect:/getOrderList";
 	}
 	
-	/* 승인대기 주문 검색 처리*/
+	/* 주문 내역 검색 처리*/
 	@RequestMapping("/getOrderByCondition.do")
 	@ResponseBody
 	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {

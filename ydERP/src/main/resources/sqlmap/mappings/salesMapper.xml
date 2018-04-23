@@ -30,58 +30,30 @@
 			ON S.CUSTOMER_CODE = C.CUSTOMER_CODE 
 			WHERE ORDER_PERMIT = 'Y' 
 		]]>
-			<if test="saleCode != null and saleCode != ''">
-				AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
-			</if>
-			<if test="customerName != null and customerName != ''">
-				AND C.CUSTOMER_NAME LIKE '%' || #{customerName} || '%' 
-			</if>
-			<if test="saleDate != null and saleDate != ''">
-				<![CDATA[
+		<if test="saleCode != null and saleCode != ''">
+			AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
+		</if>
+		<if test="customerName != null and customerName != ''">
+			AND C.CUSTOMER_NAME LIKE '%' || #{customerName} || '%' 
+		</if>
+		<if test="saleDate != null and saleDate != ''">
+			<![CDATA[
 				AND TRUNC(SALE_DATE) = TO_DATE(#{saleDate}, 'yyyy-mm-dd') 
-				]]>
-			</if>
-			<if test="saleCost != null and saleCost != ''">
-				AND SALE_COST = #{saleCost} 	
-			</if>
-			<if test="deliveryAddr != null and deliveryAddr != ''">
-				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
-			</if>
-			<if test="deliveryStatus != null and deliveryStatus != ''">
-				AND DELIVERY_STATUS = #{deliveryStatus} 
-			</if>
-			<if test="payStatus != null and payStatus != ''">
-				AND PAY_STATUS = #{payStatus} 
-			</if>
+			]]>
+		</if>
+		<if test="saleCost != null and saleCost != ''">
+			AND SALE_COST = #{saleCost} 	
+		</if>
+		<if test="deliveryAddr != null and deliveryAddr != ''">
+			AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
+		</if>
+		<if test="deliveryStatus != null and deliveryStatus != ''">
+			AND DELIVERY_STATUS = #{deliveryStatus} 
+		</if>
+		<if test="payStatus != null and payStatus != ''">
+			AND PAY_STATUS = #{payStatus} 
+		</if>
 		ORDER BY SALE_CODE
-	</select>
-	
-	<!-- 주문 내역 검색 -->
-	<select id="getOrderByCondition" resultType="sales">
-		<![CDATA[
-			SELECT S.*, C.CUSTOMER_NAME 
-			FROM SALES S JOIN CUSTOMERS C 
-			ON S.CUSTOMER_CODE = C.CUSTOMER_CODE 
-			WHERE ORDER_PERMIT = 'N' 
-		]]>
-			<if test="saleCode != null and saleCode != ''">
-				AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
-			</if>
-			<if test="customerName != null and customerName != ''">
-				AND C.CUSTOMER_NAME LIKE '%' || #{customerName} || '%' 
-			</if>
-			<if test="saleDate != null and saleDate != ''">
-				<![CDATA[
-				AND TRUNC(SALE_DATE) = TO_DATE(#{saleDate}, 'yyyy-mm-dd') 
-				]]>
-			</if>
-			<if test="saleCost != null and saleCost != ''">
-				AND SALE_COST = #{saleCost} 	
-			</if>
-			<if test="deliveryAddr != null and deliveryAddr != ''">
-				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
-			</if>
-		ORDER BY SALE_DATE DESC
 	</select>
 	
 	<!-- 주문 등록 : 주문 기본 정보 -->
@@ -129,6 +101,34 @@
 		ON SD.VENDOR_CODE = V.VENDOR_CODE 
 		WHERE SALE_CODE = #{saleCode} 
 		ORDER BY SALE_DETAIL_CODE
+	</select>
+	
+	<!-- 주문 내역 검색 -->
+	<select id="getOrderByCondition" resultType="sales">
+		<![CDATA[
+			SELECT S.*, C.CUSTOMER_NAME 
+			FROM SALES S JOIN CUSTOMERS C 
+			ON S.CUSTOMER_CODE = C.CUSTOMER_CODE 
+			WHERE ORDER_PERMIT = 'N' 
+		]]>
+		<if test="saleCode != null and saleCode != ''">
+			AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
+		</if>
+		<if test="customerName != null and customerName != ''">
+			AND C.CUSTOMER_NAME LIKE '%' || #{customerName} || '%' 
+		</if>
+		<if test="saleDate != null and saleDate != ''">
+			<![CDATA[
+				AND TRUNC(SALE_DATE) = TO_DATE(#{saleDate}, 'yyyy-mm-dd') 
+			]]>
+		</if>
+		<if test="saleCost != null and saleCost != ''">
+			AND SALE_COST = #{saleCost} 
+		</if>
+		<if test="deliveryAddr != null and deliveryAddr != ''">
+			AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
+		</if>
+		ORDER BY SALE_DATE DESC
 	</select>
 	
 	<!-- 주문 승인 -->

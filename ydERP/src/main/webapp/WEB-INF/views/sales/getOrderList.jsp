@@ -12,47 +12,39 @@
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
 <script>
-var lastsel2;
-
+	var lastsel2;
+	var selectedOrderCode;
 	$(document).ready(function() {
-		var selectedOrderCode;
 		/* Order List : 마스터 그리드 */
 		$("#orderList").jqGrid({
 			url : "getOrderList.do",
 			editurl : "editOrderList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문일자", "주문코드", "결제금액", "주문처 이름", "주문처 코드", "배송주소", "배송사원", "창고 지정", "승인", "편집", "주문"],			
+			colNames : [ "주문일자", "주문코드", "결제금액", "주문처 이름", "주문처 코드", "배송주소", "배송사원 지정", "창고 지정", "승인", "편집", "주문"],			
 			colModel : [
-				{	name : "saleDate",		width : 120,	align : "center",	editable : false	},
-				{	name : "saleCode",		width : 120,	align : "center",	editable : false,	key : true	},
+				{	name : "saleDate",		width : 150,	align : "center",	editable : false	},
+				{	name : "saleCode",		width : 125,	align : "center",	editable : false,	key : true	},
 				{	name : "saleCost",		width : 100,	align : "right",	editable : false	},
 				{	name : "customerName",	width : 200,	align : "left",		editable : false	},				
-				{	name : "customerCode",	width : 100,	align : "center",	editable : false	},
-				{	name : "deliveryAddr",	width : 200,	align : "left",		editable : false	},
-				{	name : "deliveryEmp",	width : 200,	align : "center",	editable : true,
+				{	name : "customerCode",	width : 125,	align : "center",	editable : false	},
+				{	name : "deliveryAddr",	width : 350,	align : "left",		editable : false	},
+				{	name : "deliveryEmp",	width : 125,	align : "center",	editable : true,
 					edittype : "select",	editoptions:{value:"${employeeList}"}					},					
-				{	name : "warehouse",		width : 200,	align : "center",	editable : true,
+				{	name : "warehouse",		width : 150,	align : "center",	editable : true,
 					edittype : "select",	editoptions:{value:"${lookupValueList}"}				},
-				{	name : "permit",		width : 100,	align : "center",	sortable : false,		formatter : permitBtn,
+				{	name : "permit",		width : 75,	align : "center",	sortable : false,		formatter : permitBtn,
 					autocomplete : true	},
-				{	name : "permitCancle",	width : 100,	align : "center",	sortable : false,		formatter : cancleBtn	},
-				{	name : "deleteOrder",	width : 100,	align : "center",	sortable : false,		formatter : deleteBtn	}
+				{	name : "permitCancle",	width : 75,	align : "center",	sortable : false,		formatter : cancleBtn	},
+				{	name : "deleteOrder",	width : 75,	align : "center",	sortable : false,		formatter : deleteBtn	}
 			],
-			autoheight : true,
-			autowidth : true,
-			rowNum : 10,
-			rowList : [10, 20, 30],
-			viewrecords : true,
-			gridview : true,
-			autoencode : true,
-			reccount : 15,
-			search : true,
-			sortname : "saleCode",
-			caption : "주문 내역 정보",
-			pager : "#pagerOrderList",
-			closeAfterAdd : true,
-			reloadAfterSubmit : true,
+			height : 'auto',			width : 'auto',
+			rownumbers : true,			sortname : "saleCode",
+			rowNum : 10,				reccount : 15,
+			viewrecords : true,			gridview : true,
+			autoencode : true,			caption : "주문 내역 정보",
+			pager : "#pagerOrderList",	loadonce : true,
+			reloadAfterSubmit : true,	// closeAfterAdd : true,
 			onSelectRow : function(rowid, selected) {
 				if(rowid && rowid!==lastsel2){
 					jQuery('#orderList').jqGrid('restoreRow',lastsel2);
@@ -62,12 +54,18 @@ var lastsel2;
 				if (rowid != null) {
 					selectedOrderCode = $(this).getCell(rowid, 'saleCode');
 					jQuery("#orderDetail").jqGrid('setGridParam', {
-						url : "./getOrderDetail.do?saleCode=" + selectedOrderCode
+						url : "getOrderDetail.do?saleCode=" + selectedOrderCode, datatype: 'json'
 					});
-					jQuery('#orderDetail').jqGrid('setCaption', '주문 코드 : ' + selectedOrderCode);
+					jQuery('#orderDetail').jqGrid('setCaption', '주문 코드 ' + selectedOrderCode + '] 의 상세 내역');
 					jQuery('#orderDetail').trigger("reloadGrid");
 				}
 				console.log("선택된 주문 코드 : " + selectedOrderCode);
+			},
+			onSortCol : clearSelection,
+			onPaging : clearSelection,
+			jqGridInlineAfterSaveRow : function() {
+				console.log("리로딩");
+				$("#orderList").trigger("reloadGrid");
 			},
 			/* afterSubmit : function() {
 				$("#orderList").setGridParam({
@@ -82,13 +80,8 @@ var lastsel2;
 					datatype : 'json',
 					page : 1
 				}).trigger('reloadGrid');
-			}, */
-			jqGridInlineAfterSaveRow : function() {
-				console.log("리로딩");
-			$("#orderList").trigger("reloadGrid");
-			}
-		}
-	);
+			} */
+		});	// JQGRID : Master
 		 
 		/* Order Details : 디테일 그리드 */
 		$("#orderDetail").jqGrid({
@@ -97,26 +90,26 @@ var lastsel2;
 			styleUI : "Bootstrap",
 			colNames : [ "상세코드", "품목코드", "품목명", "판매가(원)", "부가세", "수량", "사용연한(년)", "생산처" ],
 			colModel : [
-				{	name : "saleDetailCode",width : 100,	align : "center"	},
-				{	name : "saleItemCode",	width : 200,	align : "center"	},
-				{	name : "saleItemName",	width : 100,	align : "left"		},
-				{	name : "salePrice",		width : 200,	align : "right"		},
-				{	name : "itemTax",		width : 100,	align : "right"	},
-				{	name : "saleQty",		width : 100,	align : "right"	},
-				{	name : "expireDate",	width : 100,	align : "center"	},
-				{	name : "vendorName",	width : 100,	align : "left"	},
+				{	name : "saleDetailCode",	width : 100,	align : "center"	},
+				{	name : "saleItemCode",		width : 200,	align : "center"	},
+				{	name : "saleItemName",		width : 350,	align : "left"		},
+				{	name : "salePrice",			width : 100,	align : "right"		},
+				{	name : "itemTax",			width : 75,		align : "right"		},
+				{	name : "saleQty",			width : 75,		align : "right"		},
+				{	name : "expireDate",		width : 100,	align : "center"	},
+				{	name : "vendorName",		width : 200,	align : "left"		},
 			],
 			pager : "#pagerOrderDetail",
 			rowNum : 10,
-			rowList : [10, 20, 30],
 			sortname : "orderDetailCode",
 			viewrecords : true,
+			rownumbers : true,
 			gridview : true,
 			autoencode : true,
 			reccount : 15,
-			autoheight : true,
-			autowidth : true,
-			search : true
+			height : 'auto',	// 370
+			width : 'auto',
+			loadonce : true
 		});
 
 		// 주문 정보 검색, 취소, 삭제, 새로고침 버튼 
@@ -193,13 +186,18 @@ var lastsel2;
 
 	function gridReload() {
 		var params = $('#orderSearchForm').serialize();
-		
 		jQuery("#orderList").jqGrid('setGridParam', {url:"getOrderByCondition.do?"+params ,page:1}).trigger("reloadGrid");
 	}
 	
 	function enableAutosubmit(state) {
 		flAuto = state;
 		jQuery("#submitButton").attr("disabled",state);
+	}
+	
+	function clearSelection() {
+		jQuery("#orderDetail").jqGrid('setGridParam',{url: "getOrderDetail.do", datatype: 'json'});
+		jQuery("#orderDetail").jqGrid('setCaption', 'none');
+		jQuery("#orderDetail").trigger("reloadGrid");
 	}
 	
 	title_nav = "[ getOrderList.jsp :::  주문내역 관리 (검색 | 조회 | 승인 | 폐기)]";
@@ -280,7 +278,8 @@ var lastsel2;
 					<tr class="searchTr">
 						<td>
 						</td>
-						<td class="searchTd"></td><td id="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
+						<td class="searchTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
+						<td id="submitTd"></td>
 					</tr>
 			</table>
 		</form>

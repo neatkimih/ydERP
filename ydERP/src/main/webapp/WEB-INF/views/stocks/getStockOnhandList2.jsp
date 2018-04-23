@@ -138,24 +138,24 @@
 	<div class="col-lg-5">
 		<div class="panel panel-default">
 			<div class="panel-heading">[ 조회 조건 ]</div>
-			<div class="container"></div>
-			<div class="row" style="margin-top: 10px">
-				<div class="col-lg-3">
-					<input type="text" id="item_cd" class="form-control"
-						placeholder="ItemCode ..."
-						onkeydown="doSearch(arguments[0]||event)" />
-				</div>
-				<div class="col-lg-3">
-					<input type="text" id="item_nm" class="form-control"
-						placeholder="ItemName ..."
-						onkeydown="doSearch(arguments[0]||event)" />
-				</div>
-				<div class="col-lg-3">
-					<button onclick="gridReload()" id="submitButton"
-						class="btn btn-outline btn-success btn-block">Search</button>
-				</div>
+			<div class="container">
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-2">
+						<input type="text" id="item_cd" class="form-control"
+							placeholder="ItemCode ..."
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-2">
+						<input type="text" id="item_nm" class="form-control"
+							placeholder="ItemName ..."
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-2">
+						<button onclick="gridReload()" id="submitButton"
+							class="btn btn-outline btn-success btn-block">Search</button>
+					</div><br>
+				</div><br>
 			</div>
-
 		</div>
 	</div>
 	<div class="col-lg-12">

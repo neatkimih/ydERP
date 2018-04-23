@@ -17,8 +17,10 @@
 	var totalPage = 1;
 	
 	$(function() {
+		console.dir("start totalPage========"+totalPage)
 		requestList(1);
 		insertRequestTemp();
+		console.dir("end totalPage========"+totalPage)
 
 	});
 
@@ -50,6 +52,7 @@
 	}
 
 	function requestList(p) {
+		if ( totalPage == 0) totalPage = 1;
 		if (p > 0 && p <= totalPage) {
 			page = p;
 			var group1 = $("#itemgroup1").val();
@@ -63,7 +66,6 @@
 				vendorCode : warehs,
 				page : page
 			}
-			console.dir(p + "============" + totalPage)
 			$.ajax({
 				url : "getPurchaseRequestListData",
 				data : param,
@@ -80,7 +82,7 @@
 		allData = datas.data;
 		$("tbody").empty();
 		totalPage = datas.paging.totalPageCount;
-		console.dir(datas.paging);
+		console.dir("requestListRessult , totalPage::::::::::::::::::::"+totalPage);
 
 		$.each(datas.data, function(idx, item) {
 			$("<tr>").append($("<td align='center'> <input type='checkbox' value='"+idx+"' name='checkSeq' >"))
@@ -106,7 +108,6 @@
 	}
 	
 	function changeGroup1() {
-		//alert("change");
 		var grp1 = jQuery("#itemgroup1").val();
 		console.log("grp1 =========" + grp1);
 
@@ -125,8 +126,8 @@
 	}
 
 	function changeGroup2() {
-		//alert("change");
 		var grp2 = jQuery("#itemgroup2").val();
+		console.log("grp2 =========" + grp2);
 
 		$.ajax({
 			url : "getItemGroup3.do?grp_code=" + grp2,
@@ -135,8 +136,7 @@
 			success : function(datas) {
 				$("#itemgroup3 option:gt(0)").remove();
 				for (i = 0; i < datas.length; i++) {
-					console.log(i + "=====" + datas[i].grp_code + ", "
-							+ datas[i].grp_name);
+					console.log(i + "=====" + datas[i].grp_code + ", " + datas[i].grp_name);
 					$("#itemgroup3").append("<option value='"+datas[i].grp_code+"'>" + datas[i].grp_name);
 				}
 			}
@@ -202,7 +202,7 @@
 						</select>
 					</div>
 					<div class="col-lg-3">
-						<button onclick="requestList()" id="submitButton"
+						<button onclick="requestList(1)" id="submitButton"
 							class="btn btn-outline btn-success btn-block">Search</button>
 					</div>
 				</div>

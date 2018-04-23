@@ -166,8 +166,7 @@
 			dataType : "json",
 			success : function(params) {
 				for (i = 0; i < params.length; i++) {
-					vendorData += ";" + params[i].vendorCode + ":"
-							+ params[i].vendorName;
+					vendorData += ";" + params[i].vendorCode + ":" + params[i].vendorName;
 				}
 			}
 		});

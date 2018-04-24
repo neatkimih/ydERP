@@ -30,7 +30,7 @@
 				AND item_code like '%' || #{pGroup3} || '%'
 			</if>
 		</where>
-		ORDER BY item_code DESC
+		ORDER BY add_date DESC
 	</select>
 	<!-- -->
 	<select id="getItems" parameterType="items" resultType="com.yedam.erp.items.Sales_tempVO">

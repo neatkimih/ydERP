@@ -371,7 +371,7 @@
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
 			rownumbers : true,
-			sortname : "itemCode",
+			sortname : "addDate",
 			sortorder : "desc",
 			viewrecords : true,
 			gridview : true,

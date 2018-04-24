@@ -41,8 +41,8 @@
 					};
 					var saleChartOptions = {
 						title : '[매출]',
-						width: 800,
-				        height: 800,
+						width: 1500,
+				        height: 500,
 				        bar: {groupWidth: "50%"},
 				        legend: { position: "right" }
 					};
@@ -57,6 +57,15 @@
 					console.log(saleChartData);
 					var saleChart = new google.visualization.ColumnChart(document.getElementById("saleChartDiv"));
 					saleChart.draw(google.visualization.arrayToDataTable(saleChartData), saleChartOptions);
+					
+					// 반응형 차트 그리기
+					window.addEventListener	(
+						'resize',
+						function() {
+							saleChart.draw(google.visualization.arrayToDataTable(saleChartData), saleChartOptions);
+						},
+						false
+					);
 				}
 	    	})
 	    }
@@ -81,14 +90,23 @@
 					};
 					var profitChartOptions = {
 						title : '[순이익]',
-						width: 800,
-				        height: 800,
+						width: 1500,
+				        height: 500,
 				        bar: {groupWidth: "50%"},
 				        legend: { position: "right" }
 					};
 					console.log(profitChartData);
 					var profitChart = new google.visualization.ColumnChart(document.getElementById("profitChartDiv"));
 					profitChart.draw(google.visualization.arrayToDataTable(profitChartData), profitChartOptions);
+					
+					// 반응형 차트 그리기
+					window.addEventListener	(
+						'resize',
+						function() {
+							profitChart.draw(google.visualization.arrayToDataTable(profitChartData), profitChartOptions);
+						},
+						false
+					);
 				}
 	    	})
 	    }
@@ -113,17 +131,26 @@
 	    			};
 	    			var topItemChartOptions = {
 	    					title : '[품목별 판매량 Top]',
-	    					width : 800,
-	    					height : 800,
+	    					width : 1500,
+	    					height : 500,
 	    					bar : {groupWidth : "100%"},
-	    					legend: {position: "right" },
+	    					legend: {position: "bottom" },
 	    					is3D : true,
 	    					pieSliceText: 'label',
-	    					slices: {  0: {offset: 0} }
+	    					slices: {  0: {offset: 0.2} }
 	    			}
 	    		console.log(topItemChartData);
 	    		var topItemChart = new google.visualization.PieChart(document.getElementById('topItemChartDiv'));
 	    		topItemChart.draw(google.visualization.arrayToDataTable(topItemChartData), topItemChartOptions);
+	    		
+	    		// 반응형 차트 그리기
+				window.addEventListener	(
+					'resize',
+					function() {
+						topItemChart.draw(google.visualization.arrayToDataTable(topItemChartData), topItemChartOptions);
+					},
+					false
+				);
 	    	}
 	    })
 	  }
@@ -148,17 +175,26 @@
 	    			};
 	    			var topCustomerChartOptions = {
 	    					title : '[판매처별 판매량 Top]',
-	    					width : 800,
-	    					height : 800,
+	    					width : 1500,
+	    					height : 500,
 	    					bar : {groupWidth : "100%"},
-	    					legend: {position: "right" },
+	    					legend: {position: "bottom" },
 	    					is3D : true,
 	    					pieSliceText: 'label',
-	    					slices: {  0: {offset: 0} }
+	    					slices: {  0: {offset: 0.2} }
 	    			}
 	    		console.log(topCustomerChartData);
 	    		var topCustomerChart = new google.visualization.PieChart(document.getElementById('topCustomerChartDiv'));
 	    		topCustomerChart.draw(google.visualization.arrayToDataTable(topCustomerChartData), topCustomerChartOptions);
+	    		
+	    		// 반응형 차트 그리기
+				window.addEventListener	(
+					'resize',
+					function() {
+						topCustomerChart.draw(google.visualization.arrayToDataTable(topCustomerChartData), topCustomerChartOptions);
+					},
+					false
+				);
 	    	}
 	    })
 	  }
@@ -177,8 +213,8 @@
 	  	}
 	  	
 	  	.rowDiv {
-	  		margin-bottom : 100px;
-	  		margin-top : 100px;
+	  		margin-bottom : 25px;
+	  		margin-top : 25px;
 	  	}
 	  	
 	  	.chartSpan {
@@ -191,7 +227,9 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">차트 [getSaleCharts.jsp] </div>
-				<div class="container">
+				
+				<!-- BEGIN : 매출 차트 -->
+				<div class="container-fluid">
 					<div id="saleChartCol" class="col-lg-6">
 						<span class="chartSpan">[매출 차트]</span> 기준 기간 선택 : 
 						<select id="selectSaleYear" onchange="drawSaleChart()">
@@ -205,54 +243,71 @@
 								<option value="${month}">${month}월</option>
 							</c:forEach>
 						</select>
-						<div id="saleChartDiv" class="col-lg-6" style="width: 800px; height: 800px;"></div>
+						<div id="saleChartDiv" class="chart" style="width: 1500px; height: 500px;"></div>
 					</div>
+				</div>
+				<!-- END : 매출 차트 -->
+				
+				<!-- BEGIN : 순이익 차트 -->
+				<div class="container-fluid">
 					<div id="profitChartCol" class="col-lg-6">
-						<span class="chartSpan">[순이익 차트]</span> 기준 기간 선택 : 
-						<select id="selectProfitYear" onchange="drawProfitChart()">
+							<span class="chartSpan">[순이익 차트]</span> 기준 기간 선택 : 
+							<select id="selectProfitYear" onchange="drawProfitChart()">
+								<c:forEach begin="2018" end="2018" var="year">
+									<option value="${year}">${year}년</option>
+								</c:forEach>
+							</select>
+							<select id="selectProfitMonth" onchange="drawProfitChart()">
+									<option value="">전체</option>
+								<c:forEach begin="1" end="12" var="month">
+									<option value="${month}">${month}월</option>
+								</c:forEach>
+							</select>
+						<div id="profitChartDiv" class="chart" style="width: 1500px; height: 500px;"></div>
+					</div>
+				</div>
+				<!-- END : 순이익 차트 -->
+				
+				<!-- BEGIN : 품목별 판매량 TOP 차트 -->
+				<div class="container-fluid">
+					<div id="topItemChartCol" class="col-lg-6">
+						<span class="chartSpan">[품목별 판매량 TOP 차트]</span> 기준 기간 선택 : 
+						<select id="selectTopItemYear" onchange="drawTopItemChart()">
 							<c:forEach begin="2018" end="2018" var="year">
 								<option value="${year}">${year}년</option>
 							</c:forEach>
 						</select>
-						<select id="selectProfitMonth" onchange="drawProfitChart()">
+						<select id="selectTopItemMonth" onchange="drawTopItemChart()">
 								<option value="">전체</option>
 							<c:forEach begin="1" end="12" var="month">
 								<option value="${month}">${month}월</option>
 							</c:forEach>
 						</select>
-						<div id="profitChartDiv" class="col-lg-6" style="width: 800px; height: 800px;"></div>
+						<div id="topItemChartDiv" class="chart" style="width: 1500px; height: 600px;"></div>
 					</div>
 				</div>
-				<div id="topItemChartCol" class="col-lg-6">
-					<span class="chartSpan">[품목별 판매량 TOP 차트]</span> 기준 기간 선택 : 
-					<select id="selectTopItemYear" onchange="drawTopItemChart()">
-						<c:forEach begin="2018" end="2018" var="year">
-							<option value="${year}">${year}년</option>
-						</c:forEach>
-					</select>
-					<select id="selectTopItemMonth" onchange="drawTopItemChart()">
-							<option value="">전체</option>
-						<c:forEach begin="1" end="12" var="month">
-							<option value="${month}">${month}월</option>
-						</c:forEach>
-					</select>
-					<div id="topItemChartDiv" class="col-lg-6" style="width: 800px; height: 800px;"></div>
+				<!-- END : 품목별 판매량 TOP 차트 -->
+				
+				<!-- BEGIN : 판매처별 판매량 TOP 차트 -->
+				<div class="container-fluid">
+					<div id="topCustomerChartCol" class="col-lg-6">
+						<span class="chartSpan">[판매처별 판매량 TOP 차트]</span> 기준 기간 선택 : 
+						<select id="selectTopCustomerYear" onchange="drawTopCustomerChart()">
+							<c:forEach begin="2018" end="2018" var="year">
+								<option value="${year}">${year}년</option>
+							</c:forEach>
+						</select>
+						<select id="selectTopCustomerMonth" onchange="drawTopCustomerChart()">
+								<option value="">전체</option>
+							<c:forEach begin="1" end="12" var="month">
+								<option value="${month}">${month}월</option>
+							</c:forEach>
+						</select>
+						<div id="topCustomerChartDiv" class="chart" style="width: 1500px; height: 500px;"></div>
+					</div>
 				</div>
-				<div id="topCustomerChartCol" class="col-lg-6">
-					<span class="chartSpan">[판매처별 판매량 TOP 차트]</span> 기준 기간 선택 : 
-					<select id="selectTopCustomerYear" onchange="drawTopCustomerChart()">
-						<c:forEach begin="2018" end="2018" var="year">
-							<option value="${year}">${year}년</option>
-						</c:forEach>
-					</select>
-					<select id="selectTopCustomerMonth" onchange="drawTopCustomerChart()">
-							<option value="">전체</option>
-						<c:forEach begin="1" end="12" var="month">
-							<option value="${month}">${month}월</option>
-						</c:forEach>
-					</select>
-					<div id="topCustomerChartDiv" class="col-lg-6" style="width: 800px; height: 800px;"></div>
-				</div>
+				<!-- END : 판매처별 판매량 TOP 차트 -->
+				
 			</div>				
 		</div>
 	</body>

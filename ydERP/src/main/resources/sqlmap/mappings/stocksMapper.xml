@@ -39,8 +39,11 @@
 		FROM stock_in_out_vo
 		]]>
 		<where>
-			<if test="itemCode!=null">
+			<if test="itemCode != null">
 				AND item_code = #{itemCode}
+			</if>
+			<if test="txnDate != null">
+				AND TO_CHAR(txn_date,'rrrr/mm/dd') = #{txnDate}
 			</if>
 		</where>
 		ORDER BY txn_date
@@ -466,7 +469,8 @@
 		<![CDATA[
 			SELECT *
 			FROM   sales_temp_vo
-			WHERE  customer_code = #{customerCode} 
+			WHERE  customer_code = #{customerCode}
+			AND    TO_CHAR(need_date, 'rrrr/mm/dd') = #{needDate}
 		]]>
 	</select>
 

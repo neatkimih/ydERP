@@ -15,6 +15,7 @@
 			,i.item_tax
 			,i.expire_date
 			,i.vendor_code
+			,common.get_vendor_name(i.vendor_code) vendor_name
 			,i.add_date
 		FROM items i
 		<where>

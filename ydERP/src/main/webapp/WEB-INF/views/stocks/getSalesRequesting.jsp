@@ -48,15 +48,19 @@
 			onSelectRow : function(rowid, selected) {
 				if (rowid != null) {
 					var selectedPurchaseCode = $(this).getCell(rowid, 'customerCode');
+					var selectedNeedDate = $(this).getCell(rowid, 'needDate');
 					jQuery("#list1").jqGrid('setGridParam', {
-						url : "getSalesRequestDetail.do?customerCode=" + selectedPurchaseCode,
+						url : "getSalesRequestDetail.do?customerCode=" + selectedPurchaseCode + "&needDate=" + selectedNeedDate,
 						datatype : 'json'
 					}); // the last setting is for demo only
 					jQuery("#list1").jqGrid('setCaption', '주문요청코드 : ' + selectedPurchaseCode);
 					jQuery("#list1").trigger("reloadGrid");
 				}
 				console.log("선택된 주문요청코드 : " + selectedPurchaseCode);
-			}
+			},
+			onSortCol : clearSelection,
+			onPaging : clearSelection,
+			
 			
 		// use the onSelectRow that is triggered on row click to show a details grid							
 		});
@@ -69,6 +73,7 @@
 		$("#list1").jqGrid({
 			datatype : "json",
 			styleUI : "Bootstrap",
+			mtype : "GET",
 			autowidth : true,
 			colModel : [
 				{   label : "상세번호", name : "customSeq", width : 3, align : "center", editable : true },
@@ -93,6 +98,7 @@
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
+			loadonce : true,
 			editurl : "getSalesRequestDetail.do",
 			caption : "주문상세정보",
 

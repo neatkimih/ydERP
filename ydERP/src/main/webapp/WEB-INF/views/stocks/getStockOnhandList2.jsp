@@ -16,6 +16,8 @@
 	type="text/javascript"></script>
 
 <script type="text/javascript">
+	var ddate = new Date();
+	console.dir("DATE===="+ddate);
 	$(function() {
 		$("#list").jqGrid(
 				{
@@ -69,7 +71,7 @@
 
 		// detail grid
 	    $("#listDetail").jqGrid({
-			url: 'getItemInOutListData',
+			url: 'getItemInOutListData?txnDate='+ddate,
 	        mtype: "GET",
 	        datatype: "json",
 	        page: 1,
@@ -96,7 +98,7 @@
 		});
 	
 	    function clearSelection() {
-			jQuery("#listDetail").jqGrid('setGridParam',{url: "getItemInOutListData", datatype: 'json'}); // the last setting is for demo purpose only
+			jQuery("#listDetail").jqGrid('setGridParam',{url: "getItemInOutListData?txnDate="+ddate, datatype: 'json'}); // the last setting is for demo purpose only
 			jQuery("#listDetail").jqGrid('setCaption', 'Detail Grid:: none');
 			jQuery("#listDetail").trigger("reloadGrid");
 			

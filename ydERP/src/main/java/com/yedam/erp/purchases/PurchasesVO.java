@@ -13,11 +13,35 @@ public class PurchasesVO
 	private double itemTax;			// 부가세
 	private Integer purchaseCost;			// 결제금액	
 	private String incomingFlag;
-	private String purchaseDetailCode;
+	private String purchaseDetailCode; //구매상세코드
+	private String vendorName; //구매처명
+	private String total;	 //총액
+	private String itemCount; //아이템총갯수
 	
 	
 	
 	
+	
+	
+
+	public String getTotal() {
+		return total;
+	}
+	public void setTotal(String total) {
+		this.total = total;
+	}
+	public String getItemCount() {
+		return itemCount;
+	}
+	public void setItemCount(String itemCount) {
+		this.itemCount = itemCount;
+	}
+	public String getVendorName() {
+		return vendorName;
+	}
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
 	public String getPurchaseDetailCode() {
 		return purchaseDetailCode;
 	}

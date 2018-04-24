@@ -44,6 +44,25 @@
 					name : "vendorCode",
 					width : 80,
 					align : "right"
+					
+				},
+				{
+					label : "구매처명",
+					name : "vendorName",
+					width : 100,
+					align : "right"
+				},
+				{
+					label : "총합",
+					name : "total",
+					width : 100,
+					align : "right"
+				},
+				{
+					label : "총갯수",
+					name : "itemCount",
+					width : 100,
+					align : "right"
 				}
 			],
 			pager : "#pager",
@@ -223,14 +242,60 @@
             return -1;
         }
 	});
+	
+	var timeoutHnd;
+	var flAuto = true; 
+	
+	function doSearch(ev) {
+		if (!flAuto)
+			return;
+		//		var elem = ev.target||ev.srcElement;
+		if (timeoutHnd)
+			clearTimeout(timeoutHnd)
+		timeoutHnd = setTimeout(gridReload, 500)
+	}
+	
+	 function gridReload() {
+		var cd_mask = jQuery("#vendorName").val();			
+		console.log(cd_mask);
+		jQuery("#list").jqGrid(
+				'setGridParam',
+				{
+					url : "getPurchasesList?" + "&vendorName=" + cd_mask,
+					datatype : "json",
+					page : 1
+				}).trigger("reloadGrid");
+	}
+	function enableAutosubmit(state) {
+		flAuto = state;
+		jQuery("#submitButton").attr("disabled", state);
+	}	
 	title_nav = "[ 구매 정보 조회 : getPurchasesList.jsp >>> 구매 정보 조회 및 확인  ]";
 </script>
 
 </head>
 <body> 
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ ]</div>
+			<div class="panel-heading">[ 구매 조회 ]</div>
+			<div class="container">
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-2">
+						<input type="text" id="vendorName" class="form-control"
+							placeholder="구매처명"
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<!-- <div class="col-lg-2">
+						<input type="text" id="item_nm" class="form-control"
+							placeholder="ItemName ..."
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div> -->
+					<div class="col-lg-2">
+						<button onclick="gridReload()" id="submitButton"
+							class="btn btn-outline btn-success btn-block">Search</button>
+					</div><br>
+				</div><br>
+			</div>
 		</div>
 	</div>
 	<div class="row">

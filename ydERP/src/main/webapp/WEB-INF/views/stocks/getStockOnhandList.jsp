@@ -84,6 +84,7 @@
 					pager : "#pager",
 					rowNum : 10,
 					rowList : [ 10, 20, 30 ],
+					rownumbers : true,
 					sortname : "itemCode",
 					sortorder : "asc",
 					viewrecords : true,

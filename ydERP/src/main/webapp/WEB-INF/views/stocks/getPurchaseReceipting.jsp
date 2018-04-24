@@ -32,6 +32,7 @@
 			pager : "#pager",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
+			rownumbers : true,
 			sortname : "purchaseCode",
 			sortorder : "desc",
 			loadonce : true,

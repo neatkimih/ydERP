@@ -40,6 +40,7 @@
 	href="${pageContext.request.contextPath}/resources/jquery/jquery-ui.min.css"
 	rel="stylesheet">
 <!-- jQuery -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->

@@ -9,16 +9,9 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
 
-<!-- 달력 -->
-<link rel='stylesheet' type='text/css' href="${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.css" />
-<script type='text/javascript' src="${pageContext.request.contextPath}/resources/jquery/jquery.js"></script>
-<script type='text/javascript' src="${pageContext.request.contextPath}/resources/jquery/jquery-ui-custom.js"></script>
-<script type='text/javascript' src="${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js"></script>
-
 <script
 	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
 	type="text/javascript"></script>
-
 <script
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
@@ -32,6 +25,12 @@
 		location.href = 'logout';
 	}
 </script> -->
+
+<link rel='stylesheet' type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" />
+
+<link rel='stylesheet' type='text/css' href="${pageContext.request.contextPath}/resources/fullcalendar/scheduler.min.css" />
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+
 
 <script>
 
@@ -95,22 +94,8 @@
 	});
 
 </script>
-<style type='text/css'>
 
-	body {
-		margin-top: 40px;
-		text-align: center;
-		font-size: 14px;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
 
-	#calendar {
-		width: 750px;
-		align: left;
-		margin: 0px;
-		}
-
-</style>
 
 </head>
 <body>
@@ -205,8 +190,10 @@
                     </div>
                 </div>
             </div>
-		
-		<div id='calendar'></div>					
+	
+	<div id='calendar' style="width: 800px; display: inline-block;"></div> 
+	
+
 
 </body>
 </html>

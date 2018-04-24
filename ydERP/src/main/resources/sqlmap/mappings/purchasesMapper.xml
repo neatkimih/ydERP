@@ -5,7 +5,25 @@
 <mapper namespace="purchases">
 
 	<select id="getPurchasesList" resultType="purchases">
-	<![CDATA[SELECT * FROM PURCHASES]]>
+	<![CDATA[
+SELECT p.*,
+  common.get_vendor_name(p.vendor_code) AS vendor_name ,
+  (SELECT SUM(purchase_qty * purchase_price)
+  FROM purchase_details pd
+  WHERE p.purchase_code = pd.purchase_code
+  ) total,
+  (SELECT COUNT(*)
+  FROM purchase_details pd
+  WHERE p.purchase_code = pd.purchase_code
+  ) item_count
+FROM PURCHASES p
+JOIN vendors
+ON(p.vendor_code          = vendors.vendor_code)
+	]]>
+<if test="vendorName != null and vendorName != ''">
+WHERE vendors.vendor_name like '%'|| #{vendorName} ||'%'
+</if>
+
 	</select>
 
 	<select id="getPurchaseDetailList" resultType="purchaseDetail">
@@ -22,7 +40,8 @@
 
 
 	<update id="updatePurchases" parameterType="purchases">
-		update PURCHASE_DETAILS set
+		update
+		PURCHASE_DETAILS set
 		incoming_Flag=#{incomingFlag} where
 		PURCHASE_DETAIL_CODE=#{purchaseDetailCode}
 	</update>
@@ -36,7 +55,7 @@
 	]]>
 	</select>
 
-	<!--  GPS  -->
+	<!-- GPS -->
 	<select id="getDeliveryListMap" resultType="map">
 	<![CDATA[
     select e.name, a.employee_id, a.location_x, a.location_y, 
@@ -44,5 +63,7 @@
 	join employees e on a.employee_id = e.id
 	]]>
 	</select>
+
+	
 
 </mapper>

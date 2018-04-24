@@ -139,7 +139,7 @@
 	    			var topItemChartData = [];
 	    			topItemChartData.push(["품목명", "판매량"]);
 	    			if(datas.length == 0) {
-	    				topItemChartData.push([selectTopItemYear + "년 " + selectTopItemMonth + "월 데이터가 없습니다.", 0]);
+	    				topItemChartData.push([selectTopItemYear + "년 " + selectTopItemMonth + "월 데이터가 없습니다.", 100]);
 					} else {
 		    			for (i = 0; i < datas.length; i++) {
 		    				topItemChartData.push([datas[i].saleItem, datas[i].saleQty]);
@@ -149,7 +149,7 @@
 	    					title : '[품목별 판매량 Top]',
 	    					width : 1500,
 	    					height : 500,
-	    					bar : {groupWidth : "100%"},
+	    					bar : {groupWidth : "50%"},
 	    					legend: {position: "bottom" },
 	    					is3D : true,
 	    					pieSliceText: 'label',
@@ -187,7 +187,8 @@
 	    			var topCustomerChartData = [];
 	    			topCustomerChartData.push(["판매처", "판매량"]);
 	    			if(datas.length == 0) {
-	    				document.getElementById('topCustomerChartDiv').value(selectTopCustomerYear + "년 " + selectTopCustomerMonth + "월 데이터가 없습니다.");
+	    				topCustomerChartData.push([selectTopCustomerYear + "년 " + selectTopCustomerMonth + "월 데이터가 없습니다.", 100]);
+	    				//document.getElementById('topCustomerChartDiv').value(selectTopCustomerYear + "년 " + selectTopCustomerMonth + "월 데이터가 없습니다.");
 	    				//topCustomerChartData.push([selectTopCustomerYear + "년 " + selectTopCustomerMonth + "월 데이터가 없습니다.", 0]);
 					} else {
 		    			for (i = 0; i < datas.length; i++) {
@@ -198,9 +199,9 @@
 	    					title : '[판매처별 판매량 Top]',
 	    					width : 1500,
 	    					height : 500,
-	    					bar : {groupWidth : "100%"},
-	    					legend: {position: "bottom" },
-	    					is3D : true,
+	    					bar : {groupWidth : "100%"},	// 그래프 너비 설정
+	    					legend: {position: "bottom" },	// 범위 표시 여부
+	    					is3D : true,					// 입체 효과 사용 여부
 	    					pieSliceText: 'label',
 	    					slices: {  0: {offset: 0.2} }
 	    			}

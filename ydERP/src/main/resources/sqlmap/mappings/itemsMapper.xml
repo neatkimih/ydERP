@@ -131,7 +131,8 @@
 		      ,vendor_bank
 		      ,vendor_account
 		      ,vendor_bankowner
-		      ,use_flag 		      
+		      ,use_flag 
+		      ,loc_addr		      
 		FROM  vendors
 		ORDER BY vendor_code DESC
 		]]>
@@ -180,6 +181,7 @@
 		SET
 		vendor_owner = #{vendorOwner}
 		,vendor_loc = #{vendorLoc}
+		,loc_addr = #{locAddr}
 		,vendor_phone = #{vendorPhone}
 		,vendor_bank = #{vendorBank}
 		,vendor_account = #{vendorAccount}

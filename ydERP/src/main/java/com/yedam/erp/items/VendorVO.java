@@ -6,6 +6,7 @@ public class VendorVO {
 	private String vendorName;
 	private String vendorOwner;
 	private String vendorLoc;
+	private String locAddr;
 	private String vendorPhone;
 	private String vendorBank;
 	private String vendorAccount;
@@ -13,6 +14,14 @@ public class VendorVO {
 	private String useFlag;
 	private int first;
 	private int last;
+
+	public String getLocAddr() {
+		return locAddr;
+	}
+
+	public void setLocAddr(String locAddr) {
+		this.locAddr = locAddr;
+	}
 
 	public String getVendorCode() {
 		return vendorCode;
@@ -54,8 +63,6 @@ public class VendorVO {
 		this.vendorPhone = vendorPhone;
 	}
 
-	
-	
 	public String getUseFlag() {
 		return useFlag;
 	}
@@ -87,7 +94,7 @@ public class VendorVO {
 	public void setVendorBankowner(String vendorBankowner) {
 		this.vendorBankowner = vendorBankowner;
 	}
-	
+
 	public int getFirst() {
 		return first;
 	}
@@ -106,14 +113,8 @@ public class VendorVO {
 
 	@Override
 	public String toString() {
-		return "VendorVO [vendorCode=" + vendorCode + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner
-				+ ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank=" + vendorBank
-				+ ", vendorAccount=" + vendorAccount + ", vendorBankowner=" + vendorBankowner + ", useFlag=" + useFlag
-				+ ", first=" + first + ", last=" + last + "]";
+		return "VendorVO [vendorCode=" + vendorCode + ", vendorName=" + vendorName + ", vendorOwner=" + vendorOwner + ", vendorLoc=" + vendorLoc + ", vendorPhone=" + vendorPhone + ", vendorBank="
+				+ vendorBank + ", vendorAccount=" + vendorAccount + ", vendorBankowner=" + vendorBankowner + ", useFlag=" + useFlag + ", first=" + first + ", last=" + last + "]";
 	}
-
-	
-
-	
 
 }

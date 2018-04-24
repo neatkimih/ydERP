@@ -37,8 +37,10 @@
 						],
 
 					pager : "#pager",
-					rowNum : 10,
+					rowNum : 13,
+					height : 'auto',
 					rowList : [ 10, 20, 30 ],
+					rownumbers : true,
 					sortname : "stockId",
 					viewrecords : true,
 					gridview : true,

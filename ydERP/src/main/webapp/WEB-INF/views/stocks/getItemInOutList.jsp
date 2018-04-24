@@ -41,6 +41,7 @@
 					pager : "#pager",
 					rowNum : 10,
 					rowList : [ 10, 20, 30 ],
+					rownumbers : true,
 					sortname : "stockId",
 					viewrecords : true,
 					gridview : true,

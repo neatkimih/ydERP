@@ -283,8 +283,9 @@
 				formatoptions: { srcformat:'U/1000', newformat: " Y/m/d" }
 			} ],
 			pager : "#pager",
-			rowNum : 10,
+			rowNum : 15,
 			rowList : [ 10, 20, 30 ],
+			rownumbers : true,
 			sortname : "itemCode",
 			sortorder : "desc",
 			onSelectRow : function (rowid) {

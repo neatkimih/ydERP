@@ -99,18 +99,73 @@
 		}
 
 	});
+	
+	var timeoutHnd;
+	var flAuto = false;
 
+	function doSearch(ev) {
+		if (!flAuto)
+			return;
+		//		var elem = ev.target||ev.srcElement;
+		if (timeoutHnd)
+			clearTimeout(timeoutHnd)
+		timeoutHnd = setTimeout(gridReload, 500)
+	}
+
+	function gridReload() {
+		cd_mask = jQuery("#item_cd").val();
+		nm_mask = jQuery("#item_nm").val();
+
+		jQuery("#list").jqGrid(
+				'setGridParam',
+				{
+					url : "getStockOnhandListData?itemName=" + nm_mask
+							+ "&itemCode=" + cd_mask ,
+					datatype : "json",
+					page : 1
+				}).trigger("reloadGrid");
+	}
+	function enableAutosubmit(state) {
+		flAuto = state;
+		jQuery("#submitButton").attr("disabled", state);
+	}
+
+
+	title_nav = "getStockOnhandList2.jsp >>> 품목의 재고 및 입출고 조회";
 </script>
 </head>
-<body><h3>getStockOnhandList2.jsp</h3>
+<body>
+	<div class="col-lg-5">
+		<div class="panel panel-default">
+			<div class="panel-heading">[ 조회 조건 ]</div>
+			<div class="container">
+				<div class="row" style="margin-top: 10px">
+					<div class="col-lg-2">
+						<input type="text" id="item_cd" class="form-control"
+							placeholder="ItemCode ..."
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-2">
+						<input type="text" id="item_nm" class="form-control"
+							placeholder="ItemName ..."
+							onkeydown="doSearch(arguments[0]||event)" />
+					</div>
+					<div class="col-lg-2">
+						<button onclick="gridReload()" id="submitButton"
+							class="btn btn-outline btn-success btn-block">Search</button>
+					</div><br>
+				</div><br>
+			</div>
+		</div>
+	</div>
 	<div class="col-lg-12">
 		<table id="list">
 			<tr>
 				<td></td>
 			</tr>
 		</table>
-		<div id="pager"></div>
 	</div>
+	<div id="pager"></div>
 	<div class="col-lg-10">
 		<div id="detailsPlaceholder">
 			<table id="listDetail"></table>

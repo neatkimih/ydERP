@@ -138,12 +138,15 @@
 					console.log("선택된 판매코드 : " + selectedCustomerCode);
 		  } 
  
+	title_nav = "[ manageCustomer.jsp ::: 고객관리 화면(고객 등록/수정/삭제) ]";
 
 </script>
 
 </head>
 <body>
-	<div class="page-header">
+	
+		<div class="col-md-24">
+		<div class="panel-heading">
 		<h1>
 			판매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 판매업체 관리 &emsp; &emsp;
@@ -154,6 +157,7 @@
 				onclick='updateCustomer()'>수정</button>
 			<button class="btn btn-danger" type="button" onclick='restorePage()'>취소</button>
 		</h1>
+	</div>
 	</div>
 
 	<script type="text/javascript">
@@ -239,6 +243,7 @@
 					     document.register.customerBank.value = rowData.customerBank;
 					     document.register.customerAccount.value = rowData.customerAccount;
 					     document.register.customerBankowner.value = rowData.customerBankowner;
+					     document.register.useFlag.value = rowData.useFlag;
 						}
 					 
 				 },

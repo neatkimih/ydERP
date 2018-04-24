@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.erp.GPS.GpsVO;
 import com.yedam.erp.purchases.PurchasesService;
 import com.yedam.erp.purchases.PurchasesVO;
 
@@ -50,6 +51,12 @@ public class PurchasesServiceImpl implements PurchasesService
 	public List<Map<String, Object>> getPurchasesListMap() {
 	
 		return dao.getPurchasesListMap();
+	}
+
+	@Override
+	public List<Map<String, Object>> getDeliveryListMap() {
+		// TODO Auto-generated method stub
+		return dao.getDeliveryListMap();
 	}		
 
 	

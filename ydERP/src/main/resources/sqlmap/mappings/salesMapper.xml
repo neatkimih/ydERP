@@ -30,57 +30,29 @@
 			ON S.CUSTOMER_CODE = C.CUSTOMER_CODE 
 			WHERE ORDER_PERMIT = 'Y' 
 		]]>
-			<if test="saleCode != null and saleCode != ''">
-				AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
-			</if>
-			<if test="customerCode != null and customerCode != ''">
-				AND CUSTOMER_CODE LIKE '%' || #{customerCode} || '%' 
-			</if>
-			<if test="saleDate != null and saleDate != ''">
-				<![CDATA[
-				AND SALE_DATE >= TO_DATE(#{saleDate}, 'yyyy-mm-dd') AND SALE_DATE <= TO_DATE(#{saleDate}, 'yyyy-mm-dd')+1 
-				]]>
-			</if>
-			<if test="saleCost != null and saleCost != ''">
-				AND SALE_COST = #{saleCost} 	
-			</if>
-			<if test="deliveryAddr != null and deliveryAddr != ''">
-				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
-			</if>
-			<if test="deliveryStatus != null and deliveryStatus != ''">
-				AND DELIVERY_STATUS = #{deliveryStatus} 
-			</if>
-			<if test="payStatus != null and payStatus != ''">
-				AND PAY_STATUS = #{payStatus} 
-			</if>
-		ORDER BY SALE_CODE
-	</select>
-	
-	<!-- 주문 내역 검색 -->
-	<select id="getOrderByCondition" resultType="sales">
-		<![CDATA[
-			SELECT S.*, C.CUSTOMER_NAME 
-			FROM SALES S JOIN CUSTOMERS C 
-			ON S.CUSTOMER_CODE = C.CUSTOMER_CODE 
-			WHERE ORDER_PERMIT = 'N' 
-		]]>
-			<if test="saleCode != null and saleCode != ''">
-				AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
-			</if>
-			<if test="customerCode != null and customerCode != ''">
-				AND CUSTOMER_CODE LIKE '%' || #{customerCode} || '%' 
-			</if>
-			<if test="saleDate != null and saleDate != ''">
-				<![CDATA[
-				AND SALE_DATE >= TO_DATE(#{saleDate}, 'yyyy-mm-dd') AND SALE_DATE <= TO_DATE(#{saleDate}, 'yyyy-mm-dd')+1 
-				]]>
-			</if>
-			<if test="saleCost != null and saleCost != ''">
-				AND SALE_COST = #{saleCost} 	
-			</if>
-			<if test="deliveryAddr != null and deliveryAddr != ''">
-				AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
-			</if>
+		<if test="saleCode != null and saleCode != ''">
+			AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
+		</if>
+		<if test="customerName != null and customerName != ''">
+			AND C.CUSTOMER_NAME LIKE '%' || #{customerName} || '%' 
+		</if>
+		<if test="saleDate != null and saleDate != ''">
+			<![CDATA[
+				AND TRUNC(SALE_DATE) = TO_DATE(#{saleDate}, 'yyyy-mm-dd') 
+			]]>
+		</if>
+		<if test="saleCost != null and saleCost != ''">
+			AND SALE_COST = #{saleCost} 	
+		</if>
+		<if test="deliveryAddr != null and deliveryAddr != ''">
+			AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
+		</if>
+		<if test="deliveryStatus != null and deliveryStatus != ''">
+			AND DELIVERY_STATUS = #{deliveryStatus} 
+		</if>
+		<if test="payStatus != null and payStatus != ''">
+			AND PAY_STATUS = #{payStatus} 
+		</if>
 		ORDER BY SALE_CODE
 	</select>
 	
@@ -106,20 +78,6 @@
 				, 'N'		)
 	</insert>
 	
-	
-	<!-- 주문 등록 : 주문 상세 정보 -->
-	<insert id="insertOrderDetail" parameterType="saleDetails">
-	
-	</insert>
-	
-	
-	
-	
-	<!-- 주문 상세 추가 -->
-	
-	
-	
-	
 	<!-- 주문 수정 -->
 	<!-- 수정 가능한 칼럼 : 마스터의 DELIVERY_ADDR-->
 	<!-- 마스터에서 수정되어야 할 칼럼 : SALE_COST -->
@@ -132,7 +90,7 @@
 		FROM SALES S JOIN CUSTOMERS C 
 		ON S.CUSTOMER_CODE = C.CUSTOMER_CODE 
 		WHERE ORDER_PERMIT = 'N' 
-		ORDER BY SALE_CODE
+		ORDER BY SALE_DATE DESC
 	</select>
 
 	<!-- 주문 상세 조회 -->
@@ -143,6 +101,34 @@
 		ON SD.VENDOR_CODE = V.VENDOR_CODE 
 		WHERE SALE_CODE = #{saleCode} 
 		ORDER BY SALE_DETAIL_CODE
+	</select>
+	
+	<!-- 주문 내역 검색 -->
+	<select id="getOrderByCondition" resultType="sales">
+		<![CDATA[
+			SELECT S.*, C.CUSTOMER_NAME 
+			FROM SALES S JOIN CUSTOMERS C 
+			ON S.CUSTOMER_CODE = C.CUSTOMER_CODE 
+			WHERE ORDER_PERMIT = 'N' 
+		]]>
+		<if test="saleCode != null and saleCode != ''">
+			AND SALE_CODE LIKE '%' || #{saleCode} || '%' 
+		</if>
+		<if test="customerName != null and customerName != ''">
+			AND C.CUSTOMER_NAME LIKE '%' || #{customerName} || '%' 
+		</if>
+		<if test="saleDate != null and saleDate != ''">
+			<![CDATA[
+				AND TRUNC(SALE_DATE) = TO_DATE(#{saleDate}, 'yyyy-mm-dd') 
+			]]>
+		</if>
+		<if test="saleCost != null and saleCost != ''">
+			AND SALE_COST = #{saleCost} 
+		</if>
+		<if test="deliveryAddr != null and deliveryAddr != ''">
+			AND DELIVERY_ADDR LIKE '%' || #{deliveryAddr} || '%' 
+		</if>
+		ORDER BY SALE_DATE DESC
 	</select>
 	
 	<!-- 주문 승인 -->
@@ -182,5 +168,111 @@
 		WHERE ITEM_CODE = #{saleItemCode} 
 		ORDER BY ITEM_CODE	
 	</select>
-
+	
+	<!-- 매출 통계 : 그룹 기준(월) -->
+	<select id="getSaleChartYear" resultType="map">
+		<![CDATA[
+			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "saleDay",
+						SUM(SD.SALE_PRICE * SD.SALE_QTY) AS "saleSum" 
+			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
+	       						JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+			GROUP BY	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM')
+			ORDER BY    1
+		]]>
+	</select>
+	
+	<!-- 매출 통계 : 그룹 기준(일) -->
+	<select id="getSaleChartMonth" resultType="map">
+		<![CDATA[
+			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE)) AS "saleDay",
+					 	SUM((SD.SALE_PRICE) * SD.SALE_QTY) AS "saleSum" 
+			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
+	       						JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+			GROUP BY 	TO_CHAR(TRUNC(S.SALE_DATE))
+            ORDER BY    1
+		]]>
+	</select>
+	
+	<!-- 순익 통계 : 그룹 기준(월)-->
+	<select id="getProfitChartYear" resultType="map">
+		<![CDATA[
+			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "profitDay", 
+						SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) AS "profitSum" 
+			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
+	       						JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+			GROUP BY	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM')
+			ORDER BY    1
+		]]>
+	</select>
+	
+	<!-- 순익 통계 : 그룹 기준(일) -->
+	<select id="getProfitChartMonth" resultType="map">
+		<![CDATA[
+			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE)) AS "profitDay",
+					 	SUM((SD.SALE_PRICE - I.SUPPLY_PRICE) * SD.SALE_QTY) AS "profitSum" 
+			FROM 		SALES S JOIN SALE_DETAILS SD ON S.SALE_CODE = SD.SALE_CODE 
+        						JOIN 		ITEMS I ON SD.SALE_ITEM_CODE = I.ITEM_CODE 
+			WHERE 		S.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+			GROUP BY 	TO_CHAR(TRUNC(S.SALE_DATE))
+            ORDER BY    1
+		]]>
+	</select>
+	
+	<!-- 품목별 판매량 TOP 통계 : 그룹 기준 (월) -->
+	<select id="getTopItemChartYear" resultType="map">
+		<![CDATA[
+			SELECT * 
+			FROM 	(	SELECT      sd.SALE_ITEM_NAME AS "saleItem", SUM(sd.SALE_QTY) AS "saleQty" 
+						FROM        sales s JOIN sale_details sd ON s.sale_code = sd.sale_code 
+						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+						GROUP BY	sd.SALE_ITEM_NAME 
+						ORDER BY    2 DESC ) 
+			WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
+	
+	<!-- 품목별 판매량 TOP 통계 : 그룹 기준 (일) -->
+	<select id="getTopItemChartMonth" resultType="map">
+		<![CDATA[
+			SELECT * 
+			FROM 	(	SELECT      sd.SALE_ITEM_NAME AS "saleItem", SUM(sd.SALE_QTY) AS "saleQty" 
+						FROM        sales s JOIN sale_details sd ON s.sale_code = sd.sale_code 
+						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+						GROUP BY	sd.SALE_ITEM_NAME 
+						ORDER BY    2 DESC ) 
+			WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
+	<!-- 판매처별 판매량 TOP 통계 : 그룹 기준 (월) -->
+	<select id="getTopCustomerChartYear" resultType="map">
+		<![CDATA[
+			SELECT * 
+			FROM 	(	SELECT      c.CUSTOMER_NAME AS "customerName", SUM(sd.SALE_QTY) AS "saleQty" 
+						FROM        customers c JOIN sales s ON c.CUSTOMER_CODE = s.CUSTOMER_CODE
+                                                JOIN sale_details sd ON s.SALE_CODE = sd.SALE_CODE 
+						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+						GROUP BY	c.CUSTOMER_NAME
+						ORDER BY    2 DESC ) 
+			WHERE ROWNUM <= 5		
+		]]>	
+	</select>
+	
+	<!-- 판매처별 판매량 TOP 통계 : 그룹 기준 (일) -->
+	<select id="getTopCustomerChartMonth" resultType="map">
+		<![CDATA[
+			SELECT * 
+			FROM 	(	SELECT      c.CUSTOMER_NAME AS "customerName", SUM(sd.SALE_QTY) AS "saleQty" 
+						FROM        customers c JOIN sales s ON c.CUSTOMER_CODE = s.CUSTOMER_CODE
+                                                JOIN sale_details sd ON s.SALE_CODE = sd.SALE_CODE 
+						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+						GROUP BY	c.CUSTOMER_NAME
+						ORDER BY    2 DESC ) 
+			WHERE ROWNUM <= 5		
+		]]>	
+	</select>
 </mapper>

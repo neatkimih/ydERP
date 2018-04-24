@@ -14,4 +14,7 @@ public interface StockOnhandService {
 	public List<Map<String, String>> getItemGroup2(String str);
 
 	public List<Map<String, String>> getItemGroup3(String str);
+
+	public void updateLookups(String str);
+
 }

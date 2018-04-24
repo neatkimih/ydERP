@@ -80,13 +80,13 @@
 		flAuto = state;
 		jQuery("#submitButton").attr("disabled", state);
 	}
+	title_nav = "[ getStockInOutList.jsp >>> 조건별 입출고 현황조회 ]";
 </script>
 </head>
 <body>
-	<h3>getStockInOutList.jsp</h3>
 	<div class="col-lg-7">
 		<div class="panel panel-default">
-			<div class="panel-heading">Search Condition</div>
+			<div class="panel-heading">[ ]</div>
 			
 			<div class="container">
 				<div class="row">

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +78,7 @@ public class SalesController {
 		return "sales/insertOrder";
 	}
 
-	/* 승인대기 주문 내역 페이지 폼 */
+	/* 주문 내역 페이지 폼 */
 	@RequestMapping("/getOrderList")
 	public String getOrderListForm(Model model, EmployeesVO employeesVO, PurchaseRequestVO vo) {
 		
@@ -112,14 +113,14 @@ public class SalesController {
 		return "sales/getOrderList";
 	}
 
-	/* 승인대기 주문 기본 정보 조회 */
+	/* 주문 기본 정보 조회 */
 	@RequestMapping("/getOrderList.do")
 	@ResponseBody
 	public List<SalesVO> getOrderList(SalesVO salesVO, Paging page) {
 		return salesService.getOrderList(salesVO);
 	}
 
-	/* 승인대기 주문 상세 정보 조회 */
+	/* 주문 상세 정보 조회 */
 	@RequestMapping(value = "/getOrderDetail.do")
 	@ResponseBody
 	public List<SaleDetailsVO> getOrderDetail(SaleDetailsVO saleDetailsVO, Paging page) {
@@ -129,7 +130,7 @@ public class SalesController {
 		return null;
 	}
 
-	/* 승인대기 주문취소 처리 */
+	/* 주문취소 처리 */
 	@RequestMapping("/deleteOrderList.do")
 	@ResponseBody
 	public String deleteOrderList(SalesVO salesVO) {
@@ -137,7 +138,7 @@ public class SalesController {
 		return "redirect:/getOrderList";
 	}
 	
-	/* 승인대기 주문 검색 처리*/
+	/* 주문 내역 검색 처리*/
 	@RequestMapping("/getOrderByCondition.do")
 	@ResponseBody
 	public List<SalesVO> getOrderByCondition(SalesVO salesVO) {
@@ -192,5 +193,120 @@ public class SalesController {
 			salesService.deleteOrder(salesVO);
 		}
 		return result;
+	}
+	
+	/* 차트 폼 */
+	@RequestMapping("/getSaleChart")
+	public String getSaleChartForm() {
+		return "sales/getSaleChart";
+	}	
+	
+	/* 월일별 판매액 차트 처리 */
+	@RequestMapping("/getSaleChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getSaleChart(	@RequestParam String selectSaleYear,
+													@RequestParam(required=false) String selectSaleMonth,
+													SalesVO salesVO,
+													Model model ) {
+		// SPRING QUICK START p.382
+		// Command객체(JavaBean)에 없는 Parameter를 Controller 클래스에서 사용하려면 @RequestParam을 사용해야 한다.
+		// required : Parameter에 null이 들어갈 수도 있는 경우 생략여부
+		
+		System.out.println(selectSaleYear);
+		System.out.println(selectSaleMonth);
+		
+		if(selectSaleMonth != null && selectSaleMonth != "") {
+			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
+			if(Integer.parseInt(selectSaleMonth) < 10) {
+				selectSaleMonth = "0" + selectSaleMonth;
+			}
+			salesVO.setSaleDate(selectSaleYear + "-" + selectSaleMonth);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getSaleChartMonth(salesVO);
+		}
+		else {
+			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
+			salesVO.setSaleDate(selectSaleYear);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getSaleChartYear(salesVO);
+		}
+	}
+	
+	/* 월일별 순이익 차트 처리 */
+	@RequestMapping("/getProfitChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getProfitChart(HttpServletRequest request,
+													SalesVO salesVO,
+													Model model) {
+		String selectProfitYear = request.getParameter("selectProfitYear");
+		String selectProfitMonth = request.getParameter("selectProfitMonth");
+		
+		if(selectProfitMonth != null && selectProfitMonth != "") {
+			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
+			if(Integer.parseInt(selectProfitMonth) < 10) {
+				selectProfitMonth = "0" + selectProfitMonth;
+			}
+			salesVO.setSaleDate(selectProfitYear + "-" + selectProfitMonth);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getProfitChartMonth(salesVO);
+		}
+		else {
+			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
+			salesVO.setSaleDate(selectProfitYear);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getProfitChartYear(salesVO);
+		}
+	}
+	
+	/* 월일별 품목별 판매량 Top 차트 처리 */
+	@RequestMapping("/getTopItemChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getTopItemChart(HttpServletRequest request,
+													SalesVO salesVO,
+													Model model) {
+		String selectTopItemYear = request.getParameter("selectTopItemYear");
+		String selectTopItemMonth = request.getParameter("selectTopItemMonth");
+		
+		if(selectTopItemMonth != null && selectTopItemMonth != "") {
+			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
+			if(Integer.parseInt(selectTopItemMonth) < 10) {
+				selectTopItemMonth = "0" + selectTopItemMonth;
+			}
+			salesVO.setSaleDate(selectTopItemYear + "-" + selectTopItemMonth);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getTopItemChartMonth(salesVO);
+		}
+		else {
+			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
+			salesVO.setSaleDate(selectTopItemYear);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getTopItemChartYear(salesVO);
+		}
+	}
+	
+	/* 월일별 판매처별 판매량 Top 차트 처리 */
+	@RequestMapping("/getTopCustomerChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getTopCustomerChart(HttpServletRequest request,
+													SalesVO salesVO,
+													Model model) {
+		String selectTopCustomerYear = request.getParameter("selectTopCustomerYear");
+		String selectTopCustomerMonth = request.getParameter("selectTopCustomerMonth");
+		
+		if(selectTopCustomerMonth != null && selectTopCustomerMonth != "") {
+			/* 달이 선택되었을 때 그룹 기준을 일별로 처리 */
+			if(Integer.parseInt(selectTopCustomerMonth) < 10) {
+				selectTopCustomerMonth = "0" + selectTopCustomerMonth;
+			}
+			salesVO.setSaleDate(selectTopCustomerYear + "-" + selectTopCustomerMonth);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getTopCustomerChartMonth(salesVO);
+		}
+		else {
+			/* 달이 선택되지 않았을 때 그룹 기준을 월별로 처리 */
+			salesVO.setSaleDate(selectTopCustomerYear);
+			System.out.println(salesVO.getSaleDate());
+			return salesService.getTopCustomerChartYear(salesVO);
+		}
 	}
 }

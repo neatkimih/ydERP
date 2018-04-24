@@ -44,15 +44,7 @@
 					name : "vendorCode",
 					width : 80,
 					align : "right"
-				},
-
-				{
-					label : "결제금액",
-					name : "purchaseCost",
-					width : 80,
-					align : "right"
 				}
-
 			],
 			pager : "#pager",
 			rowNum : 10,
@@ -133,9 +125,9 @@
 					width : 80,
 					align : "center",
 					editable : true
-				},
+				}
 
-				{
+			/* 	{
 					label : "입고여부",
 					name : "incomingFlag",
 					width : 80,					
@@ -146,7 +138,7 @@
 				    editoptions :{value:'Y:N', defaultValue:'N'},
 				    formatoptions: {disabled: false}					  
 				    
-				}
+				} */
 
 			],
 			pager : "#pager1",
@@ -231,10 +223,16 @@
             return -1;
         }
 	});
+	title_nav = "[ 구매 정보 조회 : getPurchasesList.jsp >>> 구매 정보 조회 및 확인  ]";
 </script>
 
 </head>
 <body> 
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">[ ]</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-8">
 			<table id="list">
@@ -245,8 +243,6 @@
 			<div id="pager"></div>
 		</div>
 	</div>
-	<br>
-	<br>
 	<br>
 	<h3>구매상세정보</h3>
 	<div class="row">

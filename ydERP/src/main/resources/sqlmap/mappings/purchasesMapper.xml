@@ -36,4 +36,13 @@
 	]]>
 	</select>
 
+	<!--  GPS  -->
+	<select id="getDeliveryListMap" resultType="map">
+	<![CDATA[
+    select e.name, a.employee_id, a.location_x, a.location_y, 
+    to_char(a.location_date,'YYYY-MM-DD HH24:MI') location_date from delivery_loc a
+	join employees e on a.employee_id = e.id
+	]]>
+	</select>
+
 </mapper>

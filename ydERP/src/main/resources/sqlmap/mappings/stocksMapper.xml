@@ -70,16 +70,56 @@
 			<if test="group3 != null and group3 != '' ">
 				AND SUBSTR(item_code,3,1) = #{group3}
 			</if>
+			<if test="zeroFlag != null and zeroFlag != '' ">
+				AND (DECODE(NVL(onhand_qty,0),0,'Y','N') = #{zeroFlag})
+			</if>
 		</where>
 		ORDER BY item_code
 	</select>
 
 	<select id="getPurchaseRequestList" resultType="purchaserequest">
 		<![CDATA[
+		select a.* from ( select rownum rn, b.* from (
 		SELECT common.get_vendor_name(v.vendor_code) vendor_name, v.*
 		FROM   purchase_request_vo v
-		ORDER BY vendor_code, item_code
 		]]>
+		<where>
+			<if test=" group1 != null and group1 != '' ">
+				AND SUBSTR(item_code,1,1) = #{group1}
+			</if>
+			<if test=" group2 != null and group2 != '' ">
+				AND SUBSTR(item_code,2,1) = #{group2}
+			</if>
+			<if test=" group3 != null and group3 != '' ">
+				AND SUBSTR(item_code,3,1) = #{group3}
+			</if>
+			<if test=" vendorCode != null and vendorCode != '' ">
+				AND vendor_code = #{vendorCode}
+			</if>
+		</where>
+		ORDER BY vendor_code, item_code
+		) b ) a where rn between #{first} and #{last}
+	</select>
+
+	<select id="getCount" parameterType="purchaserequest" resultType="int">
+		<![CDATA[
+		SELECT count(*) cnt
+		FROM   purchase_request_vo v
+		]]>
+		<where>
+			<if test=" group1 != null and group1 != '' ">
+				AND SUBSTR(item_code,1,1) = #{group1}
+			</if>
+			<if test=" group2 != null and group2 != '' ">
+				AND SUBSTR(item_code,2,1) = #{group2}
+			</if>
+			<if test=" group3 != null and group3 != '' ">
+				AND SUBSTR(item_code,3,1) = #{group3}
+			</if>
+			<if test=" vendorCode != null and vendorCode != '' ">
+				AND vendor_code = #{vendorCode}
+			</if>
+		</where>
 	</select>
 
 	<insert id="insertPurchaseProc" parameterType="purchaserequest"
@@ -89,8 +129,7 @@
 		]]>
 	</insert>
 
-	<insert id="insertPurchaseRequest" parameterType="purchaserequest"
-		statementType="CALLABLE">
+	<insert id="insertPurchaseRequest" parameterType="purchaserequest" statementType="CALLABLE">
 		<![CDATA[
 		{call common.create_purchase_info(#{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
 		]]>
@@ -140,10 +179,21 @@
 
 	<select id="getReceiptHeaders" resultType="com.yedam.erp.stocks.PurchaseHeadersVO">
 		<![CDATA[
-		SELECT p.*, common.get_vendor_name(p.vendor_code) vendor_name
+		SELECT p.*
+		      ,common.get_vendor_name(p.vendor_code) vendor_name
 		FROM   purchases p
-		WHERE NVL(in_flag,'N') = 'N'
-		ORDER BY purchase_code DESC
+		WHERE  1 = 1
+		AND    NVL(in_flag
+		          ,'N') = 'N'
+		OR     (NVL(in_flag
+		           ,'N') = 'Y' AND EXISTS
+		       (SELECT 1
+		         FROM   purchase_details pd
+		         WHERE  1 = 1
+		         AND    p.purchase_code = pd.purchase_code
+		         AND    NVL(pd.incoming_flag
+		                   ,'N') = 'N'))
+		ORDER  BY purchase_code DESC
 		]]>
 	</select>
 
@@ -155,6 +205,13 @@
 		<where>
 			<if test="purchaseCode != null">
 				AND purchase_code = #{purchaseCode}
+				AND
+				NVL(p.incoming_flag, 'N') = 'Y'
+				AND NOT EXISTS
+				(SELECT 1
+				FROM stocks_in_out s
+				WHERE s.dealer_code = p.purchase_code
+				AND s.item_code = p.purchase_item)
 			</if>
 		</where>
 		ORDER BY purchase_detail_code
@@ -174,7 +231,7 @@
 		AND    ROWNUM <= 5		
 		]]>
 	</select>
-	
+
 	<select id="getMostBuyItem" resultType="map">
 		<![CDATA[
 		SELECT itm.item_name
@@ -189,7 +246,7 @@
 		AND    ROWNUM <= 5		
 		]]>
 	</select>
-	
+
 	<select id="getInOutQtyChart" resultType="map">
 		<![CDATA[
 		SELECT TO_CHAR(v.txn_date
@@ -203,7 +260,7 @@
 		                 ,'rr/mm/dd')
 		]]>
 	</select>
-	
+
 	<select id="getInOutAmtChart" resultType="map">
 		<![CDATA[
 		SELECT in_out_day
@@ -248,6 +305,7 @@
 		      ,lv.flag
 		      ,lv.dff
 		      ,lv.reflag
+		      ,lv.lookup_idx
 		FROM   lookups lk
 		JOIN   lookup_values lv
 		ON     lk.lookup = lv.lookup
@@ -258,7 +316,32 @@
 			</if>
 		</where>
 		ORDER BY lk.lookup
-		,lv.lookup_code
+		     ,lv.lookup_code
+	</select>
+
+	<select id="getLookupsData2" parameterType="com.yedam.erp.stocks.LookupCodesVO" resultType="map">
+		<![CDATA[
+		SELECT lk.lookup lookups
+		      ,lk.lookup_description
+		      ,lv.lookup
+		      ,lv.lookup_code
+		      ,lv.lookup_values
+		      ,lv.descriptions
+		      ,lv.flag
+		      ,lv.dff
+		      ,lv.reflag
+		      ,lv.lookup_idx
+		FROM   lookups lk
+		JOIN   lookup_values lv
+		ON     lk.lookup = lv.lookup
+        ]]>
+		<where>
+			<if test=" lookup != null and lookup != '' ">
+				AND lk.lookup = #{lookup}
+			</if>
+		</where>
+		ORDER BY lk.lookup
+			 ,lv.lookup_code
 	</select>
 
 	<select id="getLookupValues" resultType="map">
@@ -272,12 +355,22 @@
 
 
 	<select id="selectLookups" parameterType="string" resultType="map">
-		SELECT *
-		FROM lookup_values
-		WHERE lookup = #{lookup}
+		<![CDATA[
+		SELECT v.lookup
+		      ,v.lookup_code
+		      ,v.lookup_values
+		      ,v.descriptions
+		      ,v.flag
+		      ,v.dff
+		      ,v.reflag
+		      ,v.lookup_idx
+		FROM   lookup_values v
+		WHERE v.lookup = #{lookup}
+        ]]>
 	</select>
-	
-	<update id="updateLookup" parameterType="com.yedam.erp.stocks.LookupCodes">
+
+	<!-- 1.homecontroll lookup -->
+	<update id="updateLookup" parameterType="com.yedam.erp.stocks.LookupCodesVO">
 		<![CDATA[
 		UPDATE lookup_values
 		SET    lookup_values = #{lookupValues}
@@ -286,6 +379,18 @@
 		      ,dff           = #{dff}
 		      ,reflag        = #{reflag}
 		WHERE  lookup_idx = #{lookupIdx}
+        ]]>
+	</update>
+
+	<update id="updateLookup2" parameterType="map">
+		<![CDATA[
+		UPDATE lookup_values
+		SET    lookup_values = #{LOOKUP_VALUES}
+		      ,descriptions  = #{DESCRIPTIONS}
+		      ,flag          = #{FLAG}
+		      ,dff           = #{DFF}
+		      ,reflag        = #{REFLAG}
+		WHERE  lookup_idx = #{id}
         ]]>
 	</update>
 
@@ -301,7 +406,8 @@
 		]]>
 	</select>
 
-	<select id="getItemGroup2" parameterType="string" resultType="map">
+	<select id="getItemGroup2" parameterType="string"
+		resultType="map">
 		<![CDATA[
 		SELECT lv.descriptions "grp_name"
 		      ,lv.lookup_code  "grp_code"
@@ -310,15 +416,16 @@
 		WHERE  lk.lookup = lv.lookup
 		AND    lk.lookup = 'ITEM_GROUP2'
 		]]>
-			<if test=" _parameter != null and _parameter != '' ">
-				AND    lv.dff = #{_parameter}
-			</if>
+		<if test=" _parameter != null and _parameter != '' ">
+			AND lv.dff = #{_parameter}
+		</if>
 		<![CDATA[
 		ORDER BY lv.descriptions
 		]]>
 	</select>
 
-	<select id="getItemGroup3" parameterType="string" resultType="map">
+	<select id="getItemGroup3" parameterType="string"
+		resultType="map">
 		<![CDATA[
 		SELECT lv.descriptions "grp_name"
 		      ,lv.lookup_code  "grp_code"
@@ -327,11 +434,45 @@
 		WHERE  lk.lookup = lv.lookup
 		AND    lk.lookup = 'ITEM_GROUP3'
 		]]>
-			<if test=" _parameter != null and _parameter != '' ">
-				AND    lv.dff = #{_parameter}
-			</if>
+		<if test=" _parameter != null and _parameter != '' ">
+			AND lv.dff = #{_parameter}
+		</if>
 		<![CDATA[
 		ORDER BY lv.descriptions
 		]]>
 	</select>
+
+	<select id="getSalesRequest" resultType="purchaserequest">
+		<![CDATA[
+		SELECT a.customer_code
+		      ,a.customer_name
+		      ,TO_CHAR(a.need_date
+		              ,'rrrr/mm/dd') need_date
+		      ,SUM(a.request_qty) request_qty
+		      ,SUM(a.selling_price * a.request_qty) selling_price
+		FROM   sales_temp_vo a
+		GROUP  BY a.customer_code
+		         ,a.customer_name
+		         ,TO_CHAR(a.need_date
+		                 ,'rrrr/mm/dd')
+		]]>
+	</select>
+
+
+	<select id="getSalesRequestDetail" resultType="purchaserequest">
+		<![CDATA[
+			SELECT *
+			FROM   sales_temp_vo
+			WHERE  customer_code = #{customerCode} 
+		]]>
+	</select>
+
+	<insert id="insertSalesProc" parameterType="purchaserequest"
+		statementType="CALLABLE">
+		<![CDATA[
+		{call common.create_sales_order(#{pVendorCode}, #{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
+		]]>
+	</insert>
+
+
 </mapper>

@@ -13,9 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yedam.erp.stocks.LookupCodes;
+import com.yedam.erp.stocks.LookupCodesVO;
 import com.yedam.erp.stocks.impl.HomeServiceImpl;
 
 /**
@@ -77,17 +78,25 @@ public class HomeController {
 
 	@RequestMapping("getLookups.do")
 	@ResponseBody
-	public List<Map<String, Object>> getLookupsDo(Model model, String LOOKUP) {
+	public List<Map<String, Object>> getLookupsDo(Model model, String str) {
 		// Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String, Object>> list = homeServiceImpl.getLookups(LOOKUP);
+		List<Map<String, Object>> list = homeServiceImpl.getLookups(str);
 		// map.put("data", list);
 		return list;
 	}
 
 	@RequestMapping("updateLookups.do")
 	@ResponseBody
-	public void updateLookupsDo(LookupCodes vo) {
+	public void updateLookupsDo(LookupCodesVO vo) {
+		System.out.println("control====" + vo);
 		homeServiceImpl.updateLookups(vo);
+	}
+
+	@RequestMapping("updateLookups2.do")
+	@ResponseBody
+	public void updateLookupsDo2(@RequestParam Map str) {
+		System.out.println("control====" + str);
+		homeServiceImpl.updateLookups2(str);
 	}
 
 	@RequestMapping("getLookups")

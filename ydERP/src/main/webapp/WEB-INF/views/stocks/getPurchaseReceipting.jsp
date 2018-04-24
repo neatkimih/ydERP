@@ -76,9 +76,9 @@
 				{   label : "품목수량", name : "purchaseQty", width : 80, align : "right", editable : true },
 				{   label : "품목단가", name : "purchasePrice", width : 80, align : "right", editable : true },
 				{   label : "부가세", name : "itemTax", width : 80, align : "center", editable : true },
-				{   label : "입고여부", name : "incomingFlag", width : 80, editable : true, sortable : false, align : "center", formatter : "checkbox",
+				/* {   label : "입고여부", name : "incomingFlag", width : 80, editable : true, sortable : false, align : "center", formatter : "checkbox",
 					editoptions : { value : 'Y:N', defaultValue : 'N' },
-					formatoptions : { disabled : false } }
+					formatoptions : { disabled : false } } */
 			],
 			pager : "#pager1",
 			rowNum : 10,
@@ -209,10 +209,17 @@
 			}
 		})
 	};
+	title_nav = "[ getPurchaseReceipting.jsp >>> 승인건에 대한 입고처리 ]";
 </script>
 
 </head>
-<body><h3>getPurchaseReceipting.jsp</h3>
+<body>
+	<div class="col-lg-5">
+		<div class="panel panel-default">
+			<div class="panel-heading">[  ]</div>
+			<div class="container"></div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-10">
 			<table id="list">
@@ -223,8 +230,6 @@
 			<div id="pager"></div>
 		</div>
 	</div>
-	<br>
-	<br>
 	<br>
 	<div class="row">
 		<div class="col-lg-12">

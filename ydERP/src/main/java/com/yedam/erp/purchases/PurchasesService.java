@@ -4,6 +4,8 @@ package com.yedam.erp.purchases;
 import java.util.List;
 import java.util.Map;
 
+import com.yedam.erp.GPS.GpsVO;
+
 public interface PurchasesService
 {
 	/* 구매 내역 조회 (단건) */
@@ -23,6 +25,7 @@ public interface PurchasesService
 	/* 구매 내역 수정 */
 	public void deletePurchases(PurchasesVO purchasesVO);
 
-
-
+	/*  GPS */
+	public List<Map<String, Object>> getDeliveryListMap();
+	
 }

@@ -43,12 +43,12 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 	public List<Map<String, Object>> getlookUpValueList(PurchaseRequestVO vo) {
 		return dao.getlookUpValueList(vo);
 	}
-	
-	public List<PurchaseHeadersVO> getReceiptHeaders(PurchaseHeadersVO vo){
+
+	public List<PurchaseHeadersVO> getReceiptHeaders(PurchaseHeadersVO vo) {
 		return dao.getReceiptHeaders(vo);
 	}
 
-	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo){
+	public List<PurchaseDetailsVO> getReceiptLines(PurchaseDetailsVO vo) {
 		return dao.getReceiptLines(vo);
 	}
 
@@ -56,4 +56,19 @@ public class PurchaseRequestImpl implements PurchaseRequestService {
 		dao.insertPurchaseProc(vo);
 	}
 
+	public List<PurchaseRequestVO> getSalesRequest(PurchaseRequestVO vo) {
+		return dao.getSalesRequest(vo);
+	}
+
+	public List<PurchaseRequestVO> getSalesRequestDetail(PurchaseRequestVO vo) {
+		return dao.getSalesRequestDetail(vo);
+	}
+
+	public void insertSalesProc(PurchaseRequestVO vo) {
+		dao.insertSalesProc(vo);
+	}
+
+	public int getCount(PurchaseRequestVO vo) {
+		return dao.getCount(vo);
+	}
 }

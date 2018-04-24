@@ -117,22 +117,18 @@
 			}
 		});
 	}
+	title_nav = "[ getCharts.jsp ::: Chart 확인 ]";
 </script>
 </head>
 <body>
-	<h3>getCharts.jsp</h3>
 	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">입출 통계</div>
-			<div class="container">
-				<div class="row">
+		<div class="panel panel-default col-lg-12">
+			<!-- <div class="panel-heading col-lg-12">[  ]</div> -->
+			<div class="container col-lg-12">
 					<div class="col-lg-6" id="columnchart_material" style="height: 400px;"></div>
 					<div class="col-lg-6" id="curve_chart" style="height: 400px;"></div>
-				</div>
-				<div class="row">
 					<div class="col-lg-6" id="piechart" style="height: 400px;"></div>
 					<div class="col-lg-6" id="piechart2" style="height: 400px;"></div>
-				</div>
 			</div>
 		</div>
 	</div>

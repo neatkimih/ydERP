@@ -18,8 +18,12 @@
 <script type="text/javascript">
 	var selectedItem;
 	var lastsel;
+	var vid;
+	var ret;
+	var idx;
+	
 	$(function() {
-		$("#list").jqGrid(
+		jQuery("#list").jqGrid(
 				{
 					url : "getLookups.do",
 					datatype : "json",
@@ -29,71 +33,147 @@
 					autowidth : true,
 
 					colNames : [ "룩업", "룩업코드", "코드값", "코드Value", "코드설명",
-							"사용여부", "룩업DFF", "대표코드" ],
+							"사용여부", "룩업DFF", "대표코드", "id" ],
+
 					colModel : [ {
 						name : "LOOKUP_DESCRIPTION",
-						width : 3
+						index : 'LOOKUP_DESCRIPTION',
+						width : 3,
+						editable : false,
+						editoptions : {
+							readonly : true,
+							size : 10
+						}
 					}, {
 						name : "LOOKUP",
-						width : 5
+						width : 5,
+						index : 'LOOKUP',
+						editable : true,
+						editoptions : {
+							size : 10
+						}
 					}, {
 						name : "LOOKUP_CODE",
-						width : 2
+						width : 2,
+						index : 'LOOKUP_CODE',
+						editable : true,
+						editoptions : {
+							size : 25
+						}
 					}, {
 						name : "LOOKUP_VALUES",
 						width : 2,
+						index : 'LOOKUP_VALUES',
 						align : "right",
-						editable : true
+						editable : true,
+						editoptions : {
+							size : 10
+						}
 					}, {
 						name : "DESCRIPTIONS",
 						width : 2,
+						index : 'DESCRIPTIONS',
 						align : "right",
-						editable : true
+						editable : true,
+						edittype : "textarea",
+						editoptions : {
+							size : 10
+						}
 					}, {
 						name : "FLAG",
 						width : 2,
+						index : 'FLAG',
+						edittype : "checkbox",
 						align : "right",
-						editable : true
-
+						editable : true,
+						editoptions : {
+							size : 10
+						}
 					}, {
 						name : "DFF",
 						width : 2,
-						align : "right",
-						editable : true
-
+						index : 'DFF',
+						align : 'center',
+						editable : true,
+						editoptions : {
+							value : "Yes:No"
+						}
 					}, {
 						name : "REFLAG",
 						width : 2,
-						align : "right",
-						editable : true
-
-					}, ],
-					pager : "#pager",
+						index : 'REFLAG',
+						sortable : false,
+						editable : true,
+						editoptions : {
+							rows : "2",
+							cols : "20"
+						}
+					}, {
+						name : 'LOOKUP_IDX',
+						index : 'LOOKUP_IDX',
+						width : 1,
+						key : true,
+						/* editable : true,
+						edittype : "select",
+						editoptions : {
+							value : "FE:FedEx;TN:TNT"
+						}, */
+						editrules : {
+							required : true,
+							edithidden : false
+						},
+					} ],
 					rowNum : 10,
 					rowList : [ 10, 20, 30 ],
-					sortname : "LOOKUP",
-					sortorder : "asc",
+					pager : '#pager',
+					sortname : 'lookup',
 					viewrecords : true,
-					gridview : true,
-					autoencode : true,
 					loadonce : true,
-					onSelectRow : function(id) {
-						if (id && id !== lastsel) {
-							console.log(id + "========--------");
-							jQuery('#rowed3').jqGrid('restoreRow', lastsel);
-							jQuery('#rowed3').jqGrid('editRow', id, true);
-							lastsel = id;
-							selectedItem = $(this).getCell(id, "lookupIdx");
-						}
-					},
-					editurl : "updateLookups.do?lookupIdx=" + selectedItem,
-					caption : "룩업코드"
+					sortorder : "desc",
+					editurl : "updateLookups2.do",
+					caption : "룩업코드",
+					height : 400
 				});
+
 		jQuery("#list").jqGrid('navGrid', '#pager', {
-			edit : false,
-			add : false,
-			del : false
-		});
+			edit : true,
+			add : true,
+			del : true
+		}, //options 
+		{
+			height : 450,
+			reloadAfterSubmit : false,
+			/* afterComplete : function() {
+				$("#list").setGridParam({
+					datatype : 'json',
+					page : 1
+				}).trigger('reloadGrid');
+			} */
+			/* complete : $("#list").click(function() {
+				
+				vid = jQuery("#list").jqGrid('getGridParam', 'selrow');
+				if (vid != null) {
+					 ret = jQuery("#list").jqGrid('getRowData',vid);
+					// jQuery("#list").jqGrid('editGridRow', gr, { height : 450, reloadAfterSubmit : false })
+					console.log(vid + "==" + ret.FLAG + ret.LOOKUP_IDX);
+					idx = ret.LOOKUP_IDX;
+
+				} else
+					alert("Please Select Row");
+			}),
+			success : function(){
+				alert("select...")
+			} */
+		}, // edit options 
+		{
+			height : 450,
+			reloadAfterSubmit : false
+		}, // add options 
+		{
+			reloadAfterSubmit : false
+		}, // del options 
+		{} // search options 
+		);
 	});
 
 	var timeoutHnd;
@@ -120,13 +200,14 @@
 		flAuto = state;
 		jQuery("#submitButton").attr("disabled", state);
 	}
+
+	title_nav = "[ getLookups.jsp ::: 룩업 조회 및 관리 ]";
 </script>
 </head>
 <body>
-	<h3>getLookups.jsp</h3>
 	<div class="col-lg-6">
 		<div class="panel panel-default">
-			<div class="panel-heading">Search Condition</div>
+			<div class="panel-heading">조회조건==================================</div>
 			<div class="container" style="margin-top: 10px">
 				<div class="col-lg-3">
 					<select id="warehouseSelect" name="searchWarehouse"

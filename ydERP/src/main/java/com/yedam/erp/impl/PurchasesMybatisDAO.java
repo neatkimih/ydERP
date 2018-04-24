@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yedam.erp.GPS.GpsVO;
 import com.yedam.erp.purchases.PurchasesVO;
 
 @Repository
@@ -37,5 +38,11 @@ public class PurchasesMybatisDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("purchases.getPurchasesListMap");
 	}	
+	
+	public List<Map<String, Object>> getDeliveryListMap(){
+		System.out.println("mybatis getDeliveryList");
+		return sqlSession.selectList("purchases.getDeliveryListMap");
+		
+	}
 	
 }

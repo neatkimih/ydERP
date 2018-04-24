@@ -190,8 +190,9 @@
 
 	function gridReload() {
 		var vend_cd = jQuery("#warehouseSelect").val();
+		console.dir("=========="+vend_cd);
 		jQuery("#list").jqGrid('setGridParam', {
-			url : "getLookups.do?LOOKUP=" + vend_cd,
+			url : "getLookups.do?lookup=" + vend_cd,
 			datatype : "json",
 			page : 1
 		}).trigger("reloadGrid");

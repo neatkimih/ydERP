@@ -6,7 +6,7 @@
 	href="${pageContext.request.contextPath}/resources/jqgrid5/ui.jqgrid-bootstrap.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/jquery/date_calendar.css">
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.css">
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -16,26 +16,128 @@
 	type="text/javascript"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/jqgrid5/grid.locale-kr.js"
-	type="text/javascript"></script>	
+	type="text/javascript"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/moment.min.js"></script>
-	<script
+<script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/ko.js"></script>
 
 <script
 	src="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/daumaddr/daumAddr.js"></script>
- 
 
 
-<script> 
 
+
+<script type="text/javascript">
+
+	var param;
 	
-	
-</script>
+	$(function() {
 
-<script>
+		$("#list")
+				.jqGrid(
+						{
+							url : "getSales_tempList",
+							editurl : "Sales_tempEdit",
+							datatype : "json",
+							styleUI : 'Bootstrap',
+							colModel : [ {
+								label : "구매번호",
+								name : "customSeq",
+								key : true,
+								align : "center",
+								width : 100,
+								editable : false
+
+							}, {
+								label : "주문 품목명",
+								name : "itemName",
+								width : 180,
+								editable : false
+							}, {
+								label : "주문 수량",
+								name : "requestQty",
+								width : 50,
+								editable : false
+							}, {
+								label : "주문 날짜",
+								name : "createDate",
+								width : 80,
+								align : "left",
+								editable : true,
+								formatter : "date",
+								formatoptions : {
+									srcformat : 'U/1000',
+									newformat : " Y/m/d"
+								}
+
+							}, {
+								label : "희망 배송 날짜",
+								name : "needDate",
+								width : 80,
+								align : "left",
+								editable : true,
+								formatter : "date",
+								formatoptions : {
+									srcformat : 'U/1000',
+									newformat : " Y/m/d"
+								}
+							} ],
+							pager : "#pager",
+							rowNum : 15,
+							rowList : [ 10, 20, 30 ],
+							rownumbers : true,
+							sortname : "itemCode",
+							sortorder : "desc",
+							onSelectRow : function(rowid) {
+
+								if (rowid >= 0) {
+									var rowData = jQuery('#list').jqGrid(
+											'getRowData', rowid);
+
+									console.log(rowid);
+
+									document.FormPost.first.value = rowData.pGroup1;
+									document.FormPost.second.value = rowData.pGroup2;
+									document.FormPost.third.value = rowData.pGroup3;
+
+									document.FormPost.customerName.value = rowData.itemName;
+									document.FormPost.requestQty.value = rowData.requestQty;
+									document.FormPost.hopeDate.value = rowData.needDate;
+									document.FormPost.deliveryAddr.value = rowData.deliveryAddr;
+									document.FormPost.phone.value = rowData.phone;
+								}
+
+							},
+							viewrecords : true,
+							gridview : false,
+							autoencode : true,
+							loadonce : true,
+							height : 'auto',
+							autowidth : true,
+							responsive : true,
+							pager : "#pager"
+						});
+
+		$('#list').jqGrid('navGrid', "#pager", {
+			search : true,
+			edit : false,
+			add : false,
+			del : true,
+			cancel : false,
+			refresh : false,
+		}, {}, {}, {
+			serializeDelData : function(postdata) {
+				return "oper=del&customerCode=" + postdata.id;
+			}
+		}
+
+		);
+
+	});
+
 	//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수
 	$(function() {
 
@@ -78,7 +180,9 @@
 			temp.options[i] = new Option(group[x][i].text, group[x][i].value);
 		}
 		temp.options[0].selected = true
-		var param = {pGroup1:$("#first").val()};
+		var param = {
+			pGroup1 : $("#first").val()
+		};
 		lastCondition(param);
 	}
 
@@ -164,293 +268,184 @@
 			temp.options[i] = new Option(group[x][i].text, group[x][i].value)
 		}
 		temp.options[0].selected = true
-		var param = {pGroup2:$("#second").val()};
+		var param = {
+			pGroup2 : $("#second").val()
+		};
 		lastCondition(param);
 	}
-	
+
 	function thirdChange() {
-		var param = {pGroup3:$("#third").val()};
+		var param = {
+			pGroup3 : $("#third").val()
+		};
 		lastCondition(param);
-	}	
-	
-</script>
-	 
-	 
-<script>
+	}
+
 	function requestsubmit() {
 		document.FormPost.submit();
 	}
-	
-	
+
 	function PurchaseRequestcancel() {
-		
 		location.reload();
 	}
-	
-	
-	
-	function lastCondition(params) {
+
+	function lastCondition(param) {
+		console.dir("param========="+param);
 		$.ajax({
 			url : "./getItemsList2",
-			data : params,
+			data : param,
 			dataType : "json",
 			success : function(datas) {
 				console.dir(datas);
 				$("#itemList option:gt(0)").remove();
 				for (i = 0; i < datas.length; i++) {
-					$("#itemList").append("<option value='"+datas[i].itemCode+"'>" + datas[i].itemName);
+					$("#itemList").append("<option value='"+datas[i].itemCode+"'>"+ datas[i].itemName);
 				}
 			}
 		});
-	}	
-	
+	}
+
 	function logoutcheck() {
-		location.href='logout';
+		location.href = 'logout';
 	}
 	title_nav = "[ getPurchaseRequest.jsp ::: 판매주문정보 요청화면(판매정보 입력) ]";
-
 </script>
 <body>
-<div class="col-md-24">
-<div class="panel-heading">
-					
-					<c:if test="${not empty sessionScope.viewCustomer.customerCode}"> 
-					<div class="col-md-24">
-					<h3> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-					 ${sessionScope.viewCustomer.customerName}님 환영합니다. 
-					<input class="btn btn-primary" type="button" name="logout" value="로그아웃" onclick="logoutcheck()"/>
-					 </h3>
-					 </div>
-					</c:if>
-		<h1>
-			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
-			&nbsp; &nbsp;  &nbsp; 
-			
-				<input class="btn btn-primary" type="button" value="주문하기"
-					onclick="requestsubmit()">
-				<input class="btn btn-success" type="button" value="취소"
+	<div class="col-md-24">
+		<div class="panel-heading">
+
+			<c:if test="${not empty sessionScope.viewCustomer.customerCode}">
+				<div class="col-md-24">
+					<h3>
+						&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+						&emsp; &emsp; &emsp; &emsp; &emsp;
+						${sessionScope.viewCustomer.customerName}님 환영합니다. <input
+							class="btn btn-primary" type="button" name="logout" value="로그아웃"
+							onclick="logoutcheck()" />
+					</h3>
+				</div>
+			</c:if>
+			<h1>
+				구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+				&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
+				&nbsp; &nbsp; &nbsp; <input class="btn btn-primary" type="button"
+					value="주문하기" onclick="requestsubmit()"> <input
+					class="btn btn-success" type="button" value="취소"
 					onclick="PurchaseRequestcancel()">
-			
-		</h1>
+
+			</h1>
+		</div>
 	</div>
+
+	<div class="col-md-6">
+
+		<table id="list">
+			<tr>
+				<td></td>
+			</tr>
+		</table>
+
+		<div id="pager"></div>
 	</div>
-
-<script type="text/javascript">
-	$(function() {
-
-
-		$("#list").jqGrid({
-			url : "getSales_tempList",
-			editurl : "Sales_tempEdit",
-			datatype : "json",
-			styleUI : 'Bootstrap',
-			colModel : [ {
-				label : "구매번호",
-				name : "customSeq",
-				key : true,
-				align : "center",
-				width : 100,
-				editable : false
-				
-			}, {
-				label : "주문 품목명",
-				name : "itemName",
-				width : 180,
-				editable : false
-			},{
-				label : "주문 수량",
-				name : "requestQty",
-				width : 50,
-				editable : false
-			}, {
-				label : "주문 날짜",
-				name : "createDate",
-				width : 80,
-				align : "left",
-				editable : true,
-				formatter: "date",
-                formatoptions: { srcformat:'U/1000', newformat: " Y/m/d" }
-
-			}, {
-				label : "희망 배송 날짜",
-				name : "needDate",
-				width : 80,
-				align : "left",
-				editable : true,
-				formatter: "date",
-				formatoptions: { srcformat:'U/1000', newformat: " Y/m/d" }
-			} ],
-			pager : "#pager",
-			rowNum : 15,
-			rowList : [ 10, 20, 30 ],
-			rownumbers : true,
-			sortname : "itemCode",
-			sortorder : "desc",
-			onSelectRow : function (rowid) {
-			 	
-				if (rowid >= 0) {
-			      var rowData = jQuery('#list').jqGrid ('getRowData', rowid);
-		    
-			     console.log(rowid);
-			     
-			     document.FormPost.first.value = rowData.pGroup1;
-			     document.FormPost.second.value = rowData.pGroup2;
-			     document.FormPost.third.value = rowData.pGroup3;
-			     
-			     document.FormPost.customerName.value = rowData.itemName;
-			     document.FormPost.requestQty.value = rowData.requestQty;
-			     document.FormPost.hopeDate.value = rowData.needDate;
-			     document.FormPost.deliveryAddr.value = rowData.deliveryAddr;
-			     document.FormPost.phone.value = rowData.phone;
-				}
-			
-			},
-			viewrecords : true,
-			gridview : false,
-			autoencode : true,
-			loadonce : true,
-			height : 'auto',
-			autowidth : true,
-			responsive : true,
-			pager : "#pager"
-		});
-
-		$('#list').jqGrid('navGrid', "#pager", {
-			search : true,
-			edit : false,
-			add : false,
-			del : true,
-			cancel : false,
-			refresh : false,
-		}, {}, {}, {
-			serializeDelData : function(postdata) {
-				return "oper=del&customerCode=" + postdata.id;
-			}
-		}
-
-		);
-
-	});
-</script>
-
-<!-- Jqgrid -->
-<div class="col-md-6">
-
-	<table id="list">
-		<tr>
-			<td></td>
-		</tr>
-	</table>
-
-	<div id="pager"></div>
-</div>
-<!-- 구매신청 -->
-<div class="col-md-6">
-<form class="form-horizontal" id="FormPost" name="FormPost" action="insertSales_temp">
-		<div class="form-group">
-			<label for="Category" class="col-md-3 control-label">품목종류</label>
-			<div class="col-md-2">
-				<select class="form-control" id="first" 
-					onchange="firstChange()">
-					<option value=''>대분류</option>
-					<option value='P'>필기구</option>
-					<option value='J'>종이</option>
-					<option value='O'>일반사무용품</option>
-					<option value='F'>화일/바인더</option>
-				</select>
+	<!-- 구매신청 -->
+	<div class="col-md-6">
+		<form class="form-horizontal" id="FormPost" name="FormPost"
+			action="insertSales_temp">
+			<div class="form-group">
+				<label for="Category" class="col-md-3 control-label">품목종류</label>
+				<div class="col-md-2">
+					<select class="form-control" id="first" onchange="firstChange()">
+						<option value=''>대분류</option>
+						<option value='P'>필기구</option>
+						<option value='J'>종이</option>
+						<option value='O'>일반사무용품</option>
+						<option value='F'>화일/바인더</option>
+					</select>
+				</div>
+				<div class="col-md-2">
+					<select class="form-control" id="second" onchange="secondChange()">
+						<option value=''>중분류</option>
+					</select>
+				</div>
+				<div class="col-md-2">
+					<select class="form-control" id="third" onchange="thirdChange()">
+						<option value=''>소분류</option>
+					</select>
+				</div>
 			</div>
-			<div class="col-md-2">
-				<select class="form-control" id="second" 
-					onchange="secondChange()">
-					<option value=''>중분류</option>
-				</select>
-			</div>
-			<div class="col-md-2">
-				<select class="form-control" id="third" onchange="thirdChange()">
-					<option value=''>소분류</option>
-				</select>
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="departureSize" class="col-md-3 control-label">품목명</label>
-			<div class="col-md-6">
-				<input class="form-control" type="hidden" id="customerCode"
-					name="customerCode"/>				
-				<input class="form-control" type="hidden" id="itemCode"
-					name="itemCode" />
-				<select class="form-control" id="itemList"
-					name="itemList">
-					<option value="">선택</option>
-							<c:forEach items="${getItemsList}">
-								<option value="${itemCode}">${itemName}</option>
-							</c:forEach>
-				</select>
-			</div>
-		</div>
 
-		<div class="form-group">
-			<label for="category" class="col-md-3 control-label">UOM</label>
-			<div class="col-md-2">
-				<select class="form-control" id="uom" name="uom">
-					<option value=''>선택</option>
-					<option value='Set'>Set</option>
-					<option value='Box'>Box</option>
-				</select>
+			<div class="form-group">
+				<label for="departureSize" class="col-md-3 control-label">품목명</label>
+				<div class="col-md-6">
+					<input class="form-control" type="hidden" id="customerCode"
+						name="customerCode" /> <input class="form-control" type="hidden"
+						id="itemCode" name="itemCode" /> <select class="form-control"
+						id="itemList" name="itemList">
+						<option value="">선택</option>
+						<c:forEach items="${getItemsList}">
+							<option value="${itemCode}">${itemName}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="category" class="col-md-3 control-label">UOM</label>
+				<div class="col-md-2">
+					<select class="form-control" id="uom" name="uom">
+						<option value=''>선택</option>
+						<option value='Set'>Set</option>
+						<option value='Box'>Box</option>
+					</select>
+				</div>
+
+
+				<label for="departureSize" class="col-md-2 control-label">수량</label>
+				<div class="col-md-2">
+					<input class="form-control" type="number" id="requestQty"
+						name="requestQty" min="1" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="needDate" class="col-md-3 control-label">희망 도착 날짜</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control" id="needDate" name="needDate">
+					<script>
+						$("#needDate").datetimepicker({
+							locale : 'ko',
+							format : 'YYYY/MM/DD',
+							showClose : true,
+							showClear : true,
+							showTodayButton : true,
+							stepping : 30,
+							//defaultDate : new Date(),
+							sideBySide : true
+						});
+					</script>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="deliveryAddr" class="col-md-3 control-label">도착 배송지</label>
+				<div class="col-md-6">
+					<input class="form-control" type="text" id="deliveryAddr" name="deliveryAddr" 
+					placeholder="도착지" value="${sessionScope.viewCustomer.customerLoc} ${sessionScope.viewCustomer.locAddr}">
+						<!-- style="cursor: pointer;" onclick="addrDialog(this)" readonly -->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="cellphone" class="col-md-3 control-label">연락처</label>
+				<div class="col-md-3">
+					<input class="form-control" type="text" id="phone" name="phone" value="${sessionScope.viewCustomer.customerPhone}"/>
+				</div>
+
+
 			</div>
 
 
-			<label for="departureSize" class="col-md-2 control-label">수량</label>
-			<div class="col-md-2">
-				<input class="form-control" type="number" id="requestQty"
-					name="requestQty" min="1"/>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="needDate" class="col-md-3 control-label">희망 도착 날짜</label>
-			<div class="col-md-6">
-				<input type="text" class="form-control" id="needDate"
-					name="needDate">
-
-				<script>
-					$("#needDate").datetimepicker({
-						locale : 'ko',
-						format : 'YYYY/MM/DD',
-						showClose : true,
-						showClear : true,
-						showTodayButton : true,
-						stepping : 30,
-						//defaultDate : new Date(),
-						sideBySide : true
-					});
-				</script>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="deliveryAddr" class="col-md-3 control-label">도착 배송지</label>
-			<div class="col-md-6">
-				<input class="form-control" type="text" id="deliveryAddr"
-					name="deliveryAddr" style="cursor: pointer;"
-					onclick="addrDialog(this)" placeholder="도착지" readonly>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="cellphone" class="col-md-3 control-label">연락처</label>
-			<div class="col-md-3">
-				<input class="form-control" type="text" id="phone"
-					name="phone" />
-			</div>
- 
-
-		</div>
-
-
-		<!-- <div class="form-group">
+			<!-- <div class="form-group">
 			<label for="fullprice" class="col-md-3 control-label">총 금액</label>
 			<div class="col-md-3">
 				<input type="text" class="form-control" id="fullprice"
@@ -459,8 +454,8 @@
 		</div>
  -->
 
-	</form>
-</div>
+		</form>
+	</div>
 </body>
 
 

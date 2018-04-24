@@ -47,7 +47,7 @@ public class ItemsController {
 
 	// 품목 등록 처리
 	@RequestMapping("/insertItems")
-	public String insertItems(ItemsVO vo) {		
+	public String insertItems(ItemsVO vo) {
 		itemsService.insertItems(vo);
 		return "items/getitemsList";
 	}
@@ -80,16 +80,33 @@ public class ItemsController {
 	public String getitemsList(ItemsVO vo) {
 		return "items/getitemsList";
 	}
-	
-	
-	//구매업체 조회 처리
+
+	// 구매업체 조회 처리
 	@RequestMapping("/getVendorList2.do")
 	@ResponseBody
 	public List<ItemsVO> getItemsList(ItemsVO vo, Model model) {
-		//List<ItemsVO> list = itemsService.getVendorList2(vo);
-		//model.addAttribute("vendorList",list);
-		//return "items/getitemsList";
+		// List<ItemsVO> list = itemsService.getVendorList2(vo);
+		// model.addAttribute("vendorList",list);
+		// return "items/getitemsList";
 		return itemsService.getVendorList2(vo);
+	}
+
+	@RequestMapping("/getItemGroups2.do")
+	@ResponseBody
+	public List<ItemsVO> getItemGroup2(ItemsVO vo, Model model) {
+		// List<ItemsVO> list = itemsService.getVendorList2(vo);
+		// model.addAttribute("vendorList",list);
+		// return "items/getitemsList";
+		return itemsService.getItemGroup2(vo);
+	}
+
+	@RequestMapping("/getItemGroups3.do")
+	@ResponseBody
+	public List<ItemsVO> getItemGroup3(ItemsVO vo, Model model) {
+		// List<ItemsVO> list = itemsService.getVendorList2(vo);
+		// model.addAttribute("vendorList",list);
+		// return "items/getitemsList";
+		return itemsService.getItemGroup3(vo);
 	}
 
 	// 품목 전체 조회 처리
@@ -98,17 +115,16 @@ public class ItemsController {
 	public List<ItemsVO> getItemsListGridData(Model model, ItemsVO vo) {
 		vo.setFirst(1);
 		vo.setLast(30);
-		model.addAttribute("vendorName",vo);
+		model.addAttribute("vendorName", vo);
 		System.out.println(vo.getAddDate());
 		return itemsService.getItemsList(vo);
 	}
 
-
 	// 품목 추가, 수정, 삭제 기능
 	@RequestMapping("/getItemsDataEdit")
 	@ResponseBody
-	public void getItemsDataEdit(@RequestParam(value = "oper", defaultValue = "", required = false) String oper,
-			ItemsVO vo, @RequestParam(value = "itemCode", defaultValue = "", required = false) String itemCode) {
+	public void getItemsDataEdit(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, ItemsVO vo,
+			@RequestParam(value = "itemCode", defaultValue = "", required = false) String itemCode) {
 		System.out.println(vo);
 		if (oper.equals("add")) {
 			itemsService.insertItems(vo);
@@ -167,8 +183,8 @@ public class ItemsController {
 	// 구매 업체 여러건 삭제 (거래중단으로 update)
 	@RequestMapping("/VendorEdit")
 	@ResponseBody
-	public void deleteVendor(@RequestParam(value = "oper", defaultValue = "", required = false) String oper,
-			VendorVO vo, @RequestParam(value = "vendorCode", defaultValue = "", required = false) String vendorCode) {
+	public void deleteVendor(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, VendorVO vo,
+			@RequestParam(value = "vendorCode", defaultValue = "", required = false) String vendorCode) {
 		if (oper.equals("del")) {
 			vendorService.deleteVendor(vo);
 			if (vendorCode.length() > 0) {
@@ -222,8 +238,7 @@ public class ItemsController {
 	// 판매 업체 여러건 삭제 (거래중단으로 update)
 	@RequestMapping("/CustomerEdit")
 	@ResponseBody
-	public void deleteCustomer(@RequestParam(value = "oper", defaultValue = "", required = false) String oper,
-			CustomerVO vo,
+	public void deleteCustomer(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, CustomerVO vo,
 			@RequestParam(value = "customerCode", defaultValue = "", required = false) String customerCode) {
 		if (oper.equals("del")) {
 			customerService.deleteCustomer(vo);
@@ -248,7 +263,7 @@ public class ItemsController {
 	// 판매 업체 주문 요청 등록
 	@RequestMapping("/insertSales_temp")
 	public String insertSales_temp(Sales_tempVO vo, HttpSession session) {
-		vo.setCustomerCode(((CustomerVO)session.getAttribute("viewCustomer")).getCustomerCode());
+		vo.setCustomerCode(((CustomerVO) session.getAttribute("viewCustomer")).getCustomerCode());
 		sales_tempService.insertSales_temp(vo);
 		return "items/getPurchaseRequest";
 	}
@@ -272,7 +287,7 @@ public class ItemsController {
 	@RequestMapping("/getSales_tempList")
 	@ResponseBody
 	public List<Sales_tempVO> getSales_tempList(Model model, Sales_tempVO vo, HttpSession session) {
-		vo.setCustomerCode(((CustomerVO)session.getAttribute("viewCustomer")).getCustomerCode());
+		vo.setCustomerCode(((CustomerVO) session.getAttribute("viewCustomer")).getCustomerCode());
 		vo.setFirst(1);
 		vo.setLast(1000);
 		return sales_tempService.getSales_tempList(vo);
@@ -288,8 +303,7 @@ public class ItemsController {
 	// 판매 업체 여러건 삭제 (거래중단으로 update)
 	@RequestMapping("/Sales_tempEdit")
 	@ResponseBody
-	public void deleteSales_temp(@RequestParam(value = "oper", defaultValue = "", required = false) String oper,
-			Sales_tempVO vo,
+	public void deleteSales_temp(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, Sales_tempVO vo,
 			@RequestParam(value = "customerCode", defaultValue = "", required = false) String customerCode) {
 		if (oper.equals("del")) {
 			sales_tempService.deleteSales_temp(vo);
@@ -337,19 +351,19 @@ public class ItemsController {
 		if (result == true) { // 로그인 성공
 
 			vo = customerService.getCustomer(vo);
-			
+
 			// session에 로그인정보값을 저장한다.
 			session.setAttribute("viewCustomer", vo);
 			// getPurchaseRequest.jsp로 이동
 			if (vo.getCustomerCode().equals("admin12345") && vo.getCustomerPw().equals("12345")) {
 				mav.setViewName("stocks/getCharts");
 				mav.addObject("msg", "success");
-							
+
 			} else {
 				mav.setViewName("items/getPurchaseRequest");
 				mav.addObject("msg", "success");
 			}
-					
+
 		} else { // 로그인 실패
 			// login.jsp로 이동
 			mav.setViewName("items/login");

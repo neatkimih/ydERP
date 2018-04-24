@@ -10,6 +10,7 @@
 			,i.item_name
 			,i.uom
 			,i.in_qty
+			,i.min_qty
 			,i.supply_price
 			,i.selling_price
 			,i.item_tax
@@ -29,7 +30,7 @@
 				AND item_code like '%' || #{pGroup3} || '%'
 			</if>
 		</where>
-		ORDER BY item_code DESC
+		ORDER BY add_date DESC
 	</select>
 	<!-- -->
 	<select id="getItems" parameterType="items" resultType="com.yedam.erp.items.Sales_tempVO">
@@ -57,9 +58,29 @@
 
 	<select id="getVendorList2" resultType="com.yedam.erp.items.ItemsVO">
 		SELECT vendor_code,
-		vendor_name
+			   vendor_name
 		FROM vendors
 		WHERE use_flag = 'Y'
+	</select>
+
+	<select id="getItemGroup2" parameterType="com.yedam.erp.items.ItemsVO" resultType="com.yedam.erp.items.ItemsVO">
+		<![CDATA[
+		SELECT v.lookup_code
+		      ,v.lookup_values||'('||v.lookup_code||')' lookup_values
+		FROM   item_group2_v v
+		WHERE  v.dff = #{lookupCode}
+		ORDER  BY 1
+		]]>
+	</select>
+
+	<select id="getItemGroup3" parameterType="com.yedam.erp.items.ItemsVO" resultType="com.yedam.erp.items.ItemsVO">
+		<![CDATA[
+		SELECT v.lookup_code
+		      ,v.lookup_values||'('||v.lookup_code||')' lookup_values
+		FROM   item_group3_v v
+		WHERE  v.dff = #{lookupCode}
+		ORDER  BY 1
+		]]>
 	</select>
 
 	<insert id="insertItems" parameterType="items" statementType="CALLABLE">
@@ -74,7 +95,7 @@
                              ,#{sellingPrice} 
                              ,#{itemTax}       
                              ,#{expireDate}
-                             ,#{vendorCode}  
+                             ,#{vendorName}  
                              ,#{minQty}
                              ,sysdate     
                              ,#{msg, mode=OUT, jdbcType=VARCHAR, javaType=string}          
@@ -94,7 +115,7 @@
 		      ,item_tax  = #{itemTax}
 		      ,expire_date = #{expireDate}
 		      ,vendor_code  = #{vendorCode}
-	      
+		      ,min_qty = #{minQty}
 		WHERE  item_code = #{itemCode}
 		]]>
 	</update>
@@ -215,7 +236,6 @@
 		      ,loc_addr
 		      ,use_flag
 		FROM  customers
-		WHERE use_flag = 'Y'
 		ORDER BY customer_code DESC
 		]]>
 	</select>

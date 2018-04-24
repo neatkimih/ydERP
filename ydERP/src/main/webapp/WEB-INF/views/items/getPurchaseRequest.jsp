@@ -26,10 +26,10 @@
 	src="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/daumaddr/daumAddr.js"></script>
+ 
 
 
-
-<script>
+<script> 
 
 	
 	
@@ -177,7 +177,7 @@
 	 
 	 
 <script>
-	function submit() {
+	function requestsubmit() {
 		document.FormPost.submit();
 	}
 	
@@ -204,20 +204,37 @@
 		});
 	}	
 	
+	function logoutcheck() {
+		location.href='logout';
+	}
+	title_nav = "[ getPurchaseRequest.jsp ::: 판매주문정보 요청화면(판매정보 입력) ]";
+
 </script>
 <body>
-<div class="page-header">
+<div class="col-md-24">
+<div class="panel-heading">
+					
+					<c:if test="${not empty sessionScope.viewCustomer.customerCode}"> 
+					<div class="col-md-24">
+					<h3> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+					 ${sessionScope.viewCustomer.customerName}님 환영합니다. 
+					<input class="btn btn-primary" type="button" name="logout" value="로그아웃" onclick="logoutcheck()"/>
+					 </h3>
+					 </div>
+					</c:if>
 		<h1>
 			구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
 			&nbsp; &nbsp;  &nbsp; 
 			
 				<input class="btn btn-primary" type="button" value="주문하기"
-					onclick="submit()">
+					onclick="requestsubmit()">
 				<input class="btn btn-success" type="button" value="취소"
 					onclick="PurchaseRequestcancel()">
 			
 		</h1>
+	</div>
 	</div>
 
 <script type="text/javascript">
@@ -231,7 +248,7 @@
 			styleUI : 'Bootstrap',
 			colModel : [ {
 				label : "구매번호",
-				name : "customerCode",
+				name : "customSeq",
 				key : true,
 				align : "center",
 				width : 100,
@@ -240,17 +257,17 @@
 			}, {
 				label : "주문 품목명",
 				name : "itemName",
-				width : 120,
+				width : 180,
 				editable : false
 			},{
 				label : "주문 수량",
 				name : "requestQty",
-				width : 80,
+				width : 50,
 				editable : false
 			}, {
 				label : "주문 날짜",
 				name : "createDate",
-				width : 130,
+				width : 80,
 				align : "left",
 				editable : true,
 				formatter: "date",
@@ -259,8 +276,8 @@
 			}, {
 				label : "희망 배송 날짜",
 				name : "needDate",
-				width : 130,
-				align : "right",
+				width : 80,
+				align : "left",
 				editable : true,
 				formatter: "date",
 				formatoptions: { srcformat:'U/1000', newformat: " Y/m/d" }
@@ -268,21 +285,34 @@
 			pager : "#pager",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
-			sortname : "itemName",
+			sortname : "itemCode",
 			sortorder : "desc",
+			onSelectRow : function (rowid) {
+			 	
+				if (rowid >= 0) {
+			      var rowData = jQuery('#list').jqGrid ('getRowData', rowid);
+		    
+			     console.log(rowid);
+			     
+			     document.FormPost.first.value = rowData.pGroup1;
+			     document.FormPost.second.value = rowData.pGroup2;
+			     document.FormPost.third.value = rowData.pGroup3;
+			     
+			     document.FormPost.customerName.value = rowData.itemName;
+			     document.FormPost.requestQty.value = rowData.requestQty;
+			     document.FormPost.hopeDate.value = rowData.needDate;
+			     document.FormPost.deliveryAddr.value = rowData.deliveryAddr;
+			     document.FormPost.phone.value = rowData.phone;
+				}
+			
+			},
 			viewrecords : true,
 			gridview : false,
 			autoencode : true,
 			loadonce : true,
-			/* onSelectRow : function(id) {
-
-				jQuery(this).editRow(id, true)
-			}, */
-			rowNum : 10,
 			height : 'auto',
 			autowidth : true,
 			responsive : true,
-			multiselect : false,
 			pager : "#pager"
 		});
 
@@ -321,7 +351,7 @@
 		<div class="form-group">
 			<label for="Category" class="col-md-3 control-label">품목종류</label>
 			<div class="col-md-2">
-				<select class="form-control" id="first" name="first"
+				<select class="form-control" id="first" 
 					onchange="firstChange()">
 					<option value=''>대분류</option>
 					<option value='P'>필기구</option>
@@ -331,27 +361,29 @@
 				</select>
 			</div>
 			<div class="col-md-2">
-				<select class="form-control" id="second" name="second"
+				<select class="form-control" id="second" 
 					onchange="secondChange()">
 					<option value=''>중분류</option>
 				</select>
 			</div>
 			<div class="col-md-2">
-				<select class="form-control" id="third" name="third" onchange="thirdChange()">
+				<select class="form-control" id="third" onchange="thirdChange()">
 					<option value=''>소분류</option>
 				</select>
 			</div>
 		</div>
-
+		
 		<div class="form-group">
 			<label for="departureSize" class="col-md-3 control-label">품목명</label>
 			<div class="col-md-6">
+				<input class="form-control" type="hidden" id="customerCode"
+					name="customerCode"/>				
 				<input class="form-control" type="hidden" id="itemCode"
 					name="itemCode" />
 				<select class="form-control" id="itemList"
 					name="itemList">
 					<option value="">선택</option>
-							<c:forEach items="${getItemsList}" var="lkup">
+							<c:forEach items="${getItemsList}">
 								<option value="${itemCode}">${itemName}</option>
 							</c:forEach>
 				</select>
@@ -365,29 +397,27 @@
 					<option value=''>선택</option>
 					<option value='Set'>Set</option>
 					<option value='Box'>Box</option>
-					<option value='Other'>Other</option>
-					<option value='Another'>Another</option>
 				</select>
 			</div>
 
 
 			<label for="departureSize" class="col-md-2 control-label">수량</label>
 			<div class="col-md-2">
-				<input class="form-control" type="number" id="itemQty"
-					name="itemQty" min="1"/>
+				<input class="form-control" type="number" id="requestQty"
+					name="requestQty" min="1"/>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="hopeDate" class="col-md-3 control-label">희망 도착 날짜</label>
+			<label for="needDate" class="col-md-3 control-label">희망 도착 날짜</label>
 			<div class="col-md-6">
-				<input type="text" class="form-control" id="hopeDate"
-					name="hopeDate">
+				<input type="text" class="form-control" id="needDate"
+					name="needDate">
 
 				<script>
-					$("#hopeDate").datetimepicker({
+					$("#needDate").datetimepicker({
 						locale : 'ko',
-						format : 'YYYY-MM-DD',
+						format : 'YYYY/MM/DD',
 						showClose : true,
 						showClear : true,
 						showTodayButton : true,
@@ -400,10 +430,10 @@
 		</div>
 
 		<div class="form-group">
-			<label for="ArriveAddr" class="col-md-3 control-label">도착 배송지</label>
+			<label for="deliveryAddr" class="col-md-3 control-label">도착 배송지</label>
 			<div class="col-md-6">
-				<input class="form-control" type="text" id="ArriveAddr"
-					name="ArriveAddr" style="cursor: pointer;"
+				<input class="form-control" type="text" id="deliveryAddr"
+					name="deliveryAddr" style="cursor: pointer;"
 					onclick="addrDialog(this)" placeholder="도착지" readonly>
 			</div>
 		</div>
@@ -411,26 +441,22 @@
 		<div class="form-group">
 			<label for="cellphone" class="col-md-3 control-label">연락처</label>
 			<div class="col-md-3">
-				<input class="form-control" type="text" id="cellphone"
-					name="cellphone" />
+				<input class="form-control" type="text" id="phone"
+					name="phone" />
 			</div>
  
 
 		</div>
 
 
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label for="fullprice" class="col-md-3 control-label">총 금액</label>
 			<div class="col-md-3">
 				<input type="text" class="form-control" id="fullprice"
 					placeholder="총 금액" readonly="readonly">
 			</div>
-
-
-			
-
 		</div>
-
+ -->
 
 	</form>
 </div>

@@ -21,13 +21,6 @@
 	type="text/javascript"></script>
 <script>
 	//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수 2개 + 구매업체 이름을 DB에서 가져와서 등록할시 구매코드로 등록하게 하는 함수 1개
-	$(function() {
-
-		$(document.body).on("change", "#pGroup1", firstChange);
-		$(document.body).on("change", "#pGroup2", secondChange);
-		$(document.body).on("selectVendor", "#vendorCode", selectVendor);
-
-	});
 
 	function firstChange() {
 
@@ -150,8 +143,7 @@
 		}
 		temp.options[0].selected = true
 	}
-</script>
-<script>
+
 	function selectVendor() {
 
 	}
@@ -162,7 +154,20 @@
 	var lastsel3;
 	var vendorData = ":선택";
 	var params;
+	var vgrp2 = ":선택";
+	var vgrp3 = ":선택";
+	var vwhere2;
+	var vwhere3;
 
+	$(function() {
+
+		$(document.body).on("change", "#pGroup1", firstChange1);
+		$(document.body).on("change", "#pGroup2", secondChange1);
+		//$(document.body).on("selectVendor", "#vendorCode", selectVendor);
+
+	});
+
+	//업체리스트.
 	$(function() {
 		$.ajax({
 			url : "./getVendorList2.do",
@@ -176,6 +181,46 @@
 			}
 		});
 	});
+
+	//중분류리스트.
+	function firstChange1() {
+		vwhere2 = $("#pGroup1").val();
+		console.dir(vwhere2+"=========vwhere2")
+		$.ajax({
+			url : "./getItemGroups2.do?lookupCode="+vwhere2,
+			data : params,
+			async : false,
+			dataType : "json",
+			success : function(datas) {
+				$("#pGroup2 option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					$("#pGroup2").append("<option value='"+datas[i].lookupCode+"'>"+datas[i].lookupValues+"</option>")
+					//vgrp2 += ";" + datas[i].lookupCode + ":" + datas[i].lookupValues;
+					console.dir(vgrp2);
+				}
+			}
+		});
+	};
+
+	//소분류리스트.
+	function secondChange1() {
+		vwhere3 = $("#pGroup2").val();
+		console.dir(vwhere3+"=========vwhere3")
+		$.ajax({
+			url : "./getItemGroups3.do?lookupCode="+vwhere3,
+			data : params,
+			async : false,
+			dataType : "json",
+			success : function(datas) {
+				$("#pGroup3 option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					$("#pGroup3").append("<option value='"+datas[i].lookupCode+"'>"+datas[i].lookupValues+"</option>")
+					//vgrp3 += ";" + datas[i].lookupCode + ":" + datas[i].lookupValues;
+					console.dir(vgrp3);
+				}
+			}
+		});
+	};
 
 	$(function() {
 
@@ -195,42 +240,42 @@
 				name : "pGroup1",
 				width : 300,
 				editrules : {
-					required : true,
+					required : false,
 					edithidden : true
 				},
 				hidden : true,
 				editable : true,
 				edittype : "select",
 				editoptions : {
-					value : ":선택;P:필기구;J:종이;O:일반사무용품;F:화일/바인더"
+					value : ":선택;P:필기구(P);A:용지류(A);O:사무용품(O);F:파일/바인더(F)"
 				}
 			}, {
 				label : "품목 중분류",
 				name : "pGroup2",
 				width : 300,
 				editrules : {
-					required : true,
+					required : false,
 					edithidden : true
 				},
 				hidden : true,
 				editable : true,
 				edittype : "select",
 				editoptions : {
-					value : ":선택"
+					value : vgrp2
 				}
 			}, {
 				label : "품목 소분류",
 				name : "pGroup3",
 				width : 300,
 				editrules : {
-					required : true,
+					required : false,
 					edithidden : true
 				},
 				hidden : true,
 				editable : true,
 				edittype : "select",
 				editoptions : {
-					value : ":선택"
+					value : vgrp3
 				}
 			}, {
 				label : "품목 이름",
@@ -254,11 +299,11 @@
 				label : "최소 수량",
 				name : "minQty",
 				editrules : {
-					required : true,
+					required : false,
 					edithidden : true
 				},
-				hidden : true,
-				width : 40,
+				hidden : false,
+				width : 60,
 				align : "right",
 				editable : true
 
@@ -316,6 +361,10 @@
 				formatoptions : {
 					srcformat : 'U/1000',
 					newformat : "Y/m/d"
+				},
+				editoptions : {
+					srcformat : 'U/1000',
+					newformat : "Y/m/d"
 				}
 			} ],
 			pager : "#pager",
@@ -339,7 +388,7 @@
 			search : true, // show search button on the toolbar
 			edit : false,
 			add : true,
-			del : true,
+			del : false,
 			cancel : true,
 			refresh : true,
 
@@ -366,15 +415,6 @@
 		});
 
 	});
-	
-/* 	for (var i = 0; i < mydata3.length; i++)
-		jQuery("#rowed6").jqGrid('addRowData', mydata3[i].id, mydata3[i]);
-	
-	function pickdates(id) {
-		jQuery("#" + id + "_sdate", "#list").datepicker({
-			dateFormat : "yy-mm-dd"
-		});
-	} */
 </script>
 </head>
 
@@ -387,9 +427,7 @@
 		</div>
 	</div>
 
-
 	<table id="list">
-
 		<tr>
 			<td></td>
 		</tr>

@@ -43,7 +43,6 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public void deleteItemsList(ArrayList<String> seq) {
 		dao.deleteItemsList(seq);
-		;
 	}
 
 	@Override
@@ -53,8 +52,19 @@ public class ItemsServiceImpl implements ItemsService {
 
 	@Override
 	public List<ItemsVO> getVendorList2(ItemsVO vo) {
-		
 		return dao.getVendorList2(vo);
+	}
+
+	// getItemGroup2
+	@Override
+	public List<ItemsVO> getItemGroup2(ItemsVO vo) {
+		return dao.getItemGroup2(vo);
+	}
+
+	// getItemGroup3
+	@Override
+	public List<ItemsVO> getItemGroup3(ItemsVO vo) {
+		return dao.getItemGroup3(vo);
 	}
 
 }

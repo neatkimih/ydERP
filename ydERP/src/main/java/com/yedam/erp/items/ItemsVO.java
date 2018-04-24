@@ -9,7 +9,7 @@ public class ItemsVO {
 	private Integer inQty;
 	private Integer supplyPrice;
 	private Integer sellingPrice;
-	private Integer itemTax;
+	private Double itemTax;
 	private Integer expireDate;
 	private String vendorCode;
 	private String vendorName;
@@ -20,12 +20,29 @@ public class ItemsVO {
 	private String searchKeyword;
 	private String pGroup1;
 	private String pGroup2;
+	private String pGroup2Name;
 	private String pGroup3;
+	private String pGroup3Name;
 	private Integer minQty;
 	private String msg;
-	
+	private String lookupCode;
+	private String lookupValues;
 
-	
+	public String getLookupCode() {
+		return lookupCode;
+	}
+
+	public void setLookupCode(String lookupCode) {
+		this.lookupCode = lookupCode;
+	}
+
+	public String getLookupValues() {
+		return lookupValues;
+	}
+
+	public void setLookupValues(String lookupValues) {
+		this.lookupValues = lookupValues;
+	}
 
 	public String getItemCode() {
 		return itemCode;
@@ -75,11 +92,11 @@ public class ItemsVO {
 		this.sellingPrice = sellingPrice;
 	}
 
-	public Integer getItemTax() {
+	public Double getItemTax() {
 		return itemTax;
 	}
 
-	public void setItemTax(Integer itemTax) {
+	public void setItemTax(Double itemTax) {
 		this.itemTax = itemTax;
 	}
 
@@ -99,14 +116,22 @@ public class ItemsVO {
 		this.vendorCode = vendorCode;
 	}
 
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
+
 	public Date getAddDate() {
 		return addDate;
 	}
-	
+
 	public void setAddDate(Date addDate) {
 		this.addDate = addDate;
 	}
-	
+
 	public int getFirst() {
 		return first;
 	}
@@ -135,6 +160,10 @@ public class ItemsVO {
 		return searchKeyword;
 	}
 
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
 	public String getpGroup1() {
 		return pGroup1;
 	}
@@ -151,6 +180,14 @@ public class ItemsVO {
 		this.pGroup2 = pGroup2;
 	}
 
+	public String getpGroup2Name() {
+		return pGroup2Name;
+	}
+
+	public void setpGroup2Name(String pGroup2Name) {
+		this.pGroup2Name = pGroup2Name;
+	}
+
 	public String getpGroup3() {
 		return pGroup3;
 	}
@@ -159,8 +196,12 @@ public class ItemsVO {
 		this.pGroup3 = pGroup3;
 	}
 
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
+	public String getpGroup3Name() {
+		return pGroup3Name;
+	}
+
+	public void setpGroup3Name(String pGroup3Name) {
+		this.pGroup3Name = pGroup3Name;
 	}
 
 	public Integer getMinQty() {
@@ -178,27 +219,13 @@ public class ItemsVO {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	
-	
-
-	public String getVendorName() {
-		return vendorName;
-	}
-
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
-	}
 
 	@Override
 	public String toString() {
-		return "ItemsVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty=" + inQty
-				+ ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax=" + itemTax
-				+ ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", vendorName=" + vendorName
-				+ ", addDate=" + addDate + ", first=" + first + ", last=" + last + ", searchCondition="
-				+ searchCondition + ", searchKeyword=" + searchKeyword + ", pGroup1=" + pGroup1 + ", pGroup2=" + pGroup2
-				+ ", pGroup3=" + pGroup3 + ", minQty=" + minQty + ", msg=" + msg + "]";
+		return "ItemsVO [itemCode=" + itemCode + ", itemName=" + itemName + ", uom=" + uom + ", inQty=" + inQty + ", supplyPrice=" + supplyPrice + ", sellingPrice=" + sellingPrice + ", itemTax="
+				+ itemTax + ", expireDate=" + expireDate + ", vendorCode=" + vendorCode + ", vendorName=" + vendorName + ", addDate=" + addDate + ", first=" + first + ", last=" + last
+				+ ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", pGroup1=" + pGroup1 + ", pGroup2=" + pGroup2 + ", pGroup2Name=" + pGroup2Name + ", pGroup3="
+				+ pGroup3 + ", pGroup3Name=" + pGroup3Name + ", minQty=" + minQty + ", msg=" + msg + "]";
 	}
-
-	
 
 }

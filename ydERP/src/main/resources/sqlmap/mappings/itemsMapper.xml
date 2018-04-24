@@ -7,17 +7,17 @@
 	<!-- 여기서부터 기초 품목 관리 -->
 	<select id="getItemsList" resultType="items">
 		SELECT i.item_code
-		,i.item_name
-		,i.uom
-		,i.in_qty
-		,i.supply_price
-		,i.selling_price
-		,i.item_tax
-		,i.expire_date
-		,i.vendor_code
-		,i.add_date
+			,i.item_name
+			,i.uom
+			,i.in_qty
+			,i.supply_price
+			,i.selling_price
+			,i.item_tax
+			,i.expire_date
+			,i.vendor_code
+			,i.add_date
 		FROM items i
-		<where>  
+		<where>
 			<if test="pGroup1 != null and pGroup1 != '' ">
 				AND item_code like '%' || #{pGroup1} || '%'
 			</if>
@@ -31,14 +31,10 @@
 		ORDER BY item_code DESC
 	</select>
 	<!-- -->
-	<select id="getItems" parameterType="items"
-		resultType="com.yedam.erp.items.Sales_tempVO">
+	<select id="getItems" parameterType="items" resultType="com.yedam.erp.items.Sales_tempVO">
 		<![CDATA[
 		SELECT * FROM items 
 		]]>
-
-
-
 	</select>
 	<!-- -->
 	<select id="getCount" resultType="int" parameterType="items">
@@ -59,7 +55,8 @@
 	<!-- 구매업체 코드 및 이름 조회 -->
 
 	<select id="getVendorList2" resultType="com.yedam.erp.items.ItemsVO">
-		SELECT vendor_code, vendor_name
+		SELECT vendor_code,
+		vendor_name
 		FROM vendors
 		WHERE use_flag = 'Y'
 	</select>
@@ -131,7 +128,8 @@
 		      ,vendor_bank
 		      ,vendor_account
 		      ,vendor_bankowner
-		      ,use_flag 		      
+		      ,use_flag 
+		      ,loc_addr		      
 		FROM  vendors
 		ORDER BY vendor_code DESC
 		]]>
@@ -140,29 +138,29 @@
 	<!-- JqGrid 클릭 이벤트시 가져올 구매업체 한 개의 정보 -->
 	<select id="getVendor" resultType="com.yedam.erp.items.VendorVO">
 
-
 		SELECT vendor_code
-		,vendor_name
-		,vendor_owner
-		,vendor_loc
-		,vendor_phone
-		,vendor_bank
-		,vendor_account
-		,vendor_bankowner
+			,vendor_name
+			,vendor_owner
+			,vendor_loc
+			,vendor_phone
+			,vendor_bank
+			,vendor_account
+			,vendor_bankowner
+			,loc_addr
 		FROM vendors
 		WHERE vendor_code = #{vendorCode}
-
 
 	</select>
 
 	<!-- 구매업체 가입 -->
 	<insert id="insertVendor" parameterType="com.yedam.erp.items.VendorVO">
 		<![CDATA[
-		insert into vendors (vendor_code, vendor_name, vendor_owner,
+		insert into vendors (vendor_code, vendor_name, vendor_owner,loc_addr
 							   vendor_loc, vendor_phone, vendor_bank, vendor_account, vendor_bankowner, use_flag) 
 				      values (#{vendorCode}    
                           	 ,#{vendorName}      
                              ,#{vendorOwner}      
+                             ,#{locAddr}
                              ,#{vendorLoc}     
                              ,#{vendorPhone}
                              ,#{vendorBank}     
@@ -177,15 +175,14 @@
 	<update id="updateVendor" parameterType="com.yedam.erp.items.VendorVO">
 
 		UPDATE vendors
-		SET
-		vendor_owner = #{vendorOwner}
-		,vendor_loc = #{vendorLoc}
-		,vendor_phone = #{vendorPhone}
-		,vendor_bank = #{vendorBank}
-		,vendor_account = #{vendorAccount}
-		,vendor_bankowner = #{vendorBankowner}
-		,use_flag = #{useFlag}
-
+		SET vendor_owner = #{vendorOwner}
+			,vendor_loc = #{vendorLoc}
+			,loc_addr = #{locAddr}
+			,vendor_phone = #{vendorPhone}
+			,vendor_bank = #{vendorBank}
+			,vendor_account = #{vendorAccount}
+			,vendor_bankowner = #{vendorBankowner}
+			,use_flag = #{useFlag}
 		WHERE vendor_code = #{vendorCode}
 
 	</update>
@@ -199,12 +196,6 @@
 		WHERE vendor_code = #{vendorCode}
 
 	</update>
-
-
-
-
-
-
 
 	<!-- 구매 업체 관리의 끝 -->
 
@@ -220,7 +211,8 @@
 		      ,customer_bank
 		      ,customer_account
 		      ,customer_bankowner
-		     		      
+		      ,loc_addr
+		      ,use_flag
 		FROM  customers
 		WHERE use_flag = 'Y'
 		ORDER BY customer_code DESC
@@ -230,30 +222,31 @@
 	<!-- JqGrid 클릭 이벤트시 가져올 판매업체 한 개의 정보 -->
 	<select id="getCustomer" resultType="com.yedam.erp.items.CustomerVO">
 
-
 		SELECT customer_code
-		,customer_name
-		,customer_owner
-		,customer_loc
-		,customer_phone
-		,customer_pw
-		,customer_bank
-		,customer_account
-		,customer_bankowner
+			,customer_name
+			,customer_owner
+			,customer_loc
+			,customer_phone
+			,customer_pw
+			,customer_bank
+			,customer_account
+			,customer_bankowner
+			,loc_addr
+			,use_flag
 		FROM customers
 		WHERE customer_code = #{customerCode}
-
 
 	</select>
 
 	<!-- 판매업체 가입 -->
 	<insert id="insertCustomer" parameterType="com.yedam.erp.items.CustomerVO">
 		<![CDATA[
-		insert into customers (customer_code, customer_name, customer_owner,
+		insert into customers (customer_code, customer_name, customer_owner, loc_addr
 							   customer_loc, customer_phone, customer_pw, customer_bank, customer_account, customer_bankowner, use_flag) 
 				      values (#{customerCode}    
                           	 ,#{customerName}      
                              ,#{customerOwner}      
+                             ,#{locAddr}
                              ,#{customerLoc}     
                              ,#{customerPhone}
                              ,#{customerPw}
@@ -269,15 +262,15 @@
 	<update id="updateCustomer" parameterType="com.yedam.erp.items.CustomerVO">
 
 		UPDATE customers
-		SET
-		customer_owner = #{customerOwner}
-		,customer_loc = #{customerLoc}
-		,customer_phone = #{customerPhone}
-		,customer_pw = #{customerPw}
-		,customer_bank = #{customerBank}
-		,customer_account = #{customerAccount}
-		,customer_bankowner = #{customerBankowner}
-
+		SET customer_owner = #{customerOwner}
+			,customer_loc = #{customerLoc}
+			,customer_phone = #{customerPhone}
+			,customer_pw = #{customerPw}
+			,customer_bank = #{customerBank}
+			,customer_account = #{customerAccount}
+			,customer_bankowner = #{customerBankowner}
+			,loc_addr = #{locAddr}
+			,use_flag = #{useFlag}
 		WHERE customer_code = #{customerCode}
 
 	</update>
@@ -286,73 +279,72 @@
 	<update id="deleteCustomer" parameterType="com.yedam.erp.items.CustomerVO">
 
 		UPDATE customers
-		SET
-		use_flag = 'N'
+		SET use_flag = 'N'
 		WHERE customer_code = #{customerCode}
 	</update>
 
 	<select id="checkCustomerCode" parameterType="com.yedam.erp.items.CustomerVO">
-		SELECT customer_code from customers where customer_code = #{customerCode}
+		SELECT customer_code 
+		FROM customers 
+		WHERE customer_code = #{customerCode}
 	</select>
 
 	<select id="loginCheck" resultType="String">
-		SELECT customer_owner AS customerOwner FROM customers
-		WHERE customer_code = #{customerCode} AND customer_pw = #{customerPw}
+		SELECT customer_owner AS customerOwner 
+		FROM customers
+		WHERE customer_code = #{customerCode} AND
+		customer_pw = #{customerPw}
 	</select>
 
 	<select id="viewCustomer" resultType="com.yedam.erp.items.CustomerVO">
-		SELECT
-		customer_code AS customerCode,
-		customer_name AS customerName,
-		customer_owner AS customerOwner,
-		customer_loc AS customerLoc,
-		customer_bank AS customerBank,
-		customer_account AS customerAccount,
-		customer_bankowner AS customerBankowner
+		SELECT customer_code AS customerCode,
+			customer_name AS customerName,
+			customer_owner AS customerOwner,
+			customer_loc AS customerLoc,
+			customer_bank AS customerBank,
+			customer_account AS customerAccount,
+			customer_bankowner AS customerBankowner,
+			use_flag,
+			loc_addr
 		FROM customers
-		WHERE customer_code = #{customerCode} AND customer_pw = #{customerPw}
+		WHERE customer_code = #{customerCode}
+		AND customer_pw = #{customerPw}
 	</select>
-	
+
 	<!-- 판매업체 관리의 끝 -->
-
-
 
 	<!-- 여기서부터 판매업체 구매 요청 -->
 	<!-- 판매업체 구매 요청 정보 리스트 -->
 	<select id="getSales_tempList" resultType="com.yedam.erp.items.Sales_tempVO">
 
-      SELECT st.customer_code
-            ,common.get_customer_name(st.customer_code) AS customer_name
-            ,st.item_code
-            ,common.get_item_name(st.item_code) AS item_name
-            ,st.request_qty
-            ,st.need_date
-            ,st.create_date
-            ,st.phone
-            ,st.delivery_addr
-            ,st.custom_seq
-      FROM   sales_temp st
-      WHERE  1 = 1
-      AND    customer_code = #{customerCode}
-      ORDER  BY st.item_code
+		SELECT st.customer_code
+			,common.get_customer_name(st.customer_code) AS customer_name
+			,st.item_code
+			,common.get_item_name(st.item_code) AS item_name
+			,st.request_qty
+			,st.need_date
+			,st.create_date
+			,st.phone
+			,st.delivery_addr
+			,st.custom_seq
+		FROM sales_temp st
+		WHERE 1 = 1
+		AND customer_code = #{customerCode}
+		ORDER BY st.item_code
 
 	</select>
 
 	<!-- JqGrid 클릭 이벤트시 가져올 판매업체 구매목록 중 한 개의 정보 -->
 	<select id="getSales_temp" resultType="com.yedam.erp.items.Sales_tempVO">
 
-
 		SELECT customer_code
-		,item_code
-		,request_qty
-		,delivery_addr
-		,need_date
-		,create_date
-
-
+			,item_code
+			,request_qty
+			,delivery_addr
+			,need_date
+			,create_date
 		FROM Sales_temp
 		WHERE customer_code = #{customerCode}
-
 
 	</select>
 
@@ -386,11 +378,10 @@
 
 		UPDATE Sales_temp
 		SET customer_owner = #{customerOwner}
-		,customer_loc = #{customerLoc}
-		,request_qty = #{requestQty}
-		,need_date = #{needDate}
-		,create_date = #{createDate}
-
+			,customer_loc = #{customerLoc}
+			,request_qty = #{requestQty}
+			,need_date = #{needDate}
+			,create_date = #{createDate}
 		WHERE customer_code = #{customerCode}
 
 	</update>

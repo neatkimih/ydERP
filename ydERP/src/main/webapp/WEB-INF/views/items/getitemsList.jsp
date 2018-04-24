@@ -16,17 +16,17 @@
 	type="text/javascript"></script>
 
 <script>
-//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수 2개 + 구매업체 이름을 DB에서 가져와서 등록할시 구매코드로 등록하게 하는 함수 1개
-$(function(){
-	
-	$(document.body).on("change","#pGroup1", firstChange);
-	$(document.body).on("change","#pGroup2", secondChange);
-	$(document.body).on("selectVendor", "#vendorCode", selectVendor);
+	//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수 2개 + 구매업체 이름을 DB에서 가져와서 등록할시 구매코드로 등록하게 하는 함수 1개
+	$(function() {
 
-});
+		$(document.body).on("change", "#pGroup1", firstChange);
+		$(document.body).on("change", "#pGroup2", secondChange);
+		$(document.body).on("selectVendor", "#vendorCode", selectVendor);
+
+	});
 
 	function firstChange() {
-		
+
 		var x = document.FormPost.pGroup1.selectedIndex;
 		var groups = document.FormPost.pGroup1.options.length;
 		var group = new Array(groups);
@@ -63,7 +63,7 @@ $(function(){
 	}
 
 	function secondChange() {
-		
+
 		var first = document.FormPost.pGroup1.selectedIndex;
 		var x = document.FormPost.pGroup2.options.selectedIndex;
 		var groups = document.FormPost.pGroup2.options.length;
@@ -146,35 +146,34 @@ $(function(){
 		}
 		temp.options[0].selected = true
 	}
-	
 </script>
 <script>
 	function selectVendor() {
-		
-	}
 
+	}
+	title_nav = "[ getitemsList.jsp ::: 품목기초정보 관리화면(입력/수정/삭제 처리) ]";
 </script>
 <!-- jqGrid -->
 <script type="text/javascript">
-var vendorData = ":선택";
-var params;
+	var vendorData = ":선택";
+	var params;
 
-$(function() {
-	$.ajax({
-		url : "./getVendorList2.do",
-		data : params,
-		async : false,
-		dataType : "json",
-		success : function(params) {
-			 for (i = 0; i < params.length; i++) {
-				vendorData += ";" + params[i].vendorCode +":" + params[i].vendorName;
-			} 
-		}
-	});
-});
-	
 	$(function() {
-	
+		$.ajax({
+			url : "./getVendorList2.do",
+			data : params,
+			async : false,
+			dataType : "json",
+			success : function(params) {
+				for (i = 0; i < params.length; i++) {
+					vendorData += ";" + params[i].vendorCode + ":" + params[i].vendorName;
+				}
+			}
+		});
+	});
+
+	$(function() {
+
 		$("#list").jqGrid({
 			url : "getItemsList.do",
 			editurl : "getItemsDataEdit",
@@ -190,41 +189,45 @@ $(function() {
 				label : "품목 대분류",
 				name : "pGroup1",
 				width : 300,
-				editrules:{
-                    required:true, 
-                    edithidden:true
-                 },
+				editrules : {
+					required : true,
+					edithidden : true
+				},
 				hidden : true,
 				editable : true,
 				edittype : "select",
-				editoptions : {value:":선택;P:필기구;J:종이;O:일반사무용품;F:화일/바인더"}
-			},	{
+				editoptions : {
+					value : ":선택;P:필기구;J:종이;O:일반사무용품;F:화일/바인더"
+				}
+			}, {
 				label : "품목 중분류",
 				name : "pGroup2",
 				width : 300,
-				editrules:{
-                    required:true, 
-                    edithidden:true
-                 },
+				editrules : {
+					required : true,
+					edithidden : true
+				},
 				hidden : true,
 				editable : true,
 				edittype : "select",
-				editoptions : {value:":선택"}
-			},	{
+				editoptions : {
+					value : ":선택"
+				}
+			}, {
 				label : "품목 소분류",
 				name : "pGroup3",
 				width : 300,
-				editrules:{
-                    required:true, 
-                    edithidden:true
-                 },
+				editrules : {
+					required : true,
+					edithidden : true
+				},
 				hidden : true,
 				editable : true,
 				edittype : "select",
-				editoptions : {value:":선택"}
-			},
-						
-				{
+				editoptions : {
+					value : ":선택"
+				}
+			}, {
 				label : "품목 이름",
 				name : "itemName",
 				width : 250,
@@ -241,20 +244,20 @@ $(function() {
 				width : 40,
 				align : "right",
 				editable : true
-				
+
 			}, {
 				label : "최소 수량",
 				name : "minQty",
-				editrules:{
-                    required:true, 
-                    edithidden:true
-                 },
+				editrules : {
+					required : true,
+					edithidden : true
+				},
 				hidden : true,
 				width : 40,
 				align : "right",
 				editable : true
-				
-			},	{
+
+			}, {
 				label : "공급가",
 				name : "supplyPrice",
 				width : 90,
@@ -284,15 +287,20 @@ $(function() {
 				width : 90,
 				align : "right",
 				edittype : "select",
- 				editoptions : {value:vendorData},
+				editoptions : {
+					value : vendorData
+				},
 				editable : true
 			}, {
 				label : "품목 등록 일자",
 				name : "addDate",
 				width : 90,
 				editable : false,
-				formatoptions: { srcformat:'U/1000', newformat: " Y/m/d" }
-			}],
+				formatoptions : {
+					srcformat : 'U/1000',
+					newformat : "Y/m/d"
+				}
+			} ],
 			pager : "#pager",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
@@ -319,7 +327,6 @@ $(function() {
 			refresh : true,
 
 		}, {}, {
-						
 			closeAfterAdd : true,
 			reloadAfterSubmit : true,
 			template : $("#form1").html(),
@@ -333,9 +340,7 @@ $(function() {
 			serializeDelData : function(postdata) {
 				return "op.del&itemCode=" + postdata.id
 			}
-		}
-
-		);
+		});
 
 		$('#list').inlineNav('#pager', {
 			edit : true,
@@ -350,17 +355,12 @@ $(function() {
 <body>
 
 	<div class="col-md-24">
-	 <div class="panel-heading">
-	 <h1>
-			품목 리스트
-	</h1>
-	<div class="col-md-24">
-	</div>
-	</div>
+		<div class="panel-heading">
+			<h1>품목 리스트</h1>
+			<div class="col-md-24"></div>
+		</div>
 	</div>
 
-	
-	
 
 	<table id="list">
 

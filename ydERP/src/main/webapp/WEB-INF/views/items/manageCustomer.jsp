@@ -138,6 +138,7 @@
 					console.log("선택된 판매코드 : " + selectedCustomerCode);
 		  } 
  
+	title_nav = "[ manageCustomer.jsp ::: 고객관리 화면(고객 등록/수정/삭제) ]";
 
 </script>
 

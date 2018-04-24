@@ -75,6 +75,16 @@ public class PurchasesController
 	public List<Map<String, Object>> getDeliveryListMap() {			
 		
 		return purchasesService.getDeliveryListMap();											
+	
+	
 	}
+	
+	//GPS view
+	@RequestMapping("/getDeliveryMap")
+	public String getDeliveryList(Model model, PurchasesVO vo) {
+		 return "purchases/GPSiframe";
+	}
+	
+	
 	
 }

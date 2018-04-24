@@ -124,14 +124,12 @@
 			serializeDelData : function(postdata) {
 				return "oper=del&saleCode=" + postdata.id
 			}
-		}
-
-		);
+		});
 	});
 	
 	function clearSelection() {
 		jQuery("#orderDetail").jqGrid('setGridParam',{url: "getOrderDetail.do", datatype: 'json'});
-		jQuery("#orderDetail").jqGrid('setCaption', 'none');
+		jQuery("#orderDetail").jqGrid('setCaption', '주문 상세 목록');
 		jQuery("#orderDetail").trigger("reloadGrid");
 	}
 	
@@ -148,21 +146,20 @@
 	
 	/* 승인확인 버튼 생성 */
 	function permitBtn (cellvalue, options, rowObject) {
-		console.log("승인확인 버튼 생성");
-		console.dir(options);
 		return '<input type="button" onclick="jQuery(\'#orderList\').saveRow(\''+options.rowId+'\',saveparameters);" value="확인"/>';
+		// return "<input type='button' onclick='permitProc(\"" + options.rowId + "\")' value='확인'/>";
 	};
 	
 	/* 편집취소 버튼 생성 */
 	function cancleBtn(cellvalue, options, rowObject) {
-		console.log("편집취소 버튼 생성");
-     	return '<input type="button" onclick=\"jQuery(\'#orderList\').restoreRow(\''+options.rowId+'\');" value="취소"/>';     
+     	return '<input type="button" onclick=\"jQuery(\'#orderList\').restoreRow(\''+options.rowId+'\');" value="확인"/>';     
 	};
 	
 	/* 주문취소 버튼 생성 */
 	function deleteBtn(cellvalue, options, rowObject) {
-		console.log("주문취소 버튼 생성");
-		return '<input type="button" onclick="deleteOrder(\''+options.rowId+'\')" value="취소"/>';
+		return '<input type="button" onclick="deleteOrder(\''+options.rowId+'\')" value="확인"/>';
+		jQuery("#orderList").trigger("reloadGrid");
+		jQuery("#orderDetail").trigger("reloadGrid");
 	}
 	
 	/* 주문 취소 */
@@ -214,6 +211,10 @@
 	function enableAutosubmit(state) {
 		flAuto = state;
 		jQuery("#submitButton").attr("disabled",state);
+	}
+	
+	function permitProc(rowid) {
+		var selected
 	}
 	
 	title_nav = "[ getOrderList.jsp :::  주문내역 관리 (검색 | 조회 | 승인 | 폐기)]";

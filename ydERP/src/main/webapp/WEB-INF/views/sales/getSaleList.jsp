@@ -73,7 +73,7 @@
 					viewrecords : true,				gridview : true,
 					autoencode : true,				search : true,
 					pager : "#pagerSaleDetail",		page : 1,
-					loadonce : true				
+					loadonce : true
 				});
 		
 				// 그리드 네비게이션 

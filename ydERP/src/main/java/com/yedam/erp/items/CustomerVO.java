@@ -11,9 +11,26 @@ public class CustomerVO {
 	private String customerBank;
 	private String customerAccount;
 	private String customerBankowner;
-	
+	private String locAddr;
 	private int first;
 	private int last;
+	private String useFlag;
+
+	public String getUseFlag() {
+		return useFlag;
+	}
+
+	public void setUseFlag(String useFlag) {
+		this.useFlag = useFlag;
+	}
+
+	public String getLocAddr() {
+		return locAddr;
+	}
+
+	public void setLocAddr(String locAddr) {
+		this.locAddr = locAddr;
+	}
 
 	public String getCustomerCode() {
 		return customerCode;
@@ -47,7 +64,6 @@ public class CustomerVO {
 		this.customerLoc = customerLoc;
 	}
 
-	
 	public String getCustomerPhone() {
 		return customerPhone;
 	}
@@ -71,8 +87,6 @@ public class CustomerVO {
 	public void setLast(int last) {
 		this.last = last;
 	}
-	
-	
 
 	public String getCustomerPw() {
 		return customerPw;
@@ -108,13 +122,9 @@ public class CustomerVO {
 
 	@Override
 	public String toString() {
-		return "CustomerVO [customerCode=" + customerCode + ", customerName=" + customerName + ", customerOwner="
-				+ customerOwner + ", customerLoc=" + customerLoc + ", customerPhone=" + customerPhone + ", customerPw="
-				+ customerPw + ", customerBank=" + customerBank + ", customerAccount=" + customerAccount
-				+ ", customerBankowner=" + customerBankowner + ", first=" + first + ", last=" + last + "]";
+		return "CustomerVO [customerCode=" + customerCode + ", customerName=" + customerName + ", customerOwner=" + customerOwner + ", customerLoc=" + customerLoc + ", customerPhone=" + customerPhone
+				+ ", customerPw=" + customerPw + ", customerBank=" + customerBank + ", customerAccount=" + customerAccount + ", customerBankowner=" + customerBankowner + ", first=" + first + ", last="
+				+ last + "]";
 	}
-
-	
-	
 
 }

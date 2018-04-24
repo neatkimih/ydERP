@@ -12,7 +12,7 @@
 			src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 			type="text/javascript"></script>
 		<script>
-			var selectedSaleCode;
+			var selectedSaleCode;				// 마스터 그리드(saleList)에서 선택된 판매코드
 			$(document).ready(function() {
 				/* Sale List : 마스터 그리드 */
 				$("#saleList").jqGrid({
@@ -30,13 +30,13 @@
 						{	name : "deliveryEmp",	width : 125,		align : "center"	},
 						{	name : "warehouse",		width : 75,			align : "center"	},
 					],
-					height : 'auto',			width : 'auto',
-					rownumbers : true,			sortname : "saleCode",
-					rowNum : 10,				reccount : 15,
-					viewrecords : true,			gridview : true,
-					autoencode : true,			caption : "판매 내역 정보",
-					pager : "#pagerSaleList",	//loadonce : true,
-					search : true,
+					height : 'auto',				autowidth : false,
+					rownumbers : true,				sortname : "saleCode",
+					rowNum : 10,					reccount : 15,
+					viewrecords : true,				gridview : true,
+					autoencode : true,				caption : "판매 내역 정보",
+					pager : "#pagerSaleList",		loadonce : true,
+					onSortCol : clearSelection,		onPaging : clearSelection,
 					onSelectRow : function(rowid, selected) {
 						if (rowid != null) {
 							selectedSaleCode = $(this).getCell(rowid, 'saleCode');
@@ -53,6 +53,7 @@
 				/* Sale Details : 디테일 그리드 */
 				$("#saleDetail").jqGrid({
 					url : "getSaleDetail.do",
+					mtype : "GET",
 					datatype : "json",
 					styleUI : "Bootstrap",
 					colNames : [ "상세코드", "품목코드", "품목명", "판매가(원)", "부가세", "수량", "사용연한(년)", "생산처" ],
@@ -66,15 +67,16 @@
 						{	name : "expireDate",		width : 100,	align : "center"	},
 						{	name : "vendorName",		width : 200,	align : "left"	},
 					],
-					height : 'auto',				autowidth : 'auto',
+					height : 'auto',				autowidth : false,
 					rownumbers : true,				sortname : "saleDetailCode",
 					rowNum : 10,					reccount : 15,
 					viewrecords : true,				gridview : true,
 					autoencode : true,				search : true,
-					pager : "#pagerSaleDetail",		//loadonce : true				
+					pager : "#pagerSaleDetail",		page : 1,
+					loadonce : true				
 				});
 		
-				// 검색 기능 
+				// 그리드 네비게이션 
 				$('#saleList').jqGrid('navGrid', "#pagerSaleList", {
 					add : false,
 					edit : false,
@@ -85,13 +87,13 @@
 					closeAfterAdd : true,
 					reloadAfterSubmit : true,
 					afterComplete : function() {	$("#saleList").setGridParam({	datatype : 'json',	page : 1	}).trigger('reloadGrid');	}
-				}, {
-					serializeDelData : function(postdata) {
-						return "oper=del&itemCode=" + postdata.id
-					}
+				});
+				
+				function clearSelection() {
+					jQuery("#saleDetail").jqGrid('setGridParam', {url: "getSaleDetail.do", datatype: 'json'});
+					jQuery("#saleDetail").jqGrid('setCaption', '판매 상세 목록');
+					jQuery("#saleDetail").trigger("reloadGrid");
 				}
-		
-				);
 			});
 			
 			var timeoutHnd;
@@ -103,10 +105,27 @@
 				timeoutHnd = setTimeout(gridReload,500)
 			}
 		
+			/* 검색 버튼을 눌렀을 때 실행되는 처리 */
 			function gridReload() {
 				var params = $('#saleSearchForm').serialize();
+				jQuery("#saleList").jqGrid('setGridParam',{url:"getSaleByCondition.do?"+params, datatype: "json", page:1}).trigger("reloadGrid");
+			}
+			
+			/* 초기화 버튼을 눌렀을 떄 실행되는 처리 */
+			function gridReset() {
 				
-				jQuery("#saleList").jqGrid('setGridParam',{url:"getSaleByCondition.do?"+params	,page:1}).trigger("reloadGrid");
+				// INPUT 값을 초기화한다.
+				document.getElementById("saleCodePut").value = "";
+				document.getElementById("customerNamePut").value = "";
+				document.getElementById("saleDatePut").value = "";
+				document.getElementById("saleCostPut").value = "";
+				document.getElementById("deliveryAddrPut").value = "";
+				document.getElementById("deliveryListSelect").value = "";
+				document.getElementById("paymentListSelect").value = "";
+				
+				// 초기값을 매개변수로 전달하여 검색 전 데이터를 orderList 그리드에 표시한다.
+				var params = $('#saleSearchForm').serialize();
+				jQuery("#saleList").jqGrid('setGridParam',{url:"getSaleByCondition.do?"+params, datatype: "json", page:1}).trigger("reloadGrid");
 			}
 			
 			function enableAutosubmit(state) {
@@ -166,6 +185,10 @@
 			size : auto;
 		}
 		
+		.submitTd {
+			text-align: center;
+		}
+		
 		#saleCodePut, #customerCodePut, ##saleDatePut, #saleCostPut {
 			width : 1000px;
 		}
@@ -208,7 +231,8 @@
 									</c:forEach>
 								</select>
 							</td>
-							<td class="searchTd"></td><td id="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-outline btn-success btn-block">검색</button></td>
+							<td class="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-success btn-lg">검색</button></td>
+							<td class="submitTd"><button type="button" onclick="gridReset()" id="resetButton" class="btn btn-warning btn-lg">초기화</button></td>
 						</tr>
 				</table>
 			</form>

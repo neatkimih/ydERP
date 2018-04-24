@@ -97,6 +97,7 @@
 							rowList : [ 10, 20, 30 ],
 							sortname : "customerCode",
 							sortorder : "desc",
+							rownumbers : true,
 							viewrecords : true,
 							gridview : false,
 							autoencode : true,
@@ -123,7 +124,7 @@
 
 							},
 
-							rowNum : 10,
+							rowNum : 15,
 							height : 'auto',
 							autowidth : true,
 							responsive : true,

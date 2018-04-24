@@ -78,9 +78,9 @@ public class HomeController {
 
 	@RequestMapping("getLookups.do")
 	@ResponseBody
-	public List<Map<String, Object>> getLookupsDo(Model model, String str) {
+	public List<Map<String, Object>> getLookupsDo(Model model, String str, LookupCodesVO vo) {
 		// Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String, Object>> list = homeServiceImpl.getLookups(str);
+		List<Map<String, Object>> list = homeServiceImpl.getLookups2(vo);
 		// map.put("data", list);
 		return list;
 	}

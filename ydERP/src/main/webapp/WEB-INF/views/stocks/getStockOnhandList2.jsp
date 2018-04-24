@@ -42,8 +42,10 @@
 						],
 
 					pager : "#pager",
-					rowNum : 10,
+					rowNum : 5,
+					height : 'auto',
 					rowList : [ 10, 20, 30 ],
+					rownumbers : true,
 					sortname : "itemCode",
 					viewrecords : true,
 					gridview : true,
@@ -84,7 +86,9 @@
 	                { label: '입/출고일', name: 'txnDate', width: 5 }
 			],
 			width: 780,
-			rowNum: 10,
+			rowNum : 8,
+			rownumbers : true,
+			height : 'auto',
 			loadonce: true,
 			viewrecords: true,
 			caption: '품목코드::',

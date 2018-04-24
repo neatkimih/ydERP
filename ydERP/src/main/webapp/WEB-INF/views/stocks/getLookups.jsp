@@ -28,7 +28,6 @@
 					url : "getLookups.do",
 					datatype : "json",
 					styleUI : "Bootstrap",
-					height : 380,
 					autoheight : true,
 					autowidth : true,
 
@@ -123,16 +122,17 @@
 							edithidden : false
 						},
 					} ],
-					rowNum : 10,
+					rowNum : 13,
+					height : 'auto',
 					rowList : [ 10, 20, 30 ],
 					pager : '#pager',
 					sortname : 'lookup',
 					viewrecords : true,
 					loadonce : true,
+					rownumbers : true,
 					sortorder : "desc",
 					editurl : "updateLookups2.do",
-					caption : "룩업코드",
-					height : 400
+					caption : "룩업코드"
 				});
 
 		jQuery("#list").jqGrid('navGrid', '#pager', {
@@ -190,8 +190,9 @@
 
 	function gridReload() {
 		var vend_cd = jQuery("#warehouseSelect").val();
+		console.dir("=========="+vend_cd);
 		jQuery("#list").jqGrid('setGridParam', {
-			url : "getLookups.do?LOOKUP=" + vend_cd,
+			url : "getLookups.do?lookup=" + vend_cd,
 			datatype : "json",
 			page : 1
 		}).trigger("reloadGrid");

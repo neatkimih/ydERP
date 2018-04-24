@@ -31,6 +31,7 @@ public class HomeServiceImpl {
 	}
 
 	public List<Map<String, Object>> getLookups(String str) {
+		System.out.println("svc str========"+str);
 		return dao.getLookups(str);
 	}
 

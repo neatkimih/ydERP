@@ -16,6 +16,8 @@
 	type="text/javascript"></script>
 
 <script type="text/javascript">
+	var ddate = new Date();
+	console.dir("DATE===="+ddate);
 	$(function() {
 		$("#list").jqGrid(
 				{
@@ -42,8 +44,10 @@
 						],
 
 					pager : "#pager",
-					rowNum : 10,
+					rowNum : 5,
+					height : 'auto',
 					rowList : [ 10, 20, 30 ],
+					rownumbers : true,
 					sortname : "itemCode",
 					viewrecords : true,
 					gridview : true,
@@ -67,7 +71,7 @@
 
 		// detail grid
 	    $("#listDetail").jqGrid({
-			url: 'getItemInOutListData',
+			url: 'getItemInOutListData?txnDate='+ddate,
 	        mtype: "GET",
 	        datatype: "json",
 	        page: 1,
@@ -84,7 +88,9 @@
 	                { label: '입/출고일', name: 'txnDate', width: 5 }
 			],
 			width: 780,
-			rowNum: 10,
+			rowNum : 6,
+			rownumbers : true,
+			height : 'auto',
 			loadonce: true,
 			viewrecords: true,
 			caption: '품목코드::',
@@ -92,7 +98,7 @@
 		});
 	
 	    function clearSelection() {
-			jQuery("#listDetail").jqGrid('setGridParam',{url: "getItemInOutListData", datatype: 'json'}); // the last setting is for demo purpose only
+			jQuery("#listDetail").jqGrid('setGridParam',{url: "getItemInOutListData?txnDate="+ddate, datatype: 'json'}); // the last setting is for demo purpose only
 			jQuery("#listDetail").jqGrid('setCaption', 'Detail Grid:: none');
 			jQuery("#listDetail").trigger("reloadGrid");
 			

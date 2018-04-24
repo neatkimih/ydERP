@@ -30,8 +30,10 @@
 				{   label : "입고처리", name :'act',index:'act', width : 100 ,sortable:false, formatter: delButton}
 			],
 			pager : "#pager",
-			rowNum : 10,
+			rowNum : 5,
+			height : 'auto',
 			rowList : [ 10, 20, 30 ],
+			rownumbers : true,
 			sortname : "purchaseCode",
 			sortorder : "desc",
 			loadonce : true,
@@ -81,7 +83,9 @@
 					formatoptions : { disabled : false } } */
 			],
 			pager : "#pager1",
-			rowNum : 10,
+			rowNum : 8,
+			rownumbers : true,
+			height : 'auto',
 			rowList : [ 10, 20, 30 ],
 			sortname : "purchaseDatailCode",
 			sortorder : "desc",

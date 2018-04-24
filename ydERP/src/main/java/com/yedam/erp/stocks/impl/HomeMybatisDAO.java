@@ -32,6 +32,7 @@ public class HomeMybatisDAO {
 
 	// 기존
 	public List<Map<String, Object>> getLookups(String str) {
+		System.out.println("dao str========"+str);
 		return sqlSession.selectList("stocks.getLookupsData", str);
 	}
 

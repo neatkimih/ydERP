@@ -39,8 +39,11 @@
 		FROM stock_in_out_vo
 		]]>
 		<where>
-			<if test="itemCode!=null">
+			<if test="itemCode != null">
 				AND item_code = #{itemCode}
+			</if>
+			<if test="txnDate != null">
+				AND TO_CHAR(txn_date,'rrrr/mm/dd') = #{txnDate}
 			</if>
 		</where>
 		ORDER BY txn_date
@@ -254,6 +257,7 @@
 		      ,SUM(v.in_qty) in_qty
 		      ,SUM(v.out_qty) out_qty
 		FROM   stock_in_out_vo v
+		WHERE  v.txn_date >= SYSDATE - 7
 		GROUP  BY TO_CHAR(v.txn_date
 		                 ,'rr/mm/dd')
 		ORDER  BY TO_CHAR(v.txn_date
@@ -275,6 +279,7 @@
 		        JOIN   purchase_details pd
 		        ON     sio.dealer_code = pd.purchase_code
 		        AND    sio.item_code = pd.purchase_item
+		        WHERE  sio.txn_date >= SYSDATE - 7
 		        GROUP  BY TO_CHAR(sio.txn_date
 		                         ,'rr/mm/dd')
 		        UNION ALL
@@ -287,6 +292,7 @@
 		        JOIN   sale_details sd
 		        ON     sio.dealer_code = sd.sale_code
 		        AND    sio.item_code = sd.sale_item_code
+		        WHERE  sio.txn_date >= SYSDATE - 7
 		        GROUP  BY TO_CHAR(sio.txn_date
 		                         ,'rr/mm/dd'))
 		GROUP  BY in_out_day
@@ -463,7 +469,8 @@
 		<![CDATA[
 			SELECT *
 			FROM   sales_temp_vo
-			WHERE  customer_code = #{customerCode} 
+			WHERE  customer_code = #{customerCode}
+			AND    TO_CHAR(need_date, 'rrrr/mm/dd') = #{needDate}
 		]]>
 	</select>
 

@@ -14,7 +14,11 @@
 <script
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
-
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.css" />
+<script
+	src="${pageContext.request.contextPath}/resources/datetimepicker/bootstrap-datetimepicker.min.js"
+	type="text/javascript"></script>
 <script>
 	//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수 2개 + 구매업체 이름을 DB에서 가져와서 등록할시 구매코드로 등록하게 하는 함수 1개
 	$(function() {
@@ -155,6 +159,7 @@
 </script>
 <!-- jqGrid -->
 <script type="text/javascript">
+	var lastsel3;
 	var vendorData = ":선택";
 	var params;
 
@@ -164,9 +169,9 @@
 			data : params,
 			async : false,
 			dataType : "json",
-			success : function(params) {
-				for (i = 0; i < params.length; i++) {
-					vendorData += ";" + params[i].vendorCode + ":" + params[i].vendorName;
+			success : function(datas) {
+				for (i = 0; i < datas.length; i++) {
+					vendorData += ";" + datas[i].vendorCode + ":" + datas[i].vendorName;
 				}
 			}
 		});
@@ -283,7 +288,18 @@
 				editable : true
 			}, {
 				label : "구매 업체코드",
-				name : "vendorList",
+				name : "vendorCode",
+				width : 90,
+				hidden : true,
+				align : "right",
+				edittype : "select",
+				editoptions : {
+					value : vendorData
+				},
+				editable : true
+			}, {
+				label : "구매 업체명",
+				name : "vendorName",
 				width : 90,
 				align : "right",
 				edittype : "select",
@@ -296,6 +312,7 @@
 				name : "addDate",
 				width : 90,
 				editable : false,
+				formatter : 'date',
 				formatoptions : {
 					srcformat : 'U/1000',
 					newformat : "Y/m/d"
@@ -304,17 +321,17 @@
 			pager : "#pager",
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
+			rownumbers : true,
 			sortname : "itemCode",
 			sortorder : "desc",
 			viewrecords : true,
 			gridview : true,
 			autoencode : true,
 			loadonce : true,
-			rowNum : 10,
+			rowNum : 15,
 			height : 'auto',
 			autowidth : true,
 			responsive : true,
-			multiselect : true,
 			pager : "#pager"
 		});
 
@@ -349,6 +366,15 @@
 		});
 
 	});
+	
+/* 	for (var i = 0; i < mydata3.length; i++)
+		jQuery("#rowed6").jqGrid('addRowData', mydata3[i].id, mydata3[i]);
+	
+	function pickdates(id) {
+		jQuery("#" + id + "_sdate", "#list").datepicker({
+			dateFormat : "yy-mm-dd"
+		});
+	} */
 </script>
 </head>
 

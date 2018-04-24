@@ -94,11 +94,11 @@
 								editable : false
 							} ],
 							pager : "#pager",
-							rowNum : 10,
 							rowList : [ 10, 20, 30 ],
 							sortname : "vendorCode",
 							sortorder : "desc",
 							viewrecords : true,
+							rownumbers : true,
 							gridview : false,
 							autoencode : true,
 							loadonce : true,
@@ -122,7 +122,7 @@
 								}
 							},
 
-							rowNum : 10,
+							rowNum : 15,
 							height : 'auto',
 							autowidth : true,
 							responsive : true,

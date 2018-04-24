@@ -59,6 +59,18 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
  -->
+  <style>
+ .page-header {
+  padding: 8px 0px 8px 0px;
+  border-bottom: 1px solid #eee;
+}
+
+.erp-page-header {
+  padding: 7px 12px 12px 5px;
+  background-color: #FAEBD7;	
+}
+ </style>
+ 
 <script>
 	var title_nav = ""
 </script>

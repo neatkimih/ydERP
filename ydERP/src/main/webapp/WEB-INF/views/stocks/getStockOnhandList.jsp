@@ -33,7 +33,7 @@
 					url : "getStockOnhandListData",
 					datatype : "json",
 					styleUI : "Bootstrap",
-					height : 380,
+					height : 'auto',
 					autoheight : true,
 					autowidth : true,
 
@@ -82,7 +82,7 @@
 						align : "right"
 					}, ],
 					pager : "#pager",
-					rowNum : 10,
+					rowNum : 13,
 					rowList : [ 10, 20, 30 ],
 					rownumbers : true,
 					sortname : "itemCode",
@@ -131,7 +131,6 @@
 			datatype : "json",
 			page : 1,
 			styleUI : "Bootstrap",
-			height : 200,
 			autoheight : true,
 
 			colModel : [ {
@@ -159,7 +158,9 @@
 				width : 5
 			} ],
 			width : 780,
-			rowNum : 10,
+			rowNum : 17,
+			rownumbers : true,
+			height : 'auto',
 			loadonce : true,
 			viewrecords : true,
 			caption : '품목코드::',

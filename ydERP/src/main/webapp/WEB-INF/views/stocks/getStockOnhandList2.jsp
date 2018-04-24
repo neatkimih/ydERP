@@ -86,7 +86,7 @@
 	                { label: '입/출고일', name: 'txnDate', width: 5 }
 			],
 			width: 780,
-			rowNum : 8,
+			rowNum : 6,
 			rownumbers : true,
 			height : 'auto',
 			loadonce: true,

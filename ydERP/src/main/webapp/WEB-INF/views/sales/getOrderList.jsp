@@ -21,24 +21,23 @@
 			editurl : "editOrderList.do",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "주문일자", "주문코드", "결제금액", "주문처 이름", "주문처 코드", "배송주소", "배송사원 지정", "창고 지정", "승인", "취소", "폐기"],			
+			colNames : [ "주문코드", "주문일자", "주문처", "배송주소", "배송사원", "출고창고", "승인", "취소", "폐기"],			
 			colModel : [
-				{	name : "saleDate",		width : 150,	align : "center",	editable : false	},
-				{	name : "saleCode",		width : 125,	align : "center",	editable : false,	key : true	},
-				{	name : "saleCost",		width : 100,	align : "right",	editable : false	},
-				{	name : "customerName",	width : 200,	align : "left",		editable : false	},				
-				{	name : "customerCode",	width : 125,	align : "center",	editable : false	},
-				{	name : "deliveryAddr",	width : 350,	align : "left",		editable : false	},
-				{	name : "deliveryEmp",	width : 125,	align : "center",	editable : true,
+				{	name : "saleCode",		width : 6,	align : "center",	editable : false,	key : true	},
+				{	name : "saleDate",		width : 8,	align : "center",	editable : false	},
+				{	name : "customerName",	width : 6,	align : "left",		editable : false	},				
+				{	name : "deliveryAddr",	width : 14,	align : "left",		editable : false	},
+				{	name : "deliveryEmp",	width : 5,	align : "center",	editable : true,
 					edittype : "select",	editoptions:{value:"${employeeList}"}					},					
-				{	name : "warehouse",		width : 150,	align : "center",	editable : true,
+				{	name : "warehouse",		width : 6,	align : "center",	editable : true,
 					edittype : "select",	editoptions:{value:"${lookupValueList}"}				},
-				{	name : "permit",		width : 75,	align : "center",	sortable : false,		formatter : permitBtn,
+				{	name : "permit",		width : 4,	align : "center",	sortable : false,		formatter : permitBtn,
 					autocomplete : true	},
-				{	name : "permitCancle",	width : 75,	align : "center",	sortable : false,		formatter : cancleBtn	},
-				{	name : "deleteOrder",	width : 75,	align : "center",	sortable : false,		formatter : deleteBtn	}
+				{	name : "permitCancle",	width : 4,	align : "center",	sortable : false,		formatter : cancleBtn	},
+				{	name : "deleteOrder",	width : 4,	align : "center",	sortable : false,		formatter : deleteBtn	}
 			],
 			height : 'auto',				width : 'auto',
+			autowidth : true,
 			rownumbers : true,				sortname : "saleCode",
 			rowNum : 10,					reccount : 15,
 			viewrecords : true,				gridview : true,
@@ -57,7 +56,7 @@
 					jQuery("#orderDetail").jqGrid('setGridParam', {
 						url : "getOrderDetail.do?saleCode=" + selectedOrderCode, datatype: 'json'
 					});
-					jQuery('#orderDetail').jqGrid('setCaption', '주문 코드 ' + selectedOrderCode + '] 의 상세 내역');
+					jQuery('#orderDetail').jqGrid('setCaption', '주문 코드 [' + selectedOrderCode + '] 의 상세 내역');
 					jQuery('#orderDetail').trigger("reloadGrid");
 				}
 				console.log("선택된 주문 코드 : " + selectedOrderCode);
@@ -88,18 +87,20 @@
 			mtype : "GET",
 			datatype : "json",
 			styleUI : "Bootstrap",
-			colNames : [ "상세코드", "품목코드", "품목명", "판매가(원)", "부가세", "수량", "사용연한(년)", "생산처" ],
+			colNames : [ "상세코드", "품목코드", "품목", "판매가(원)", "부가세", "수량", "사용연한(년)", "구매처", "구매처 코드" ],
 			colModel : [
-				{	name : "saleDetailCode",	width : 100,	align : "center"	},
-				{	name : "saleItemCode",		width : 200,	align : "center"	},
-				{	name : "saleItemName",		width : 350,	align : "left"		},
-				{	name : "salePrice",			width : 100,	align : "right"		},
-				{	name : "itemTax",			width : 75,		align : "right"		},
-				{	name : "saleQty",			width : 75,		align : "right"		},
-				{	name : "expireDate",		width : 100,	align : "center"	},
-				{	name : "vendorName",		width : 200,	align : "left"		},
+				{	name : "saleDetailCode",	width : 4,	align : "center"	},
+				{	name : "saleItemCode",		width : 4,	align : "center"	},
+				{	name : "saleItemName",		width : 10,	align : "left"		},
+				{	name : "salePrice",			width : 4,	align : "right"		},
+				{	name : "itemTax",			width : 4,	align : "right"		},
+				{	name : "saleQty",			width : 4,	align : "right"		},
+				{	name : "expireDate",		width : 4,	align : "center"	},
+				{	name : "vendorName",		width : 4,	align : "left"		},
+				{	name : "vendorCode",		width : 4,	align : "center"	}
 			],
-			height : 'auto',						autowidth : false,
+			height : 'auto',						autowidth : true,
+			width  : 'auto',
 			rownumbers : true,						sortname : "orderDetailCode",
 			rowNum : 10,							reccount : 15,
 			viewrecords : true,						gridview : true,

@@ -144,20 +144,20 @@
 					width : 80,
 					align : "center",
 					editable : true
-				}
-
-			/* 	{
+				},
+ 
+			 	{
 					label : "입고여부",
 					name : "incomingFlag",
 					width : 80,					
 					editable: true,        
-				    sortable: false, 
+				    sortable: false,  
 				    align: "center", 
 				    formatter: "checkbox", 
 				    editoptions :{value:'Y:N', defaultValue:'N'},
 				    formatoptions: {disabled: false}					  
 				    
-				} */
+				} 
 
 			],
 			pager : "#pager1",

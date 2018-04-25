@@ -13,7 +13,7 @@
 		<ul class="nav" id="side-menu">
 			<li class="sidebar-search">
 				<div class="input-group custom-search-form">
-					<c:if test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode!='admin12345'}">
+					<c:if test="${not empty sessionScope.viewCustomer.customerCode }">
 						${sessionScope.viewCustomer.customerName}´Ô È¯¿µÇÕ´Ï´Ù.<br>
 						<input class="btn btn-primary" type="button" name="logout" value="·Î±×¾Æ¿ô" onclick="logoutcheck()"/>
 					</c:if>

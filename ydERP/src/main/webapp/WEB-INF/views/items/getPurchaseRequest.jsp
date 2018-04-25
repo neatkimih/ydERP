@@ -130,14 +130,14 @@
 			refresh : false,
 		}, {}, {}, {
 			serializeDelData : function(postdata) {
-				return "oper=del&customerCode=" + postdata.id;
+				return "oper=del&customSeq=" + postdata.id;
 			}
 		}
 
 		);
 
 	});
-
+/* 
 	 //대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수
 	$(function() {
 
@@ -273,7 +273,7 @@
 		};
 		lastCondition(param);
 	}
-
+ */
 	function thirdChange() {
 		var param = {
 			lookupCode : $("#third").val()

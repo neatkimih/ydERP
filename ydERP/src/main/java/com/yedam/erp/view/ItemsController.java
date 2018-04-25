@@ -310,17 +310,16 @@ public class ItemsController {
 		return "items/getPurchaseRequest";
 	}
 
-	// 판매 업체 여러건 삭제 (거래중단으로 update)
+	// 판매 업체의 주문 요청 단건/여러건 삭제 (판매업체가 자신이 주문한 품목에 대한 삭제 권한을 가지고, 자기 의지로 삭제)
 	@RequestMapping("/Sales_tempEdit")
 	@ResponseBody
 	public void deleteSales_temp(@RequestParam(value = "oper", defaultValue = "", required = false) String oper, Sales_tempVO vo,
-			@RequestParam(value = "customerCode", defaultValue = "", required = false) String customerCode) {
+			@RequestParam(value = "customSeq", defaultValue = "", required = false) String customSeq) {
 		if (oper.equals("del")) {
 			sales_tempService.deleteSales_temp(vo);
-			if (customerCode.length() > 0) {
-				for (String i : customerCode.split(",")) {
-
-					vo.setCustomerCode(i);
+			if (customSeq.length() > 0) {
+				for (String i : customSeq.split(",")) {
+					vo.setCustomSeq(i);
 					sales_tempService.deleteSales_temp(vo);
 				}
 			}

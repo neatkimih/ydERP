@@ -264,7 +264,7 @@
 			<h1>
 				구매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 				&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매업체 관리
-				&emsp; &emsp; &nbsp;
+				&emsp; &emsp; &emsp; &nbsp;
 				<!-- <button class="btn btn-primary" type="button" onclick='insertVendor()'>가입</button> -->
 				<!-- <button class="btn btn-warning" type="button" onclick='updateVendor()'>수정</button> -->
 				<button class="btn btn-danger" type="button" onclick='restorePage()'>등록</button>
@@ -282,7 +282,7 @@
 			<div id="pager"></div>
 			<br>
 		</div>
-		<div class="col-lg-5">
+		<div class="col-lg-4">
 			<div class="panel panel-default">
 				<div class=" panel panel-heading">
 					<i class="fa fa-bell fa-fw"></i>상세정보
@@ -294,7 +294,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="vendorCode">사업자등록번호</label>
-							<div class="col-sm-6">
+							<div class="col-sm-7">
 								<input class="form-control" id="vendorCode" name="vendorCode"
 									type="text" placeholder="ID" onchange="vendorCodecheck()">
 								<span id="50810087550"> 사업자등록번호는 필수입력입니다. </span>
@@ -302,14 +302,14 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="vendorName">사업체명</label>
-							<div class="col-sm-6">
+							<div class="col-sm-7">
 								<input class="form-control" id="vendorName" name="vendorName"
 									type="text">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="vendorOwner">이름</label>
-							<div class="col-sm-6">
+							<div class="col-sm-7">
 								<input class="form-control" id="vendorOwner" name="vendorOwner"
 									type="text">
 							</div>
@@ -317,7 +317,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="vendorLoc">주소</label>
-							<div class="col-sm-6">
+							<div class="col-sm-7">
 								<input class="form-control" id="vendorLoc" name="vendorLoc"
 									type="text" placeholder="주소" style="cursor: pointer;"
 									onclick="addrDialog(this)" readonly>
@@ -325,7 +325,7 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="locAddr">상세주소</label>
-							<div class="col-sm-6">
+							<div class="col-sm-7">
 								<input class="form-control" id="locAddr" name="locAddr"
 									type="text">
 							</div>
@@ -333,7 +333,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="vendorPhone">휴대폰번호</label>
-							<div class="col-sm-6">
+							<div class="col-sm-8">
 								<div class="input-group">
 									<input type="text" class="form-control" name="vendorPhone"
 										id="vendorPhone" />
@@ -343,7 +343,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="inputBankInfo">계좌정보</label>
-							<div class="col-sm-2">
+							<div class="col-sm-3">
 								<div class="input-group">
 									<select id="inputBank" class="form-control" name="vendorBank">
 										<option value="">선택</option>
@@ -360,7 +360,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="none"></label> <label
 								class="col-sm-2" for="vendorAccount">계좌번호</label>
-							<div class="col-sm-3">
+							<div class="col-sm-4">
 								<div class="input-group">
 									<input type="text" class="form-control" name="vendorAccount"
 										id="vendorAccount" />
@@ -371,7 +371,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="none2"></label> <label
 								class="col-sm-2" for="vendorBankowner">계좌주</label>
-							<div class="col-sm-3">
+							<div class="col-sm-4">
 								<div class="input-group">
 									<input type="text" class="form-control" id="vendorBankowner"
 										name="vendorBankowner" />
@@ -386,14 +386,14 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="useflagStatus"></label>
-							<label class="col-sm-2" for="useflagStatusOn">거래 중</label>
+							<label class="col-sm-3" for="useflagStatusOn">거래 중</label>
 							<div class="input-group">
 								<input type="radio" name="useFlag" id="useFlag" value="Y" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="useflagStatus"></label>
-							<label class="col-sm-2" for="useflagStatusOff">거래 중단된 업체</label>
+							<label class="col-sm-3" for="useflagStatusOff">거래 중단</label>
 							<div class="input-group">
 								<input type="radio" name="useFlag" id="useFlag" value="N" />
 							</div>

@@ -57,4 +57,7 @@ public interface SalesService {
 	
 	/* 일별 판매처별 판매량 TOP 차트 처리 */
 	public List<Map<String, Object>> getTopCustomerChartMonth(SalesVO salesVO);
+	
+	/* 메인 화면 차트 처리 */
+	public List<Map<String, Object>> getBubbleChart(SalesVO salesVO);
 }

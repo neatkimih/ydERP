@@ -309,4 +309,11 @@ public class SalesController {
 			return salesService.getTopCustomerChartYear(salesVO);
 		}
 	}
+	
+	/* 메인화면 버블차트 처리 */
+	@RequestMapping("/getBubbleChart.do")
+	@ResponseBody
+	public List<Map<String, Object>> getBubbleChart(SalesVO salesVO) {
+		return salesService.getBubbleChart(salesVO);
+	}
 }

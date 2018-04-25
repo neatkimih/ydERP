@@ -75,7 +75,7 @@
 								}
 
 							}, {
-								label : "희망 배송 날짜",
+								label : "도착 날짜",
 								name : "needDate",
 								width : 80,
 								align : "left",
@@ -138,7 +138,7 @@
 
 	});
 
-	//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수
+	 //대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수
 	$(function() {
 
 		$(document.body).on("change", "#first", firstChangeR);
@@ -280,7 +280,7 @@
 		};
 		lastCondition(param);
 	}
-
+ 
 	function firstChangeR() {
 		params = {
 			lookupCode : $("#first").val()
@@ -347,9 +347,9 @@
 		});
 	}
 
-	function fourthChangeR() {
+	 function fourthChangeR() {
 		uom = {
-			pGroup4 : $("#itemList").val()
+			pGroup4 : $("#uom").val()
 		};
 		$.ajax({
 			url : "./getItemsList2",
@@ -357,15 +357,15 @@
 			dataType : "json",
 			success : function(datas) {
 				console.dir(datas);
-				$("#itemList option:gt(0)").remove();
-				for (i = 0; i < datas.length; i++) {
-					$("#itemList").append(
-							"<option value='"+datas[i].itemCode+"'>"
-									+ datas[i].itemName);
-				}
+					$("#uom option:gt(0)").remove();
+					$("#uom").append(
+							"<option value='" + datas[i].uom + "' selected>"
+									+ datas[i].uom);
+			
 			}
 		});
-	}
+		
+	} 
 
 	function requestsubmit() {
 		document.FormPost.submit();
@@ -383,22 +383,13 @@
 <body>
 	<div class="col-md-24">
 		<div class="panel-heading">
-
-			<c:if test="${not empty sessionScope.viewCustomer.customerCode}">
-				<div class="col-md-24">
-					<h3>
-						&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-						&emsp; &emsp; &emsp; &emsp; &emsp;
-						${sessionScope.viewCustomer.customerName}님 환영합니다. <input
-							class="btn btn-primary" type="button" name="logout" value="로그아웃"
-							onclick="logoutcheck()" />
-					</h3>
-				</div>
-			</c:if>
+				
+			
 			<h1>
 				구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-				&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
-				&nbsp; &nbsp; &nbsp; <input class="btn btn-primary" type="button"
+				&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+				구매요청 &emsp; &emsp;	&emsp; &emsp; &emsp; &emsp;	&nbsp; &nbsp;
+				<input class="btn btn-primary" type="button"
 					value="물품추가" onclick="requestsubmit()"> <input
 					class="btn btn-success" type="button" value="취소"
 					onclick="PurchaseRequestcancel()">
@@ -407,7 +398,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-7">
 
 		<table id="list">
 			<tr>
@@ -418,12 +409,18 @@
 		<div id="pager"></div>
 	</div>
 	<!-- 구매신청 -->
-	<div class="col-md-6">
+	<div class="col-md-5">
+		<div class="panel panel-default">
+				<div class=" panel panel-heading">
+					<i class="fa fa-bell fa-fw"></i> <strong>구매요청</strong>
+				</div>
+				
 		<form class="form-horizontal" id="FormPost" name="FormPost"
 			action="insertSales_temp">
+			<div class="panel-body">
 			<div class="form-group">
-				<label for="Category" class="col-md-3 control-label">품목종류</label>
-				<div class="col-md-2">
+				<label for="Category" class="col-md-2 control-label">품목종류</label>
+				<div class="col-md-3">
 					<select class="form-control" id="first" onchange="firstChangeR()">
 						<option value=''>대분류</option>
 						<option value='P'>필기구</option>
@@ -432,12 +429,12 @@
 						<option value='F'>파일/바인더</option>
 					</select>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<select class="form-control" id="second" onchange="secondChangeR()">
 						<option value=''>중분류</option>
 					</select>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<select class="form-control" id="third" onchange="thirdChangeR()">
 						<option value=''>소분류</option>
 					</select>
@@ -445,8 +442,8 @@
 			</div>
 
 			<div class="form-group">
-				<label for="departureSize" class="col-md-3 control-label">품목명</label>
-				<div class="col-md-6">
+				<label for="departureSize" class="col-md-2 control-label">품목명</label>
+				<div class="col-md-9">
 					<input class="form-control" type="hidden" id="customerCode" name="customerCode" /> 
 					<input class="form-control" type="hidden" id="itemCode" name="itemCode" /> 
 					<select class="form-control" id="itemList" name="itemList" onchange="fourthChangeR()">
@@ -459,17 +456,15 @@
 			</div>
 
 			<div class="form-group">
-				<label for="category" class="col-md-3 control-label">UOM</label>
-				<div class="col-md-2">
+				<label for="category" class="col-md-2 control-label">UOM</label>
+				<div class="col-md-3">
 					<select class="form-control" id="uom" name="uom">
-						<option value=''>선택</option>
-						<option value='Set'>Set</option>
-						<option value='Box'>Box</option>
-					</select>
+						<option value="">선택</option>
+						</select>
 				</div>
 
 
-				<label for="departureSize" class="col-md-2 control-label">수량</label>
+				<label for="departureSize" class="col-md-4 control-label">수량</label>
 				<div class="col-md-2">
 					<input class="form-control" type="number" id="requestQty"
 						name="requestQty" min="1" />
@@ -477,8 +472,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="needDate" class="col-md-3 control-label">희망 도착
-					날짜</label>
+				<label for="needDate" class="col-md-2 control-label">도착 날짜</label>
 				<div class="col-md-6">
 					<input type="text" class="form-control" id="needDate"
 						name="needDate">
@@ -498,7 +492,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="deliveryAddr" class="col-md-3 control-label">도착
+				<label for="deliveryAddr" class="col-md-2 control-label">기본
 					배송지</label>
 				<div class="col-md-6">
 					<input class="form-control" type="text" id="deliveryAddr"
@@ -509,8 +503,8 @@
 			</div>
 
 			<div class="form-group">
-				<label for="cellphone" class="col-md-3 control-label">연락처</label>
-				<div class="col-md-3">
+				<label for="cellphone" class="col-md-2 control-label">기본 연락처</label>
+				<div class="col-md-4">
 					<input class="form-control" type="text" id="phone" name="phone"
 						value="${sessionScope.viewCustomer.customerPhone}" />
 				</div>
@@ -527,8 +521,10 @@
 			</div>
 		</div>
  -->
-
+	</div>
+	
 		</form>
+	</div>
 	</div>
 </body>
 

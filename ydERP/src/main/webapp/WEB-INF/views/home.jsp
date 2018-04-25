@@ -229,7 +229,7 @@
 				type : "json",
 				success : function(datas) {
 					var bubbleChartData = [];
-					bubbleChartData.push(["품목명", "판매량", "품목분류", "재고량", "판매가"]);
+					bubbleChartData.push(["품목명", "판매가", "판매량", "품목분류", "재고량"]);
 					
 						for(i = 0; i < datas.length; i++) {
 							bubbleChartData.push([datas[i].itemName
@@ -245,8 +245,8 @@
 					        hAxis: {title: '판매가'},
 					        vAxis: {title: '판매량'},
 					        bubble: {textStyle: {fontSize: 15}},
-					        width : 900,
-					        height : 600,
+					        width: "1100",
+					        height: "1000",
 					        legend: {position: "bottom" }
 						}
 						
@@ -365,9 +365,9 @@
 			</div>
 		</div>
 	</div>
-		<div id='calendar' class="col-lg-6"></div>
+		<div id='calendar' class="col-lg-12"></div>
 	
 		<!-- 차트 화면 부분 -->
-		<div id="bubbleChartDiv" class="col-lg-6"></div>
+		<div id="bubbleChartDiv" class="col-lg-12"></div>
 </body>
 </html>

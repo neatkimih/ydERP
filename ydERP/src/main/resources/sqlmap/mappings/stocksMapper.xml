@@ -101,10 +101,12 @@
 			</if>
 		</where>
 		ORDER BY vendor_code, item_code
-		) b ) a where rn between #{first} and #{last}
+		) b ) a where rn between #{first} and
+		#{last}
 	</select>
 
-	<select id="getCount" parameterType="purchaserequest" resultType="int">
+	<select id="getCount" parameterType="purchaserequest"
+		resultType="int">
 		<![CDATA[
 		SELECT count(*) cnt
 		FROM   purchase_request_vo v
@@ -132,7 +134,8 @@
 		]]>
 	</insert>
 
-	<insert id="insertPurchaseRequest" parameterType="purchaserequest" statementType="CALLABLE">
+	<insert id="insertPurchaseRequest" parameterType="purchaserequest"
+		statementType="CALLABLE">
 		<![CDATA[
 		{call common.create_purchase_info(#{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
 		]]>
@@ -207,14 +210,16 @@
 		]]>
 		<where>
 			<if test="purchaseCode != null">
+				<![CDATA[
 				AND purchase_code = #{purchaseCode}
-				AND
-				NVL(p.incoming_flag, 'N') = 'Y'
+				AND NVL(p.incoming_flag, 'N') = 'Y'
 				AND NOT EXISTS
-				(SELECT 1
-				FROM stocks_in_out s
-				WHERE s.dealer_code = p.purchase_code
-				AND s.item_code = p.purchase_item)
+					(SELECT 1
+					FROM
+					stocks_in_out s
+					WHERE s.dealer_code = p.purchase_code
+					AND s.item_code = p.purchase_item)
+				]]>
 			</if>
 		</where>
 		ORDER BY purchase_detail_code
@@ -322,10 +327,11 @@
 			</if>
 		</where>
 		ORDER BY lk.lookup
-		     ,lv.lookup_code
+		,lv.lookup_code
 	</select>
 
-	<select id="getLookupsData2" parameterType="com.yedam.erp.stocks.LookupCodesVO" resultType="map">
+	<select id="getLookupsData2" parameterType="com.yedam.erp.stocks.LookupCodesVO"
+		resultType="map">
 		<![CDATA[
 		SELECT lk.lookup lookups
 		      ,lk.lookup_description
@@ -347,7 +353,7 @@
 			</if>
 		</where>
 		ORDER BY lk.lookup
-			 ,lv.lookup_code
+		,lv.lookup_code
 	</select>
 
 	<select id="getLookupValues" resultType="map">
@@ -412,8 +418,7 @@
 		]]>
 	</select>
 
-	<select id="getItemGroup2" parameterType="string"
-		resultType="map">
+	<select id="getItemGroup2" parameterType="string" resultType="map">
 		<![CDATA[
 		SELECT lv.descriptions "grp_name"
 		      ,lv.lookup_code  "grp_code"
@@ -430,8 +435,7 @@
 		]]>
 	</select>
 
-	<select id="getItemGroup3" parameterType="string"
-		resultType="map">
+	<select id="getItemGroup3" parameterType="string" resultType="map">
 		<![CDATA[
 		SELECT lv.descriptions "grp_name"
 		      ,lv.lookup_code  "grp_code"
@@ -480,6 +484,51 @@
 		{call common.create_sales_order(#{pVendorCode}, #{pMsg ,mode=OUT,jdbcType=VARCHAR,javaType=String})}
 		]]>
 	</insert>
+
+	<select id="getTitle1" resultType="com.yedam.erp.stocks.LookupCodesVO">
+		<![CDATA[
+		SELECT '판매주문요청승인건' title
+		      ,'판매주문요청승인' detail_view
+		      ,TO_CHAR(COUNT(*)) cnt
+		FROM   (SELECT t.customer_code
+		              ,TO_CHAR(t.need_date
+		                      ,'rrrrmmdd')
+		        FROM   sales_temp t
+		        GROUP  BY t.customer_code
+		                 ,TO_CHAR(t.need_date
+		                         ,'rrrrmmdd'))
+		UNION ALL
+		SELECT '구매요청승인건' title
+		      ,'구매요청승인' detail_view
+		      ,TO_CHAR(COUNT(*)) cnt
+		FROM   purchase_request_vo v
+		UNION ALL
+		SELECT '구매입고처리건' title
+		      ,'구매입고처리' detail_view
+		      ,TO_CHAR(COUNT(*)) cnt
+		FROM   purchases p
+		WHERE  1 = 1
+		AND    NVL(in_flag
+		          ,'N') = 'N'
+		OR     (NVL(in_flag
+		           ,'N') = 'Y' AND EXISTS
+		       (SELECT 1
+		         FROM   purchase_details pd
+		         WHERE  1 = 1
+		         AND    p.purchase_code = pd.purchase_code
+		         AND    NVL(pd.incoming_flag
+		                   ,'N') = 'N'))
+		UNION ALL
+		SELECT '판매주문출하승인건' title
+		      ,'판매주문출하승인' detail_view
+		      ,TO_CHAR(COUNT(*)) cnt
+		FROM   sales s
+		JOIN   customers c
+		ON     s.customer_code = c.customer_code
+		WHERE  order_permit = 'N'
+		ORDER BY 1
+		]]>
+	</select>
 
 
 </mapper>

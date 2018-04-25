@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.erp.common.Paging;
+import com.yedam.erp.stocks.LookupCodesVO;
 import com.yedam.erp.stocks.PurchaseDetailTempVO;
 import com.yedam.erp.stocks.PurchaseDetailsVO;
 import com.yedam.erp.stocks.PurchaseHeadersVO;
@@ -113,7 +114,7 @@ public class StocksController {
 		// vo 의 first, last setting
 		vo.setFirst(paging.getFirst());
 		vo.setLast(paging.getLast());
-		System.out.println(vo.getFirst()+"===="+paging.getTotalRecord()+"......"+purchaseRequestService.getCount(vo));
+		System.out.println(vo.getFirst() + "====" + paging.getTotalRecord() + "......" + purchaseRequestService.getCount(vo));
 		model.addAttribute("paging", paging);
 
 		List<PurchaseRequestVO> requestlist = purchaseRequestService.getPurchaseRequestList(vo);
@@ -123,13 +124,11 @@ public class StocksController {
 	}
 
 	@RequestMapping("/getPurchaseRequestList")
-	public String getPurchaseRequestList(Model model, StockOnhandViewVO vo, String str2, String str3 ) {
+	public String getPurchaseRequestList(Model model, StockOnhandViewVO vo, String str2, String str3) {
 		model.addAttribute("itemGroup1", stockOnhandService.getItemGroup1());
 		model.addAttribute("itemGroup2", stockOnhandService.getItemGroup2(str2));
 		model.addAttribute("itemGroup3", stockOnhandService.getItemGroup3(str3));
 		model.addAttribute("vendorList", stockOnhandService.getVendorList(vo));
-
-		 
 
 		return "stocks/getPurchaseRequestList";
 	}
@@ -222,8 +221,13 @@ public class StocksController {
 	@ResponseBody
 	public String insertSalesProc(PurchaseRequestVO vo) {
 		purchaseRequestService.insertSalesProc(vo);
-
 		return "success";
+	}
+
+	@RequestMapping("getTitle1.do")
+	@ResponseBody
+	public List<LookupCodesVO> getTitle1(LookupCodesVO vo) {
+		return stockInOutService.getTitle1(vo);
 	}
 
 }

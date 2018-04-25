@@ -9,6 +9,33 @@ public class LookupCodesVO {
 	String dff;
 	String reflag;
 	Integer lookupIdx;
+	String title;
+	String detailView;
+	String cnt;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDetailView() {
+		return detailView;
+	}
+
+	public void setDetailView(String detailView) {
+		this.detailView = detailView;
+	}
+
+	public String getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
+	}
 
 	public Integer getLookupIdx() {
 		return lookupIdx;
@@ -76,9 +103,8 @@ public class LookupCodesVO {
 
 	@Override
 	public String toString() {
-		return "LookupCodes [lookupCode=" + lookupCode + ", lookup=" + lookup + ", lookupValues=" + lookupValues
-				+ ", descriptions=" + descriptions + ", flag=" + flag + ", dff=" + dff + ", reflag=" + reflag
-				+ ", lookupIdx=" + lookupIdx + "]";
+		return "LookupCodes [lookupCode=" + lookupCode + ", lookup=" + lookup + ", lookupValues=" + lookupValues + ", descriptions=" + descriptions + ", flag=" + flag + ", dff=" + dff + ", reflag="
+				+ reflag + ", lookupIdx=" + lookupIdx + "]";
 	}
 
 }

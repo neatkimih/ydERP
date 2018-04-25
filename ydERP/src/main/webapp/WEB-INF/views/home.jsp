@@ -15,6 +15,10 @@
 <script
 	src="${pageContext.request.contextPath}/resources/jqgrid5/jquery.jqGrid.min.js"
 	type="text/javascript"></script>
+	
+	<!-- 구글 차트 -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="./scripts/json.min.js"></script>
 
 <!--  <script>
 	if ('${sessionScope.viewCustomer.customerName}' == '') {
@@ -107,6 +111,65 @@
 	});
 </script>
 
+	<!-- 차트 생성 스크립트 -->
+	<script>
+		google.charts.load("current", {packages:['corechart']});		// 구글 차트 로드
+	
+		/* 메인 버블 차트 생성 함수 콜백 */
+		google.charts.setOnLoadCallback(drawBubbleChart);
+		
+		/* 메인 버블 차트 그리기 */
+		function drawBubbleChart() {
+			
+			/* AJAX 타입으로 차트 데이터 설정 및 그래프 옵션을 설정한다. */
+			$.ajax({
+				url : "./getBubbleChart.do",							// 차트 데이터를 형성하기 위한 메서드 요청 URL이다.
+				method : "POST",
+				type : "json",
+				success : function(datas) {
+					var bubbleChartData = [];
+					bubbleChartData.push(["품목명", "판매량", "품목분류", "재고량", "판매가"]);
+					
+						for(i = 0; i < datas.length; i++) {
+							bubbleChartData.push([datas[i].itemName
+												, datas[i].itemPrice
+												, datas[i].saleQty
+												, datas[i].itemCategory
+												, datas[i].itemQty]);
+						};
+						
+						/* 그래프 옵션 */
+						var bubbleChartOptions = {
+							title: '한달 간의 판매 실적과 재고 그래프',
+					        hAxis: {title: '판매가'},
+					        vAxis: {title: '판매량'},
+					        bubble: {textStyle: {fontSize: 15}},
+					        width : 800,
+					        height : 1000,
+					        legend: {position: "bottom" }
+						}
+						
+						console.log(bubbleChartData);
+						
+						// 차트를 그릴 위치의 태그 ID를 받아온다.
+						var bubbleChart = new google.visualization.BubbleChart(document.getElementById('bubbleChartDiv'));
+						
+						// 차트를 그린다.
+					    bubbleChart.draw(google.visualization.arrayToDataTable(bubbleChartData), bubbleChartOptions);
+						
+						 // 반응형 차트 그리기
+						window.addEventListener	(
+							'resize',
+							function() {
+								bubbleChart.draw(google.visualization.arrayToDataTable(bubbleChartData), bubbleChartOptions);
+							},
+							false
+						);
+					}
+					
+				})
+		}
+	</script>
 
 </head>
 <body>
@@ -203,6 +266,9 @@
 	</div>
 
 	<div id='calendar' style="width: 800px; display: inline-block;"></div>
+	
+	<!-- 차트 화면 부분 -->
+	<div id="bubbleChartDiv" style="width: 800px; display: inline-block;"></div>
 
 
 

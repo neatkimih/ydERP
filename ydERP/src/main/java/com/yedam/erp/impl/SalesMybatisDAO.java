@@ -99,4 +99,9 @@ public class SalesMybatisDAO {
 	public List<Map<String, Object>> getTopCustomerChartMonth(SalesVO salesVO) {
 		return mybatis.selectList("sales.getTopCustomerChartMonth", salesVO);
 	}
+	
+	/* 메인 화면 차트 처리 */
+	public List<Map<String, Object>> getBubbleChart(SalesVO salesVO) {
+		return mybatis.selectList("sales.getBubbleChart", salesVO);
+	}
 }

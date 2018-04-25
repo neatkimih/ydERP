@@ -103,11 +103,17 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public List<Map<String, Object>> getTopCustomerChartYear(SalesVO salesVO) {
 		return salesDAO.getTopCustomerChartYear(salesVO);
-	};
+	}
 	
 	/* 일별 판매처별 판매량 TOP 처리 */
 	@Override
 	public List<Map<String, Object>> getTopCustomerChartMonth(SalesVO salesVO) {
 		return salesDAO.getTopCustomerChartMonth(salesVO);
-	};
+	}
+	
+	/* 메인 화면 차트 처리 */
+	@Override
+	public List<Map<String, Object>> getBubbleChart(SalesVO salesVO) {
+		return salesDAO.getBubbleChart(salesVO);
+	}
 }

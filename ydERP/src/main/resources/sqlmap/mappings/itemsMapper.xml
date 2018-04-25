@@ -55,14 +55,13 @@
 	<!-- -->
 
 	<!-- 구매업체 코드 및 이름 조회 -->
-
 	<select id="getVendorList2" resultType="com.yedam.erp.items.ItemsVO">
 		SELECT vendor_code,
 			   vendor_name
 		FROM vendors
 		WHERE use_flag = 'Y'
 	</select>
-
+	<!-- 판매업체의 구매신청시, 중분류 구분값 -->
 	<select id="getItemGroup2" parameterType="com.yedam.erp.items.ItemsVO" resultType="com.yedam.erp.items.ItemsVO">
 		<![CDATA[
 		SELECT v.lookup_code
@@ -73,6 +72,7 @@
 		]]>
 	</select>
 
+	<!-- 판매업체의 구매신청시, 소분류 구분값 -->
 	<select id="getItemGroup3" parameterType="com.yedam.erp.items.ItemsVO" resultType="com.yedam.erp.items.ItemsVO">
 		<![CDATA[
 		SELECT v.lookup_code
@@ -83,6 +83,7 @@
 		]]>
 	</select>
 
+	<!-- 판매업체가 구매신청할때 품목명을 클릭하면 해당 품목의 UOM VALUE를 불러오게 하는 쿼리  -->
 	<select id="getUom" parameterType="com.yedam.erp.items.ItemsVO" resultType="com.yedam.erp.items.ItemsVO">
 		<![CDATA[
 		SELECT v.lookup_code
@@ -95,6 +96,7 @@
 		]]>
 	</select>
 
+	<!-- 기초품목 등록  -->
 	<insert id="insertItems" parameterType="items" statementType="CALLABLE">
 		<![CDATA[
 		{call items_ins_proc( #{pGroup1}    
@@ -115,7 +117,7 @@
 		)}
 		]]>
 	</insert>
-	<!-- -->
+	<!-- 기초품목 수정 -->
 	<update id="updateItems" parameterType="items">
 		<![CDATA[
 		UPDATE items
@@ -131,7 +133,7 @@
 		WHERE  item_code = #{itemCode}
 		]]>
 	</update>
-	<!-- -->
+	<!-- 기초품목 삭제 -->
 	<delete id="deleteItems" parameterType="items">
 
 		DELETE items

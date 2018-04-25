@@ -22,7 +22,7 @@
 <script>
 	//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수 2개 + 구매업체 이름을 DB에서 가져와서 등록할시 구매코드로 등록하게 하는 함수 1개
 
-	function firstChange() {
+	/* function firstChange() {
 
 		var x = document.FormPost.pGroup1.selectedIndex;
 		var groups = document.FormPost.pGroup1.options.length;
@@ -146,7 +146,7 @@
 
 	function selectVendor() {
 
-	}
+	} */
 	title_nav = "[ getitemsList.jsp ::: 품목기초정보 관리화면(입력/수정/삭제 처리) ]";
 </script>
 <!-- jqGrid -->

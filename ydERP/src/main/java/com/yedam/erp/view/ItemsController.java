@@ -1,5 +1,18 @@
 package com.yedam.erp.view;
-
+/*
+ * writer : 이명철
+ * last-written-date : 2018/04/25
+ * cell-phone : 010-4609-1935
+ * e-mail : find1086@gmail.com
+ * 
+ * 해당 컨트롤러(ItemsController) 포함 사항
+ * 1. 기초품목 (Items)
+ * 2. 구매업체정보 (Vendor)
+ * 3. 판매업체정보 (Purchase)
+ * 4. 판매업체의 구매신청정보 및 처리(getPurchaseRequest)
+ * 5. 사이트 로그인 기능(admin 계정은 하드코딩처리하였음)
+ * 
+ */
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +40,21 @@ import com.yedam.erp.items.ItemsService;
 @Controller
 public class ItemsController {
 
+	//기초품목 정보 인터페이스.
 	@Autowired
 	ItemsService itemsService;
 
+	//구매업체 정보 인터페이스.
 	@Autowired
 	VendorService vendorService;
 
+	//판매업체 정보 인터페이스.
 	@Autowired
 	CustomerService customerService;
 
+	//판매업체 구매요청 인터페이스.
+	//판매업체가 구매요청을 할 때, Sales_tempService Interface는 Sales_temp테이블에 모든 값을 저장한다.
+	//Sales_temp에 저장된 모든 값들은, 관리자의 구매요청 승인 시에만 Sales 및 Sales_Detail 테이블로 이동된다.
 	@Autowired
 	Sales_tempService sales_tempService;
 
@@ -81,31 +100,22 @@ public class ItemsController {
 		return "items/getitemsList";
 	}
 
-	// 구매업체 조회 처리
+	// 구매업체 코드 및 이름 조회 처리
 	@RequestMapping("/getVendorList2.do")
 	@ResponseBody
 	public List<ItemsVO> getItemsList(ItemsVO vo, Model model) {
-		// List<ItemsVO> list = itemsService.getVendorList2(vo);
-		// model.addAttribute("vendorList",list);
-		// return "items/getitemsList";
 		return itemsService.getVendorList2(vo);
 	}
-
+	// 판매업체가 구매신청할 때, 구매 신청폼에서 대분류값에 따라 중분류 값을 변경하는 실행문
 	@RequestMapping("/getItemGroups2.do")
 	@ResponseBody
 	public List<ItemsVO> getItemGroup2(ItemsVO vo, Model model) {
-		// List<ItemsVO> list = itemsService.getVendorList2(vo);
-		// model.addAttribute("vendorList",list);
-		// return "items/getitemsList";
 		return itemsService.getItemGroup2(vo);
 	}
-
+	// 판매업체가 구매신청할 때, 구매 신청폼에서 중분류값에 따라 소분류 값을 변경하는 실행문
 	@RequestMapping("/getItemGroups3.do")
 	@ResponseBody
 	public List<ItemsVO> getItemGroup3(ItemsVO vo, Model model) {
-		// List<ItemsVO> list = itemsService.getVendorList2(vo);
-		// model.addAttribute("vendorList",list);
-		// return "items/getitemsList";
 		return itemsService.getItemGroup3(vo);
 	}
 
@@ -344,19 +354,19 @@ public class ItemsController {
 	// 로그인 처리
 	@RequestMapping("loginCheck")
 	public ModelAndView loginCheck(@ModelAttribute CustomerVO vo, HttpSession session, Model model) {
-		// Logger logger = LoggerFactory.getLogger(ItemsController.class);
 
 		boolean result = customerService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
-		if (result == true) { // 로그인 성공
+		if (result == true) { // 로그인 성공시
 
+			//jqgrid 클릭 이벤트시 가져올 판매업체 한 개의 정보값을 저장한다.
 			vo = customerService.getCustomer(vo);
 
 			// session에 로그인정보값을 저장한다.
 			session.setAttribute("viewCustomer", vo);
 			// getPurchaseRequest.jsp로 이동
 			if (vo.getCustomerCode().equals("admin12345") && vo.getCustomerPw().equals("12345")) {
-				mav.setViewName("/home");
+				mav.setViewName("stocks/getCharts");
 				mav.addObject("msg", "success");
 
 			} else {
@@ -364,7 +374,7 @@ public class ItemsController {
 				mav.addObject("msg", "success");
 			}
 
-		} else { // 로그인 실패
+		} else { // 로그인 실패시
 			// login.jsp로 이동
 			mav.setViewName("items/login");
 			mav.addObject("msg", "failure");
@@ -382,4 +392,4 @@ public class ItemsController {
 		return mav;
 	}
 
-}
+} // <!-- ItemsController 클래스의 끝 -->

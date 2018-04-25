@@ -106,10 +106,13 @@
 
 				<!-- jstl 코어 태그 -->
 				<c:choose>
-					<c:when test="${empty sessionScope.viewCustomer.customerCode}">
+					<c:when test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode=='admin12345'}">
 						<a class="navbar-brand" href="./">YedamERP</a>
 					</c:when>
-
+					<c:when test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode!='admin12345'}">
+						<a class="navbar-brand" href="#">YedamERP</a>
+					</c:when>
+					
 				</c:choose>
 
 				<hr>

@@ -36,10 +36,18 @@
 				return;
 			}
 
-			document.form1.submit();
+			document.loginForm.submit();
 		});
 	});
 
+	//아이디 입력하고 엔터치면 비밀번호 input 태그로 넘어가게.
+	function jumptoPWbtn() {
+		var keyCode = window.event.keyCode;
+		if (keyCode == 13)
+		   	$("#customerPw").focus();
+	}
+	
+	
 	//로그인시 엔터키 치면 넘어가게.
 	function onEnterSubmit() {
 
@@ -67,7 +75,7 @@
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="아이디(사업자등록번호)"
-										name="customerCode" id="customerCode" type="text" autofocus>
+										name="customerCode" id="customerCode" type="text" onkeydown='javascript:jumptoPWbtn()' autofocus>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="비밀번호"

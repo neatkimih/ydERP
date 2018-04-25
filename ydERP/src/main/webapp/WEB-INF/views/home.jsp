@@ -144,8 +144,8 @@
 					        hAxis: {title: '판매가'},
 					        vAxis: {title: '판매량'},
 					        bubble: {textStyle: {fontSize: 15}},
-					        width : 800,
-					        height : 1000,
+					        width : 900,
+					        height : 600,
 					        legend: {position: "bottom" }
 						}
 						
@@ -264,13 +264,9 @@
 			</div>
 		</div>
 	</div>
-
-	<div id='calendar' style="width: 800px; display: inline-block;"></div>
+		<div id='calendar' class="col-lg-6"></div>
 	
-	<!-- 차트 화면 부분 -->
-	<div id="bubbleChartDiv" style="width: 800px; display: inline-block;"></div>
-
-
-
+		<!-- 차트 화면 부분 -->
+		<div id="bubbleChartDiv" class="col-lg-6"></div>
 </body>
 </html>

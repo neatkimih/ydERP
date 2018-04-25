@@ -266,12 +266,12 @@
 </script>
 </head>
 <body>
-	<div class="col-lg-9">
+	<div class="col-lg-10">
 		<div class="panel panel-default">
 			<div class="panel-heading">[ ]</div>
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="checkbox" id="autosearch"
 							onclick="enableAutosubmit(this.checked)">
 						Enable_Autosearch
@@ -279,7 +279,7 @@
 				</div>
 				<!-- 조회조건의 첫번째 열 -->
 				<div class="row" style="margin-top: 10px">
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<select id="itemgroup1" name="itemgroup1" class="form-control"
 							onchange="changeGroup1()">
 							<option value="">대분류 선택</option>
@@ -288,7 +288,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<select id="itemgroup2" name="itemgroup2" class="form-control"
 							onchange="changeGroup2()">
 							<option value="">중분류 선택</option>
@@ -297,7 +297,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<select id="itemgroup3" name="itemgroup3" class="form-control">
 							<option value="">소분류 선택</option>
 							<c:forEach items="${itemGroup3}" var="lkup">
@@ -305,24 +305,24 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="col-lg-3 checkbox">
+					<div class="col-lg-2 checkbox">
 						<label><input type="checkbox" name="zeroflag" id="zeroflag" 
 						onclick="zeroStock(this.checked)">재고 : 0  조회</label>
 					</div>
 				</div>
 				<!-- 조회조건의 두번째 열 -->
 				<div class="row" style="margin-top: 10px">
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="text" id="item_cd" class="form-control"
 							placeholder="ItemCode ..."
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="text" id="item_nm" class="form-control"
 							placeholder="ItemName ..."
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<select id="warehouseSelect" name="warehouseSelect"
 							class="form-control">
 							<option value="">구매업체 선택</option>
@@ -331,7 +331,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<button onclick="gridReload()" id="submitButton"
 							class="btn btn-outline btn-success btn-block">Search</button>
 					</div>

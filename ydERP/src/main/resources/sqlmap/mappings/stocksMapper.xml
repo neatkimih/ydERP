@@ -490,6 +490,7 @@
 		SELECT '판매주문요청승인건' title
 		      ,'판매주문요청승인' detail_view
 		      ,TO_CHAR(COUNT(*)) cnt
+		      ,1 ord
 		FROM   (SELECT t.customer_code
 		              ,TO_CHAR(t.need_date
 		                      ,'rrrrmmdd')
@@ -501,11 +502,13 @@
 		SELECT '구매요청승인건' title
 		      ,'구매요청승인' detail_view
 		      ,TO_CHAR(COUNT(*)) cnt
+		      ,2 ord
 		FROM   purchase_request_vo v
 		UNION ALL
 		SELECT '구매입고처리건' title
 		      ,'구매입고처리' detail_view
 		      ,TO_CHAR(COUNT(*)) cnt
+		      ,3 ord
 		FROM   purchases p
 		WHERE  1 = 1
 		AND    NVL(in_flag
@@ -522,11 +525,12 @@
 		SELECT '판매주문출하승인건' title
 		      ,'판매주문출하승인' detail_view
 		      ,TO_CHAR(COUNT(*)) cnt
+		      ,4 ord
 		FROM   sales s
 		JOIN   customers c
 		ON     s.customer_code = c.customer_code
 		WHERE  order_permit = 'N'
-		ORDER BY 1
+		ORDER BY ord
 		]]>
 	</select>
 

@@ -87,7 +87,6 @@
 	});
 </script>
 <script>
-
 	$(function() {
 		var j;
 
@@ -98,10 +97,10 @@
 			dataType : "json",
 			success : function(datas) {
 				for (i = 0; i < datas.length; i++) {
-					j = i+1;
-					$("#vcnt_"+j+"").text(datas[i].cnt);
-					$("#vtitle_"+j+"").text(datas[i].title);
-					$("#vdetail_"+j+"").text(datas[i].detailView);
+					j = i + 1;
+					$("#vcnt_" + j + "").text(datas[i].cnt);
+					$("#vtitle_" + j + "").text(datas[i].title);
+					$("#vdetail_" + j + "").text(datas[i].detailView);
 				}
 			}
 		});
@@ -126,7 +125,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="#">
+				<a href="getSalesRequesting">
 					<div class="panel-footer">
 						<span class="pull-left" id="vdetail_1">View Detail</span> <span
 							class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -148,7 +147,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="#">
+				<a href="getPurchaseRequesting">
 					<div class="panel-footer">
 						<span class="pull-left" id="vdetail_2">View Details2</span> <span
 							class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -170,7 +169,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="#">
+				<a href="getPurchaseReceipting">
 					<div class="panel-footer">
 						<span class="pull-left" id="vdetail_3">View Details3</span> <span
 							class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -192,7 +191,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="#">
+				<a href="getOrderList">
 					<div class="panel-footer">
 						<span class="pull-left" id="vdetail_4">View Details4</span> <span
 							class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

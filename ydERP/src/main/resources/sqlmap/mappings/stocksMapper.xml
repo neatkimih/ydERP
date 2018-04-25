@@ -503,7 +503,7 @@
 		      ,'구매요청승인' detail_view
 		      ,TO_CHAR(COUNT(*)) cnt
 		      ,2 ord
-		FROM   purchase_request_vo v
+		FROM   purchase_detail_temp_vo v
 		UNION ALL
 		SELECT '구매입고처리건' title
 		      ,'구매입고처리' detail_view

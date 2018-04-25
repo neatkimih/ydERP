@@ -424,9 +424,8 @@
 	<!-- delete (구매코드 삭제 처리) -->
 	<delete id="deleteSales_temp" parameterType="com.yedam.erp.items.Sales_tempVO">
 
-		DELETE custom_seq
-		FROM Sales_temp
-		WHERE custom_seq = ${customSeq}
+		DELETE FROM Sales_temp
+		WHERE custom_seq = #{customSeq}
 	</delete>
 
 	<!-- <select id="item_group1" parameterType="com.yedam.erp.items.Sales_tempVO"> 

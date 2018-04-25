@@ -109,7 +109,8 @@
 									console.log(rowid);
 
 									document.register.vendorCode.value = rowData.vendorCode;
-									$("#vendorCode").attr('readonly', 'readonly');
+									$("#vendorCode").attr('readonly',
+											'readonly');
 									document.register.vendorName.value = rowData.vendorName;
 									document.register.vendorOwner.value = rowData.vendorOwner;
 									document.register.vendorLoc.value = rowData.vendorLoc;
@@ -261,31 +262,38 @@
 	<div class="col-md-24">
 		<div class="panel-heading">
 
-			<h1>
+			<!-- <h1>
 				구매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 				&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매업체 관리
 				&emsp; &emsp; &emsp; &nbsp;
-				<!-- <button class="btn btn-primary" type="button" onclick='insertVendor()'>가입</button> -->
-				<!-- <button class="btn btn-warning" type="button" onclick='updateVendor()'>수정</button> -->
+				<button class="btn btn-primary" type="button" onclick='insertVendor()'>가입</button>
+				<button class="btn btn-warning" type="button" onclick='updateVendor()'>수정</button>
 				<button class="btn btn-danger" type="button" onclick='restorePage()'>등록</button>
 				<button class="btn btn-warning" type="button" onclick='saveVendor()'>저장</button>
-			</h1>
+			</h1> -->
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-7">
-			<table id="list">
-				<tr>
-					<td></td>
-				</tr>
-			</table>
-			<div id="pager"></div>
-			<br>
+		<div class="col-lg-8">
+			<div class="panel panel-default">
+				<div class="panel panel-heading">구매업체정보</div>
+				<table id="list">
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+				<div id="pager"></div>
+				<br>
+			</div>
 		</div>
 		<div class="col-lg-4">
 			<div class="panel panel-default">
 				<div class=" panel panel-heading">
-					<i class="fa fa-bell fa-fw"></i>상세정보
+					<i class="fa fa-bell fa-fw"></i>업체상세정보&emsp; &emsp;&emsp;
+					<button class="btn btn-danger" type="button"
+						onclick='restorePage()'>등록</button>
+					<button class="btn btn-warning" type="button"
+						onclick='saveVendor()'>저장</button>
 				</div>
 				<div class="panel-body">
 					<form class="form-horizontal" id="register" name="register"
@@ -359,7 +367,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="none"></label> <label
-								class="col-sm-2" for="vendorAccount">계좌번호</label>
+								class="col-sm-3" for="vendorAccount">계좌번호</label>
 							<div class="col-sm-4">
 								<div class="input-group">
 									<input type="text" class="form-control" name="vendorAccount"
@@ -370,7 +378,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="none2"></label> <label
-								class="col-sm-2" for="vendorBankowner">계좌주</label>
+								class="col-sm-3" for="vendorBankowner">계좌주</label>
 							<div class="col-sm-4">
 								<div class="input-group">
 									<input type="text" class="form-control" id="vendorBankowner"
@@ -393,7 +401,7 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="useflagStatus"></label>
-							<label class="col-sm-3" for="useflagStatusOff">거래 중단</label>
+							<label class="col-sm-3" for="useflagStatusOff">거래중단</label>
 							<div class="input-group">
 								<input type="radio" name="useFlag" id="useFlag" value="N" />
 							</div>

@@ -86,33 +86,33 @@
 </script>
 </head>
 <body>
-	<div class="col-lg-7">
+	<div class="col-lg-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">[ ]</div>
 			
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="checkbox" id="autosearch"
 							onclick="enableAutosubmit(this.checked)"> Enable Autosearch
 					</div>
-					<div class="col-lg-3">
-						<input type="hidden"/> ==========처리 일자 조회==========
+					<div class="col-lg-2">
+						<input type="hidden"/> ====처리 일자 조회====
 					</div>
 				</div>
 				
 				<div class="row" style="margin-top: 10px">
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="text" id="item_cd" class="form-control"
 							placeholder="==> 품목 코드"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="date" id="from_cd" class="form-control"
 							placeholder="==> Enter From"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="date" id="to_cd" class="form-control"
 							placeholder="==> Enter To"
 							onkeydown="doSearch(arguments[0]||event)" />
@@ -120,17 +120,17 @@
 				</div>
 				
 				<div class="row" style="margin-top: 10px">
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="text" id="item_nm" class="form-control"
 							placeholder="==> 품목명"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<input type="text" id="deal_cd" class="form-control"
 							placeholder="==> 판매/구매 번호"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-2">
 						<button onclick="gridReload()" id="submitButton"
 							class="btn btn-outline btn-success btn-block">Search</button>
 					</div>

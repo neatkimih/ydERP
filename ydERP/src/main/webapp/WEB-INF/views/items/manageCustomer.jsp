@@ -105,12 +105,14 @@
 							onSelectRow : function(rowid) {
 
 								if (rowid >= 0) {
-									var rowData = jQuery('#list').jqGrid('getRowData', rowid);
+									var rowData = jQuery('#list').jqGrid(
+											'getRowData', rowid);
 
 									console.log(rowid);
 
 									document.register.customerCode.value = rowData.customerCode;
-									$("#customerCode").attr('readonly','readonly');
+									$("#customerCode").attr('readonly',
+											'readonly');
 									document.register.customerName.value = rowData.customerName;
 									document.register.customerOwner.value = rowData.customerOwner;
 									document.register.customerLoc.value = rowData.customerLoc;
@@ -151,7 +153,6 @@
 </script>
 
 <script>
-
 	function saveCustomer() {
 		var att = $("#customerCode").attr('readonly');
 		if (att == 'readonly')
@@ -281,32 +282,36 @@
 
 	<div class="col-md-24">
 		<div class="panel-heading">
-			<h1>
+			<!-- <h1>
 				판매업체 정보 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 				&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 판매업체 관리 &emsp; &emsp;
 				&nbsp;
-				<!-- <button class="btn btn-primary" type="button" onclick='insertCustomer()'>가입</button> -->
-				<!-- <button class="btn btn-warning" type="button" onclick='updateCustomer()'>수정</button> -->
+				<button class="btn btn-primary" type="button" onclick='insertCustomer()'>가입</button>
+				<button class="btn btn-warning" type="button" onclick='updateCustomer()'>수정</button>
 				<button class="btn btn-danger" type="button" onclick='restorePage()'>등록</button>
 				<button class="btn btn-warning" type="button" onclick='saveCustomer()'>저장</button>
-			</h1>
+			</h1> -->
 		</div>
 	</div>
-
 	<div class="row">
-		<div class="col-md-7">
-			<table id="list">
-				<tr>
-					<td></td>
-				</tr>
-			</table>
-			<div id="pager"></div>
-			<br>
+		<div class="col-lg-8">
+			<div class="panel panel-default">
+				<div class="panel panel-heading">판매업체정보</div>
+				<table id="list">
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+				<div id="pager"></div>
+				<br>
+			</div>
 		</div>
-		<div class="col-lg-5">
+		<div class="col-lg-4">
 			<div class="panel panel-default">
 				<div class=" panel panel-heading">
-					<i class="fa fa-bell fa-fw"></i>상세정보
+					<i class="fa fa-bell fa-fw"></i>업체상세정보&emsp; &emsp;&emsp;
+					<button class="btn btn-danger" type="button" onclick='restorePage()'>등록</button>
+					<button class="btn btn-warning" type="button" onclick='saveCustomer()'>저장</button>
 				</div>
 				<div class="panel-body">
 					<form class="form-horizontal" id="register" name="register"
@@ -399,7 +404,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="none"></label> <label
-								class="col-sm-2" for="customerAccount">계좌번호</label>
+								class="col-sm-3" for="customerAccount">계좌번호</label>
 							<div class="col-sm-3">
 								<div class="input-group">
 									<input type="text" class="form-control" name="customerAccount"
@@ -410,7 +415,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="none2"></label> <label
-								class="col-sm-2" for="customerBankowner">계좌주</label>
+								class="col-sm-3" for="customerBankowner">계좌주</label>
 							<div class="col-sm-3">
 								<div class="input-group">
 									<input type="text" class="form-control" id="customerBankowner"
@@ -426,14 +431,14 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="useflagStatus"></label>
-							<label class="col-sm-2" for="useflagStatusOn">거래 중</label>
+							<label class="col-sm-3" for="useflagStatusOn">거래 중</label>
 							<div class="input-group">
 								<input type="radio" name="useFlag" id="useFlag" value="Y" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="useflagStatus"></label>
-							<label class="col-sm-2" for="useflagStatusOff">거래 중단된 업체</label>
+							<label class="col-sm-3" for="useflagStatusOff">거래중단</label>
 							<div class="input-group">
 								<input type="radio" name="useFlag" id="useFlag" value="N" />
 							</div>

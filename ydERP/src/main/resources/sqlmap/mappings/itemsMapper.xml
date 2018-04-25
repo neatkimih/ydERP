@@ -191,7 +191,7 @@
 	<!-- 구매업체 가입 -->
 	<insert id="insertVendor" parameterType="com.yedam.erp.items.VendorVO">
 		<![CDATA[
-		insert into vendors (vendor_code, vendor_name, vendor_owner,loc_addr
+		insert into vendors (vendor_code, vendor_name, vendor_owner,loc_addr,
 							   vendor_loc, vendor_phone, vendor_bank, vendor_account, vendor_bankowner, use_flag) 
 				      values (#{vendorCode}    
                           	 ,#{vendorName}      

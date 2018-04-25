@@ -37,7 +37,8 @@
 	href="${pageContext.request.contextPath}/resources/fullcalendar/scheduler.min.css" />
 <script type='text/javascript'
 	src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
-
+<script type='text/javascript'
+	src="${pageContext.request.contextPath}/resources/fullcalendar/ko.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -49,6 +50,7 @@
 
 		$('#calendar').fullCalendar({
 			editable : true,
+			lang : "ko",
 			events : [ {
 				title : 'All Day Event',
 				start : new Date(y, m, 1)

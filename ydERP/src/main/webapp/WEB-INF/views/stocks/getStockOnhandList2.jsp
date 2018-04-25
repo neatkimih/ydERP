@@ -141,7 +141,7 @@
 </script>
 </head>
 <body>
-	<div class="col-lg-5">
+	<div class="col-lg-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">[ 조회 조건 ]</div>
 			<div class="container">

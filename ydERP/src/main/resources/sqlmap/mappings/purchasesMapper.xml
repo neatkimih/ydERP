@@ -23,6 +23,7 @@ ON(p.vendor_code          = vendors.vendor_code)
 <if test="vendorName != null and vendorName != ''">
 WHERE vendors.vendor_name like '%'|| #{vendorName} ||'%'
 </if>
+ORDER  BY purchase_code DESC 
 
 	</select>
 

@@ -128,7 +128,7 @@
 		      ,selling_price = #{sellingPrice}
 		      ,item_tax  = #{itemTax}
 		      ,expire_date = #{expireDate}
-		      ,vendor_code  = #{vendorCode}
+		      ,vendor_code  = #{vendorName}
 		      ,min_qty = #{minQty}
 		WHERE  item_code = #{itemCode}
 		]]>

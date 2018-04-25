@@ -59,12 +59,16 @@
 			var group2 = $("#itemgroup2").val();
 			var group3 = $("#itemgroup3").val();
 			var warehs = $("#warehouseSelect").val();
+			var itmcd  = $("#item_cd").val();;
+			var itmnm  = $("#item_nm").val();;
 			var param = {
 				group1 : group1,
 				group2 : group2,
 				group3 : group3,
 				vendorCode : warehs,
-				page : page
+				page : page,
+				itemCode : itmcd,
+				itemName : itmnm
 			}
 			$.ajax({
 				url : "getPurchaseRequestListData",
@@ -234,6 +238,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
 	<form name="frm" action="getPurchaseRequestList">
 		<!-- <input type="button" value="주문요청생성" id="btn1" /> -->
 		<input type="hidden" name="page" value="1" />
@@ -263,10 +268,17 @@
 			<div id="pager"></div>
 		</div>
 	</form>
-
-	<button type="button" onclick="requestList(page-1)">이전</button>
-	<button type="button" onclick="requestList(page+1)">다음</button>
-
+	</div>
+	<div class="col-lg-6">
+		<div class="col-lg-3">
+			<button type="button" class="btn btn-outline btn-success btn-block"
+				onclick="requestList(page-1)">이전</button>
+		</div>
+		<div class="col-lg-3">
+			<button type="button" class="btn btn-outline btn-success btn-block"
+				onclick="requestList(page+1)">다음</button>
+		</div>
+	</div>
 	<%-- <my:paging paging="${paging}" jsfunc="go_list"></my:paging> --%>
 </body>
 </html>

@@ -29,8 +29,13 @@
 				AND txn_date <= TO_DATE(#{toDate},'rrrr-mm-dd')
 				]]>
 			</if>
+			<if test="fromDate == null or fromDate == '' ">
+				<![CDATA[
+				AND txn_date >= TRUNC(SYSDATE)
+				]]>
+			</if>
 		</where>
-		ORDER BY stock_id
+		ORDER BY txn_date DESC
 	</select>
 
 	<select id="getItemInOutList" resultType="stockin">
@@ -98,6 +103,12 @@
 			</if>
 			<if test=" vendorCode != null and vendorCode != '' ">
 				AND vendor_code = #{vendorCode}
+			</if>
+			<if test=" itemCode != null and itemCode != '' ">
+				AND item_code LIKE '%' || #{itemCode} || '%'
+			</if>
+			<if test=" itemName != null and itemName != '' ">
+				AND item_name LIKE '%' || #{itemName} || '%'
 			</if>
 		</where>
 		ORDER BY vendor_code, item_code

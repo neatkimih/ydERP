@@ -117,7 +117,7 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-comments fa-5x"></i>
+							<i class="fa fa-barcode fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
 							<div class="huge" id="vcnt_1">26</div>
@@ -139,7 +139,7 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-tasks fa-5x"></i>
+							<i class="fa fa-check fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
 							<div class="huge" id="vcnt_2">12</div>
@@ -183,7 +183,7 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-support fa-5x"></i>
+							<i class="fa fa fa-truck fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
 							<div class="huge" id="vcnt_4">13</div>

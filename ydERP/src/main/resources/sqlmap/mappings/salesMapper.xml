@@ -153,7 +153,7 @@
 		WHERE SALE_CODE = #{saleCode}
 	</update>
 	
-	<!-- 주문 상세에 따른 품목 재고 변화 처리 -->
+	<!-- 주문 후 품목 재고 변화 처리 -->
 	<insert id="afterPermitOrder" parameterType="string"
 		statementType="CALLABLE">
 		<![CDATA[
@@ -169,7 +169,7 @@
 		ORDER BY ITEM_CODE	
 	</select>
 	
-	<!-- 매출 통계 : 그룹 기준(월) -->
+	<!-- 매출 차트 : 그룹 기준(월) -->
 	<select id="getSaleChartYear" resultType="map">
 		<![CDATA[
 			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "saleDay",
@@ -182,7 +182,7 @@
 		]]>
 	</select>
 	
-	<!-- 매출 통계 : 그룹 기준(일) -->
+	<!-- 매출 차트 : 그룹 기준(일) -->
 	<select id="getSaleChartMonth" resultType="map">
 		<![CDATA[
 			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE)) AS "saleDay",
@@ -195,7 +195,7 @@
 		]]>
 	</select>
 	
-	<!-- 순익 통계 : 그룹 기준(월)-->
+	<!-- 순익 차트 : 그룹 기준(월)-->
 	<select id="getProfitChartYear" resultType="map">
 		<![CDATA[
 			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') AS "profitDay", 
@@ -208,7 +208,7 @@
 		]]>
 	</select>
 	
-	<!-- 순익 통계 : 그룹 기준(일) -->
+	<!-- 순익 차트 : 그룹 기준(일) -->
 	<select id="getProfitChartMonth" resultType="map">
 		<![CDATA[
 			SELECT 		TO_CHAR(TRUNC(S.SALE_DATE)) AS "profitDay",
@@ -221,7 +221,7 @@
 		]]>
 	</select>
 	
-	<!-- 품목별 판매량 TOP 통계 : 그룹 기준 (월) -->
+	<!-- 품목별 판매량 TOP 차트 : 그룹 기준 (월) -->
 	<select id="getTopItemChartYear" resultType="map">
 		<![CDATA[
 			SELECT * 
@@ -235,44 +235,84 @@
 	</select>
 	
 	
-	<!-- 품목별 판매량 TOP 통계 : 그룹 기준 (일) -->
+	<!-- 품목별 판매량 TOP 차트 : 그룹 기준 (일) -->
 	<select id="getTopItemChartMonth" resultType="map">
 		<![CDATA[
 			SELECT * 
-			FROM 	(	SELECT      sd.SALE_ITEM_NAME AS "saleItem", SUM(sd.SALE_QTY) AS "saleQty" 
-						FROM        sales s JOIN sale_details sd ON s.sale_code = sd.sale_code 
-						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
-						GROUP BY	sd.SALE_ITEM_NAME 
+			FROM 	(	SELECT      SD.SALE_ITEM_NAME 	AS 	"saleItem"
+									, SUM(SD.SALE_QTY) 	AS 	"saleQty" 
+						FROM        SALES S JOIN SALE_DETAILS SD 
+												ON S.SALE_CODE = SD.SALE_CODE 
+						WHERE       S.ORDER_PERMIT = 'Y' 
+							AND 	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+						GROUP BY	SD.SALE_ITEM_NAME 
 						ORDER BY    2 DESC ) 
 			WHERE ROWNUM <= 5
 		]]>
 	</select>
 	
-	<!-- 판매처별 판매량 TOP 통계 : 그룹 기준 (월) -->
+	<!-- 판매처별 판매량 TOP 차트 : 그룹 기준 (월) -->
 	<select id="getTopCustomerChartYear" resultType="map">
 		<![CDATA[
 			SELECT * 
-			FROM 	(	SELECT      c.CUSTOMER_NAME AS "customerName", SUM(sd.SALE_QTY) AS "saleQty" 
-						FROM        customers c JOIN sales s ON c.CUSTOMER_CODE = s.CUSTOMER_CODE
-                                                JOIN sale_details sd ON s.SALE_CODE = sd.SALE_CODE 
-						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
+			FROM 	(	SELECT      C.CUSTOMER_NAME 	AS 	"customerName"
+									, SUM(SD.SALE_QTY) 	AS 	"saleQty" 
+						FROM        CUSTOMERS C JOIN SALES S 
+													ON C.CUSTOMER_CODE = S.CUSTOMER_CODE
+                                                JOIN SALE_DETAILS SD 
+                                                	ON S.SALE_CODE = SD.SALE_CODE 
+						WHERE       S.ORDER_PERMIT = 'Y' 
+							AND 	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY') = #{saleDate} 
 						GROUP BY	c.CUSTOMER_NAME
 						ORDER BY    2 DESC ) 
 			WHERE ROWNUM <= 5		
 		]]>	
 	</select>
 	
-	<!-- 판매처별 판매량 TOP 통계 : 그룹 기준 (일) -->
+	<!-- 판매처별 판매량 TOP 차트 : 그룹 기준 (일) -->
 	<select id="getTopCustomerChartMonth" resultType="map">
 		<![CDATA[
 			SELECT * 
-			FROM 	(	SELECT      c.CUSTOMER_NAME AS "customerName", SUM(sd.SALE_QTY) AS "saleQty" 
-						FROM        customers c JOIN sales s ON c.CUSTOMER_CODE = s.CUSTOMER_CODE
-                                                JOIN sale_details sd ON s.SALE_CODE = sd.SALE_CODE 
-						WHERE       s.ORDER_PERMIT = 'Y' AND TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
-						GROUP BY	c.CUSTOMER_NAME
+			FROM 	(	SELECT      C.CUSTOMER_NAME 	AS 	"customerName"
+									, SUM(SD.SALE_QTY) 	AS 	"saleQty" 
+						FROM        CUSTOMERS C JOIN SALES S 
+													ON C.CUSTOMER_CODE = S.CUSTOMER_CODE
+                                                JOIN SALE_DETAILS SD 
+                                                	ON S.SALE_CODE = SD.SALE_CODE 
+						WHERE       S.ORDER_PERMIT = 'Y' 
+							AND 	TO_CHAR(TRUNC(S.SALE_DATE), 'YYYY-MM') = #{saleDate} 
+						GROUP BY	C.CUSTOMER_NAME
 						ORDER BY    2 DESC ) 
 			WHERE ROWNUM <= 5		
 		]]>	
+	</select>
+	
+	<!-- 메인 화면 차트 처리 : Bubble Chart | X축(판매량), Y축(판매가), 버블 크기(재고량), 버블 제목(품목명), 차트 범위(대분류 설명) -->
+	<select id="getBubbleChart" resultType="map">
+		<![CDATA[
+			SELECT		*
+			FROM	(	SELECT 		IT.ITEM_NAME 		AS 	"itemName"
+									, LV.DESCRIPTIONS 	AS 	"itemCategory"
+									, SO.ONHAND_QTY 	AS 	"itemQty"
+									, SD.SALE_PRICE 	AS 	"itemPrice"
+									, SUM(SD.SALE_QTY) 	AS 	"saleQty" 
+						FROM        LOOKUP_VALUES LV JOIN ( SELECT 	SUBSTR(ITEM_CODE, 1, 1) ITEM_CATEGORY
+																	, ITEM_CODE
+																	, ITEM_NAME 
+															FROM ITEMS  ) IT 
+														ON 		LV.LOOKUP_CODE = IT.ITEM_CATEGORY 
+													JOIN 	SALE_DETAILS SD 
+														ON 		IT.ITEM_CODE = SD.SALE_ITEM_CODE 
+													JOIN 	SALES S 
+														ON 		S.SALE_CODE = SD.SALE_CODE 
+													JOIN 	STOCK_ONHANDS SO 
+														ON 		SO.ITEM_CODE = SD.SALE_ITEM_CODE 
+						WHERE       LV.LOOKUP = 'ITEM_GROUP1' 
+									AND S.ORDER_PERMIT = 'Y' 
+									AND	(S.SALE_DATE BETWEEN SYSDATE - 30 AND SYSDATE) 
+						GROUP BY    IT.ITEM_NAME, LV.DESCRIPTIONS, SO.ONHAND_QTY, SD.SALE_PRICE
+						ORDER BY    IT.ITEM_NAME	)
+			WHERE	ROWNUM <= 15
+		]]>
 	</select>
 </mapper>

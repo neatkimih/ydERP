@@ -21,13 +21,13 @@
 		FROM items i
 		<where>
 			<if test="pGroup1 != null and pGroup1 != '' ">
-				AND item_code like '%' || #{pGroup1} || '%'
+				AND    SUBSTR(item_code, 1, 1) = #{pGroup1}
 			</if>
 			<if test="pGroup2 != null and pGroup2 != '' ">
-				AND item_code like '%' || #{pGroup2} || '%'
+				AND    SUBSTR(item_code, 2, 1) = #{pGroup2}
 			</if>
 			<if test="pGroup3 != null and pGroup3 != '' ">
-				AND item_code like '%' || #{pGroup3} || '%'
+				AND    SUBSTR(item_code, 3, 1) = #{pGroup3}
 			</if>
 		</where>
 		ORDER BY add_date DESC
@@ -80,6 +80,18 @@
 		FROM   item_group3_v v
 		WHERE  v.dff = #{lookupCode}
 		ORDER  BY 1
+		]]>
+	</select>
+
+	<select id="getUom" parameterType="com.yedam.erp.items.ItemsVO" resultType="com.yedam.erp.items.ItemsVO">
+		<![CDATA[
+		SELECT v.lookup_code
+		      ,v.lookup_values
+		FROM   lookups       l
+		      ,lookup_values v
+		WHERE  l.lookup = v.lookup
+		AND    l.lookup = 'UOM'
+		AND    v.lookup_code = #{uom}
 		]]>
 	</select>
 

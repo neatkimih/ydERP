@@ -31,9 +31,10 @@
 
 
 <script type="text/javascript">
+	var pwhere1;
+	var pwhere2;
+	var pwhere3;
 
-	var param;
-	
 	$(function() {
 
 		$("#list")
@@ -102,7 +103,6 @@
 									document.FormPost.first.value = rowData.pGroup1;
 									document.FormPost.second.value = rowData.pGroup2;
 									document.FormPost.third.value = rowData.pGroup3;
-
 									document.FormPost.customerName.value = rowData.itemName;
 									document.FormPost.requestQty.value = rowData.requestQty;
 									document.FormPost.hopeDate.value = rowData.needDate;
@@ -141,8 +141,8 @@
 	//대분류, 중분류 선택에 따라서, 하위 분류 목록이 달라지도록 설정된 함수
 	$(function() {
 
-		$(document.body).on("change", "#first", firstChange);
-		$(document.body).on("change", "#second", secondChange);
+		$(document.body).on("change", "#first", firstChangeR);
+		$(document.body).on("change", "#second", secondChangeR);
 
 	});
 
@@ -276,9 +276,95 @@
 
 	function thirdChange() {
 		var param = {
-			pGroup3 : $("#third").val()
+			lookupCode : $("#third").val()
 		};
 		lastCondition(param);
+	}
+
+	function firstChangeR() {
+		params = {
+			lookupCode : $("#first").val()
+		};
+		console.dir(params + "==========first parameter")
+		$.ajax({
+			url : "getItemGroups2.do",
+			data : params,
+			dataType : "json",
+			success : function(datas) {
+				$("#second option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					$("#second").append(
+							"<option value='"+datas[i].lookupCode+"'>"
+									+ datas[i].lookupValues + "</option>");
+				}
+			}
+		});
+		lastCondition(params);
+	}
+
+	function secondChangeR() {
+		params = {
+			lookupCode : $("#second").val()
+		};
+		console.dir(params + "==========second parameter")
+		$.ajax({
+			url : "getItemGroups3.do",
+			data : params,
+			dataType : "json",
+			success : function(datas) {
+				$("#third option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					$("#third").append(
+							"<option value='"+datas[i].lookupCode+"'>"
+									+ datas[i].lookupValues + "</option>");
+				}
+			}
+		});
+		lastCondition(params);
+	}
+
+	function thirdChangeR() {
+		params = {
+			pGroup3 : $("#third").val()
+		};
+		lastCondition(params);
+	}
+
+	function lastCondition(pm) {
+		$.ajax({
+			url : "./getItemsList2",
+			data : pm,
+			dataType : "json",
+			success : function(datas) {
+				console.dir(datas);
+				$("#itemList option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					$("#itemList").append(
+							"<option value='"+datas[i].itemCode+"'>"
+									+ datas[i].itemName);
+				}
+			}
+		});
+	}
+
+	function fourthChangeR() {
+		uom = {
+			pGroup4 : $("#itemList").val()
+		};
+		$.ajax({
+			url : "./getItemsList2",
+			data : uom,
+			dataType : "json",
+			success : function(datas) {
+				console.dir(datas);
+				$("#itemList option:gt(0)").remove();
+				for (i = 0; i < datas.length; i++) {
+					$("#itemList").append(
+							"<option value='"+datas[i].itemCode+"'>"
+									+ datas[i].itemName);
+				}
+			}
+		});
 	}
 
 	function requestsubmit() {
@@ -287,22 +373,6 @@
 
 	function PurchaseRequestcancel() {
 		location.reload();
-	}
-
-	function lastCondition(param) {
-		console.dir("param========="+param);
-		$.ajax({
-			url : "./getItemsList2",
-			data : param,
-			dataType : "json",
-			success : function(datas) {
-				console.dir(datas);
-				$("#itemList option:gt(0)").remove();
-				for (i = 0; i < datas.length; i++) {
-					$("#itemList").append("<option value='"+datas[i].itemCode+"'>"+ datas[i].itemName);
-				}
-			}
-		});
 	}
 
 	function logoutcheck() {
@@ -329,7 +399,7 @@
 				구매요청 내역 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 				&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 구매요청 &emsp; &emsp;
 				&nbsp; &nbsp; &nbsp; <input class="btn btn-primary" type="button"
-					value="주문하기" onclick="requestsubmit()"> <input
+					value="물품추가" onclick="requestsubmit()"> <input
 					class="btn btn-success" type="button" value="취소"
 					onclick="PurchaseRequestcancel()">
 
@@ -354,21 +424,21 @@
 			<div class="form-group">
 				<label for="Category" class="col-md-3 control-label">품목종류</label>
 				<div class="col-md-2">
-					<select class="form-control" id="first" onchange="firstChange()">
+					<select class="form-control" id="first" onchange="firstChangeR()">
 						<option value=''>대분류</option>
 						<option value='P'>필기구</option>
-						<option value='J'>종이</option>
-						<option value='O'>일반사무용품</option>
-						<option value='F'>화일/바인더</option>
+						<option value='A'>용지류</option>
+						<option value='O'>사무용품</option>
+						<option value='F'>파일/바인더</option>
 					</select>
 				</div>
 				<div class="col-md-2">
-					<select class="form-control" id="second" onchange="secondChange()">
+					<select class="form-control" id="second" onchange="secondChangeR()">
 						<option value=''>중분류</option>
 					</select>
 				</div>
 				<div class="col-md-2">
-					<select class="form-control" id="third" onchange="thirdChange()">
+					<select class="form-control" id="third" onchange="thirdChangeR()">
 						<option value=''>소분류</option>
 					</select>
 				</div>
@@ -377,10 +447,9 @@
 			<div class="form-group">
 				<label for="departureSize" class="col-md-3 control-label">품목명</label>
 				<div class="col-md-6">
-					<input class="form-control" type="hidden" id="customerCode"
-						name="customerCode" /> <input class="form-control" type="hidden"
-						id="itemCode" name="itemCode" /> <select class="form-control"
-						id="itemList" name="itemList">
+					<input class="form-control" type="hidden" id="customerCode" name="customerCode" /> 
+					<input class="form-control" type="hidden" id="itemCode" name="itemCode" /> 
+					<select class="form-control" id="itemList" name="itemList" onchange="fourthChangeR()">
 						<option value="">선택</option>
 						<c:forEach items="${getItemsList}">
 							<option value="${itemCode}">${itemName}</option>
@@ -408,9 +477,11 @@
 			</div>
 
 			<div class="form-group">
-				<label for="needDate" class="col-md-3 control-label">희망 도착 날짜</label>
+				<label for="needDate" class="col-md-3 control-label">희망 도착
+					날짜</label>
 				<div class="col-md-6">
-					<input type="text" class="form-control" id="needDate" name="needDate">
+					<input type="text" class="form-control" id="needDate"
+						name="needDate">
 					<script>
 						$("#needDate").datetimepicker({
 							locale : 'ko',
@@ -427,18 +498,21 @@
 			</div>
 
 			<div class="form-group">
-				<label for="deliveryAddr" class="col-md-3 control-label">도착 배송지</label>
+				<label for="deliveryAddr" class="col-md-3 control-label">도착
+					배송지</label>
 				<div class="col-md-6">
-					<input class="form-control" type="text" id="deliveryAddr" name="deliveryAddr" 
-					placeholder="도착지" value="${sessionScope.viewCustomer.customerLoc} ${sessionScope.viewCustomer.locAddr}">
-						<!-- style="cursor: pointer;" onclick="addrDialog(this)" readonly -->
+					<input class="form-control" type="text" id="deliveryAddr"
+						name="deliveryAddr" placeholder="도착지"
+						value="${sessionScope.viewCustomer.customerLoc} ${sessionScope.viewCustomer.locAddr}">
+					<!-- style="cursor: pointer;" onclick="addrDialog(this)" readonly -->
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="cellphone" class="col-md-3 control-label">연락처</label>
 				<div class="col-md-3">
-					<input class="form-control" type="text" id="phone" name="phone" value="${sessionScope.viewCustomer.customerPhone}"/>
+					<input class="form-control" type="text" id="phone" name="phone"
+						value="${sessionScope.viewCustomer.customerPhone}" />
 				</div>
 
 

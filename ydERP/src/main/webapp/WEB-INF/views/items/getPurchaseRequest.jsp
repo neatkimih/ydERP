@@ -130,7 +130,7 @@
 			refresh : false,
 		}, {}, {}, {
 			serializeDelData : function(postdata) {
-				return "oper=del&customerCode=" + postdata.id;
+				return "oper=del&customSeq=" + postdata.id;
 			}
 		}
 

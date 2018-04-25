@@ -425,7 +425,7 @@
 	<delete id="deleteSales_temp" parameterType="com.yedam.erp.items.Sales_tempVO">
 
 		DELETE FROM Sales_temp
-		WHERE custom_seq = #{customSeq}
+		WHERE to_char(custom_seq) = #{customSeq}
 	</delete>
 
 	<!-- <select id="item_group1" parameterType="com.yedam.erp.items.Sales_tempVO"> 

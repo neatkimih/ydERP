@@ -3,34 +3,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
 	function logoutcheck() {
-		location.href='logout';
+		location.href = 'logout';
 	}
-</script>	
+</script>
 
 <div class="navbar-default sidebar" role="navigation">
-
 	<div class="sidebar-nav navbar-collapse">
 		<ul class="nav" id="side-menu">
 			<li class="sidebar-search">
 				<div class="input-group custom-search-form">
 					<c:if test="${not empty sessionScope.viewCustomer.customerCode }">
 						${sessionScope.viewCustomer.customerName}님 환영합니다.<br>
-						<input class="btn btn-primary" type="button" name="logout" value="로그아웃" onclick="logoutcheck()"/>
+						<input class="btn btn-primary" type="button" name="logout"
+							value="로그아웃" onclick="logoutcheck()" />
 					</c:if>
-				</div> 
+				</div>
 
 				<div class="input-group custom-search-form">
 					<!-- <input type="text" class="form-control" placeholder="Search..."> -->
 					<!-- <span class="input-group-btn"> -->
-						<!-- <button class="btn btn-default" type="button">
+					<!-- <button class="btn btn-default" type="button">
 							<i class="fa fa-search"></i>
 						</button> -->
 					<!-- </span> -->
 				</div> <!-- /input-group -->
 			</li>
-					
-			
-			<c:if test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode!='admin12345'}">
+
+
+			<c:if
+				test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode!='admin12345'}">
 				<li><a href="getPurchaseRequestForm">판매업체 구매신청</a></li>
 			</c:if>
 			<c:if test="${sessionScope.viewCustomer.customerCode=='admin12345'}">

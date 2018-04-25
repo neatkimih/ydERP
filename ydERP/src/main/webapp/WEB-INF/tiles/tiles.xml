@@ -5,8 +5,8 @@
 	<definition name="mainTemplate" template="/WEB-INF/views/tiles/defaultLayout.jsp">
 		<put-attribute name="title" value="Yedam Oracle" />
 		<put-attribute name="header" value="/WEB-INF/views/tiles/defaultHeader.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/views/tiles/defaultFooter.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/tiles/defaultMenu.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/defaultFooter.jsp" />
 	</definition>
 
 	<definition name="/" >

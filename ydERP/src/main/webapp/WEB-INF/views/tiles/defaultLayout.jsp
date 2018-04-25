@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 
 <!DOCTYPE html>
 <html>
@@ -40,7 +39,8 @@
 	href="${pageContext.request.contextPath}/resources/jquery/jquery-ui.min.css"
 	rel="stylesheet">
 <!-- jQuery -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
+<script
+	src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
@@ -61,18 +61,18 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
  -->
-  <style>
- .page-header {
-  padding: 8px 0px 8px 0px;
-  border-bottom: 1px solid #eee;
+<style>
+.page-header {
+	padding: 8px 0px 8px 0px;
+	border-bottom: 1px solid #eee;
 }
 
 .erp-page-header {
-  padding: 7px 12px 12px 5px;
-  background-color: #FAEBD7;	
+	padding: 7px 12px 12px 5px;
+	background-color: #FAEBD7;
 }
- </style>
- 
+</style>
+
 <script>
 	var title_nav = ""
 </script>
@@ -84,7 +84,6 @@
 </head>
 
 <body>
-
 	<div id="wrapper">
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -95,30 +94,31 @@
 					<span class="sr-only">Toggle navigation</span> <span
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
-				</button> 
-				<c:if test="${not empty sessionScope.viewCustomer.customerCode}">
-					<h3>
-						${sessionScope.viewCustomer.customerName}님 환영합니다. 
-					</h3>
-					<input class="btn btn-primary" type="button" name="logout" value="로그아웃"
-							onclick="logoutcheck()" />
+				</button>
+				<c:if test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode == '1111'}">
+					<h3>${sessionScope.viewCustomer.customerName}님환영합니다.</h3>
+					<input class="btn btn-primary" type="button" name="logout"
+						value="로그아웃" onclick="logoutcheck()" />
 				</c:if>
-
 				<!-- jstl 코어 태그 -->
 				<c:choose>
-					<c:when test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode=='admin12345'}">
+					<c:when
+						test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode=='admin12345'}">
 						<a class="navbar-brand" href="./">YedamERP</a>
 					</c:when>
-					<c:when test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode!='admin12345'}">
+					<c:when
+						test="${not empty sessionScope.viewCustomer.customerCode && sessionScope.viewCustomer.customerCode!='admin12345'}">
 						<a class="navbar-brand" href="#">YedamERP</a>
 					</c:when>
-					
+
 				</c:choose>
 
-				<hr>
-				
 			</div>
 		</nav>
+	</div>
+	<div id="wrapper">
+		<!-- Navigation -->
+
 		<tiles:insertAttribute name="menu" />
 		<div id="page-wrapper">
 			<tiles:insertAttribute name="header" />

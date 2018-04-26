@@ -281,44 +281,46 @@
 <title>getOrderList.jsp</title>
 </head>
 <body>
-	<div id="orderPageTitle">
-		<span id="pageName">[getOrderList.jsp]</span> 판매정보 ▷▶ 주문내역 - 검색 / 승인 / 폐기
-	</div>
-	<hr>
-	<div id="searchDiv">
-		<form id="orderSearchForm" name="orderSearchForm">
-			<table>
-					<tr>
-						<td class="searchTd">주문코드</td><td class="inputTd"><input type="text" id="orderCodePut" name="saleCode" /></td>
-						<td class="searchTd">주문처</td><td class="inputTd"><input type="text" id="customerNamePut" name="customerName" /></td>
-						<td class="searchTd">주문일자</td><td class="inputTd"><input type="date" id="orderDatePut" name="saleDate" /></td>
-					</tr>
-					<tr>
-						<td class="searchTd">결제금액</td><td class="inputTd"><input type="text" id="orderCostPut" name="saleCost" /></td>
-						<td class="searchTd">배송주소</td><td class="inputTd"><input type="text" id="deliveryAddrPut" name="deliveryAddr" /></td>
-						<td class="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-success btn-lg">검색</button></td>
-						<td class="submitTd"><button type="button" onclick="gridReset()" id="resetButton" class="btn btn-warning btn-lg">초기화</button></td>
-					</tr>
-			</table>
-		</form>
-	</div>
-	<hr>
-	<div id="orderListDiv">
-		<table id="orderList">
-			<tr>
-				<td></td>
-			</tr>
-		</table>
-		<div id="pagerOrderList"></div>
-	</div>
-	<hr>
-	<div id="orderDetailDiv">
-		<table id="orderDetail">
-			<tr>
-				<td></td>
-			</tr>
-		</table>
-		<div id="pagerOrderDetail"></div>
-	</div>
-</body>
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"> 주문 관리 [getOrderList.jsp] </div>
+				<hr>
+				<div id="searchDiv">
+					<form id="orderSearchForm" name="orderSearchForm">
+						<table>
+							<tr>
+								<td class="searchTd">주문코드</td><td class="inputTd"><input type="text" id="orderCodePut" name="saleCode" /></td>
+								<td class="searchTd">주문처</td><td class="inputTd"><input type="text" id="customerNamePut" name="customerName" /></td>
+								<td class="searchTd">주문일자</td><td class="inputTd"><input type="date" id="orderDatePut" name="saleDate" /></td>
+							</tr>
+							<tr>
+								<td class="searchTd">결제금액</td><td class="inputTd"><input type="text" id="orderCostPut" name="saleCost" /></td>
+								<td class="searchTd">배송주소</td><td class="inputTd"><input type="text" id="deliveryAddrPut" name="deliveryAddr" /></td>
+								<td class="submitTd"><button type="button" onclick="gridReload()" id="submitButton" class="btn btn-success btn-lg">검색</button></td>
+								<td class="submitTd"><button type="button" onclick="gridReset()" id="resetButton" class="btn btn-warning btn-lg">초기화</button></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<hr>
+				<div id="orderListDiv">
+					<table id="orderList">
+						<tr>
+							<td></td>
+						</tr>
+					</table>
+					<div id="pagerOrderList"></div>
+				</div>
+				<hr>
+				<div id="orderDetailDiv">
+					<table id="orderDetail">
+						<tr>
+							<td></td>
+						</tr>
+					</table>
+					<div id="pagerOrderDetail"></div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

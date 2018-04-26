@@ -74,7 +74,7 @@
 					rownumbers : true,				sortname : "saleDetailCode",
 					rowNum : 10,					reccount : 15,
 					viewrecords : true,				gridview : true,
-					autoencode : true,				search : true,
+					autoencode : true,				search : false,
 					pager : "#pagerSaleDetail",		page : 1,
 					loadonce : true
 				});
@@ -199,9 +199,9 @@
 		<title>getSaleList.jsp</title>
 	</head>
 	<body>
-		<div id="salePageTitle">
-			<span id="pageName">[getSaleList.jsp]</span>판매정보 ▷▶ 판매내역 - 검색
-		</div>
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"> 판매 관리 [getSaleList.jsp] </div>
 		<hr>
 		<div id="searchDiv">
 			<form id="saleSearchForm" name="saleSearchForm">
@@ -257,6 +257,8 @@
 				</tr>
 			</table>
 			<div id="pagerSaleDetail"></div>
+		</div>
+		</div>
 		</div>
 	</body>
 </html>

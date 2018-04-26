@@ -62,7 +62,11 @@ public class SalesController {
 	@ResponseBody
 	public List<SaleDetailsVO> getSaleDetail(SaleDetailsVO saleDetailsVO, Paging page) {
 		System.out.println(saleDetailsVO.getSaleCode());
-		return saleDetailsService.getSaleDetail(saleDetailsVO);
+		
+		if(saleDetailsVO.getSaleCode() != null && !saleDetailsVO.getSaleCode().equals("")) {
+			return saleDetailsService.getSaleDetail(saleDetailsVO);
+			}
+			return null;
 	}
 	
 	/* 판매 내역 검색 처리 */

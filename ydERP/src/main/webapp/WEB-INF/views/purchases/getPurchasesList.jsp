@@ -74,6 +74,7 @@
 			viewrecords : true,			
 			gridview : true,
 			autoencode : true,
+			rownumbers : true,
 			//caption : "구매정보",
 			onSelectRow : function(rowid, selected) {
 				if (rowid != null) {
@@ -290,7 +291,7 @@
 							placeholder="ItemName ..."
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div> -->
-					<div class="col-lg-2">
+					<div class="col-lg-1">
 						<button onclick="gridReload()" id="submitButton"
 							class="btn btn-outline btn-success btn-block">Search</button>
 					</div><br>

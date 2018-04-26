@@ -534,7 +534,7 @@
 		                   ,'N') = 'N'))
 		UNION ALL
 		SELECT '판매주문출하승인건' title
-		      ,'판매주문출하승인' detail_view
+		      ,'주문내역' detail_view
 		      ,TO_CHAR(COUNT(*)) cnt
 		      ,4 ord
 		FROM   sales s

@@ -208,7 +208,7 @@
 <body>
 	<div class="col-lg-6">
 		<div class="panel panel-default">
-			<div class="panel-heading">조회조건==================================</div>
+			<div class="panel-heading">조회조건</div>
 			<div class="container" style="margin-top: 10px">
 				<div class="col-lg-2">
 					<select id="warehouseSelect" name="searchWarehouse"

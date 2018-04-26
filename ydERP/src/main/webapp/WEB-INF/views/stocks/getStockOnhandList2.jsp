@@ -143,7 +143,7 @@
 <body>
 	<div class="col-lg-8">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ 조회 조건 ]</div>
+			<div class="panel-heading">재고 및 입출고 조회</div>
 			<div class="container">
 				<div class="row" style="margin-top: 10px">
 					<div class="col-lg-2">

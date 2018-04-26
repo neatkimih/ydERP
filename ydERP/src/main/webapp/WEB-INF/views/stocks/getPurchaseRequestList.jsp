@@ -170,7 +170,7 @@
 <body>
 	<div class="col-lg-10">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ ]</div>
+			<div class="panel-heading">구매요청생성</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-2">
@@ -213,12 +213,12 @@
 				<div class="row" style="margin-top: 10px">
 					<div class="col-lg-2">
 						<input type="text" id="item_cd" class="form-control"
-							placeholder="==> Enter ItemCode"
+							placeholder="ItemCode"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
 					<div class="col-lg-2">
 						<input type="text" id="item_nm" class="form-control"
-							placeholder="==> Enter ItemName"
+							placeholder="ItemName"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
 					<div class="col-lg-2">

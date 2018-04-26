@@ -201,7 +201,7 @@
 	<body>
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading"> 판매 관리 [getSaleList.jsp] </div>
+			<div class="panel-heading">판매 관리</div>
 		<hr>
 		<div id="searchDiv">
 			<form id="saleSearchForm" name="saleSearchForm">

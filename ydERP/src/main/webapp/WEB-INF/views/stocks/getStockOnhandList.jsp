@@ -268,13 +268,13 @@
 <body>
 	<div class="col-lg-10">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ ]</div>
+			<div class="panel-heading">재고조회</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-2">
 						<input type="checkbox" id="autosearch"
 							onclick="enableAutosubmit(this.checked)">
-						Enable_Autosearch
+						자동검색기능 ON
 					</div>
 				</div>
 				<!-- 조회조건의 첫번째 열 -->

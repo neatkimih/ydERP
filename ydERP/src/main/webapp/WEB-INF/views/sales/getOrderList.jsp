@@ -283,7 +283,7 @@
 <body>
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading"> 주문 관리 [getOrderList.jsp] </div>
+			<div class="panel-heading"> 주문 관리</div>
 				<hr>
 				<div id="searchDiv">
 					<form id="orderSearchForm" name="orderSearchForm">

@@ -267,7 +267,7 @@
 	<body>
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"> 판매 차트 [getSaleCharts.jsp] </div>
+				<div class="panel-heading">판매 차트</div>
 				
 				<!-- BEGIN : 매출 차트 -->
 				<div class="container-fluid">

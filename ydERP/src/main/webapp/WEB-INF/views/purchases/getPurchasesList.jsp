@@ -278,7 +278,7 @@
 <body> 
 	<div class="col-lg-4">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ 구매 조회 ]</div>
+			<div class="panel-heading">구매 조회</div>
 			<div class="container">
 				<div class="row" style="margin-top: 10px">
 					<div class="col-lg-2">

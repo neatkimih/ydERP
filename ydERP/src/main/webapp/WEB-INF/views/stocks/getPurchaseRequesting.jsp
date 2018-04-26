@@ -68,7 +68,7 @@
 <body>
 	<div class="col-lg-5">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ ]</div>
+			<div class="panel-heading">구매요청승인</div>
 			<div class="container">
 				<div class="col-lg-3" style="margin-top: 10px">
 					<button id="btn1" class="btn btn-outline btn-success btn-block">주문요청승인</button>

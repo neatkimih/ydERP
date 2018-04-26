@@ -220,7 +220,7 @@
 <body>
 	<div class="col-lg-5">
 		<div class="panel panel-default">
-			<div class="panel-heading">[  ]</div>
+			<div class="panel-heading">구매입고처리</div>
 			<div class="container"></div>
 		</div>
 	</div>

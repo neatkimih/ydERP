@@ -88,23 +88,23 @@
 <body>
 	<div class="col-lg-8">
 		<div class="panel panel-default">
-			<div class="panel-heading">[ ]</div>
+			<div class="panel-heading">입/출고조회</div>
 			
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-2">
 						<input type="checkbox" id="autosearch"
-							onclick="enableAutosubmit(this.checked)"> Enable Autosearch
+							onclick="enableAutosubmit(this.checked)"> 자동검색기능 ON
 					</div>
 					<div class="col-lg-2">
-						<input type="hidden"/> ====처리 일자 조회====
+						<input type="hidden"/> 처리 일자 조회
 					</div>
 				</div>
 				
 				<div class="row" style="margin-top: 10px">
 					<div class="col-lg-2">
 						<input type="text" id="item_cd" class="form-control"
-							placeholder="==> 품목 코드"
+							placeholder="품목 코드"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
 					<div class="col-lg-2">
@@ -122,12 +122,12 @@
 				<div class="row" style="margin-top: 10px">
 					<div class="col-lg-2">
 						<input type="text" id="item_nm" class="form-control"
-							placeholder="==> 품목명"
+							placeholder="품목명"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
 					<div class="col-lg-2">
 						<input type="text" id="deal_cd" class="form-control"
-							placeholder="==> 판매/구매 번호"
+							placeholder="판매/구매 번호"
 							onkeydown="doSearch(arguments[0]||event)" />
 					</div>
 					<div class="col-lg-2">

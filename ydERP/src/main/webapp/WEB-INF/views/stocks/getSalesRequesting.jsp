@@ -227,7 +227,7 @@
 <body>
 	<div class="col-lg-5">
 		<div class="panel panel-default">
-			<div class="panel-heading">[  ]</div>
+			<div class="panel-heading">판매주문요청승인</div>
 			<div class="container"></div>
 		</div>
 	</div>

@@ -83,10 +83,10 @@
 										onkeydown='javascript:onEnterSubmit()'>
 								</div>
 								<c:if test="${msg == 'failure'}">
-									<div style="color: red">아이디 또는 비밀번호가 일치하지 않습니다.</div>
+									<div style="color: red">아이디 또는 비밀번호가 일치하지 않습니다.</div><br>
 								</c:if>
 								<c:if test="${msg == 'logout'}">
-									<div style="color: red">로그아웃되었습니다. 안녕히 가세요.</div>
+									<div style="color: red">로그아웃되었습니다. 안녕히 가세요.</div><br>
 								</c:if>
 								<a id="btnLogin" class="btn btn-lg btn-success btn-block">로그인</a>
 

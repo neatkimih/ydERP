@@ -83,7 +83,7 @@
 								formatter : "date",
 								formatoptions : {
 									srcformat : 'U/1000',
-									newformat : " Y/m/d"
+									newformat : "Y/m/d"
 								}
 							} ],
 							pager : "#pager",
@@ -494,7 +494,7 @@
 			<div class="form-group">
 				<label for="deliveryAddr" class="col-md-2 control-label">기본
 					배송지</label>
-				<div class="col-md-6">
+				<div class="col-md-8">
 					<input class="form-control" type="text" id="deliveryAddr"
 						name="deliveryAddr" placeholder="도착지"
 						value="${sessionScope.viewCustomer.customerLoc} ${sessionScope.viewCustomer.locAddr}">

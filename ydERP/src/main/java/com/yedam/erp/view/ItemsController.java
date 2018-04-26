@@ -329,7 +329,7 @@ public class ItemsController {
 	// <!-- 주문요청의 끝 -->
 
 	// 기타
-	// 사업자등록번호 중복 체크
+	// 판매업체 사업자등록번호 중복 체크
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/checkCustomerCode")
 	@ResponseBody
@@ -340,7 +340,19 @@ public class ItemsController {
 		result.put("result", customerCode == null ? Boolean.TRUE : Boolean.FALSE);
 		return result;
 	}
+	// 구매업체 사업자등록번호 중복 체크
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/checkVendorCode")
+	@ResponseBody
+	public Map getVendorCode(VendorVO vo) {
+		VendorVO vendorCode = vendorService.getVendor(vo);
 
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("result", vendorCode == null ? Boolean.TRUE : Boolean.FALSE);
+		return result;
+	}
+	
+	
 	// 기타2
 	// 로그인 기능부분
 

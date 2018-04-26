@@ -387,7 +387,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="inputBankInfo">계좌정보</label>
-							<div class="col-sm-2">
+							<div class="col-sm-3">
 								<div class="input-group">
 									<select id="inputBank" class="form-control" name="customerBank">
 										<option value="">선택</option>

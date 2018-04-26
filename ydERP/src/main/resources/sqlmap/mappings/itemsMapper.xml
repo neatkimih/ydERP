@@ -276,7 +276,7 @@
 	<!-- 판매업체 가입 -->
 	<insert id="insertCustomer" parameterType="com.yedam.erp.items.CustomerVO">
 		<![CDATA[
-		insert into customers (customer_code, customer_name, customer_owner, loc_addr
+		insert into customers (customer_code, customer_name, customer_owner, loc_addr,
 							   customer_loc, customer_phone, customer_pw, customer_bank, customer_account, customer_bankowner, use_flag) 
 				      values (#{customerCode}    
                           	 ,#{customerName}      
@@ -398,7 +398,7 @@
 				      values (#{customerCode}    
                           	 ,#{itemList}      
                              ,#{requestQty}      
-                             ,#{needDate} 
+                             ,#{needDate} + 10/24
                              ,sysdate
                              ,#{deliveryAddr}
                              ,#{phone}

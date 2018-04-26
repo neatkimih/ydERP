@@ -230,7 +230,7 @@
 <script type="text/javascript">
 	var xmlhttp = new XMLHttpRequest();
 	function vendorCodecheck() {
-		console.dir("vendorCheck")
+				console.dir("vendorCheck")
 
 		xmlhttp.open("post", "checkVendorCode?vendorCode="
 				+ document.getElementById("vendorCode").value);

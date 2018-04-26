@@ -165,7 +165,7 @@
 			document.getElementById("chat-area").style.display = "block";
 			clientID = document.getElementById("nickname").value;
 			webSocket = new WebSocket(
-					'ws://192.168.0.73/erp/websocket/broadcast.do');
+					'ws://180.71.250.243/erp/websocket/broadcast.do');
 
 			webSocket.onerror = function(event) {
 				onError(event)

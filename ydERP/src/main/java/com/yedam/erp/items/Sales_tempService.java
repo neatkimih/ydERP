@@ -2,6 +2,7 @@ package com.yedam.erp.items;
 
 import java.util.List;
 
+
 public interface Sales_tempService {
 
 	public void insertSales_temp(Sales_tempVO vo);

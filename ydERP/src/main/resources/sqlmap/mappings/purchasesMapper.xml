@@ -6,65 +6,72 @@
 
 	<select id="getPurchasesList" resultType="purchases">
 	<![CDATA[
-SELECT p.*,
-  common.get_vendor_name(p.vendor_code) AS vendor_name ,
-  (SELECT SUM(purchase_qty * purchase_price)
-  FROM purchase_details pd
-  WHERE p.purchase_code = pd.purchase_code
-  ) total,
-  (SELECT COUNT(*)
-  FROM purchase_details pd
-  WHERE p.purchase_code = pd.purchase_code
-  ) item_count
-FROM PURCHASES p
-JOIN vendors
-ON(p.vendor_code          = vendors.vendor_code)
+		SELECT p.*
+		      ,common.get_vendor_name(p.vendor_code) AS vendor_name
+		      ,(SELECT SUM(purchase_qty * purchase_price)
+		        FROM   purchase_details pd
+		        WHERE  p.purchase_code = pd.purchase_code) total
+		      ,(SELECT COUNT(*)
+		        FROM   purchase_details pd
+		        WHERE  p.purchase_code = pd.purchase_code) item_count
+		FROM   purchases p
+		JOIN   vendors
+		ON     (p.vendor_code = vendors.vendor_code)
 	]]>
-<if test="vendorName != null and vendorName != ''">
-WHERE vendors.vendor_name like '%'|| #{vendorName} ||'%'
-</if>
-ORDER  BY purchase_code DESC 
+		<if test="vendorName != null and vendorName != ''">
+			WHERE vendors.vendor_name like '%'|| #{vendorName} ||'%'
+		</if>
+		ORDER BY purchase_code DESC
 
 	</select>
 
 	<select id="getPurchaseDetailList" resultType="purchaseDetail">
 	<![CDATA[
-	SELECT p.*, i.item_name
-   FROM purchase_detail_vo p
-   join items i on p.item_name = i.item_name
-   WHERE purchase_code = #{purchaseCode}
+		SELECT p.*
+		      ,i.item_name
+		FROM   purchase_detail_vo p
+		JOIN   items i
+		ON     p.item_name = i.item_name
+		WHERE  purchase_code = #{purchasecode}
 	 ]]>
 	</select>
 
-	<select id="getPurchases" resultType="purchases" parameterType="purchases">
+	<select id="getPurchases" resultType="purchases"
+		parameterType="purchases">
 	<![CDATA[SELECT * FROM PURCHASES WHERE SEQ=#{seq}]]></select>
 
 
 	<update id="updatePurchases" parameterType="purchases">
-		update
-		PURCHASE_DETAILS set
-		incoming_Flag=#{incomingFlag} where
-		PURCHASE_DETAIL_CODE=#{purchaseDetailCode}
+	<![CDATA[
+		UPDATE purchase_details
+		SET    incoming_flag = #{incomingFlag}
+		WHERE  purchase_detail_code = #{purchaseDetailCode}
+	]]>
 	</update>
 
 	<select id="getPurchasesListMap" resultType="map">
 	<![CDATA[
-   SELECT p.*, i.item_name
-   FROM purchase_detail_vo p
-   join items i on p.item_name = i.item_name
-   WHERE purchase_code = purchase_Code
+	SELECT p.*
+	      ,i.item_name
+	FROM   purchase_detail_vo p
+	JOIN   items i
+	ON     p.item_name = i.item_name
 	]]>
 	</select>
 
 	<!-- GPS -->
 	<select id="getDeliveryListMap" resultType="map">
 	<![CDATA[
-    select e.name, a.employee_id, a.location_x, a.location_y, 
-    to_char(a.location_date,'YYYY-MM-DD HH24:MI') location_date from delivery_loc a
-	join employees e on a.employee_id = e.id
+    SELECT e.name
+	      ,a.employee_id
+	      ,a.location_x
+	      ,a.location_y
+	      ,TO_CHAR(a.location_date
+	              ,'YYYY-MM-DD HH24:MI') location_date
+	FROM   delivery_loc a
+	JOIN   employees e
+	ON     a.employee_id = e.id
 	]]>
 	</select>
-
-	
 
 </mapper>

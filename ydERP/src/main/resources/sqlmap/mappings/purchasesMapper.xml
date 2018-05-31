@@ -33,7 +33,7 @@
 		JOIN   items i
 		ON     p.item_name = i.item_name
 		WHERE  purchase_code = #{purchasecode}
-	 ]]>
+	]]>
 	</select>
 
 	<select id="getPurchases" resultType="purchases"
@@ -51,11 +51,11 @@
 
 	<select id="getPurchasesListMap" resultType="map">
 	<![CDATA[
-	SELECT p.*
-	      ,i.item_name
-	FROM   purchase_detail_vo p
-	JOIN   items i
-	ON     p.item_name = i.item_name
+		SELECT p.*
+		      ,i.item_name
+		FROM   purchase_detail_vo p
+		JOIN   items i
+		ON     p.item_name = i.item_name
 	]]>
 	</select>
 

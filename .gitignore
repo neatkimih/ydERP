@@ -11,6 +11,9 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.springBeans
+.project
+.classpath
 
 ydERP/.metadata
 ydERP/bin/
@@ -154,3 +157,5 @@ fabric.properties
 .idea/modules.xml
 .idea/vcs.xml
 .idea/ydERP.iml
+pom.xml
+src/

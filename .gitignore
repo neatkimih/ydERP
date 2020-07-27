@@ -1,3 +1,13 @@
 /target/
 /.settings/
 *MANIFEST.MF
+.idea/.gitignore
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/ydERP.iml
+ydERP/target
+ydERP/.settings
+ydERP/.classpath
+ydERP/.project
+ydERP/.springBeans

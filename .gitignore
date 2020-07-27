@@ -60,9 +60,6 @@ ydERP/.classpath
 # TeXlipse plugin
 .texlipse
 
-# STS (Spring Tool Suite)
-.springBeans
-
 # Code Recommenders
 .recommenders/
 
@@ -157,5 +154,3 @@ fabric.properties
 .idea/modules.xml
 .idea/vcs.xml
 .idea/ydERP.iml
-pom.xml
-src/

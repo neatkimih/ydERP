@@ -12,6 +12,21 @@ local.properties
 .loadpath
 .recommenders
 
+ydERP/.metadata
+ydERP/bin/
+ydERP/tmp/
+ydERP/*.tmp
+ydERP/*.bak
+ydERP/*.swp
+ydERP/*~.nib
+ydERP/local.properties
+ydERP/.settings/
+ydERP/.loadpath
+ydERP/.recommenders
+ydERP/.springBeans
+ydERP/.project
+ydERP/.classpath
+
 # External tool builders
 .externalToolBuilders/
 

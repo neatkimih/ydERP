@@ -1,0 +1,366 @@
+create table ITEMS
+(
+    ITEM_CODE     CHAR(8) not null,
+    ITEM_NAME     VARCHAR2(100),
+    UOM           VARCHAR2(10),
+    IN_QTY        NUMBER,
+    SUPPLY_PRICE  NUMBER,
+    SELLING_PRICE NUMBER,
+    ITEM_TAX      NUMBER(3, 2),
+    EXPIRE_DATE   NUMBER default 5,
+    VENDOR_CODE   CHAR(10),
+    MIN_QTY       NUMBER
+)
+/
+
+comment on table ITEMS is '품목정보'
+/
+
+comment on column ITEMS.ITEM_CODE is '품목코드 형식 - 품목분류 이니셜 코드 1자리 + 품목 코드 7자리 '
+/
+
+comment on column ITEMS.ITEM_NAME is '품목명'
+/
+
+comment on column ITEMS.SUPPLY_PRICE is '공급가'
+/
+
+comment on column ITEMS.SELLING_PRICE is '판매가'
+/
+
+comment on column ITEMS.ITEM_TAX is '부가세 10% (0.1)'
+/
+
+comment on column ITEMS.EXPIRE_DATE is '사용연한 default 5년?'
+/
+
+comment on column ITEMS.VENDOR_CODE is '구매처'
+/
+
+comment on column ITEMS.MIN_QTY is '최소재고수량'
+/
+
+create unique index ENTITY_PK
+    on ITEMS (ITEM_CODE)
+/
+
+alter table ITEMS
+    add constraint ITEMS_PK
+        primary key (ITEM_CODE)
+/
+
+create table VENDORS
+(
+    VENDOR_CODE    CHAR(10) not null
+        constraint VENDORS_PK
+            primary key,
+    VENDOR_NAME    VARCHAR2(100),
+    VENDOR_OWNER   VARCHAR2(20),
+    VENDOR_LOC     VARCHAR2(100),
+    VENDOR_PHONE   VARCHAR2(15),
+    VENDOR_BANK    VARCHAR2(30),
+    VENDOR_ACCOUNT VARCHAR2(30)
+)
+/
+
+comment on table VENDORS is '구매처'
+/
+
+comment on column VENDORS.VENDOR_CODE is '사업자등록번호'
+/
+
+comment on column VENDORS.VENDOR_NAME is '사업체명'
+/
+
+comment on column VENDORS.VENDOR_OWNER is '대표자명'
+/
+
+comment on column VENDORS.VENDOR_LOC is '소재지'
+/
+
+comment on column VENDORS.VENDOR_PHONE is '연락처'
+/
+
+comment on column VENDORS.VENDOR_BANK is '거래은행'
+/
+
+comment on column VENDORS.VENDOR_ACCOUNT is '거래계좌'
+/
+
+create table CUSTOMERS
+(
+    CUSTOMER_CODE  CHAR(10) not null
+        constraint CUSTOMERS_PK
+            primary key,
+    CUSTOMER_NAME  VARCHAR2(100),
+    CUSTOMER_OWNER VARCHAR2(20),
+    CUSTOMER_LOC   VARCHAR2(100),
+    CUSTOMER_PHONE VARCHAR2(15),
+    CUSTOMER_PW    VARCHAR2(50) default '1111'
+)
+/
+
+comment on table CUSTOMERS is '판매처'
+/
+
+comment on column CUSTOMERS.CUSTOMER_CODE is '사업자등록번호'
+/
+
+comment on column CUSTOMERS.CUSTOMER_NAME is '사업체명'
+/
+
+comment on column CUSTOMERS.CUSTOMER_OWNER is '대표자명'
+/
+
+comment on column CUSTOMERS.CUSTOMER_LOC is '소재지'
+/
+
+comment on column CUSTOMERS.CUSTOMER_PHONE is '연락처'
+/
+
+comment on column CUSTOMERS.CUSTOMER_PW is '패스워드'
+/
+
+create table SALES
+(
+    SALE_CODE       CHAR(12)      not null
+        constraint SALES_PK
+            primary key,
+    SALE_DATE       DATE,
+    CUSTOMER_CODE   CHAR(10)      not null,
+    SALE_COST       NUMBER,
+    SALE_ITEM       VARCHAR2(100) not null,
+    SALE_QTY        NUMBER,
+    SALE_PRICE      NUMBER,
+    ITEM_TAX        NUMBER(3, 2),
+    DELIVERY_ADDR   VARCHAR2(100),
+    DELIVERY_EMP    CHAR(10),
+    DELIVERY_STATUS CHAR,
+    PAY_STATUS      CHAR,
+    WAREHOUSE       CHAR,
+    ORDER_PERMIT    CHAR
+)
+/
+
+comment on table SALES is '판매정보'
+/
+
+comment on column SALES.SALE_CODE is '판매코드
+S + 판매일자(YYYYMMDD) + 일련번호 3자리 = 총 12자리'
+/
+
+comment on column SALES.SALE_DATE is '판매일자'
+/
+
+comment on column SALES.CUSTOMER_CODE is '판매처'
+/
+
+comment on column SALES.SALE_COST is '결제금액'
+/
+
+comment on column SALES.SALE_ITEM is '품목코드'
+/
+
+comment on column SALES.SALE_QTY is '품목수량'
+/
+
+comment on column SALES.SALE_PRICE is '품목단가'
+/
+
+comment on column SALES.ITEM_TAX is '부가세'
+/
+
+comment on column SALES.DELIVERY_ADDR is '배송지'
+/
+
+comment on column SALES.DELIVERY_EMP is '배송사원
+입사연월일(YYYYMMDD) + 일련번호(2자리)'
+/
+
+comment on column SALES.DELIVERY_STATUS is '배송상태'
+/
+
+comment on column SALES.PAY_STATUS is '결제상태'
+/
+
+comment on column SALES.WAREHOUSE is '출하창고'
+/
+
+create table SALE_DETAILS
+(
+    SALE_DETAIL_CODE VARCHAR2(15) not null
+        constraint SALE_DETAILS_PK
+            primary key,
+    SALE_CODE        CHAR(12)     not null,
+    SALE_ITEM        CHAR(8),
+    SALE_QTY         NUMBER,
+    SALE_PRICE       NUMBER,
+    ITEM_TAX         NUMBER(3, 2)
+)
+/
+
+comment on table SALE_DETAILS is '판매품목정보'
+/
+
+comment on column SALE_DETAILS.SALE_DETAIL_CODE is '판매상세코드
+SD + 시퀀스'
+/
+
+comment on column SALE_DETAILS.SALE_CODE is '판매코드
+S + 판매일자(YYYYMMDD) + 일련번호 3자리 = 총 12자리'
+/
+
+comment on column SALE_DETAILS.SALE_ITEM is '품목코드'
+/
+
+comment on column SALE_DETAILS.SALE_QTY is '품목수량'
+/
+
+comment on column SALE_DETAILS.SALE_PRICE is '품목단가'
+/
+
+comment on column SALE_DETAILS.ITEM_TAX is '부가세'
+/
+
+create table PURCHASES
+(
+    PURCHASE_CODE CHAR(12)      not null
+        constraint PURCHASES_PK
+            primary key,
+    PURCHASE_DATE DATE,
+    VENDOR_CODE   CHAR(10)      not null,
+    PURCHASE_QTY  NUMBER,
+    PURCHASE_COST NUMBER,
+    PURCHASE_ITEM VARCHAR2(100) not null,
+    ITEM_TAX      NUMBER(3, 2)
+)
+/
+
+comment on table PURCHASES is '구매정보'
+/
+
+comment on column PURCHASES.PURCHASE_CODE is '구매코드
+구매코드
+: P + 구매일자(YYYYMMDD) + 일련번호(3자리) 총 12자리'
+/
+
+comment on column PURCHASES.PURCHASE_DATE is '구매일자'
+/
+
+comment on column PURCHASES.VENDOR_CODE is '구매처'
+/
+
+comment on column PURCHASES.PURCHASE_QTY is '구매수량'
+/
+
+comment on column PURCHASES.PURCHASE_COST is '결제금액'
+/
+
+comment on column PURCHASES.PURCHASE_ITEM is '품목코드'
+/
+
+comment on column PURCHASES.ITEM_TAX is '부가세'
+/
+
+create table PURCHASE_DETAILS
+(
+    PURCHASE_DETAIL_CODE VARCHAR2(15) not null
+        constraint PURCHASE_DETAILS_PK
+            primary key,
+    PURCHASE_CODE        VARCHAR2(12) not null,
+    PURCHASE_ITEM        CHAR(8),
+    PURCHASE_QTY         NUMBER,
+    PURCHASE_PRICE       NUMBER,
+    ITEM_TAX             NUMBER(3, 2)
+)
+/
+
+comment on table PURCHASE_DETAILS is '구매품목정보'
+/
+
+comment on column PURCHASE_DETAILS.PURCHASE_DETAIL_CODE is '구매상세코드
+PD + 일련번호'
+/
+
+comment on column PURCHASE_DETAILS.PURCHASE_CODE is '구매코드
+: P + 구매일자(YYYYMMDD) + 일련번호(3자리) 총 12자리'
+/
+
+comment on column PURCHASE_DETAILS.PURCHASE_ITEM is '품목코드'
+/
+
+comment on column PURCHASE_DETAILS.PURCHASE_QTY is '품목수량'
+/
+
+comment on column PURCHASE_DETAILS.PURCHASE_PRICE is '품목단가'
+/
+
+comment on column PURCHASE_DETAILS.ITEM_TAX is '부가세'
+/
+
+create table STOCKS
+(
+    ITEM_CODE   CHAR(8) not null,
+    DEAL_DATE   DATE,
+    DEALER_CODE VARCHAR2(12),
+    IN_QTY      NUMBER,
+    OUT_QTY     NUMBER,
+    TXN_DATE    DATE
+)
+/
+
+comment on table STOCKS is '재고정보
+재고정보 + 입출고내역정보'
+/
+
+comment on column STOCKS.ITEM_CODE is '품목코드'
+/
+
+comment on column STOCKS.DEAL_DATE is '거래날짜'
+/
+
+comment on column STOCKS.DEALER_CODE is '구매, 판매번호'
+/
+
+comment on column STOCKS.IN_QTY is '입고수량'
+/
+
+comment on column STOCKS.OUT_QTY is '출고수량'
+/
+
+create table STOCK_ONHANDS
+(
+    ITEM_CODE  CHAR(8) not null
+        primary key,
+    ONHAND_QTY NUMBER,
+    TXN_DATE   DATE
+)
+/
+
+comment on column STOCK_ONHANDS.ITEM_CODE is '품목코드'
+/
+
+comment on column STOCK_ONHANDS.ONHAND_QTY is '현재고'
+/
+
+comment on column STOCK_ONHANDS.TXN_DATE is '저장일시'
+/
+
+create table LOOKUPS
+(
+    LOOKUP             VARCHAR2(20) not null
+        primary key,
+    LOOKUP_DESCRIPTION VARCHAR2(300)
+)
+/
+
+create table LOOKUP_VALUES
+(
+    LOOKUP        VARCHAR2(20),
+    LOOKUP_CODE   VARCHAR2(10),
+    LOOKUP_VALUES VARCHAR2(30),
+    DESCRIPTIONS  VARCHAR2(100),
+    FLAG          CHAR default 'Y'
+)
+/
+

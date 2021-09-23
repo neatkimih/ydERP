@@ -235,7 +235,9 @@ public class ItemsController {
 	public List<CustomerVO> getCustomerList(Model model, CustomerVO vo) {
 		vo.setFirst(1);
 		vo.setLast(30);
-		return customerService.getCustomerList(vo);
+		List<CustomerVO> list = customerService.getCustomerList(vo);
+		list.remove(0);
+		return list;
 	}
 
 	// 판매 업체 수정처리
@@ -368,14 +370,19 @@ public class ItemsController {
 
 		boolean result = customerService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
-		if (result == true) { // 로그인 성공시
+		if (result) { // 로그인 성공시
 
 			//jqgrid 클릭 이벤트시 가져올 판매업체 한 개의 정보값을 저장한다.
 			vo = customerService.getCustomer(vo);
-
 			// session에 로그인정보값을 저장한다.
 			session.setAttribute("viewCustomer", vo);
 			// getPurchaseRequest.jsp로 이동
+			System.out.println("=====================");
+			System.out.println("=====================");
+			System.out.println("==========" + vo.getCustomerCode() + ", " + vo.getCustomerPw() + "=========");
+			System.out.println("=====================");
+			System.out.println("=====================");
+
 			if (vo.getCustomerCode().equals("admin12345") && vo.getCustomerPw().equals("12345")) {
 				mav.setViewName("/home");
 				mav.addObject("msg", "success");

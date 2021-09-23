@@ -40,7 +40,7 @@ public class CustomerMybatisDAO {
     
     public boolean loginCheck(CustomerVO vo) {
         String name = sqlSession.selectOne("items.loginCheck", vo);
-        return (name == null) ? false : true;
+        return name != null;
     }
     // 회원 로그인 정보
    
